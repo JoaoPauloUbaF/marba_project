@@ -1,0 +1,59 @@
+# Flutter/Dart specific
+**/ios/Flutter/.last_build_id
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Pods/
+**/ios/.symlinks/
+**/ios/.flutter-plugins
+**/ios/Runner.xcworkspace/
+**/android/.gradle/
+**/android/app/build/
+**/android/build/
+**/android/gradle/
+**/android/.idea/
+**/android/local.properties
+**/android/gradlew
+**/android/gradlew.bat
+**/android/app/src/main/flutter_assets/
+**/android/.dart_tool/
+
+# VSCode specific
+.vscode/
+*.code-workspace
+
+# IntelliJ/Android Studio specific
+.idea/
+*.iml
+*.iws
+*.iws
+*.ipr
+
+# Other
+**/build/
+**/ios/Runner.xcodeproj/
+.DS_Store
+*.log
+*.iml
+.flutter-plugins
+.pub/
+.pub-cache/
+.build/
+.dart_tool/
+.packages
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Android
+*.apk
+*.ap_
+
+# iOS
+*.ipa
+*.xcarchive/
+
+# Flutter package build
+/build/
+.packages
+.pub/

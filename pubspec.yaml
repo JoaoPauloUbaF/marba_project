@@ -1,0 +1,32 @@
+name: project_marba
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.2.3 <4.0.0"
+
+dependencies:
+  cloud_firestore: ^4.13.6
+  firebase_auth: ^4.15.3
+  firebase_core: ^2.24.2
+  firebase_messaging: ^14.7.9
+  firebase_storage: ^11.5.6
+  firebase_ui_auth: ^1.11.0
+  flutter:
+    sdk: flutter
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.1
+  riverpod: ^2.4.9
+  uuid: ^4.2.2
+
+dev_dependencies:
+  build_runner: ^2.4.7
+  freezed: ^2.4.6
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  json_serializable: ^6.7.1
+
+flutter:
+  uses-material-design: true
