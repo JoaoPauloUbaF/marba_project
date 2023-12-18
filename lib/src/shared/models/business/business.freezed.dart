@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user.dart';
+part of 'business.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,40 +14,43 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+Business _$BusinessFromJson(Map<String, dynamic> json) {
+  return _Business.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
+mixin _$Business {
   String get id => throw _privateConstructorUsedError;
-  String get displayName => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   String get address => throw _privateConstructorUsedError;
+  Set<String> get offeringsIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $BusinessCopyWith<Business> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $BusinessCopyWith<$Res> {
+  factory $BusinessCopyWith(Business value, $Res Function(Business) then) =
+      _$BusinessCopyWithImpl<$Res, Business>;
   @useResult
   $Res call(
       {String id,
-      String displayName,
+      String name,
       String email,
       String phoneNumber,
-      String address});
+      String address,
+      Set<String> offeringsIds});
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$BusinessCopyWithImpl<$Res, $Val extends Business>
+    implements $BusinessCopyWith<$Res> {
+  _$BusinessCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -58,19 +61,20 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   @override
   $Res call({
     Object? id = null,
-    Object? displayName = null,
+    Object? name = null,
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
+    Object? offeringsIds = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: null == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -84,49 +88,57 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      offeringsIds: null == offeringsIds
+          ? _value.offeringsIds
+          : offeringsIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
+abstract class _$$BusinessImplCopyWith<$Res>
+    implements $BusinessCopyWith<$Res> {
+  factory _$$BusinessImplCopyWith(
+          _$BusinessImpl value, $Res Function(_$BusinessImpl) then) =
+      __$$BusinessImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String id,
-      String displayName,
+      String name,
       String email,
       String phoneNumber,
-      String address});
+      String address,
+      Set<String> offeringsIds});
 }
 
 /// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
+class __$$BusinessImplCopyWithImpl<$Res>
+    extends _$BusinessCopyWithImpl<$Res, _$BusinessImpl>
+    implements _$$BusinessImplCopyWith<$Res> {
+  __$$BusinessImplCopyWithImpl(
+      _$BusinessImpl _value, $Res Function(_$BusinessImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? id = null,
-    Object? displayName = null,
+    Object? name = null,
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
+    Object? offeringsIds = null,
   }) {
-    return _then(_$UserImpl(
+    return _then(_$BusinessImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: null == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String,
       email: null == email
           ? _value.email
@@ -140,86 +152,102 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String,
+      offeringsIds: null == offeringsIds
+          ? _value._offeringsIds
+          : offeringsIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserImpl implements _User {
-  const _$UserImpl(
+class _$BusinessImpl implements _Business {
+  _$BusinessImpl(
       {required this.id,
-      required this.displayName,
+      required this.name,
       required this.email,
       required this.phoneNumber,
-      required this.address});
+      required this.address,
+      required final Set<String> offeringsIds})
+      : _offeringsIds = offeringsIds;
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
+  factory _$BusinessImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BusinessImplFromJson(json);
 
   @override
   final String id;
   @override
-  final String displayName;
+  final String name;
   @override
   final String email;
   @override
   final String phoneNumber;
   @override
   final String address;
+  final Set<String> _offeringsIds;
+  @override
+  Set<String> get offeringsIds {
+    if (_offeringsIds is EqualUnmodifiableSetView) return _offeringsIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_offeringsIds);
+  }
 
   @override
   String toString() {
-    return 'User(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address)';
+    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, offeringsIds: $offeringsIds)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
+            other is _$BusinessImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            const DeepCollectionEquality()
+                .equals(other._offeringsIds, _offeringsIds));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, displayName, email, phoneNumber, address);
+  int get hashCode => Object.hash(runtimeType, id, name, email, phoneNumber,
+      address, const DeepCollectionEquality().hash(_offeringsIds));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+  _$$BusinessImplCopyWith<_$BusinessImpl> get copyWith =>
+      __$$BusinessImplCopyWithImpl<_$BusinessImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
+    return _$$BusinessImplToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  const factory _User(
+abstract class _Business implements Business {
+  factory _Business(
       {required final String id,
-      required final String displayName,
+      required final String name,
       required final String email,
       required final String phoneNumber,
-      required final String address}) = _$UserImpl;
+      required final String address,
+      required final Set<String> offeringsIds}) = _$BusinessImpl;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _Business.fromJson(Map<String, dynamic> json) =
+      _$BusinessImpl.fromJson;
 
   @override
   String get id;
   @override
-  String get displayName;
+  String get name;
   @override
   String get email;
   @override
@@ -227,7 +255,9 @@ abstract class _User implements User {
   @override
   String get address;
   @override
+  Set<String> get offeringsIds;
+  @override
   @JsonKey(ignore: true)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$BusinessImplCopyWith<_$BusinessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
