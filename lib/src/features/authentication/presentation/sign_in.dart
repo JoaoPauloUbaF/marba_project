@@ -20,7 +20,7 @@ class SignIn extends StatelessWidget {
                   FirebaseUIActions(
                     actions: [
                       AuthStateChangeAction<SignedIn>((context, state) {
-                        Navigator.pushReplacementNamed(context, '/profile');
+                        Navigator.pushReplacementNamed(context, '/home');
                       }),
                     ],
                     child: Center(
