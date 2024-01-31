@@ -8,17 +8,13 @@ class ThemeSwitch extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(darkModeProvider);
-    return Positioned(
-      top: 0,
-      right: 0,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Switch.adaptive(
-          value: ref.watch(darkModeProvider.notifier).isDarkMode(),
-          onChanged: (val) {
-            ref.read(darkModeProvider.notifier).toggle();
-          },
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Switch.adaptive(
+        value: ref.watch(darkModeProvider.notifier).isDarkMode(),
+        onChanged: (val) {
+          ref.read(darkModeProvider.notifier).toggle();
+        },
       ),
     );
   }
