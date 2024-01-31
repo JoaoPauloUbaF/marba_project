@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/authentication/presentation/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
+import 'package:project_marba/src/features/darkmode/presentation/theme_switch.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -27,13 +28,13 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Authentication Demo',
+        title: 'Marba Rato', //OnQuickTem
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
         darkTheme: ThemeData.dark(),
         themeMode: ref.watch(darkModeProvider),
-        initialRoute: '/home',
+        initialRoute: '/sign-in',
         routes: {
           '/home': (context) {
             return const HomeScreen();
@@ -43,6 +44,11 @@ class MainApp extends ConsumerWidget {
           },
           '/profile': (context) {
             return ProfileScreen(
+              appBar: AppBar(
+                actions: const [
+                  ThemeSwitch(),
+                ],
+              ),
               actions: [
                 SignedOutAction((context) {
                   Navigator.pushReplacementNamed(context, '/sign-in');

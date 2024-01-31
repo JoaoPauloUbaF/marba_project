@@ -9,10 +9,12 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(actions: const [
+        ThemeSwitch(),
+      ]),
       body: SafeArea(
         child: Stack(
           children: [
-            const ThemeSwitch(),
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
