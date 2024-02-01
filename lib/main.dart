@@ -11,6 +11,8 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 
+import 'src/features/profile/presentation/profile_form_screen.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -56,6 +58,9 @@ class MainApp extends ConsumerWidget {
               ],
             );
           },
+          '/profile-form': (context) {
+            return const ProfileFormScreen();
+          }
         });
   }
 }
