@@ -23,19 +23,15 @@ class SignIn extends StatelessWidget {
                   builder: (_, WidgetRef ref, __) {
                     return FirebaseUIActions(
                       actions: [
-                        AuthStateChangeAction<SignedIn>((context, state) async {
-                          bool isRegistered = await ref
+                        AuthStateChangeAction<SignedIn>((_, state) async {
+                          await ref
                               .read(authRepositoryProvider)
-                              .checkUserRegistration(state.user?.uid ?? '');
-
-                          if (isRegistered) {
-                            // Usuário já registrado, redirecione para a tela principal
-                            Navigator.pushReplacementNamed(context, '/home');
-                          } else {
-                            // Usuário não registrado, redirecione para a tela de formulário
-                            Navigator.pushReplacementNamed(
-                                context, '/profile-form');
-                          }
+                              .checkUserRegistration(state.user?.uid ?? '')
+                              .then((value) => value
+                                  ? Navigator.pushReplacementNamed(
+                                      context, '/home')
+                                  : Navigator.pushReplacementNamed(
+                                      context, '/profile-form'));
                         }),
                       ],
                       child: Padding(

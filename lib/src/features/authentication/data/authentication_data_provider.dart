@@ -11,6 +11,7 @@ class AuthenticationDataProvider implements AuthenticationRepository {
   Future<User?> signInAnonymously() async {
     try {
       final userCredential = await _firebaseAuth.signInAnonymously();
+
       return userCredential.user;
     } catch (e) {
       // Trate possíveis erros, por exemplo, log e retorno nulo.
@@ -83,6 +84,7 @@ class AuthenticationDataProvider implements AuthenticationRepository {
         'phoneNumber': phoneNumber,
         'address': address,
       });
+      getCurrentUser()?.updateDisplayName(displayName);
     } catch (e) {
       print('Error creating profile in Firestore: $e');
     }
