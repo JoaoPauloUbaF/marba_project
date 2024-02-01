@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_marba/src/features/authentication/data/authentication_repository.dart';
 import 'package:riverpod/riverpod.dart';
@@ -57,8 +58,39 @@ class AuthenticationDataProvider implements AuthenticationRepository {
     return _firebaseAuth.authStateChanges();
   }
 
+  @override
+  Future<bool> checkUserRegistration(String uid) async {
+    try {
+      DocumentSnapshot snapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      return snapshot.exists;
+    } catch (e) {
+      print('Error checking user registration: $e');
+      return false;
+    }
+  }
+
+  @override
+  Future<void> createProfileInFirestore({
+    required String uid,
+    required String displayName,
+    required String phoneNumber,
+    required String address,
+  }) async {
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'displayName': displayName,
+        'phoneNumber': phoneNumber,
+        'address': address,
+      });
+    } catch (e) {
+      print('Error creating profile in Firestore: $e');
+    }
+  }
+
   /// Adicione outros métodos conforme necessário para diferentes cenários de autenticação.
 }
+
 final authRepositoryProvider = Provider<AuthenticationRepository>(
   (ref) => AuthenticationDataProvider(),
 );
