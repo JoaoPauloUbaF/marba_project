@@ -11,7 +11,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 
-import 'src/features/profile/presentation/profile_form_screen.dart';
+import 'src/features/user_profile/presentation/profile_form_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,26 +38,20 @@ class MainApp extends ConsumerWidget {
         themeMode: ref.watch(darkModeProvider),
         initialRoute: '/sign-in',
         routes: {
-          '/home': (context) {
-            return const HomeScreen();
-          }, // '/': (context) => const SignIn(), // This is the same as above
-          '/sign-in': (context) {
-            return const SignIn();
-          },
-          '/profile': (context) {
-            return ProfileScreen(
-              appBar: AppBar(
-                actions: const [
-                  ThemeSwitch(),
+          '/home': (context) => const HomeScreen(),
+          '/sign-in': (context) => const SignIn(),
+          '/profile': (context) => ProfileScreen(
+                appBar: AppBar(
+                  actions: const [
+                    ThemeSwitch(),
+                  ],
+                ),
+                actions: [
+                  SignedOutAction((context) {
+                    Navigator.pushReplacementNamed(context, '/sign-in');
+                  }),
                 ],
               ),
-              actions: [
-                SignedOutAction((context) {
-                  Navigator.pushReplacementNamed(context, '/sign-in');
-                }),
-              ],
-            );
-          },
           '/profile-form': (context) {
             return const ProfileFormScreen();
           }
