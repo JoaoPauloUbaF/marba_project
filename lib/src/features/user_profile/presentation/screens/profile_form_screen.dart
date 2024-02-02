@@ -4,8 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/authentication_repository.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
-import 'package:project_marba/src/features/user_profile/application/profile_forms_screen_controller.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
+
+import '../../application/profile_forms_controller/profile_forms_screen_controller.dart';
 
 class ProfileFormScreen extends ConsumerWidget {
   const ProfileFormScreen({Key? key}) : super(key: key);
