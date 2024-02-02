@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_marba/src/features/authentication/data/authentication_repository.dart';
 import 'package:riverpod/riverpod.dart';
 
-class AuthenticationDataProvider implements AuthenticationRepository {
+class FirebaseAuthProvider implements AuthenticationRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   /// Método para realizar autenticação anônima.
@@ -89,12 +89,10 @@ class AuthenticationDataProvider implements AuthenticationRepository {
       print('Error creating profile in Firestore: $e');
     }
   }
-
-  /// Adicione outros métodos conforme necessário para diferentes cenários de autenticação.
 }
 
 final authRepositoryProvider = Provider<AuthenticationRepository>(
-  (ref) => AuthenticationDataProvider(),
+  (ref) => FirebaseAuthProvider(),
 );
 
 final authStateChangeProvider = StreamProvider<User?>(

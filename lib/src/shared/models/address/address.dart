@@ -6,7 +6,6 @@ part 'address.g.dart';
 @freezed
 class Address with _$Address {
   factory Address({
-    required String id,
     required String street,
     required String number,
     required String neighborhood,

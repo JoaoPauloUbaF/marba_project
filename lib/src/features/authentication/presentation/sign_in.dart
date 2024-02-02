@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:project_marba/src/features/authentication/data/authentication_data_provider.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/theme_switch.dart';
 
 class SignIn extends StatelessWidget {
@@ -21,34 +21,48 @@ class SignIn extends StatelessWidget {
               children: [
                 Consumer(
                   builder: (_, WidgetRef ref, __) {
-                    return FirebaseUIActions(
-                      actions: [
-                        AuthStateChangeAction<SignedIn>((_, state) async {
-                          await ref
-                              .read(authRepositoryProvider)
-                              .checkUserRegistration(state.user?.uid ?? '')
-                              .then((value) => value
-                                  ? Navigator.pushReplacementNamed(
-                                      context, '/home')
-                                  : Navigator.pushReplacementNamed(
-                                      context, '/profile-form'));
-                        }),
-                      ],
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30),
-                        child: LoginView(
-                          showPasswordVisibilityToggle: true,
-                          action: AuthAction.signIn,
-                          providers: FirebaseUIAuth.providersFor(
-                            FirebaseAuth.instance.app,
-                          ),
-                        ),
-                      ),
-                    );
+                    return FirebaseLogin(ref: ref);
                   },
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FirebaseLogin extends StatelessWidget {
+  final WidgetRef ref;
+
+  const FirebaseLogin({
+    super.key,
+    required this.ref,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FirebaseUIActions(
+      actions: [
+        AuthStateChangeAction<SignedIn>((_, state) async {
+          await ref
+              .read(authRepositoryProvider)
+              .checkUserRegistration(state.user?.uid ?? '')
+              .then(
+                (value) => value
+                    ? Navigator.pushReplacementNamed(context, '/home')
+                    : Navigator.pushReplacementNamed(context, '/profile-form'),
+              );
+        }),
+      ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 30),
+        child: LoginView(
+          showPasswordVisibilityToggle: true,
+          action: AuthAction.signIn,
+          providers: FirebaseUIAuth.providersFor(
+            FirebaseAuth.instance.app,
           ),
         ),
       ),
