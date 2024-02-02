@@ -108,7 +108,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
     required String phoneNumber,
     required Address address,
   }) async {
-    final userRepository = ref.read(profileDataProvider);
+    final userRepository = ref.read(userProfileDataProvider);
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => userRepository
         .createProfile(

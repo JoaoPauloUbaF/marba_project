@@ -5,6 +5,7 @@ import 'package:project_marba/src/features/authentication/presentation/screens/s
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
+import 'package:project_marba/src/features/user_profile/presentation/screens/profile_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
@@ -35,25 +36,12 @@ class MainApp extends ConsumerWidget {
         ),
         darkTheme: ThemeData.dark(),
         themeMode: ref.watch(darkModeProvider),
-        initialRoute: '/sign-in',
+        initialRoute: '/home',
         routes: {
           '/home': (context) => const HomeScreen(),
           '/sign-in': (context) => const SignIn(),
-          '/profile': (context) => ProfileScreen(
-                appBar: AppBar(
-                  actions: const [
-                    ThemeSwitch(),
-                  ],
-                ),
-                actions: [
-                  SignedOutAction((context) {
-                    Navigator.pushReplacementNamed(context, '/sign-in');
-                  }),
-                ],
-              ),
-          '/profile-form': (context) {
-            return const ProfileFormScreen();
-          }
+          '/profile': (context) => const AppProfileScreen(),
+          '/profile-form': (context) => const ProfileFormScreen(),
         });
   }
 }
