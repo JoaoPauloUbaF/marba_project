@@ -1,17 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:project_marba/src/features/authentication/presentation/sign_in.dart';
+import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
-import 'package:project_marba/src/features/darkmode/presentation/theme_switch.dart';
+import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 
-import 'src/features/user_profile/presentation/profile_form_screen.dart';
+import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -70,25 +70,6 @@ class FirebaseAuthProvider implements AuthenticationRepository {
       return false;
     }
   }
-
-  @override
-  Future<void> createProfileInFirestore({
-    required String uid,
-    required String displayName,
-    required String phoneNumber,
-    required String address,
-  }) async {
-    try {
-      await FirebaseFirestore.instance.collection('users').doc(uid).set({
-        'displayName': displayName,
-        'phoneNumber': phoneNumber,
-        'address': address,
-      });
-      getCurrentUser()?.updateDisplayName(displayName);
-    } catch (e) {
-      print('Error creating profile in Firestore: $e');
-    }
-  }
 }
 
 final authRepositoryProvider = Provider<AuthenticationRepository>(
