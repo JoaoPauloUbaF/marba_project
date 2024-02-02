@@ -11,6 +11,97 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
   @override
   FutureOr<void> build() {}
 
+  String? validateName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your name';
+    }
+    return null;
+  }
+
+  String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your phone number';
+    }
+    return null;
+  }
+
+  String? validateAddressStreet(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your address street';
+    }
+    return null;
+  }
+
+  String? validateAddressNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your address number';
+    }
+    return null;
+  }
+
+  String? validateCity(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your city';
+    }
+    return null;
+  }
+
+  String? validateState(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your state';
+    }
+    return null;
+  }
+
+  String? validateZipCode(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your zip code';
+    }
+    return null;
+  }
+
+  String? validateNeighborhood(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your neighborhood';
+    }
+    return null;
+  }
+
+  Future<void> validateAndSubmitForm({
+    required GlobalKey<FormState> formKey,
+    required String uid,
+    required String displayName,
+    required String phoneNumber,
+    required String street,
+    required String number,
+    required String neighborhood,
+    required String city,
+    required String state,
+    required String zipCode,
+    required BuildContext context,
+  }) async {
+    if (formKey.currentState?.validate() ?? false) {
+      Address address = Address(
+        street: street,
+        number: number,
+        neighborhood: neighborhood,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+      );
+      try {
+        await createProfile(
+          uid: uid,
+          displayName: displayName,
+          phoneNumber: phoneNumber,
+          address: address,
+        ).then((value) => onSubmit(context));
+      } catch (e) {
+        print('Error submitting form: $e');
+      }
+    }
+  }
+
   Future<void> createProfile({
     required String uid,
     required String displayName,
@@ -32,6 +123,14 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
               .getCurrentUser()
               ?.updateDisplayName(displayName),
         ));
+  }
+
+  Widget getSubmitButtonWidget() {
+    if (state.isLoading) {
+      return const CircularProgressIndicator();
+    } else {
+      return const Text('Save Profile');
+    }
   }
 
   void onSubmit(BuildContext context) {

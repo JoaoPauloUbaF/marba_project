@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/darkmode/presentation/theme_switch.dart';
+import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
