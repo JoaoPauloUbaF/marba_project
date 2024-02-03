@@ -52,7 +52,7 @@ class _BottomNavigationBarExampleState
           const ThemeSwitch(),
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pushNamed(context, '/settings');
             },
             icon: const Icon(Icons.settings),
           ),

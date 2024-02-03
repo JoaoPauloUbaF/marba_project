@@ -5,12 +5,13 @@ import 'package:project_marba/src/features/authentication/presentation/screens/s
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
-import 'package:project_marba/src/features/user_profile/presentation/screens/profile_screen.dart';
+import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 
+import 'src/features/settings/presentation/settings_screen.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 
 Future<void> main() async {
@@ -30,7 +31,7 @@ class MainApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Marba Rato', //OnQuickTem
+        title: 'Marba Rato', //Onkten
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -42,6 +43,7 @@ class MainApp extends ConsumerWidget {
           '/sign-in': (context) => const SignIn(),
           '/profile': (context) => const AppProfileScreen(),
           '/profile-form': (context) => const ProfileFormScreen(),
+          '/settings': (context) => const SettingsScreen(),
         });
   }
 }
