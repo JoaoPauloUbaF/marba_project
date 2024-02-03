@@ -116,6 +116,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
           displayName: displayName,
           phoneNumber: phoneNumber,
           address: address.toJson(),
+          email: ref.read(authRepositoryProvider).getCurrentUser()?.email ?? '',
         )
         .then(
           (value) => ref

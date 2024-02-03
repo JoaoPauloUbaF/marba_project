@@ -7,6 +7,7 @@ abstract class ProfileDataRepository {
     required String displayName,
     required String phoneNumber,
     required Map<String, dynamic> address,
+    required String email,
   });
 
   Future<void> updateProfile({

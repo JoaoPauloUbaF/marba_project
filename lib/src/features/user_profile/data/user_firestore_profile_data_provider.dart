@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_data_repository.dart';
+import 'package:project_marba/src/shared/models/address/address.dart';
 import 'package:project_marba/src/shared/models/user/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,11 +19,13 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     required String displayName,
     required String phoneNumber,
     required Map<String, dynamic> address,
+    required String? email,
   }) async {
     await _usersCollection.doc(uid).set({
       'displayName': displayName,
       'phoneNumber': phoneNumber,
       'address': address,
+      'email': email,
     });
     return await _usersCollection.doc(uid).get();
   }
@@ -57,7 +60,7 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
         email: data['email'],
         displayName: data['displayName'],
         phoneNumber: data['phoneNumber'],
-        address: data['address'],
+        address: Address.fromJson(data['address']),
       );
     } else {
       return null;
