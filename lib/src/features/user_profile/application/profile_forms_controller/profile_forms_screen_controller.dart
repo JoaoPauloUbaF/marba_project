@@ -137,4 +137,41 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
   void onSubmit(BuildContext context) {
     Navigator.pushReplacementNamed(context, '/home');
   }
+
+  List<DropdownMenuItem<String>> getStatesList() {
+    return <String>[
+      'AC',
+      'AL',
+      'AP',
+      'AM',
+      'BA',
+      'CE',
+      'DF',
+      'ES',
+      'GO',
+      'MA',
+      'MT',
+      'MS',
+      'MG',
+      'PA',
+      'PB',
+      'PR',
+      'PE',
+      'PI',
+      'RJ',
+      'RN',
+      'RS',
+      'RO',
+      'RR',
+      'SC',
+      'SP',
+      'SE',
+      'TO'
+    ].map<DropdownMenuItem<String>>((String value) {
+      return DropdownMenuItem<String>(
+        value: value,
+        child: Text(value),
+      );
+    }).toList();
+  }
 }

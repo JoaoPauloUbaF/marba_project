@@ -5,6 +5,7 @@ import 'package:project_marba/src/features/user_profile/application/profile_scre
 import 'package:project_marba/src/shared/models/address/address.dart';
 
 import '../../../darkmode/presentation/components/theme_switch.dart';
+import '../components/address_display_widget.dart';
 
 class AppProfileScreen extends ConsumerWidget {
   const AppProfileScreen({super.key});
@@ -20,7 +21,7 @@ class AppProfileScreen extends ConsumerWidget {
       ),
       actions: [
         SignedOutAction((context) {
-          Navigator.pop(context, '/sign-in');
+          Navigator.pushReplacementNamed(context, '/sign-in');
         }),
         // AuthStateChangeAction<SignedIn>((context, state) { }) to-do
       ],
@@ -31,90 +32,22 @@ class AppProfileScreen extends ConsumerWidget {
               .getUserAddress(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const CircularProgressIndicator();
+              return const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Center(
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              );
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
               return AddressDisplayWidget(address: snapshot.data!);
             }
           },
-        ),
-      ],
-    );
-  }
-}
-
-class AddressDisplayWidget extends StatelessWidget {
-  final Address address;
-
-  const AddressDisplayWidget({
-    super.key,
-    required this.address,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Center(
-          child: Text(
-            'Address',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ),
-        Row(
-          children: <Widget>[
-            Flexible(
-              flex: 2,
-              child: ListTile(
-                title: const Text('City'),
-                subtitle: Text(address.city),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Flexible(
-              child: ListTile(
-                title: const Text('State'),
-                subtitle: Text(address.state),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Flexible(
-              flex: 2,
-              child: ListTile(
-                title: const Text('Street'),
-                subtitle: Text(address.street),
-              ),
-            ),
-            const SizedBox(width: 16), // to-do
-            Flexible(
-              child: ListTile(
-                title: const Text('Number'),
-                subtitle: Text(address.number),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Flexible(
-              flex: 2,
-              child: ListTile(
-                title: const Text('Neighborhood'),
-                subtitle: Text(address.neighborhood),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Flexible(
-              child: ListTile(
-                title: const Text('Zip Code'),
-                subtitle: Text(address.zipCode),
-              ),
-            ),
-          ],
         ),
       ],
     );
