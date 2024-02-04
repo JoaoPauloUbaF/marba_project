@@ -52,6 +52,27 @@ class FirebaseLogin extends StatelessWidget {
               .read(signInScreenControllerProvider.notifier)
               .onSignIn(context, state);
         }),
+        AuthStateChangeAction<UserCreated>((context, state) {
+          ref
+              .read(signInScreenControllerProvider.notifier)
+              .showSuccessAndNavigate(context);
+        }),
+        AuthStateChangeAction<AuthFailed>((context, state) {
+          // Cria a snackbar
+          final snackBar = SnackBar(
+            content: ErrorText(exception: state.exception),
+            action: SnackBarAction(
+              label: 'OK',
+              onPressed: () {
+                // Fecha a snackbar quando o botão "OK" é pressionado
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+              },
+            ),
+          );
+
+          // Mostra a snackbar
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }),
       ],
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
