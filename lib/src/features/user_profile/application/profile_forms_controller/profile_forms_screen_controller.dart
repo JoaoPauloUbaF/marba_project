@@ -19,7 +19,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
   }
 
   String? validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value.length < 11) {
       return 'Please enter your phone number';
     }
     return null;
@@ -54,7 +54,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
   }
 
   String? validateZipCode(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty || value.length < 8) {
       return 'Please enter your zip code';
     }
     return null;

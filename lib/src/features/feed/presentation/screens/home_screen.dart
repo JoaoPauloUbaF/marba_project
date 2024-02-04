@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
 
@@ -43,7 +45,11 @@ class _BottomNavigationBarExampleState
       _selectedIndex = index;
     });
     if (index == 2) {
-      Navigator.pushNamed(context, '/profile-form');
+      if (FirebaseAuth.instance.currentUser == null) {
+        Navigator.pushNamed(context, '/sign-in');
+      } else {
+        Navigator.pushNamed(context, '/profile-form');
+      }
     }
   }
 
