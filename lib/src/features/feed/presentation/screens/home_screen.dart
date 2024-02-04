@@ -42,6 +42,9 @@ class _BottomNavigationBarExampleState
     setState(() {
       _selectedIndex = index;
     });
+    if (index == 2) {
+      Navigator.pushNamed(context, '/profile-form');
+    }
   }
 
   @override

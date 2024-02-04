@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/authentication_repository.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 import '../../application/profile_forms_controller/profile_forms_screen_controller.dart';
 
@@ -14,19 +14,20 @@ class ProfileFormScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final authProvider = ref.watch(authRepositoryProvider);
-    final state = ref.read(profileFormsScreenControllerProvider);
+    final _ = ref.read(profileFormsScreenControllerProvider);
     final profileController =
         ref.read(profileFormsScreenControllerProvider.notifier);
 
     final formKey = GlobalKey<FormState>();
     final displayNameController = TextEditingController();
-    final phoneNumberController = TextEditingController();
+    final phoneNumberController = MaskedTextController(mask: '(00) 00000-0000');
     final addressStreetController = TextEditingController();
-    final addressNumberController = TextEditingController();
+    final addressNumberController = MaskedTextController(mask: '00000');
     final addressNeighborhoodController = TextEditingController();
     final addressCityController = TextEditingController();
     final addressStateController = TextEditingController();
-    final addressZipCodeController = TextEditingController();
+    final addressZipCodeController =
+        MaskedTextController(mask: '00000-000'); // Máscara para CEP
 
     return Scaffold(
       appBar: AppBar(
@@ -34,20 +35,22 @@ class ProfileFormScreen extends ConsumerWidget {
           ThemeSwitch(),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ProfileForm(
-            formKey: formKey,
-            displayNameController: displayNameController,
-            phoneNumberController: phoneNumberController,
-            addressZipCodeController: addressZipCodeController,
-            addressStreetController: addressStreetController,
-            addressNumberController: addressNumberController,
-            addressNeighborhoodController: addressNeighborhoodController,
-            addressCityController: addressCityController,
-            addressStateController: addressStateController,
-            profileController: profileController,
-            authProvider: authProvider),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ProfileForm(
+              formKey: formKey,
+              displayNameController: displayNameController,
+              phoneNumberController: phoneNumberController,
+              addressZipCodeController: addressZipCodeController,
+              addressStreetController: addressStreetController,
+              addressNumberController: addressNumberController,
+              addressNeighborhoodController: addressNeighborhoodController,
+              addressCityController: addressCityController,
+              addressStateController: addressStateController,
+              profileController: profileController,
+              authProvider: authProvider),
+        ),
       ),
     );
   }
@@ -90,40 +93,49 @@ class ProfileForm extends StatelessWidget {
           const UserAvatar(),
           TextFormField(
             controller: displayNameController,
-            decoration: const InputDecoration(labelText: 'Complete Name'),
+            decoration: const InputDecoration(labelText: 'Nome'),
             validator: (value) => profileController.validateName(value),
           ),
           const SizedBox(height: 16.0),
           TextFormField(
             controller: phoneNumberController,
-            decoration: const InputDecoration(labelText: 'Phone Number'),
+            onTap: () => {phoneNumberController.selection},
+            onTapOutside: (event) => {
+              FocusScope.of(context).unfocus(),
+            },
+            decoration: const InputDecoration(
+                labelText: 'Telefone', hintText: '(00) 00000-0000'),
             validator: (value) => profileController.validatePhoneNumber(value),
+            keyboardType: TextInputType.phone,
           ),
           const SizedBox(height: 16.0),
           TextFormField(
             controller: addressZipCodeController,
-            decoration: const InputDecoration(labelText: 'Zip code'),
+            decoration:
+                const InputDecoration(labelText: 'CEP', hintText: '00000-000'),
             validator: (value) => profileController.validateZipCode(value),
+            keyboardType: TextInputType.number,
           ),
           const SizedBox(height: 16.0),
           Row(
             children: [
               Flexible(
-                flex: 4,
+                flex: 3,
                 child: TextFormField(
                   controller: addressStreetController,
-                  decoration: const InputDecoration(labelText: 'Address'),
+                  decoration: const InputDecoration(labelText: 'Endereço'),
                   validator: (value) =>
                       profileController.validateAddressStreet(value),
                 ),
               ),
-              const SizedBox(width: 16.0),
+              const SizedBox(width: 8.0),
               Flexible(
                 child: TextFormField(
                   controller: addressNumberController,
-                  decoration: const InputDecoration(labelText: 'Number'),
+                  decoration: const InputDecoration(labelText: 'Número'),
                   validator: (value) =>
                       profileController.validateAddressNumber(value),
+                  keyboardType: TextInputType.number,
                 ),
               ),
             ],
@@ -131,27 +143,33 @@ class ProfileForm extends StatelessWidget {
           const SizedBox(height: 16.0),
           TextFormField(
             controller: addressNeighborhoodController,
-            decoration: const InputDecoration(labelText: 'Neighborhood'),
+            decoration: const InputDecoration(labelText: 'Bairro'),
             validator: (value) => profileController.validateNeighborhood(value),
           ),
           const SizedBox(height: 16.0),
           Row(
             children: [
               Flexible(
-                flex: 4,
+                flex: 3,
                 child: TextFormField(
                   controller: addressCityController,
-                  decoration: const InputDecoration(labelText: 'City'),
+                  decoration: const InputDecoration(labelText: 'Cidade'),
                   validator: (value) => profileController.validateCity(value),
                 ),
               ),
               const SizedBox(
-                width: 16,
+                width: 8,
               ),
               Flexible(
-                child: TextFormField(
-                  controller: addressStateController,
-                  decoration: const InputDecoration(labelText: 'State'),
+                child: DropdownButtonFormField<String>(
+                  value: addressStateController.text.isEmpty
+                      ? null
+                      : addressStateController.text,
+                  decoration: const InputDecoration(labelText: 'Estado'),
+                  items: profileController.getStatesList(),
+                  onChanged: (String? newValue) {
+                    addressStateController.text = newValue ?? '';
+                  },
                   validator: (value) => profileController.validateState(value),
                 ),
               ),
