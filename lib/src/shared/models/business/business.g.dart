@@ -12,10 +12,11 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      address: json['address'] as String,
-      offeringsIds: (json['offeringsIds'] as List<dynamic>)
-          .map((e) => e as String)
-          .toSet(),
+      address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      status: $enumDecode(_$BusinessStatusEnumMap, json['status']),
+      type: $enumDecode(_$BusinessTypeEnumMap, json['type']),
+      offersIds:
+          (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
     );
 
 Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) =>
@@ -25,5 +26,21 @@ Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) =>
       'email': instance.email,
       'phoneNumber': instance.phoneNumber,
       'address': instance.address,
-      'offeringsIds': instance.offeringsIds.toList(),
+      'status': _$BusinessStatusEnumMap[instance.status]!,
+      'type': _$BusinessTypeEnumMap[instance.type]!,
+      'offersIds': instance.offersIds.toList(),
     };
+
+const _$BusinessStatusEnumMap = {
+  BusinessStatus.open: 'open',
+  BusinessStatus.closed: 'closed',
+  BusinessStatus.pending: 'pending',
+  BusinessStatus.rejected: 'rejected',
+  BusinessStatus.suspended: 'suspended',
+  BusinessStatus.deleted: 'deleted',
+};
+
+const _$BusinessTypeEnumMap = {
+  BusinessType.service: 'service',
+  BusinessType.commerce: 'commerce',
+};

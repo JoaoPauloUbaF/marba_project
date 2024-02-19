@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/authentication/application/sign_in_screen_controller.dart';
-import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
+import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 
 class SignIn extends StatelessWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: const [
-          ThemeSwitch(),
+          ThemeSwitchWidget(),
         ],
       ),
       body: Center(

@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/user_profile/application/profile_screen_controller/profile_screen_controller.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 
-import '../../../darkmode/presentation/components/theme_switch.dart';
+import '../../../darkmode/presentation/components/theme_switch_widget.dart';
 import '../components/address_display_widget.dart';
 
 class AppProfileScreen extends ConsumerWidget {
@@ -16,7 +16,7 @@ class AppProfileScreen extends ConsumerWidget {
       showDeleteConfirmationDialog: true,
       appBar: AppBar(
         actions: const [
-          ThemeSwitch(),
+          ThemeSwitchWidget(),
         ],
       ),
       actions: [

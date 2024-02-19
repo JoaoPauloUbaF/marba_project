@@ -11,10 +11,26 @@ class Business with _$Business {
     required String name,
     required String email,
     required String phoneNumber,
-    required String address,
-    required Set<String> offeringsIds,
+    required Address address,
+    required BusinessStatus status,
+    required BusinessType type,
+    required Set<String> offersIds,
   }) = _Business;
 
   factory Business.fromJson(Map<String, dynamic> json) =>
       _$BusinessFromJson(json);
+}
+
+enum BusinessStatus {
+  open,
+  closed,
+  pending,
+  rejected,
+  suspended,
+  deleted,
+}
+
+enum BusinessType {
+  service,
+  commerce,
 }

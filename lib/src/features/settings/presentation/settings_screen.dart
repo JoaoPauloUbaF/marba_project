@@ -9,16 +9,16 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: ListView(
         children: [
           ListTile(
-            title: Text('Notification Settings'),
+            title: const Text('Notification Settings'),
             onTap: () {},
           ),
           ListTile(
-            title: Text('Account Settings'),
+            title: const Text('Account Settings'),
             onTap: () {
               ref.read(authRepositoryProvider).getCurrentUser() != null
                   ? Navigator.pushNamed(context, '/profile')
@@ -26,13 +26,21 @@ class SettingsScreen extends ConsumerWidget {
             },
           ),
           ListTile(
-            title: Text('Privacy Settings'),
+            title: const Text('Privacy Settings'),
             onTap: () {
               // TODO: Implement privacy settings
             },
           ),
           ListTile(
-            title: Text('About'),
+            title: const Text('Meus Negócios'),
+            onTap: () {
+              ref.read(authRepositoryProvider).getCurrentUser() != null
+                  ? Navigator.pushNamed(context, '/business-list')
+                  : Navigator.pushReplacementNamed(context, '/sign-in');
+            },
+          ),
+          ListTile(
+            title: const Text('About'),
             onTap: () {
               // TODO: Implement about screen
             },

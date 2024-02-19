@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
+import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -58,7 +58,7 @@ class _BottomNavigationBarExampleState
     return Scaffold(
       appBar: AppBar(
         actions: [
-          const ThemeSwitch(),
+          const ThemeSwitchWidget(),
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, '/settings');

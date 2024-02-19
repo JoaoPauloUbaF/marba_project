@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/authentication_repository.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
-import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch.dart';
+import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 import '../../application/profile_forms_controller/profile_forms_screen_controller.dart';
@@ -32,7 +32,7 @@ class ProfileFormScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: const [
-          ThemeSwitch(),
+          ThemeSwitchWidget(),
         ],
       ),
       body: SingleChildScrollView(
