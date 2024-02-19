@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
+import 'package:project_marba/src/features/business_profile/presentation/business_list_screen.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
@@ -45,6 +46,7 @@ class MainApp extends ConsumerWidget {
         '/profile': (context) => const AppProfileScreen(),
         '/profile-form': (context) => const ProfileFormScreen(),
         '/settings': (context) => const SettingsScreen(),
+        '/business-list': (context) => const BusinessListScreen(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
