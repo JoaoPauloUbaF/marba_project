@@ -13,7 +13,7 @@ class Business with _$Business {
     required String phoneNumber,
     required Address address,
     required BusinessStatus status,
-    required BusinessType type,
+    required Set<BusinessCategory> category,
     required Set<String> offersIds,
   }) = _Business;
 
@@ -30,7 +30,13 @@ enum BusinessStatus {
   deleted,
 }
 
-enum BusinessType {
-  service,
-  commerce,
+enum BusinessCategory {
+  aesthetics,
+  entertainment,
+  cooking,
+  transport,
+  food,
+  clothing,
+  electronics,
+  services,
 }

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_marba/src/shared/models/user/user.dart';
+import 'package:project_marba/src/shared/models/user/user_model.dart';
 
 abstract class ProfileDataRepository {
   Future<DocumentSnapshot?> createProfile({

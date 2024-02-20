@@ -14,7 +14,9 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       status: $enumDecode(_$BusinessStatusEnumMap, json['status']),
-      type: $enumDecode(_$BusinessTypeEnumMap, json['type']),
+      category: (json['category'] as List<dynamic>)
+          .map((e) => $enumDecode(_$BusinessCategoryEnumMap, e))
+          .toSet(),
       offersIds:
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
     );
@@ -27,7 +29,8 @@ Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) =>
       'phoneNumber': instance.phoneNumber,
       'address': instance.address,
       'status': _$BusinessStatusEnumMap[instance.status]!,
-      'type': _$BusinessTypeEnumMap[instance.type]!,
+      'category':
+          instance.category.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
       'offersIds': instance.offersIds.toList(),
     };
 
@@ -40,7 +43,13 @@ const _$BusinessStatusEnumMap = {
   BusinessStatus.deleted: 'deleted',
 };
 
-const _$BusinessTypeEnumMap = {
-  BusinessType.service: 'service',
-  BusinessType.commerce: 'commerce',
+const _$BusinessCategoryEnumMap = {
+  BusinessCategory.aesthetics: 'aesthetics',
+  BusinessCategory.entertainment: 'entertainment',
+  BusinessCategory.cooking: 'cooking',
+  BusinessCategory.transport: 'transport',
+  BusinessCategory.food: 'food',
+  BusinessCategory.clothing: 'clothing',
+  BusinessCategory.electronics: 'electronics',
+  BusinessCategory.services: 'services',
 };
