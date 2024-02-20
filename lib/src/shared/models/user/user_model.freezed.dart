@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'user.dart';
+part of 'user_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+  return _UserModel.fromJson(json);
 }
 
 /// @nodoc
@@ -25,6 +25,8 @@ mixin _$UserModel {
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
+  bool get isBusinessOwner => throw _privateConstructorUsedError;
+  Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +44,9 @@ abstract class $UserModelCopyWith<$Res> {
       String displayName,
       String email,
       String phoneNumber,
-      Address address});
+      Address address,
+      bool isBusinessOwner,
+      Set<String>? ownedBusinessIds});
 
   $AddressCopyWith<$Res> get address;
 }
@@ -65,6 +69,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
+    Object? isBusinessOwner = null,
+    Object? ownedBusinessIds = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -87,6 +93,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      isBusinessOwner: null == isBusinessOwner
+          ? _value.isBusinessOwner
+          : isBusinessOwner // ignore: cast_nullable_to_non_nullable
+              as bool,
+      ownedBusinessIds: freezed == ownedBusinessIds
+          ? _value.ownedBusinessIds
+          : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
     ) as $Val);
   }
 
@@ -100,10 +114,11 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
 }
 
 /// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserModelCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
+abstract class _$$UserModelImplCopyWith<$Res>
+    implements $UserModelCopyWith<$Res> {
+  factory _$$UserModelImplCopyWith(
+          _$UserModelImpl value, $Res Function(_$UserModelImpl) then) =
+      __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -111,17 +126,20 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String displayName,
       String email,
       String phoneNumber,
-      Address address});
+      Address address,
+      bool isBusinessOwner,
+      Set<String>? ownedBusinessIds});
 
   @override
   $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserModelCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
+class __$$UserModelImplCopyWithImpl<$Res>
+    extends _$UserModelCopyWithImpl<$Res, _$UserModelImpl>
+    implements _$$UserModelImplCopyWith<$Res> {
+  __$$UserModelImplCopyWithImpl(
+      _$UserModelImpl _value, $Res Function(_$UserModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,8 +150,10 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
+    Object? isBusinessOwner = null,
+    Object? ownedBusinessIds = freezed,
   }) {
-    return _then(_$UserImpl(
+    return _then(_$UserModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -154,22 +174,33 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      isBusinessOwner: null == isBusinessOwner
+          ? _value.isBusinessOwner
+          : isBusinessOwner // ignore: cast_nullable_to_non_nullable
+              as bool,
+      ownedBusinessIds: freezed == ownedBusinessIds
+          ? _value._ownedBusinessIds
+          : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$UserImpl implements _User {
-  const _$UserImpl(
+class _$UserModelImpl implements _UserModel {
+  const _$UserModelImpl(
       {required this.id,
       required this.displayName,
       required this.email,
       required this.phoneNumber,
-      required this.address});
+      required this.address,
+      required this.isBusinessOwner,
+      final Set<String>? ownedBusinessIds})
+      : _ownedBusinessIds = ownedBusinessIds;
 
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
+  factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserModelImplFromJson(json);
 
   @override
   final String id;
@@ -181,54 +212,79 @@ class _$UserImpl implements _User {
   final String phoneNumber;
   @override
   final Address address;
+  @override
+  final bool isBusinessOwner;
+  final Set<String>? _ownedBusinessIds;
+  @override
+  Set<String>? get ownedBusinessIds {
+    final value = _ownedBusinessIds;
+    if (value == null) return null;
+    if (_ownedBusinessIds is EqualUnmodifiableSetView) return _ownedBusinessIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
 
   @override
   String toString() {
-    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address)';
+    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
+            other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.displayName, displayName) ||
                 other.displayName == displayName) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.isBusinessOwner, isBusinessOwner) ||
+                other.isBusinessOwner == isBusinessOwner) &&
+            const DeepCollectionEquality()
+                .equals(other._ownedBusinessIds, _ownedBusinessIds));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, displayName, email, phoneNumber, address);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      displayName,
+      email,
+      phoneNumber,
+      address,
+      isBusinessOwner,
+      const DeepCollectionEquality().hash(_ownedBusinessIds));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
+      __$$UserModelImplCopyWithImpl<_$UserModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
+    return _$$UserModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _User implements UserModel {
-  const factory _User(
+abstract class _UserModel implements UserModel {
+  const factory _UserModel(
       {required final String id,
       required final String displayName,
       required final String email,
       required final String phoneNumber,
-      required final Address address}) = _$UserImpl;
+      required final Address address,
+      required final bool isBusinessOwner,
+      final Set<String>? ownedBusinessIds}) = _$UserModelImpl;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
+  factory _UserModel.fromJson(Map<String, dynamic> json) =
+      _$UserModelImpl.fromJson;
 
   @override
   String get id;
@@ -241,7 +297,11 @@ abstract class _User implements UserModel {
   @override
   Address get address;
   @override
+  bool get isBusinessOwner;
+  @override
+  Set<String>? get ownedBusinessIds;
+  @override
   @JsonKey(ignore: true)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+  _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

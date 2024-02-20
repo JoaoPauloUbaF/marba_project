@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 
+import 'business_category_cards_widget.dart';
+
 class AddBusinessStepperWidget extends StatefulWidget {
-  const AddBusinessStepperWidget({Key? key}) : super(key: key);
+  AddBusinessStepperWidget({Key? key, this.businessProfileController})
+      : super(key: key);
+  final businessProfileController;
 
   @override
   _AddBusinessStepperWidgetState createState() =>
@@ -20,6 +25,7 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
   late TextEditingController _cityController;
   late TextEditingController _stateController;
   late TextEditingController _zipCodeController;
+  late Set<BusinessCategory> _selectedCategories;
 
   int _currentStep = 0;
 
@@ -28,13 +34,14 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
     super.initState();
     _nameController = TextEditingController();
     _emailController = TextEditingController();
-    _phoneController = TextEditingController();
+    _phoneController = MaskedTextController(mask: '(00) 00000-0000');
     _streetController = TextEditingController();
-    _numberController = TextEditingController();
+    _numberController = MaskedTextController(mask: '00000');
     _neighborhoodController = TextEditingController();
     _cityController = TextEditingController();
     _stateController = TextEditingController();
-    _zipCodeController = TextEditingController();
+    _zipCodeController = MaskedTextController(mask: '00000-000');
+    _selectedCategories = {};
   }
 
   @override
@@ -66,7 +73,7 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
         zipCode: _zipCodeController.text,
       ),
       status: BusinessStatus.pending,
-      type: BusinessType.service,
+      category: {BusinessCategory.clothing, BusinessCategory.services},
       offersIds: {},
     );
 
@@ -75,106 +82,117 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
     Navigator.of(context).pop();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Stepper(
-        type: StepperType.vertical,
-        currentStep: _currentStep,
-        controlsBuilder: (context, details) => Row(
+  List<Step> get steps {
+    return [
+      Step(
+        title: const Text('Informações básicas'),
+        content: Column(
           children: [
-            if (_currentStep > 0)
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    _currentStep -= 1;
-                  });
-                },
-                child: const Text('Back'),
-              ),
-            if (_currentStep < 1)
-              TextButton(
-                onPressed: () {
-                  _submitForm();
-                },
-                child: const Text('Submit'),
-              ),
+            TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(labelText: 'Nome'),
+            ),
+            TextFormField(
+              controller: _emailController,
+              decoration: const InputDecoration(labelText: 'E-mail'),
+            ),
+            TextFormField(
+              controller: _phoneController,
+              decoration: const InputDecoration(labelText: 'Telefone'),
+            ),
           ],
         ),
-        onStepCancel: () {
-          if (_currentStep > 0) {
-            Navigator.of(context).pop();
-          }
-        },
-        onStepContinue: () {
-          if (_currentStep <= 0) {
-            setState(() {
-              _currentStep += 1;
-            });
-          }
-        },
-        onStepTapped: (int index) {
-          setState(() {
-            _currentStep = index;
-          });
-        },
-        steps: [
-          Step(
-            title: Text('Basic Information'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: _nameController,
-                  decoration: InputDecoration(labelText: 'Name'),
-                ),
-                TextFormField(
-                  controller: _emailController,
-                  decoration: InputDecoration(labelText: 'Email'),
-                ),
-                TextFormField(
-                  controller: _phoneController,
-                  decoration: InputDecoration(labelText: 'Phone Number'),
-                ),
-              ],
+      ),
+      Step(
+        title: const Text('Endereço'),
+        content: Column(
+          children: [
+            TextFormField(
+              controller: _streetController,
+              decoration: const InputDecoration(labelText: 'Rua'),
             ),
-          ),
-          Step(
-            title: Text('Address'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextFormField(
-                  controller: _streetController,
-                  decoration: InputDecoration(labelText: 'Street'),
-                ),
-                TextFormField(
-                  controller: _numberController,
-                  decoration: InputDecoration(labelText: 'Number'),
-                ),
-                TextFormField(
-                  controller: _neighborhoodController,
-                  decoration: InputDecoration(labelText: 'Neighborhood'),
-                ),
-                TextFormField(
-                  controller: _cityController,
-                  decoration: InputDecoration(labelText: 'City'),
-                ),
-                TextFormField(
-                  controller: _stateController,
-                  decoration: InputDecoration(labelText: 'State'),
-                ),
-                TextFormField(
-                  controller: _zipCodeController,
-                  decoration: InputDecoration(labelText: 'Zip Code'),
-                ),
-              ],
+            TextFormField(
+              controller: _numberController,
+              decoration: const InputDecoration(labelText: 'Número'),
             ),
-          ),
+            TextFormField(
+              controller: _neighborhoodController,
+              decoration: const InputDecoration(labelText: 'Bairro'),
+            ),
+            TextFormField(
+              controller: _cityController,
+              decoration: const InputDecoration(labelText: 'Cidade'),
+            ),
+            TextFormField(
+              controller: _stateController,
+              decoration: const InputDecoration(labelText: 'Estado'),
+            ),
+            TextFormField(
+              controller: _zipCodeController,
+              decoration: const InputDecoration(labelText: 'CEP'),
+            ),
+          ],
+        ),
+      ),
+      Step(
+        title: const Text('Categorias'),
+        content: BusinessCategoryCards(selectedCategories: _selectedCategories),
+      ),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stepper(
+      type: StepperType.vertical,
+      currentStep: _currentStep,
+      controlsBuilder: (context, details) => Row(
+        children: [
+          if (_currentStep < steps.length - 1)
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _currentStep += 1;
+                });
+              },
+              child: const Text('Proximo'),
+            ),
+          if (_currentStep > 0 && _currentStep < steps.length - 1)
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _currentStep -= 1;
+                });
+              },
+              child: const Text('Voltar'),
+            ),
+          if (_currentStep == steps.length - 1)
+            TextButton(
+              onPressed: () {
+                _submitForm();
+              },
+              child: const Text('Salvar'),
+            ),
         ],
       ),
+      onStepCancel: () {
+        if (_currentStep > 0) {
+          Navigator.of(context).pop();
+        }
+      },
+      onStepContinue: () {
+        if (_currentStep <= 0) {
+          setState(() {
+            _currentStep += 1;
+          });
+        }
+      },
+      onStepTapped: (int index) {
+        setState(() {
+          _currentStep = index;
+        });
+      },
+      steps: steps,
     );
   }
 }

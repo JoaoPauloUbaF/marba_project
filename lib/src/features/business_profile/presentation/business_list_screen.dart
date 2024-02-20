@@ -10,7 +10,7 @@ class BusinessListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Business List'),
+        title: const Text('Meus Empreendimentos'),
       ),
       body: ListView(
         children: [
@@ -23,7 +23,13 @@ class BusinessListScreen extends ConsumerWidget {
             context: context,
             builder: (context) {
               return Dialog(
-                child: AddBusinessStepperWidget(),
+                insetPadding: EdgeInsets.only(
+                  top: AppBar().preferredSize.height,
+                  left: 16,
+                  right: 16,
+                ),
+                child:
+                    AddBusinessStepperWidget(), //TODO: Business screen controller
               );
             },
           );

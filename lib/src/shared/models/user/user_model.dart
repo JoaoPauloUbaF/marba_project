@@ -2,8 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 import 'package:uuid/uuid.dart';
 
-part 'user.freezed.dart';
-part 'user.g.dart';
+part 'user_model.freezed.dart';
+part 'user_model.g.dart';
 
 @Freezed()
 class UserModel with _$UserModel {
@@ -13,7 +13,9 @@ class UserModel with _$UserModel {
     required String email,
     required String phoneNumber,
     required Address address,
-  }) = _User;
+    required bool isBusinessOwner,
+    Set<String>? ownedBusinessIds,
+  }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

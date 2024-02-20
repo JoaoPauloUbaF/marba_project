@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_data_repository.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
-import 'package:project_marba/src/shared/models/user/user.dart';
+import 'package:project_marba/src/shared/models/user/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final firestoreProfileDataProvider = Provider<ProfileDataRepository>((ref) {
@@ -61,6 +61,7 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
         displayName: data['displayName'],
         phoneNumber: data['phoneNumber'],
         address: Address.fromJson(data['address']),
+        isBusinessOwner: false,
       );
     } else {
       return null;
