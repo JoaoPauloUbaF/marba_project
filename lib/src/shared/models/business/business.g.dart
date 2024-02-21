@@ -14,7 +14,7 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
       phoneNumber: json['phoneNumber'] as String,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       status: $enumDecode(_$BusinessStatusEnumMap, json['status']),
-      category: (json['category'] as List<dynamic>)
+      categories: (json['categories'] as List<dynamic>)
           .map((e) => $enumDecode(_$BusinessCategoryEnumMap, e))
           .toSet(),
       offersIds:
@@ -29,8 +29,9 @@ Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) =>
       'phoneNumber': instance.phoneNumber,
       'address': instance.address,
       'status': _$BusinessStatusEnumMap[instance.status]!,
-      'category':
-          instance.category.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
+      'categories': instance.categories
+          .map((e) => _$BusinessCategoryEnumMap[e]!)
+          .toList(),
       'offersIds': instance.offersIds.toList(),
     };
 

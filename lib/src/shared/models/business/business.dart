@@ -13,7 +13,7 @@ class Business with _$Business {
     required String phoneNumber,
     required Address address,
     required BusinessStatus status,
-    required Set<BusinessCategory> category,
+    required Set<BusinessCategory> categories,
     required Set<String> offersIds,
   }) = _Business;
 
