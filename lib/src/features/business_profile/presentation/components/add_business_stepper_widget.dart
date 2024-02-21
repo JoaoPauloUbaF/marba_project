@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:project_marba/src/features/business_profile/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 
 import 'business_category_cards_widget.dart';
 
 class AddBusinessStepperWidget extends StatefulWidget {
-  AddBusinessStepperWidget({Key? key, this.businessProfileController})
+  const AddBusinessStepperWidget(
+      {Key? key, required this.myBusinessListController, required this.formKey})
       : super(key: key);
-  final businessProfileController;
+
+  final GlobalKey<FormState> formKey;
+  final MyBusinessListScreenController myBusinessListController;
 
   @override
   _AddBusinessStepperWidgetState createState() =>
@@ -59,25 +63,19 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
   }
 
   void _submitForm() {
-    final newBusiness = Business(
-      id: UniqueKey().toString(),
+    widget.myBusinessListController.validateAndSubmitForm(
+      key: widget.formKey,
       name: _nameController.text,
       email: _emailController.text,
       phoneNumber: _phoneController.text,
-      address: Address(
-        street: _streetController.text,
-        number: _numberController.text,
-        neighborhood: _neighborhoodController.text,
-        city: _cityController.text,
-        state: _stateController.text,
-        zipCode: _zipCodeController.text,
-      ),
-      status: BusinessStatus.pending,
-      category: {BusinessCategory.clothing, BusinessCategory.services},
-      offersIds: {},
+      street: _streetController.text,
+      number: _numberController.text,
+      neighborhood: _neighborhoodController.text,
+      city: _cityController.text,
+      state: _stateController.text,
+      zipCode: _zipCodeController.text,
+      selectedCategories: _selectedCategories,
     );
-
-    print(newBusiness);
 
     Navigator.of(context).pop();
   }
@@ -86,52 +84,75 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
     return [
       Step(
         title: const Text('Informações básicas'),
-        content: Column(
-          children: [
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Nome'),
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'E-mail'),
-            ),
-            TextFormField(
-              controller: _phoneController,
-              decoration: const InputDecoration(labelText: 'Telefone'),
-            ),
-          ],
+        content: Form(
+          key: widget.formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(labelText: 'Nome'),
+                validator: (value) =>
+                    widget.myBusinessListController.validateName(value),
+              ),
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(labelText: 'E-mail'),
+                // validator: (value) => widget.myBusinessListController.validateEmail(value), TODO: Add email validation
+              ),
+              TextFormField(
+                controller: _phoneController,
+                decoration: const InputDecoration(labelText: 'Telefone'),
+                validator: (value) =>
+                    widget.myBusinessListController.validatePhoneNumber(value),
+              ),
+            ],
+          ),
         ),
       ),
       Step(
         title: const Text('Endereço'),
-        content: Column(
-          children: [
-            TextFormField(
-              controller: _streetController,
-              decoration: const InputDecoration(labelText: 'Rua'),
-            ),
-            TextFormField(
-              controller: _numberController,
-              decoration: const InputDecoration(labelText: 'Número'),
-            ),
-            TextFormField(
-              controller: _neighborhoodController,
-              decoration: const InputDecoration(labelText: 'Bairro'),
-            ),
-            TextFormField(
-              controller: _cityController,
-              decoration: const InputDecoration(labelText: 'Cidade'),
-            ),
-            TextFormField(
-              controller: _stateController,
-              decoration: const InputDecoration(labelText: 'Estado'),
-            ),
-            TextFormField(
-              controller: _zipCodeController,
-              decoration: const InputDecoration(labelText: 'CEP'),
-            ),
-          ],
+        content: Form(
+          key: widget.formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _streetController,
+                decoration: const InputDecoration(labelText: 'Rua'),
+                validator: (value) => widget.myBusinessListController
+                    .validateAddressStreet(value),
+              ),
+              TextFormField(
+                controller: _numberController,
+                decoration: const InputDecoration(labelText: 'Número'),
+                validator: (value) => widget.myBusinessListController
+                    .validateAddressNumber(value),
+              ),
+              TextFormField(
+                controller: _neighborhoodController,
+                decoration: const InputDecoration(labelText: 'Bairro'),
+                validator: (value) =>
+                    widget.myBusinessListController.validateNeighborhood(value),
+              ),
+              TextFormField(
+                controller: _cityController,
+                decoration: const InputDecoration(labelText: 'Cidade'),
+                validator: (value) =>
+                    widget.myBusinessListController.validateCity(value),
+              ),
+              TextFormField(
+                controller: _stateController,
+                decoration: const InputDecoration(labelText: 'Estado'),
+                validator: (value) =>
+                    widget.myBusinessListController.validateState(value),
+              ),
+              TextFormField(
+                controller: _zipCodeController,
+                decoration: const InputDecoration(labelText: 'CEP'),
+                validator: (value) =>
+                    widget.myBusinessListController.validateZipCode(value),
+              ),
+            ],
+          ),
         ),
       ),
       Step(

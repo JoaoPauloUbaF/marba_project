@@ -47,13 +47,18 @@ class _BusinessCategoryCardsState extends State<BusinessCategoryCards> {
               }
             });
           },
-          child: Card(
-            color: isSelected ? Colors.blue : null,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                translatedCategory,
-                style: const TextStyle(fontSize: 12),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width / 3,
+            height: MediaQuery.of(context).size.height / 10,
+            child: Card(
+              color:
+                  isSelected ? const Color.fromARGB(255, 65, 107, 142) : null,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  translatedCategory,
+                  style: const TextStyle(fontSize: 12),
+                ),
               ),
             ),
           ),
