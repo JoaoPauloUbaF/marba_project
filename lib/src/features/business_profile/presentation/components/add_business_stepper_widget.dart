@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/features/business_profile/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
+import 'package:project_marba/src/features/business_profile/data/business_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 
@@ -84,136 +85,162 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
     return [
       Step(
         title: const Text('Informações básicas'),
-        content: Form(
-          key: widget.formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Nome'),
-                validator: (value) =>
-                    widget.myBusinessListController.validateName(value),
-              ),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'E-mail'),
-                // validator: (value) => widget.myBusinessListController.validateEmail(value), TODO: Add email validation
-              ),
-              TextFormField(
-                controller: _phoneController,
-                decoration: const InputDecoration(labelText: 'Telefone'),
-                validator: (value) =>
-                    widget.myBusinessListController.validatePhoneNumber(value),
-              ),
-            ],
-          ),
+        content: Column(
+          children: [
+            TextFormField(
+              controller: _nameController,
+              decoration: const InputDecoration(labelText: 'Nome'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateName(value),
+            ),
+            TextFormField(
+              controller: _emailController,
+              decoration: const InputDecoration(labelText: 'E-mail'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateEmail(value),
+            ),
+            TextFormField(
+              controller: _phoneController,
+              decoration: const InputDecoration(labelText: 'Telefone'),
+              validator: (value) =>
+                  widget.myBusinessListController.validatePhoneNumber(value),
+            ),
+          ],
         ),
       ),
       Step(
         title: const Text('Endereço'),
-        content: Form(
-          key: widget.formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _streetController,
-                decoration: const InputDecoration(labelText: 'Rua'),
-                validator: (value) => widget.myBusinessListController
-                    .validateAddressStreet(value),
-              ),
-              TextFormField(
-                controller: _numberController,
-                decoration: const InputDecoration(labelText: 'Número'),
-                validator: (value) => widget.myBusinessListController
-                    .validateAddressNumber(value),
-              ),
-              TextFormField(
-                controller: _neighborhoodController,
-                decoration: const InputDecoration(labelText: 'Bairro'),
-                validator: (value) =>
-                    widget.myBusinessListController.validateNeighborhood(value),
-              ),
-              TextFormField(
-                controller: _cityController,
-                decoration: const InputDecoration(labelText: 'Cidade'),
-                validator: (value) =>
-                    widget.myBusinessListController.validateCity(value),
-              ),
-              TextFormField(
-                controller: _stateController,
-                decoration: const InputDecoration(labelText: 'Estado'),
-                validator: (value) =>
-                    widget.myBusinessListController.validateState(value),
-              ),
-              TextFormField(
-                controller: _zipCodeController,
-                decoration: const InputDecoration(labelText: 'CEP'),
-                validator: (value) =>
-                    widget.myBusinessListController.validateZipCode(value),
-              ),
-            ],
-          ),
+        content: Column(
+          children: [
+            TextFormField(
+              controller: _streetController,
+              decoration: const InputDecoration(labelText: 'Rua'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateAddressStreet(value),
+            ),
+            TextFormField(
+              controller: _numberController,
+              decoration: const InputDecoration(labelText: 'Número'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateAddressNumber(value),
+            ),
+            TextFormField(
+              controller: _neighborhoodController,
+              decoration: const InputDecoration(labelText: 'Bairro'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateNeighborhood(value),
+            ),
+            TextFormField(
+              controller: _cityController,
+              decoration: const InputDecoration(labelText: 'Cidade'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateCity(value),
+            ),
+            TextFormField(
+              controller: _stateController,
+              decoration: const InputDecoration(labelText: 'Estado'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateState(value),
+            ),
+            TextFormField(
+              controller: _zipCodeController,
+              decoration: const InputDecoration(labelText: 'CEP'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateZipCode(value),
+            ),
+          ],
         ),
       ),
       Step(
         title: const Text('Categorias'),
-        content: BusinessCategoryCards(selectedCategories: _selectedCategories),
-      ),
+        content: FormField<Set<BusinessCategory>>(
+          key: ValueKey(_currentStep),
+          initialValue: _selectedCategories,
+          builder: (FormFieldState<Set<BusinessCategory>> field) {
+            return Column(
+              children: [
+                BusinessCategoryCards(
+                  selectedCategories: field.value!,
+                  onChanged: (value) {
+                    field.didChange(value);
+                  },
+                ),
+                if (field.hasError)
+                  Text(
+                    field.errorText!,
+                    style: const TextStyle(color: Colors.red),
+                  ),
+              ],
+            );
+          },
+          validator: (value) =>
+              widget.myBusinessListController.validateCategories(value!),
+        ),
+      )
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stepper(
-      type: StepperType.vertical,
-      currentStep: _currentStep,
-      controlsBuilder: (context, details) => Row(
-        children: [
-          if (_currentStep < steps.length - 1)
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _currentStep += 1;
-                });
-              },
-              child: const Text('Proximo'),
-            ),
-          if (_currentStep > 0 && _currentStep < steps.length - 1)
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _currentStep -= 1;
-                });
-              },
-              child: const Text('Voltar'),
-            ),
-          if (_currentStep == steps.length - 1)
-            TextButton(
-              onPressed: () {
-                _submitForm();
-              },
-              child: const Text('Salvar'),
-            ),
-        ],
+    return Form(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: widget.formKey,
+      child: Stepper(
+        type: StepperType.vertical,
+        currentStep: _currentStep,
+        controlsBuilder: (context, details) => Row(
+          children: [
+            if (_currentStep > 0)
+              IconButton(
+                color: Colors.orange,
+                onPressed: () {
+                  setState(() {
+                    _currentStep -= 1;
+                  });
+                },
+                icon: const Icon(Icons.arrow_back_rounded),
+              ),
+            const Spacer(),
+            if (_currentStep < steps.length - 1)
+              IconButton(
+                color: Colors.orange,
+                onPressed: () {
+                  setState(() {
+                    _currentStep += 1;
+                  });
+                },
+                icon: const Icon(Icons.arrow_forward_rounded),
+              ),
+            if (_currentStep == steps.length - 1)
+              TextButton(
+                onPressed: () {
+                  if (widget.formKey.currentState!.validate()) {
+                    _submitForm();
+                  } else {
+                    setState(() {});
+                  }
+                },
+                child: const Text(
+                  'Salvar',
+                  style: TextStyle(color: Colors.orange),
+                ),
+              ),
+          ],
+        ),
+        onStepCancel: () {
+          if (_currentStep > 0) {
+            Navigator.of(context).pop();
+          }
+        },
+        onStepContinue: () {
+          if (_currentStep <= 0) {
+            setState(() {
+              _currentStep += 1;
+            });
+          }
+        },
+        steps: steps,
       ),
-      onStepCancel: () {
-        if (_currentStep > 0) {
-          Navigator.of(context).pop();
-        }
-      },
-      onStepContinue: () {
-        if (_currentStep <= 0) {
-          setState(() {
-            _currentStep += 1;
-          });
-        }
-      },
-      onStepTapped: (int index) {
-        setState(() {
-          _currentStep = index;
-        });
-      },
-      steps: steps,
     );
   }
 }

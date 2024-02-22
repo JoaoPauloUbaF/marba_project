@@ -24,12 +24,9 @@ class BusinessFirestoreProfileDataProvider
       'businessEmail': business.email,
       'businessPhoneNumber': business.phoneNumber,
       'address': business.address.toJson(),
-      'status': business.status.toString().split('.').last,
-      'businessCategory': business.categories
-          .map((e) => e.toString().split('.').last)
-          .toList()
-          .asMap(),
-      'offersIds': business.offersIds.toList(),
+      'status': business.status.name.toString(),
+      'businessCategory': business.categories.map((e) => e.name).toList(),
+      'offersIds': business.offersIds.toList().asMap(),
     });
     return await _businessCollection.doc(business.id).get();
   }
@@ -105,6 +102,22 @@ class BusinessFirestoreProfileDataProvider
 
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+      final categories = (data['businessCategory'] as List<dynamic>)
+          .map((e) {
+            return BusinessCategory.values.firstWhere(
+              (element) => element.toString().split('.').last == e,
+              orElse: () => BusinessCategory
+                  .services, // Handle case when enum value is not found
+            );
+          })
+          .where((element) => true)
+          .toSet();
+
+      final offersIds = (data['offersIds'] as Map<String, dynamic>)
+          .values
+          .toSet()
+          .cast<String>();
+
       return Business(
         id: uid,
         name: data['businessName'],
@@ -114,13 +127,8 @@ class BusinessFirestoreProfileDataProvider
         status: BusinessStatus.values.firstWhere(
           (e) => e.toString().split('.').last == data['status'],
         ),
-        categories: data['businessCategory']
-            .keys
-            .map((e) => BusinessCategory.values.firstWhere(
-                  (e) => e.toString().split('.').last == e,
-                ))
-            .toSet(),
-        offersIds: data['offersIds'].toSet(),
+        categories: categories.toSet(),
+        offersIds: offersIds,
       );
     } else {
       return null;
