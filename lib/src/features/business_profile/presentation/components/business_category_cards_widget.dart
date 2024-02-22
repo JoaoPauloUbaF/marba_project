@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../../../../shared/models/business/business.dart';
 
 class BusinessCategoryCards extends StatefulWidget {
-  late Set<BusinessCategory> selectedCategories;
+  final Set<BusinessCategory> selectedCategories;
+  final ValueChanged<Set<BusinessCategory>> onChanged;
 
-  BusinessCategoryCards({required this.selectedCategories});
+  BusinessCategoryCards(
+      {required this.selectedCategories, required this.onChanged});
 
   @override
   _BusinessCategoryCardsState createState() => _BusinessCategoryCardsState();
@@ -45,6 +47,7 @@ class _BusinessCategoryCardsState extends State<BusinessCategoryCards> {
               } else {
                 widget.selectedCategories.add(category);
               }
+              widget.onChanged(widget.selectedCategories);
             });
           },
           child: SizedBox(

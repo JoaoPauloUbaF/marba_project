@@ -1,6 +1,8 @@
 import 'package:flutter/src/widgets/form.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business_profile/data/business_profile_provider.dart';
+import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
@@ -28,58 +30,83 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     return businessList;
   }
 
+  Future<List<Business?>> getMyBusinessList() async {
+    final businessProfileRepository = ref.read(businessProfileDataProvider);
+    final userProfileRepository = ref.read(userProfileDataProvider);
+    final authRepository = ref.read(authRepositoryProvider);
+    final ownedBusinessList = await userProfileRepository.getOwnedBusinessIds(
+        uid: authRepository.getCurrentUser()?.uid ?? '');
+    final businessList = await getBusinessList(
+        ownedBusinessIds: ownedBusinessList as List<String>);
+    return businessList;
+  }
+
   String? validateName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your name';
+      return 'Por favor, insira o nome do seu negócio';
     }
     return null;
   }
 
   String? validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty || value.length < 11) {
-      return 'Please enter your phone number';
+    if (value == null || value.isEmpty || value.length < 15) {
+      return 'Por favor, insira o número de telefone';
     }
     return null;
   }
 
   String? validateAddressStreet(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your address street';
+      return 'Por favor, insira o nome da rua';
     }
     return null;
   }
 
   String? validateAddressNumber(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your address number';
+      return 'Por favor, insira o número';
     }
     return null;
   }
 
   String? validateCity(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your city';
+      return 'Por favor, insira a cidade';
     }
     return null;
   }
 
   String? validateState(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your state';
+      return 'Por favor, insira o estado';
     }
     return null;
   }
 
   String? validateZipCode(String? value) {
     if (value == null || value.isEmpty || value.length < 8) {
-      return 'Please enter your zip code';
+      return 'Por favor, insira o CEP';
     }
     return null;
   }
 
   String? validateNeighborhood(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Please enter your neighborhood';
+      return 'Por favor, insira o bairro';
+    }
+    return null;
+  }
+
+  String? validateCategories(Set<BusinessCategory> selectedCategories) {
+    if (selectedCategories.isEmpty) {
+      return 'Por favor, selecione pelo menos uma categoria';
+    }
+    return null;
+  }
+
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty || !value.contains('@')) {
+      return 'Por favor, insira um e-mail válido';
     }
     return null;
   }
@@ -115,7 +142,14 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
         status: BusinessStatus.pending,
         offersIds: {},
       );
-      await businessProfileRepository.createBusinessProfile(business: business);
+      await businessProfileRepository
+          .createBusinessProfile(business: business)
+          .then((value) => {
+                print('Business created successfully: ${value!.id}'),
+                ref.read(userProfileDataProvider).addOwnedBusinessId(
+                    uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+                    businessId: business.id)
+              });
     }
   }
 }
