@@ -25,4 +25,7 @@ abstract class ProfileDataRepository {
 
   Future<void> addOwnedBusinessId(
       {required String uid, required String businessId});
+
+  Future<void> removeOwnedBusinessId(
+      {required String uid, required String businessId});
 }

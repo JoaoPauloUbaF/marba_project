@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/features/business_profile/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
-import 'package:project_marba/src/features/business_profile/data/business_profile_provider.dart';
+import 'package:project_marba/src/features/business_profile/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 

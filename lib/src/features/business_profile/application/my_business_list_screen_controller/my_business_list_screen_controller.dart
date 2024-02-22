@@ -1,7 +1,7 @@
 import 'package:flutter/src/widgets/form.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
-import 'package:project_marba/src/features/business_profile/data/business_profile_provider.dart';
+import 'package:project_marba/src/features/business_profile/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -13,6 +13,8 @@ part 'my_business_list_screen_controller.g.dart';
 
 @riverpod
 class MyBusinessListScreenController extends _$MyBusinessListScreenController {
+  var businessList = <Business>[];
+
   @override
   FutureOr<void> build() {}
 
@@ -30,15 +32,23 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     return businessList;
   }
 
-  Future<List<Business?>> getMyBusinessList() async {
+  Future<void> deleteBusiness({required String businessId}) async {
     final businessProfileRepository = ref.read(businessProfileDataProvider);
     final userProfileRepository = ref.read(userProfileDataProvider);
+    await businessProfileRepository.deleteBusinessProfile(uid: businessId);
+    await userProfileRepository.removeOwnedBusinessId(
+        uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+        businessId: businessId);
+  }
+
+  Future<List<Business?>> getUserBusinessList() async {
+    final userProfileRepository = ref.read(userProfileDataProvider);
     final authRepository = ref.read(authRepositoryProvider);
-    final ownedBusinessList = await userProfileRepository.getOwnedBusinessIds(
-        uid: authRepository.getCurrentUser()?.uid ?? '');
-    final businessList = await getBusinessList(
-        ownedBusinessIds: ownedBusinessList as List<String>);
-    return businessList;
+    final userOwnedBusinessIdsList = await userProfileRepository
+        .getOwnedBusinessIds(uid: authRepository.getCurrentUser()?.uid ?? '');
+    final userBusinessList = await getBusinessList(
+        ownedBusinessIds: userOwnedBusinessIdsList as List<String>);
+    return userBusinessList;
   }
 
   String? validateName(String? value) {
@@ -148,7 +158,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
                 print('Business created successfully: ${value!.id}'),
                 ref.read(userProfileDataProvider).addOwnedBusinessId(
                     uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                    businessId: business.id)
+                    businessId: business.id),
               });
     }
   }
