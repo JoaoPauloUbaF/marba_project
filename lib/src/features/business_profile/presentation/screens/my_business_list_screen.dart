@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business_profile/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
-import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
+import 'package:project_marba/src/features/business_profile/data/business_list_provider/business_list_provider.dart';
 
 import '../../../../shared/models/business/business.dart';
 import '../components/add_business_stepper_widget.dart';
@@ -12,22 +11,21 @@ class MyBusinessListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _ = ref.read(myBusinessListScreenControllerProvider);
+    final userBusinessList = ref.watch(ownedBusinessProvider);
     final myBusinessListController =
         ref.read(myBusinessListScreenControllerProvider.notifier);
-    final userRepository = ref.read(userProfileDataProvider);
-    final authRepository = ref.read(authRepositoryProvider);
     final formKey = GlobalKey<FormState>();
-
-    final ownedBusinessList = userRepository.getOwnedBusinessIds(
-        uid: authRepository.getCurrentUser()?.uid ?? '');
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Meus Empreendimentos'),
       ),
       body: FutureBuilder<List<Business?>>(
-        future: myBusinessListController.getMyBusinessList(),
+        future: userBusinessList.when(
+          data: (data) => Future.value(data),
+          loading: () => Future.value([]),
+          error: (error, stackTrace) => Future.error(error),
+        ),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -35,7 +33,15 @@ class MyBusinessListScreen extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final business = snapshot.data![index];
                 return ListTile(
-                  title: Text(business!.name),
+                  title: Text(business?.name ?? ''),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => {
+                      myBusinessListController.deleteBusiness(
+                        businessId: business?.id ?? '',
+                      ),
+                    },
+                  ),
                 );
               },
             );
@@ -60,7 +66,7 @@ class MyBusinessListScreen extends ConsumerWidget {
                 child: AddBusinessStepperWidget(
                   myBusinessListController: myBusinessListController,
                   formKey: formKey,
-                ), //TODO: Business screen controller
+                ),
               );
             },
           );

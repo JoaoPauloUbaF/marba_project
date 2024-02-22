@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../../../shared/models/address/address.dart';
+import '../../../../shared/models/address/address.dart';
 import 'business_profile_data_repository.dart';
 
 final firestoreBusinessProfileDataProvider =
