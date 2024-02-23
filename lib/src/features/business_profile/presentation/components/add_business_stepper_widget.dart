@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/features/business_profile/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
-import 'package:project_marba/src/features/business_profile/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
 
+import '../../../../utils/registration_utils.dart';
 import 'business_category_cards_widget.dart';
 
 class AddBusinessStepperWidget extends StatefulWidget {
@@ -16,6 +15,7 @@ class AddBusinessStepperWidget extends StatefulWidget {
   final MyBusinessListScreenController myBusinessListController;
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddBusinessStepperWidgetState createState() =>
       _AddBusinessStepperWidgetState();
 }
@@ -89,7 +89,8 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
           children: [
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Nome'),
+              decoration:
+                  const InputDecoration(labelText: 'Nome do Empreeendimento'),
               validator: (value) =>
                   widget.myBusinessListController.validateName(value),
             ),
@@ -112,6 +113,12 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
         title: const Text('Endereço'),
         content: Column(
           children: [
+            TextFormField(
+              controller: _zipCodeController,
+              decoration: const InputDecoration(labelText: 'CEP'),
+              validator: (value) =>
+                  widget.myBusinessListController.validateZipCode(value),
+            ),
             TextFormField(
               controller: _streetController,
               decoration: const InputDecoration(labelText: 'Rua'),
@@ -136,17 +143,17 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
               validator: (value) =>
                   widget.myBusinessListController.validateCity(value),
             ),
-            TextFormField(
-              controller: _stateController,
+            DropdownButtonFormField<String>(
+              menuMaxHeight: MediaQuery.of(context).size.height * 0.45,
+              value:
+                  _stateController.text.isEmpty ? null : _stateController.text,
               decoration: const InputDecoration(labelText: 'Estado'),
+              items: RegistrationUtils().getStatesList(),
+              onChanged: (String? newValue) {
+                _stateController.text = newValue ?? '';
+              },
               validator: (value) =>
                   widget.myBusinessListController.validateState(value),
-            ),
-            TextFormField(
-              controller: _zipCodeController,
-              decoration: const InputDecoration(labelText: 'CEP'),
-              validator: (value) =>
-                  widget.myBusinessListController.validateZipCode(value),
             ),
           ],
         ),
@@ -217,6 +224,24 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
                   if (widget.formKey.currentState!.validate()) {
                     _submitForm();
                   } else {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Erro'),
+                          content: const Text(
+                              'Por favor, preencha todos os campos corretamente.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                     setState(() {});
                   }
                 },

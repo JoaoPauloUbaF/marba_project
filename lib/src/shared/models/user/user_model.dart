@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
-import 'package:uuid/uuid.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
