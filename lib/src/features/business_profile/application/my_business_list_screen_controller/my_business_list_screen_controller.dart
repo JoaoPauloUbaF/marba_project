@@ -13,10 +13,13 @@ part 'my_business_list_screen_controller.g.dart';
 
 @riverpod
 class MyBusinessListScreenController extends _$MyBusinessListScreenController {
-  var businessList = <Business>[];
+  late Future<List<Business?>> listOfOwnedBusiness;
 
   @override
-  FutureOr<void> build() {}
+  Future<List<Business?>> build() {
+    listOfOwnedBusiness = getUserBusinessList();
+    return listOfOwnedBusiness;
+  }
 
   Future<List<Business>> getBusinessList(
       {required List<String> ownedBusinessIds}) async {
@@ -39,6 +42,8 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     await userProfileRepository.removeOwnedBusinessId(
         uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
         businessId: businessId);
+    var businessList = await getUserBusinessList();
+    state = AsyncValue.data(businessList);
   }
 
   Future<List<Business?>> getUserBusinessList() async {
@@ -48,6 +53,8 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
         .getOwnedBusinessIds(uid: authRepository.getCurrentUser()?.uid ?? '');
     final userBusinessList = await getBusinessList(
         ownedBusinessIds: userOwnedBusinessIdsList as List<String>);
+    //state =
+    AsyncValue.data(userBusinessList); // TODO: create a updateState method
     return userBusinessList;
   }
 
@@ -154,12 +161,19 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
       );
       await businessProfileRepository
           .createBusinessProfile(business: business)
-          .then((value) => {
+          .then((value) async => {
                 print('Business created successfully: ${value!.id}'),
                 ref.read(userProfileDataProvider).addOwnedBusinessId(
                     uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     businessId: business.id),
+                this.state = AsyncValue.data(await getUserBusinessList()),
               });
     }
   }
+
+  // Future<void> updateState() async {
+  //   var businessList = await getUserBusinessList(),
+  //               state = AsyncValue.data(await getUserBusinessList()),
+  //   state = AsyncValue.data([]);
+  // }
 }
