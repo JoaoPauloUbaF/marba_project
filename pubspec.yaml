@@ -14,13 +14,19 @@ dependencies:
   firebase_messaging: ^14.7.9
   firebase_storage: ^11.5.6
   firebase_ui_auth: ^1.11.0
+  firebase_ui_localizations: ^1.10.1
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.3
+  flutter_localizations:
+    sdk: flutter
+  flutter_masked_text2: ^0.9.1
+  flutter_riverpod: ^2.4.9
   freezed_annotation: ^2.4.1
   hooks_riverpod: ^2.4.9
   json_annotation: ^4.8.1
   riverpod: ^2.4.9
+  riverpod_annotation:
   uuid: ^4.2.2
 
 dev_dependencies:
@@ -30,6 +36,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
   json_serializable: ^6.7.1
+  riverpod_generator:
 
 flutter:
   uses-material-design: true

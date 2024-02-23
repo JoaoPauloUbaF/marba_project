@@ -24,8 +24,10 @@ mixin _$Business {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
-  Set<String> get offeringsIds => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
+  BusinessStatus get status => throw _privateConstructorUsedError;
+  Set<BusinessCategory> get categories => throw _privateConstructorUsedError;
+  Set<String> get offersIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,8 +45,12 @@ abstract class $BusinessCopyWith<$Res> {
       String name,
       String email,
       String phoneNumber,
-      String address,
-      Set<String> offeringsIds});
+      Address address,
+      BusinessStatus status,
+      Set<BusinessCategory> categories,
+      Set<String> offersIds});
+
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -65,7 +71,9 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
-    Object? offeringsIds = null,
+    Object? status = null,
+    Object? categories = null,
+    Object? offersIds = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -87,12 +95,28 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
-      offeringsIds: null == offeringsIds
-          ? _value.offeringsIds
-          : offeringsIds // ignore: cast_nullable_to_non_nullable
+              as Address,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BusinessStatus,
+      categories: null == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as Set<BusinessCategory>,
+      offersIds: null == offersIds
+          ? _value.offersIds
+          : offersIds // ignore: cast_nullable_to_non_nullable
               as Set<String>,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
   }
 }
 
@@ -109,8 +133,13 @@ abstract class _$$BusinessImplCopyWith<$Res>
       String name,
       String email,
       String phoneNumber,
-      String address,
-      Set<String> offeringsIds});
+      Address address,
+      BusinessStatus status,
+      Set<BusinessCategory> categories,
+      Set<String> offersIds});
+
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -129,7 +158,9 @@ class __$$BusinessImplCopyWithImpl<$Res>
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
-    Object? offeringsIds = null,
+    Object? status = null,
+    Object? categories = null,
+    Object? offersIds = null,
   }) {
     return _then(_$BusinessImpl(
       id: null == id
@@ -151,10 +182,18 @@ class __$$BusinessImplCopyWithImpl<$Res>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
-      offeringsIds: null == offeringsIds
-          ? _value._offeringsIds
-          : offeringsIds // ignore: cast_nullable_to_non_nullable
+              as Address,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as BusinessStatus,
+      categories: null == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as Set<BusinessCategory>,
+      offersIds: null == offersIds
+          ? _value._offersIds
+          : offersIds // ignore: cast_nullable_to_non_nullable
               as Set<String>,
     ));
   }
@@ -169,8 +208,11 @@ class _$BusinessImpl implements _Business {
       required this.email,
       required this.phoneNumber,
       required this.address,
-      required final Set<String> offeringsIds})
-      : _offeringsIds = offeringsIds;
+      required this.status,
+      required final Set<BusinessCategory> categories,
+      required final Set<String> offersIds})
+      : _categories = categories,
+        _offersIds = offersIds;
 
   factory _$BusinessImpl.fromJson(Map<String, dynamic> json) =>
       _$$BusinessImplFromJson(json);
@@ -184,18 +226,28 @@ class _$BusinessImpl implements _Business {
   @override
   final String phoneNumber;
   @override
-  final String address;
-  final Set<String> _offeringsIds;
+  final Address address;
   @override
-  Set<String> get offeringsIds {
-    if (_offeringsIds is EqualUnmodifiableSetView) return _offeringsIds;
+  final BusinessStatus status;
+  final Set<BusinessCategory> _categories;
+  @override
+  Set<BusinessCategory> get categories {
+    if (_categories is EqualUnmodifiableSetView) return _categories;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_offeringsIds);
+    return EqualUnmodifiableSetView(_categories);
+  }
+
+  final Set<String> _offersIds;
+  @override
+  Set<String> get offersIds {
+    if (_offersIds is EqualUnmodifiableSetView) return _offersIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_offersIds);
   }
 
   @override
   String toString() {
-    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, offeringsIds: $offeringsIds)';
+    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds)';
   }
 
   @override
@@ -209,14 +261,25 @@ class _$BusinessImpl implements _Business {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.address, address) || other.address == address) &&
+            (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
-                .equals(other._offeringsIds, _offeringsIds));
+                .equals(other._categories, _categories) &&
+            const DeepCollectionEquality()
+                .equals(other._offersIds, _offersIds));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, email, phoneNumber,
-      address, const DeepCollectionEquality().hash(_offeringsIds));
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      email,
+      phoneNumber,
+      address,
+      status,
+      const DeepCollectionEquality().hash(_categories),
+      const DeepCollectionEquality().hash(_offersIds));
 
   @JsonKey(ignore: true)
   @override
@@ -238,8 +301,10 @@ abstract class _Business implements Business {
       required final String name,
       required final String email,
       required final String phoneNumber,
-      required final String address,
-      required final Set<String> offeringsIds}) = _$BusinessImpl;
+      required final Address address,
+      required final BusinessStatus status,
+      required final Set<BusinessCategory> categories,
+      required final Set<String> offersIds}) = _$BusinessImpl;
 
   factory _Business.fromJson(Map<String, dynamic> json) =
       _$BusinessImpl.fromJson;
@@ -253,9 +318,13 @@ abstract class _Business implements Business {
   @override
   String get phoneNumber;
   @override
-  String get address;
+  Address get address;
   @override
-  Set<String> get offeringsIds;
+  BusinessStatus get status;
+  @override
+  Set<BusinessCategory> get categories;
+  @override
+  Set<String> get offersIds;
   @override
   @JsonKey(ignore: true)
   _$$BusinessImplCopyWith<_$BusinessImpl> get copyWith =>

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
 
 part 'order.freezed.dart';
 part 'order.g.dart';
