@@ -16,9 +16,9 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
   late Future<List<Business?>> listOfOwnedBusiness;
 
   @override
-  Future<List<Business?>> build() {
-    listOfOwnedBusiness = getUserBusinessList();
-    return listOfOwnedBusiness;
+  Future<List<Business?>> build() async {
+    await fetchUserBusinessList();
+    return [];
   }
 
   Future<List<Business>> getBusinessList(
@@ -166,11 +166,15 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
                 ref.read(userProfileDataProvider).addOwnedBusinessId(
                     uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     businessId: business.id),
-                this.state = AsyncValue.data(await getUserBusinessList()),
+                await fetchUserBusinessList(),
               });
     }
   }
 
+  fetchUserBusinessList() async {
+    var businessList = await getUserBusinessList();
+    state = AsyncValue.data(businessList);
+  }
   // Future<void> updateState() async {
   //   var businessList = await getUserBusinessList(),
   //               state = AsyncValue.data(await getUserBusinessList()),
