@@ -38,11 +38,10 @@ class UserBusinessListWidget extends ConsumerWidget {
                       const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
                   child: ListTile(
                     title: Text(business?.name ?? ''),
-                    // onTap: () => Navigator.pushNamed(
-                    //   context,
-                    //   '/business-profile',
-                    //   arguments: business,
-                    // ),
+                    onTap: () => myBusinessListController.onTapBusiness(
+                      business: business!,
+                      context: context,
+                    ),
                     shape: RoundedRectangleBorder(
                       side: BorderSide(
                         color: Theme.of(context).hintColor,
