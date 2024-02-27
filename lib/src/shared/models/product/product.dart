@@ -7,6 +7,7 @@ part 'product.g.dart';
 class Product with _$Product {
   factory Product({
     required String id,
+    required String businessId,
     required String title,
     required String description,
     required double price,

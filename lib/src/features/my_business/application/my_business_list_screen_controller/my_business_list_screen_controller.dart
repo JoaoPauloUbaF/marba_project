@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/form.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
-import 'package:project_marba/src/features/business_profile/data/business_profile_data/business_profile_provider.dart';
+import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,11 +16,11 @@ part 'my_business_list_screen_controller.g.dart';
 @riverpod
 class MyBusinessListScreenController extends _$MyBusinessListScreenController {
   late Future<List<Business?>> listOfOwnedBusiness;
+  late Business selectedBusiness;
 
   @override
-  Future<List<Business?>> build() async {
-    await fetchUserBusinessList();
-    return [];
+  FutureOr<List<Business?>> build() async {
+    return getUserBusinessList();
   }
 
   Future<List<Business>> getBusinessList(
@@ -175,9 +177,17 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     var businessList = await getUserBusinessList();
     state = AsyncValue.data(businessList);
   }
-  // Future<void> updateState() async {
-  //   var businessList = await getUserBusinessList(),
-  //               state = AsyncValue.data(await getUserBusinessList()),
-  //   state = AsyncValue.data([]);
-  // }
+
+  void onTapBusiness(
+      {required Business business, required BuildContext context}) {
+    ref
+        .read(businessProfileScreenControllerProvider.notifier)
+        .setSelectedBusiness(business);
+
+    Navigator.pushNamed(
+      context,
+      '/business-profile',
+      arguments: business,
+    );
+  }
 }

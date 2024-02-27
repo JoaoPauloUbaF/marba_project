@@ -21,6 +21,7 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Product {
   String get id => throw _privateConstructorUsedError;
+  String get businessId => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $ProductCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String businessId,
       String title,
       String description,
       double price,
@@ -70,6 +72,7 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   @override
   $Res call({
     Object? id = null,
+    Object? businessId = null,
     Object? title = null,
     Object? description = null,
     Object? price = null,
@@ -85,6 +88,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessId: null == businessId
+          ? _value.businessId
+          : businessId // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _value.title
@@ -139,6 +146,7 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String businessId,
       String title,
       String description,
       double price,
@@ -163,6 +171,7 @@ class __$$ProductImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? businessId = null,
     Object? title = null,
     Object? description = null,
     Object? price = null,
@@ -178,6 +187,10 @@ class __$$ProductImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessId: null == businessId
+          ? _value.businessId
+          : businessId // ignore: cast_nullable_to_non_nullable
               as String,
       title: null == title
           ? _value.title
@@ -228,6 +241,7 @@ class __$$ProductImplCopyWithImpl<$Res>
 class _$ProductImpl implements _Product {
   _$ProductImpl(
       {required this.id,
+      required this.businessId,
       required this.title,
       required this.description,
       required this.price,
@@ -244,6 +258,8 @@ class _$ProductImpl implements _Product {
 
   @override
   final String id;
+  @override
+  final String businessId;
   @override
   final String title;
   @override
@@ -267,7 +283,7 @@ class _$ProductImpl implements _Product {
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, description: $description, price: $price, imageUrl: $imageUrl, category: $category, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, availableQuantity: $availableQuantity, itemCost: $itemCost)';
+    return 'Product(id: $id, businessId: $businessId, title: $title, description: $description, price: $price, imageUrl: $imageUrl, category: $category, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, availableQuantity: $availableQuantity, itemCost: $itemCost)';
   }
 
   @override
@@ -276,6 +292,8 @@ class _$ProductImpl implements _Product {
         (other.runtimeType == runtimeType &&
             other is _$ProductImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.businessId, businessId) ||
+                other.businessId == businessId) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -300,6 +318,7 @@ class _$ProductImpl implements _Product {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      businessId,
       title,
       description,
       price,
@@ -328,6 +347,7 @@ class _$ProductImpl implements _Product {
 abstract class _Product implements Product {
   factory _Product(
       {required final String id,
+      required final String businessId,
       required final String title,
       required final String description,
       required final double price,
@@ -343,6 +363,8 @@ abstract class _Product implements Product {
 
   @override
   String get id;
+  @override
+  String get businessId;
   @override
   String get title;
   @override

@@ -37,6 +37,10 @@ class _BottomNavigationBarExampleState
       'Index 2: School',
       style: optionStyle,
     ),
+    Text(
+      'Index 3: Schools',
+      style: optionStyle,
+    ),
   ];
 
   void _onItemTapped(int index) {
@@ -83,9 +87,14 @@ class _BottomNavigationBarExampleState
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
+        type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
       ),
     );
