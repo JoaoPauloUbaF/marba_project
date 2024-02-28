@@ -17,8 +17,8 @@ class UserBusinessListWidget extends ConsumerWidget {
         ref.watch(myBusinessListScreenControllerProvider);
 
     return RefreshIndicator(
+      color: Colors.orange,
       onRefresh: () async {
-        // Call your method to reload data here
         await myBusinessListController.fetchUserBusinessList();
       },
       child: FutureBuilder<List<Business?>>(
@@ -36,27 +36,37 @@ class UserBusinessListWidget extends ConsumerWidget {
                 return Padding(
                   padding:
                       const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
-                  child: ListTile(
-                    title: Text(business?.name ?? ''),
-                    onTap: () => myBusinessListController.onTapBusiness(
-                      business: business!,
-                      context: context,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(
-                        color: Theme.of(context).hintColor,
-                      ),
-                    ),
-                    subtitle: Text(
-                        "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () => {
-                        myBusinessListController.deleteBusiness(
-                          businessId: business?.id ?? '',
+                  child: Column(
+                    children: [
+                      ListTile(
+                        title: Text(business?.name ?? ''),
+                        onTap: () => myBusinessListController.onTapBusiness(
+                          business: business!,
+                          context: context,
                         ),
-                      },
-                    ),
+                        // shape: RoundedRectangleBorder(
+                        //   side: BorderSide(
+                        //     color: Theme.of(context).hintColor,
+                        //   ),
+                        // ),
+                        subtitle: Text(
+                            "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => {
+                            myBusinessListController.deleteBusiness(
+                              businessId: business?.id ?? '',
+                            ),
+                          },
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Divider(
+                          color: Colors.orange,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               },
