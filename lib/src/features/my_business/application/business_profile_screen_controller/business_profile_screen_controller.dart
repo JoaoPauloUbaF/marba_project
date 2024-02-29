@@ -93,19 +93,25 @@ class BusinessProfileScreenController
       return Image(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 0.3,
-        fit: BoxFit.fill,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) {
+        frameBuilder: (BuildContext context, Widget child, int? frame,
+            bool wasSynchronouslyLoaded) {
+          if (wasSynchronouslyLoaded) {
             return child;
           }
-          return SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: const Padding(
-                padding: EdgeInsets.all(50.0),
-                child: CircularProgressIndicator(),
-              ));
+          return AnimatedOpacity(
+            opacity: frame == null ? 0 : 1,
+            duration: const Duration(seconds: 1),
+            curve: Curves.easeOut,
+            child: child,
+          );
         },
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) {
+          return const UserAvatar(
+            size: 200,
+          );
+        },
+        fit: BoxFit.fill,
         image: NetworkImage(
           state?.imageUrl ?? '',
         ),

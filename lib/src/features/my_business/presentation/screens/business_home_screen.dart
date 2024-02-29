@@ -18,8 +18,8 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   static final List<Widget> _widgetOptions = <Widget>[
-    BusinessProfileScreen(),
-    MyBusinessOffersScreen(),
+    const BusinessProfileScreen(),
+    const MyBusinessOffersScreen(),
     const Text(
       'Index 2: School',
       style: optionStyle,
@@ -36,7 +36,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
         title: Text(business.getBusinessName()),
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: const Icon(Icons.business_center),
+          icon: const Icon(Icons.business_center_sharp),
           onPressed: () {
             Navigator.pop(context);
           },
