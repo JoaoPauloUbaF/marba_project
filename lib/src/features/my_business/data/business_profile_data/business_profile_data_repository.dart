@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 
@@ -50,6 +52,11 @@ abstract class BusinessProfileDataRepository {
   Future<void> updateBusinessCategory({
     required String uid,
     required Map<String, dynamic> businessCategory,
+  });
+
+  Future<void> updateBusinessProfileImage({
+    required String uid,
+    required File imageFile,
   });
 
   Future<void> deleteBusinessProfile({required String uid});

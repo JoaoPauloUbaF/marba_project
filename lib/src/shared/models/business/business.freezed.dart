@@ -24,6 +24,7 @@ mixin _$Business {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
   BusinessStatus get status => throw _privateConstructorUsedError;
   Set<BusinessCategory> get categories => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $BusinessCopyWith<$Res> {
       String name,
       String email,
       String phoneNumber,
+      String? imageUrl,
       Address address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
@@ -70,6 +72,7 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
     Object? name = null,
     Object? email = null,
     Object? phoneNumber = null,
+    Object? imageUrl = freezed,
     Object? address = null,
     Object? status = null,
     Object? categories = null,
@@ -92,6 +95,10 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -133,6 +140,7 @@ abstract class _$$BusinessImplCopyWith<$Res>
       String name,
       String email,
       String phoneNumber,
+      String? imageUrl,
       Address address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
@@ -157,6 +165,7 @@ class __$$BusinessImplCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? phoneNumber = null,
+    Object? imageUrl = freezed,
     Object? address = null,
     Object? status = null,
     Object? categories = null,
@@ -179,6 +188,10 @@ class __$$BusinessImplCopyWithImpl<$Res>
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -207,6 +220,7 @@ class _$BusinessImpl implements _Business {
       required this.name,
       required this.email,
       required this.phoneNumber,
+      this.imageUrl,
       required this.address,
       required this.status,
       required final Set<BusinessCategory> categories,
@@ -225,6 +239,8 @@ class _$BusinessImpl implements _Business {
   final String email;
   @override
   final String phoneNumber;
+  @override
+  final String? imageUrl;
   @override
   final Address address;
   @override
@@ -247,7 +263,7 @@ class _$BusinessImpl implements _Business {
 
   @override
   String toString() {
-    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds)';
+    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, imageUrl: $imageUrl, address: $address, status: $status, categories: $categories, offersIds: $offersIds)';
   }
 
   @override
@@ -260,6 +276,8 @@ class _$BusinessImpl implements _Business {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.status, status) || other.status == status) &&
             const DeepCollectionEquality()
@@ -276,6 +294,7 @@ class _$BusinessImpl implements _Business {
       name,
       email,
       phoneNumber,
+      imageUrl,
       address,
       status,
       const DeepCollectionEquality().hash(_categories),
@@ -301,6 +320,7 @@ abstract class _Business implements Business {
       required final String name,
       required final String email,
       required final String phoneNumber,
+      final String? imageUrl,
       required final Address address,
       required final BusinessStatus status,
       required final Set<BusinessCategory> categories,
@@ -317,6 +337,8 @@ abstract class _Business implements Business {
   String get email;
   @override
   String get phoneNumber;
+  @override
+  String? get imageUrl;
   @override
   Address get address;
   @override

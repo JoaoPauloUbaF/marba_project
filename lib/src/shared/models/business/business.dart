@@ -11,6 +11,7 @@ class Business with _$Business {
     required String name,
     required String email,
     required String phoneNumber,
+    String? imageUrl,
     required Address address,
     required BusinessStatus status,
     required Set<BusinessCategory> categories,
