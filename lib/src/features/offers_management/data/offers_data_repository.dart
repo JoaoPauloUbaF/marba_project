@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_marba/src/shared/models/offer/offerModel.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 abstract class OffersDataRepository {
   Future<List<OfferModel>> getOffers();

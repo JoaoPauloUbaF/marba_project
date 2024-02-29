@@ -1,9 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_marba/src/shared/models/product/product.dart';
-import 'package:project_marba/src/shared/models/service/service.dart';
 
-part 'offerModel.freezed.dart';
-part 'offerModel.g.dart';
+import '../product/product.dart';
+import '../service/service.dart';
+
+part 'offer_model.freezed.dart';
+part 'offer_model.g.dart';
 
 @freezed
 class OfferModel with _$OfferModel {
