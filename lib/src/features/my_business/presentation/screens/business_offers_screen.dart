@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/create_offer_stepper_widget.dart';
 
 class MyBusinessOffersScreen extends StatelessWidget {
   const MyBusinessOffersScreen({super.key});
@@ -28,7 +29,7 @@ class MyBusinessOffersScreen extends StatelessWidget {
                     left: 16,
                     right: 16,
                   ),
-                  child: Text('Add Offer'),
+                  child: const CreateOfferStepperWidget(),
                 );
               },
             );

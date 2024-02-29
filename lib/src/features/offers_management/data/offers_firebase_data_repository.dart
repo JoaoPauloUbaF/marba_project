@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../shared/models/offer/offerModel.dart';
+import '../../../shared/models/offer/offer_model.dart';
 import 'offers_data_repository.dart';
 
 class OffersFirebaseDataRepository implements OffersDataRepository {
