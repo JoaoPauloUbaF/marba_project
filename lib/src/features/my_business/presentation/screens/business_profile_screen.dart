@@ -2,9 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_category_cards_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/address_display_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_category_tiles.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/business_info_card.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/business_profile_image_widget.dart';
 

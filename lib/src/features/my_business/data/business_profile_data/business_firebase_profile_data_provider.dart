@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -7,10 +10,10 @@ import 'business_profile_data_repository.dart';
 
 final firestoreBusinessProfileDataProvider =
     Provider<BusinessProfileDataRepository>((ref) {
-  return BusinessFirestoreProfileDataProvider();
+  return BusinessFirebaseProfileDataProvider();
 });
 
-class BusinessFirestoreProfileDataProvider
+class BusinessFirebaseProfileDataProvider
     implements BusinessProfileDataRepository {
   final CollectionReference _businessCollection =
       FirebaseFirestore.instance.collection('businesses');
@@ -129,6 +132,7 @@ class BusinessFirestoreProfileDataProvider
         ),
         categories: categories.toSet(),
         offersIds: offersIds,
+        imageUrl: data['profileImageUrl'],
       );
     } else {
       return null;
@@ -284,5 +288,36 @@ class BusinessFirestoreProfileDataProvider
     return _businessCollection.doc(uid).update({
       'offersIds': offersIds.toList(),
     });
+  }
+
+  @override
+  Future<void> updateBusinessProfileImage(
+      {required String uid, required File imageFile}) async {
+    // Upload image to Firebase Storage
+    String storagePath =
+        'business_profile_images/$uid/${DateTime.now().millisecondsSinceEpoch}';
+    Reference storageRef = FirebaseStorage.instance.ref().child(storagePath);
+    UploadTask uploadTask = storageRef.putFile(imageFile);
+    TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+    String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+    // Check if 'profileImageUrl' field exists
+    DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
+    if (docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+      if (data.containsKey('profileImageUrl')) {
+        // Update 'profileImageUrl' field
+        await _businessCollection.doc(uid).update({
+          'profileImageUrl': downloadUrl,
+        }).whenComplete(
+            () => print(_businessCollection.doc(uid).get().toString()));
+      } else {
+        // Add 'profileImageUrl' field
+        await _businessCollection.doc(uid).update({
+          'profileImageUrl': downloadUrl,
+        });
+      }
+    } else {
+      print('Document does not exist');
+    }
   }
 }
