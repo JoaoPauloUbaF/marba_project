@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
+import 'loading_widget.dart';
+
 class BusinessProfileImageWidget extends ConsumerWidget {
   const BusinessProfileImageWidget({Key? key}) : super(key: key);
 
@@ -12,14 +14,7 @@ class BusinessProfileImageWidget extends ConsumerWidget {
     final imageUploadingStatus = ref.watch(imageUploadingStatusProvider);
 
     return imageUploadingStatus
-        ? SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.3,
-            child: const Padding(
-              padding: EdgeInsets.all(50.0),
-              child: CircularProgressIndicator(),
-            ),
-          )
+        ? const LoadingWidget()
         : InkWell(
             onTap: () => ref
                 .read(businessProfileScreenControllerProvider.notifier)
