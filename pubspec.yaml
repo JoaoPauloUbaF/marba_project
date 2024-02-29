@@ -24,7 +24,9 @@ dependencies:
   flutter_riverpod: ^2.4.9
   freezed_annotation: ^2.4.1
   hooks_riverpod: ^2.4.9
+  image_picker: ^1.0.7
   json_annotation: ^4.8.1
+  permission_handler: ^11.3.0
   riverpod: ^2.4.9
   riverpod_annotation:
   uuid: ^4.2.2

@@ -43,6 +43,12 @@
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>App wants to access your camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App wants to access your microphone</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App wants to access your photo library</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>
