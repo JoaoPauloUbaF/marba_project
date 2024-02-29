@@ -28,14 +28,17 @@ class BusinessProfileScreen extends ConsumerWidget {
                       width: 4,
                     ),
                     Text(
-                      'Offers',
+                      'Melhores Ofertas',
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ]),
                 ],
               )
-            : const Center(
-                child: CircularProgressIndicator(),
+            : const Padding(
+                padding: EdgeInsets.symmetric(vertical: 40.0),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
       ),
     );
