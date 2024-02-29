@@ -20,20 +20,16 @@ Service _$ServiceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Service {
-  String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
   DateTime get scheduledAt => throw _privateConstructorUsedError;
-  String get serviceProfessional => throw _privateConstructorUsedError;
-  String get recipientName => throw _privateConstructorUsedError;
-  String? get aditionalInfo => throw _privateConstructorUsedError;
+  String get serviceProfessionalName => throw _privateConstructorUsedError;
+  String get contractorName => throw _privateConstructorUsedError;
+  String? get additionalInfo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,20 +42,18 @@ abstract class $ServiceCopyWith<$Res> {
       _$ServiceCopyWithImpl<$Res, Service>;
   @useResult
   $Res call(
-      {String id,
-      String title,
+      {String title,
       String description,
       double price,
       String imageUrl,
-      String category,
       String status,
-      DateTime createdAt,
-      DateTime updatedAt,
-      String address,
+      Address address,
       DateTime scheduledAt,
-      String serviceProfessional,
-      String recipientName,
-      String? aditionalInfo});
+      String serviceProfessionalName,
+      String contractorName,
+      String? additionalInfo});
+
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -75,26 +69,18 @@ class _$ServiceCopyWithImpl<$Res, $Val extends Service>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? price = null,
     Object? imageUrl = null,
-    Object? category = null,
     Object? status = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? address = null,
     Object? scheduledAt = null,
-    Object? serviceProfessional = null,
-    Object? recipientName = null,
-    Object? aditionalInfo = freezed,
+    Object? serviceProfessionalName = null,
+    Object? contractorName = null,
+    Object? additionalInfo = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -111,43 +97,39 @@ class _$ServiceCopyWithImpl<$Res, $Val extends Service>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Address,
       scheduledAt: null == scheduledAt
           ? _value.scheduledAt
           : scheduledAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      serviceProfessional: null == serviceProfessional
-          ? _value.serviceProfessional
-          : serviceProfessional // ignore: cast_nullable_to_non_nullable
+      serviceProfessionalName: null == serviceProfessionalName
+          ? _value.serviceProfessionalName
+          : serviceProfessionalName // ignore: cast_nullable_to_non_nullable
               as String,
-      recipientName: null == recipientName
-          ? _value.recipientName
-          : recipientName // ignore: cast_nullable_to_non_nullable
+      contractorName: null == contractorName
+          ? _value.contractorName
+          : contractorName // ignore: cast_nullable_to_non_nullable
               as String,
-      aditionalInfo: freezed == aditionalInfo
-          ? _value.aditionalInfo
-          : aditionalInfo // ignore: cast_nullable_to_non_nullable
+      additionalInfo: freezed == additionalInfo
+          ? _value.additionalInfo
+          : additionalInfo // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
   }
 }
 
@@ -159,20 +141,19 @@ abstract class _$$ServiceImplCopyWith<$Res> implements $ServiceCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
-      String title,
+      {String title,
       String description,
       double price,
       String imageUrl,
-      String category,
       String status,
-      DateTime createdAt,
-      DateTime updatedAt,
-      String address,
+      Address address,
       DateTime scheduledAt,
-      String serviceProfessional,
-      String recipientName,
-      String? aditionalInfo});
+      String serviceProfessionalName,
+      String contractorName,
+      String? additionalInfo});
+
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -186,26 +167,18 @@ class __$$ServiceImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? price = null,
     Object? imageUrl = null,
-    Object? category = null,
     Object? status = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? address = null,
     Object? scheduledAt = null,
-    Object? serviceProfessional = null,
-    Object? recipientName = null,
-    Object? aditionalInfo = freezed,
+    Object? serviceProfessionalName = null,
+    Object? contractorName = null,
+    Object? additionalInfo = freezed,
   }) {
     return _then(_$ServiceImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -222,41 +195,29 @@ class __$$ServiceImplCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Address,
       scheduledAt: null == scheduledAt
           ? _value.scheduledAt
           : scheduledAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      serviceProfessional: null == serviceProfessional
-          ? _value.serviceProfessional
-          : serviceProfessional // ignore: cast_nullable_to_non_nullable
+      serviceProfessionalName: null == serviceProfessionalName
+          ? _value.serviceProfessionalName
+          : serviceProfessionalName // ignore: cast_nullable_to_non_nullable
               as String,
-      recipientName: null == recipientName
-          ? _value.recipientName
-          : recipientName // ignore: cast_nullable_to_non_nullable
+      contractorName: null == contractorName
+          ? _value.contractorName
+          : contractorName // ignore: cast_nullable_to_non_nullable
               as String,
-      aditionalInfo: freezed == aditionalInfo
-          ? _value.aditionalInfo
-          : aditionalInfo // ignore: cast_nullable_to_non_nullable
+      additionalInfo: freezed == additionalInfo
+          ? _value.additionalInfo
+          : additionalInfo // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -266,26 +227,20 @@ class __$$ServiceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ServiceImpl implements _Service {
   _$ServiceImpl(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.description,
       required this.price,
       required this.imageUrl,
-      required this.category,
       required this.status,
-      required this.createdAt,
-      required this.updatedAt,
       required this.address,
       required this.scheduledAt,
-      required this.serviceProfessional,
-      required this.recipientName,
-      required this.aditionalInfo});
+      required this.serviceProfessionalName,
+      required this.contractorName,
+      required this.additionalInfo});
 
   factory _$ServiceImpl.fromJson(Map<String, dynamic> json) =>
       _$$ServiceImplFromJson(json);
 
-  @override
-  final String id;
   @override
   final String title;
   @override
@@ -295,27 +250,21 @@ class _$ServiceImpl implements _Service {
   @override
   final String imageUrl;
   @override
-  final String category;
-  @override
   final String status;
   @override
-  final DateTime createdAt;
-  @override
-  final DateTime updatedAt;
-  @override
-  final String address;
+  final Address address;
   @override
   final DateTime scheduledAt;
   @override
-  final String serviceProfessional;
+  final String serviceProfessionalName;
   @override
-  final String recipientName;
+  final String contractorName;
   @override
-  final String? aditionalInfo;
+  final String? additionalInfo;
 
   @override
   String toString() {
-    return 'Service(id: $id, title: $title, description: $description, price: $price, imageUrl: $imageUrl, category: $category, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, address: $address, scheduledAt: $scheduledAt, serviceProfessional: $serviceProfessional, recipientName: $recipientName, aditionalInfo: $aditionalInfo)';
+    return 'Service(title: $title, description: $description, price: $price, imageUrl: $imageUrl, status: $status, address: $address, scheduledAt: $scheduledAt, serviceProfessionalName: $serviceProfessionalName, contractorName: $contractorName, additionalInfo: $additionalInfo)';
   }
 
   @override
@@ -323,49 +272,39 @@ class _$ServiceImpl implements _Service {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ServiceImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.scheduledAt, scheduledAt) ||
                 other.scheduledAt == scheduledAt) &&
-            (identical(other.serviceProfessional, serviceProfessional) ||
-                other.serviceProfessional == serviceProfessional) &&
-            (identical(other.recipientName, recipientName) ||
-                other.recipientName == recipientName) &&
-            (identical(other.aditionalInfo, aditionalInfo) ||
-                other.aditionalInfo == aditionalInfo));
+            (identical(
+                    other.serviceProfessionalName, serviceProfessionalName) ||
+                other.serviceProfessionalName == serviceProfessionalName) &&
+            (identical(other.contractorName, contractorName) ||
+                other.contractorName == contractorName) &&
+            (identical(other.additionalInfo, additionalInfo) ||
+                other.additionalInfo == additionalInfo));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      id,
       title,
       description,
       price,
       imageUrl,
-      category,
       status,
-      createdAt,
-      updatedAt,
       address,
       scheduledAt,
-      serviceProfessional,
-      recipientName,
-      aditionalInfo);
+      serviceProfessionalName,
+      contractorName,
+      additionalInfo);
 
   @JsonKey(ignore: true)
   @override
@@ -383,25 +322,19 @@ class _$ServiceImpl implements _Service {
 
 abstract class _Service implements Service {
   factory _Service(
-      {required final String id,
-      required final String title,
+      {required final String title,
       required final String description,
       required final double price,
       required final String imageUrl,
-      required final String category,
       required final String status,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
-      required final String address,
+      required final Address address,
       required final DateTime scheduledAt,
-      required final String serviceProfessional,
-      required final String recipientName,
-      required final String? aditionalInfo}) = _$ServiceImpl;
+      required final String serviceProfessionalName,
+      required final String contractorName,
+      required final String? additionalInfo}) = _$ServiceImpl;
 
   factory _Service.fromJson(Map<String, dynamic> json) = _$ServiceImpl.fromJson;
 
-  @override
-  String get id;
   @override
   String get title;
   @override
@@ -411,23 +344,17 @@ abstract class _Service implements Service {
   @override
   String get imageUrl;
   @override
-  String get category;
-  @override
   String get status;
   @override
-  DateTime get createdAt;
-  @override
-  DateTime get updatedAt;
-  @override
-  String get address;
+  Address get address;
   @override
   DateTime get scheduledAt;
   @override
-  String get serviceProfessional;
+  String get serviceProfessionalName;
   @override
-  String get recipientName;
+  String get contractorName;
   @override
-  String? get aditionalInfo;
+  String? get additionalInfo;
   @override
   @JsonKey(ignore: true)
   _$$ServiceImplCopyWith<_$ServiceImpl> get copyWith =>
