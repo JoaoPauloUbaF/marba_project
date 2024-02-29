@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'business_profile_screen_controller.g.dart';
@@ -61,14 +62,18 @@ class BusinessProfileScreenController
     if (image == null) {
       return;
     }
-
+    ref.read(imageUploadingStatusProvider.notifier).state = true;
     await ref
         .read(businessProfileDataProvider)
         .updateBusinessProfileImage(
           uid: state?.id ?? '',
           imageFile: image,
         )
-        .then((_) => fetchBusinessProfile());
+        .then((_) => {
+              fetchBusinessProfile().then((value) => ref
+                  .read(imageUploadingStatusProvider.notifier)
+                  .state = false),
+            });
   }
 
   Future<File?> pickNewBusinessProfileImage() async {
@@ -129,3 +134,5 @@ class BusinessProfileScreenController
     }
   }
 }
+
+final imageUploadingStatusProvider = StateProvider<bool>((ref) => false);
