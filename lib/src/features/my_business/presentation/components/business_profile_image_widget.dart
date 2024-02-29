@@ -9,13 +9,24 @@ class BusinessProfileImageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _ = ref.watch(businessProfileScreenControllerProvider);
-    return InkWell(
-      onTap: () => ref
-          .read(businessProfileScreenControllerProvider.notifier)
-          .updateBusinessProfileImage(),
-      child: ref
-          .read(businessProfileScreenControllerProvider.notifier)
-          .getBusinessProfileImage(context),
-    );
+    final imageUploadingStatus = ref.watch(imageUploadingStatusProvider);
+
+    return imageUploadingStatus
+        ? SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: const Padding(
+              padding: EdgeInsets.all(50.0),
+              child: CircularProgressIndicator(),
+            ),
+          )
+        : InkWell(
+            onTap: () => ref
+                .read(businessProfileScreenControllerProvider.notifier)
+                .updateBusinessProfileImage(),
+            child: ref
+                .read(businessProfileScreenControllerProvider.notifier)
+                .getBusinessProfileImage(context),
+          );
   }
 }
