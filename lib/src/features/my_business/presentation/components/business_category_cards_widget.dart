@@ -26,7 +26,6 @@ class _BusinessCategoryCardsState extends State<BusinessCategoryCards> {
   };
 
   // Função para capitalizar a primeira letra
-  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,6 @@ class _BusinessCategoryCardsState extends State<BusinessCategoryCards> {
         String categoryName = category.toString().split('.').last;
         // Traduzir e capitalizar a categoria
         String translatedCategory = translations[categoryName] ?? categoryName;
-        translatedCategory = capitalize(translatedCategory);
         return GestureDetector(
           onTap: () {
             setState(() {

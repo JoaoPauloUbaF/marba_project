@@ -44,11 +44,6 @@ class UserBusinessListWidget extends ConsumerWidget {
                           business: business!,
                           context: context,
                         ),
-                        // shape: RoundedRectangleBorder(
-                        //   side: BorderSide(
-                        //     color: Theme.of(context).hintColor,
-                        //   ),
-                        // ),
                         subtitle: Text(
                             "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
                         trailing: IconButton(
