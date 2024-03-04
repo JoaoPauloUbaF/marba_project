@@ -24,5 +24,22 @@ final offerRepositoryProviderProvider =
 
 typedef OfferRepositoryProviderRef
     = AutoDisposeProviderRef<OffersDataRepository>;
+String _$businessOffersProviderHash() =>
+    r'51e8b96ce1d4a79baaa2cb94d76240d6a9f664fb';
+
+/// See also [businessOffersProvider].
+@ProviderFor(businessOffersProvider)
+final businessOffersProviderProvider =
+    AutoDisposeProvider<List<OfferModel>>.internal(
+  businessOffersProvider,
+  name: r'businessOffersProviderProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$businessOffersProviderHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef BusinessOffersProviderRef = AutoDisposeProviderRef<List<OfferModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

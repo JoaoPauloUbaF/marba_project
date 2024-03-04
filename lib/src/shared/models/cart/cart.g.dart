@@ -12,8 +12,16 @@ _$CartImpl _$$CartImplFromJson(Map<String, dynamic> json) => _$CartImpl(
       total: (json['total'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) =>
-    <String, dynamic>{
-      'itemsIds': instance.itemsIds?.toList(),
-      'total': instance.total,
-    };
+Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('itemsIds', instance.itemsIds?.toList());
+  writeNotNull('total', instance.total);
+  return val;
+}

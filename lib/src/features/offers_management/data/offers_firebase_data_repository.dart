@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../../../shared/models/offer/offer_model.dart';
 import 'offers_data_repository.dart';
@@ -62,5 +65,20 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
         .map((doc) => OfferModel.fromJson(doc.data()))
         .toList();
     return offers;
+  }
+
+  @override
+  Future<String?> saveOfferImage(File image, String offerId) async {
+    try {
+      final storageRef = FirebaseStorage.instance.ref().child('offer_images');
+      final imageName = 'offer_$offerId.jpg';
+      final uploadTask = storageRef.child(imageName).putFile(image);
+      final snapshot = await uploadTask.whenComplete(() {});
+      final imageUrl = await snapshot.ref.getDownloadURL();
+      return imageUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return null;
+    }
   }
 }

@@ -43,7 +43,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.home),
+            icon: const Icon(Icons.home_sharp),
             onPressed: () {
               Navigator.pushNamed(context, '/home');
             },

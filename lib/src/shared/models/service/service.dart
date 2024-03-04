@@ -12,11 +12,11 @@ class Service with _$Service {
     required double price,
     required String imageUrl,
     required String status,
-    required Address address,
-    required DateTime scheduledAt,
-    required String serviceProfessionalName,
-    required String contractorName,
-    required String? additionalInfo,
+    // Address address,
+    // DateTime scheduledAt,
+    // String serviceProfessional,
+    // String contractorName,
+    // String? additionalInfo,
   }) = _Service;
 
   factory Service.fromJson(Map<String, dynamic> json) =>

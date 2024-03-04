@@ -17,13 +17,22 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String,
     );
 
-Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) =>
-    <String, dynamic>{
-      'title': instance.title,
-      'description': instance.description,
-      'price': instance.price,
-      'imageUrl': instance.imageUrl,
-      'availableQuantity': instance.availableQuantity,
-      'itemCost': instance.itemCost,
-      'status': instance.status,
-    };
+Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) {
+  final val = <String, dynamic>{
+    'title': instance.title,
+    'description': instance.description,
+    'price': instance.price,
+    'imageUrl': instance.imageUrl,
+    'availableQuantity': instance.availableQuantity,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('itemCost', instance.itemCost);
+  val['status'] = instance.status;
+  return val;
+}

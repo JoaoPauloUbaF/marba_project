@@ -19,13 +19,22 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
           .toSet(),
     );
 
-Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'displayName': instance.displayName,
-      'email': instance.email,
-      'phoneNumber': instance.phoneNumber,
-      'address': instance.address,
-      'isBusinessOwner': instance.isBusinessOwner,
-      'ownedBusinessIds': instance.ownedBusinessIds?.toList(),
-    };
+Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'displayName': instance.displayName,
+    'email': instance.email,
+    'phoneNumber': instance.phoneNumber,
+    'address': instance.address.toJson(),
+    'isBusinessOwner': instance.isBusinessOwner,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('ownedBusinessIds', instance.ownedBusinessIds?.toList());
+  return val;
+}

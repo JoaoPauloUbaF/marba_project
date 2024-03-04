@@ -14,6 +14,7 @@ class OfferModel with _$OfferModel {
     required String category,
     required DateTime createdAt,
     required DateTime updatedAt,
+    required OfferStatus status,
     Product? product,
     Service? service,
   }) = _OfferModel;
@@ -21,3 +22,5 @@ class OfferModel with _$OfferModel {
   factory OfferModel.fromJson(Map<String, dynamic> json) =>
       _$OfferModelFromJson(json);
 }
+
+enum OfferStatus { active, inactive, pending, soldOut, onDemand }

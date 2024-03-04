@@ -22,20 +22,28 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
     );
 
-Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'email': instance.email,
-      'phoneNumber': instance.phoneNumber,
-      'imageUrl': instance.imageUrl,
-      'address': instance.address,
-      'status': _$BusinessStatusEnumMap[instance.status]!,
-      'categories': instance.categories
-          .map((e) => _$BusinessCategoryEnumMap[e]!)
-          .toList(),
-      'offersIds': instance.offersIds.toList(),
-    };
+Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'email': instance.email,
+    'phoneNumber': instance.phoneNumber,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('imageUrl', instance.imageUrl);
+  val['address'] = instance.address.toJson();
+  val['status'] = _$BusinessStatusEnumMap[instance.status]!;
+  val['categories'] =
+      instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList();
+  val['offersIds'] = instance.offersIds.toList();
+  return val;
+}
 
 const _$BusinessStatusEnumMap = {
   BusinessStatus.open: 'open',

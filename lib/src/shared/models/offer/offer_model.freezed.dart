@@ -25,6 +25,7 @@ mixin _$OfferModel {
   String get category => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
+  OfferStatus get status => throw _privateConstructorUsedError;
   Product? get product => throw _privateConstructorUsedError;
   Service? get service => throw _privateConstructorUsedError;
 
@@ -46,6 +47,7 @@ abstract class $OfferModelCopyWith<$Res> {
       String category,
       DateTime createdAt,
       DateTime updatedAt,
+      OfferStatus status,
       Product? product,
       Service? service});
 
@@ -71,6 +73,7 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     Object? category = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? status = null,
     Object? product = freezed,
     Object? service = freezed,
   }) {
@@ -95,6 +98,10 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as OfferStatus,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -145,6 +152,7 @@ abstract class _$$OfferModelImplCopyWith<$Res>
       String category,
       DateTime createdAt,
       DateTime updatedAt,
+      OfferStatus status,
       Product? product,
       Service? service});
 
@@ -170,6 +178,7 @@ class __$$OfferModelImplCopyWithImpl<$Res>
     Object? category = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? status = null,
     Object? product = freezed,
     Object? service = freezed,
   }) {
@@ -194,6 +203,10 @@ class __$$OfferModelImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as OfferStatus,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -215,6 +228,7 @@ class _$OfferModelImpl implements _OfferModel {
       required this.category,
       required this.createdAt,
       required this.updatedAt,
+      required this.status,
       this.product,
       this.service});
 
@@ -232,13 +246,15 @@ class _$OfferModelImpl implements _OfferModel {
   @override
   final DateTime updatedAt;
   @override
+  final OfferStatus status;
+  @override
   final Product? product;
   @override
   final Service? service;
 
   @override
   String toString() {
-    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, product: $product, service: $service)';
+    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, product: $product, service: $service)';
   }
 
   @override
@@ -255,6 +271,7 @@ class _$OfferModelImpl implements _OfferModel {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.product, product) || other.product == product) &&
             (identical(other.service, service) || other.service == service));
   }
@@ -262,7 +279,7 @@ class _$OfferModelImpl implements _OfferModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, businessId, category,
-      createdAt, updatedAt, product, service);
+      createdAt, updatedAt, status, product, service);
 
   @JsonKey(ignore: true)
   @override
@@ -285,6 +302,7 @@ abstract class _OfferModel implements OfferModel {
       required final String category,
       required final DateTime createdAt,
       required final DateTime updatedAt,
+      required final OfferStatus status,
       final Product? product,
       final Service? service}) = _$OfferModelImpl;
 
@@ -301,6 +319,8 @@ abstract class _OfferModel implements OfferModel {
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
+  @override
+  OfferStatus get status;
   @override
   Product? get product;
   @override
