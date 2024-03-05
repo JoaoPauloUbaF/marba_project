@@ -9,11 +9,4 @@ class MyBusinessOffersScreenController
     extends _$MyBusinessOffersScreenController {
   @override
   FutureOr<void> build() {}
-
-  Future<void> fetchBusinessOffers(String businessId) async {
-    final offers = await ref
-        .read(offerRepositoryProviderProvider)
-        .getOffersByBusinessId(businessId);
-    ref.read(businessOffersProviderProvider).addAll(offers);
-  }
 }

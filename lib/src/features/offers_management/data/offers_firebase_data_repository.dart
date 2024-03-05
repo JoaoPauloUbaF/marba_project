@@ -53,18 +53,19 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   }
 
   @override
-  Future<List<OfferModel>> getOffersByBusinessId(String businessId) async {
-    final querySnapshot = await _firestore
+  Stream<List<OfferModel>> getOffersByBusinessId(String businessId) {
+    return _firestore
         .collection('offers')
         .where('businessId', isEqualTo: businessId)
-        .get();
-    if (querySnapshot.docs.isEmpty) {
-      return [];
-    }
-    final offers = querySnapshot.docs
-        .map((doc) => OfferModel.fromJson(doc.data()))
-        .toList();
-    return offers;
+        .snapshots()
+        .map((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        return <OfferModel>[];
+      }
+      return querySnapshot.docs
+          .map((doc) => OfferModel.fromJson(doc.data()))
+          .toList();
+    });
   }
 
   @override

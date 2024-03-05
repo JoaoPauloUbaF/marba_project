@@ -1,28 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'offer_data_repository_provider.dart';
+part of 'business_offers_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$offerRepositoryProviderHash() =>
-    r'caeeeba1c075df054974c0540e3a26704db7c4ac';
+String _$businessOffersHash() => r'b5718a7c2ce604f00842702715861796ddcc171e';
 
-/// See also [offerRepositoryProvider].
-@ProviderFor(offerRepositoryProvider)
-final offerRepositoryProviderProvider =
-    AutoDisposeProvider<OffersDataRepository>.internal(
-  offerRepositoryProvider,
-  name: r'offerRepositoryProviderProvider',
+/// See also [BusinessOffers].
+@ProviderFor(BusinessOffers)
+final businessOffersProvider = AutoDisposeStreamNotifierProvider<BusinessOffers,
+    List<OfferModel>>.internal(
+  BusinessOffers.new,
+  name: r'businessOffersProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$offerRepositoryProviderHash,
+      : _$businessOffersHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef OfferRepositoryProviderRef
-    = AutoDisposeProviderRef<OffersDataRepository>;
+typedef _$BusinessOffers = AutoDisposeStreamNotifier<List<OfferModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
