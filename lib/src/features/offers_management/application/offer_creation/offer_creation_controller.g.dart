@@ -7,7 +7,7 @@ part of 'offer_creation_controller.dart';
 // **************************************************************************
 
 String _$offerCreationControllerHash() =>
-    r'5a4669aadcf5f375db7a89c9649a87ce524bf556';
+    r'cc60137a5a5c512651958335c4a2551d3cd65e00';
 
 /// See also [OfferCreationController].
 @ProviderFor(OfferCreationController)
