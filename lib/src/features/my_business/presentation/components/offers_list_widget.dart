@@ -21,8 +21,7 @@ class BusinessOfferListWidget extends ConsumerWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.15,
-                      child: Image.network(
-                          offers[index].product?.imageUrl ?? '',
+                      child: Image.network(offers[index].imageUrl,
                           fit: BoxFit.fill, loadingBuilder:
                               (BuildContext context, Widget child,
                                   ImageChunkEvent? loadingProgress) {
@@ -34,8 +33,8 @@ class BusinessOfferListWidget extends ConsumerWidget {
                         );
                       }),
                     ),
-                    Text(offers[index].product?.title ?? ''),
-                    Text(offers[index].product?.description ?? ''),
+                    Text(offers[index].title),
+                    Text(offers[index].description),
                   ],
                 )
               ],

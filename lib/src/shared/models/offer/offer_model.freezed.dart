@@ -221,7 +221,7 @@ class __$$OfferModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$OfferModelImpl implements _OfferModel {
+class _$OfferModelImpl extends _OfferModel {
   _$OfferModelImpl(
       {required this.id,
       required this.businessId,
@@ -230,7 +230,8 @@ class _$OfferModelImpl implements _OfferModel {
       required this.updatedAt,
       required this.status,
       this.product,
-      this.service});
+      this.service})
+      : super._();
 
   factory _$OfferModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OfferModelImplFromJson(json);
@@ -295,7 +296,7 @@ class _$OfferModelImpl implements _OfferModel {
   }
 }
 
-abstract class _OfferModel implements OfferModel {
+abstract class _OfferModel extends OfferModel {
   factory _OfferModel(
       {required final String id,
       required final String businessId,
@@ -305,6 +306,7 @@ abstract class _OfferModel implements OfferModel {
       required final OfferStatus status,
       final Product? product,
       final Service? service}) = _$OfferModelImpl;
+  _OfferModel._() : super._();
 
   factory _OfferModel.fromJson(Map<String, dynamic> json) =
       _$OfferModelImpl.fromJson;
