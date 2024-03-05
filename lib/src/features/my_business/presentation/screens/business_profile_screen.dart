@@ -6,6 +6,7 @@ import 'package:project_marba/src/features/location_management/presentation/addr
 import 'package:project_marba/src/features/my_business/presentation/components/business_info_card.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/business_profile_image_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
+import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {
   const BusinessProfileScreen({Key? key}) : super(key: key);
@@ -41,6 +42,10 @@ class BusinessProfileScreen extends ConsumerWidget {
                     ],
                   )
                 : const LoadingWidget(),
+            const SizedBox(
+              height: 500,
+              child: BusinessOfferListWidget(),
+            ),
           ],
         ),
       ),

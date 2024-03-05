@@ -9,10 +9,7 @@ class MyBusinessOffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Padding(
-        padding: EdgeInsets.only(top: 8.0),
-        child: BusinessOfferListWidget(),
-      ),
+      body: const BusinessOfferListWidget(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

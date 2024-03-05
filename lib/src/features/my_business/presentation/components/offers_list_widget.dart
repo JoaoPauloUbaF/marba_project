@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
 
 class BusinessOfferListWidget extends ConsumerWidget {
   const BusinessOfferListWidget({super.key});
@@ -13,31 +14,17 @@ class BusinessOfferListWidget extends ConsumerWidget {
         return GridView.builder(
           itemCount: offers.length,
           itemBuilder: (context, index) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.15,
-                      child: Image.network(offers[index].imageUrl,
-                          fit: BoxFit.fill, loadingBuilder:
-                              (BuildContext context, Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }),
-                    ),
-                    Text(offers[index].title),
-                    Text(offers[index].description),
-                  ],
-                )
-              ],
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                double itemWidth = constraints.maxWidth;
+                double itemHeight = itemWidth / 2; // half the width
+
+                return SizedBox(
+                  width: itemWidth,
+                  height: itemHeight,
+                  child: OfferCardWidget(offer: offers[index]),
+                );
+              },
             );
           },
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
