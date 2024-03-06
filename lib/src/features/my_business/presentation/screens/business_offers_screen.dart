@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/create_offer_stepper_widget.dart';
@@ -9,7 +8,9 @@ class MyBusinessOffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const BusinessOfferListWidget(),
+      body: ListView(children: const [
+        BusinessOfferListWidget(),
+      ]),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
