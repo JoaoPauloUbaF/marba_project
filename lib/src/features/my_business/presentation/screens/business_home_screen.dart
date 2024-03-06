@@ -67,6 +67,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
         onTap: (index) {
           setState(() {
             _selectedIndex = index;

@@ -187,7 +187,6 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     Navigator.pushNamed(
       context,
       '/business-profile',
-      arguments: business,
     );
   }
 }

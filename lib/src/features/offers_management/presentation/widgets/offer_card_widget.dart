@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_edition/offer_edition_controller.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferCardWidget extends StatelessWidget {
@@ -53,36 +55,45 @@ class OfferCardWidget extends StatelessWidget {
                               style: textTheme.titleMedium,
                               maxLines: 2, // Adjust number of lines
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: Text(
-                                "R\$ ${offer.price.toStringAsFixed(2)}",
-                                style: textTheme.labelMedium,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                            Text(
+                              "R\$ ${offer.price.toStringAsFixed(2)}",
+                              style: textTheme.labelMedium,
+                              overflow: TextOverflow.ellipsis,
                             ),
                             // Add space between widgets
                             offer.product != null
-                                ? Expanded(
-                                    flex: 1,
-                                    child: Text(
-                                      "Qtd: ${offer.availableQuantity}",
-                                      style: textTheme.labelMedium,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                ? Text(
+                                    "Qtd: ${offer.availableQuantity}",
+                                    style: textTheme.labelMedium,
+                                    overflow: TextOverflow.ellipsis,
                                   )
-                                : const SizedBox(),
+                                : const SizedBox.shrink(),
                           ],
                         ),
                       ),
                       Expanded(
-                          flex: 1,
-                          child: IconButton(
-                              onPressed: null,
+                        flex: 1,
+                        child: Consumer(
+                          builder: (_, WidgetRef ref, __) {
+                            return IconButton(
+                              onPressed: () {
+                                ref
+                                    .read(
+                                        offerEditionControllerProvider.notifier)
+                                    .setSelectedOfferToEdit(offer);
+
+                                Navigator.of(context).pushNamed(
+                                  '/edit-offer',
+                                );
+                              },
                               icon: Icon(
                                 Icons.edit,
                                 color: Theme.of(context).primaryIconTheme.color,
-                              ))),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

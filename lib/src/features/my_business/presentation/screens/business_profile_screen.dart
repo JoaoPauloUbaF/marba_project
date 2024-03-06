@@ -15,7 +15,6 @@ class BusinessProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final business = ref.watch(businessProfileScreenControllerProvider);
-    final bestOffers = ref.watch(businessOffersProvider);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
@@ -32,19 +31,20 @@ class BusinessProfileScreen extends ConsumerWidget {
                       const BusinessProfileImageWidget(),
                       const BusinessContactInfoCard(),
                       AddressDisplayWidget(address: business.address),
-                      Row(children: [
-                        const SizedBox(
-                          width: 4,
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'Melhores Ofertas',
+                            style: Theme.of(context).textTheme.headlineSmall,
+                          ),
                         ),
-                        Text(
-                          'Melhores Ofertas',
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ]),
+                      ),
+                      const BusinessOfferListWidget(),
                     ],
                   )
                 : const LoadingWidget(),
-            BusinessOfferListWidget(),
           ],
         ),
       ),
