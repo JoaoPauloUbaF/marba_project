@@ -20,7 +20,7 @@ class BusinessOfferListWidget extends ConsumerWidget {
               return LayoutBuilder(
                 builder: (context, constraints) {
                   double itemWidth = constraints.maxWidth / 2.1;
-                  double itemHeight = itemWidth; // half the width
+                  double itemHeight = itemWidth * 1.5; // half the width
 
                   return SizedBox(
                     width: itemWidth,

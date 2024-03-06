@@ -8,9 +8,11 @@ class MyBusinessOffersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(children: const [
-        BusinessOfferListWidget(),
-      ]),
+      body: ListView(
+        children: const [
+          BusinessOfferListWidget(),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

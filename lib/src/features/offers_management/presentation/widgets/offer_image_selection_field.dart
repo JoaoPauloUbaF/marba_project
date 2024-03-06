@@ -7,10 +7,13 @@ class OfferImageField extends StatefulWidget {
   final Function(File?) onImageSelected;
   final OfferCreationController offerCreationController;
 
-  const OfferImageField({
+  String? imageURL;
+
+  OfferImageField({
     Key? key,
     required this.onImageSelected,
     required this.offerCreationController,
+    this.imageURL,
   }) : super(key: key);
 
   @override
@@ -38,18 +41,24 @@ class _OfferImageFieldState extends State<OfferImageField> {
                 },
               ),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.2,
-                child: offerImage != null
-                    ? Image.file(
-                        offerImage!,
-                        fit: BoxFit.fill,
-                      )
-                    : const Icon(
-                        Icons.add_a_photo_sharp,
-                        size: 100,
-                      ),
-              ),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.2,
+                  child: Container(
+                    child: widget.imageURL != null
+                        ? Image.network(
+                            widget.imageURL!,
+                            fit: BoxFit.fill,
+                          )
+                        : offerImage != null
+                            ? Image.file(
+                                offerImage!,
+                                fit: BoxFit.fill,
+                              )
+                            : const Icon(
+                                Icons.add_a_photo_sharp,
+                                size: 100,
+                              ),
+                  )),
             ),
             field.errorText != null
                 ? Text(

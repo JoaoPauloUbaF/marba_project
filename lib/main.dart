@@ -8,6 +8,7 @@ import 'package:project_marba/src/features/darkmode/application/theme_provider.d
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/business_home_screen.dart';
+import 'package:project_marba/src/features/my_business/presentation/screens/edit_offer_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
@@ -50,6 +51,7 @@ class MainApp extends ConsumerWidget {
         '/settings': (context) => const SettingsScreen(),
         '/business-list': (context) => const MyBusinessListScreen(),
         '/business-profile': (context) => const MyBusinessHomeScreen(),
+        '/edit-offer': (context) => const EditOfferScreen(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
