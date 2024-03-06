@@ -16,17 +16,16 @@ class OfferCardWidget extends StatelessWidget {
       child: LayoutBuilder(
         builder: (context, constraints) {
           double cardWidth = constraints.maxWidth;
-          double cardHeight = constraints.maxHeight / 1.5; // half the width
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                width: cardWidth,
-                height: cardHeight, // half the width
+              Expanded(
+                flex: 2,
                 child: Image.network(
                   offer.imageUrl,
                   fit: BoxFit.fill,
+                  width: cardWidth,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) {
@@ -38,39 +37,54 @@ class OfferCardWidget extends StatelessWidget {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          offer.title,
-                          style: textTheme.titleLarge, // Use headline6 style
-                        ),
-                        Row(
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "R\$ ${offer.price.toStringAsFixed(2)}",
-                              style:
-                                  textTheme.labelLarge, // Use bodyText2 style
+                              offer.title,
+                              style: textTheme.titleMedium,
+                              maxLines: 2, // Adjust number of lines
                             ),
-                            const VerticalDivider(),
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                "R\$ ${offer.price.toStringAsFixed(2)}",
+                                style: textTheme.labelMedium,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            // Add space between widgets
                             offer.product != null
-                                ? Text(
-                                    "Qtd: ${offer.availableQuantity}",
-                                    style: textTheme
-                                        .labelLarge, // Use bodyText2 style
+                                ? Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "Qtd: ${offer.availableQuantity}",
+                                      style: textTheme.labelMedium,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   )
                                 : const SizedBox(),
                           ],
                         ),
-                      ],
-                    ),
-                    const Spacer(),
-                    const IconButton(onPressed: null, icon: Icon(Icons.edit)),
-                  ],
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: IconButton(
+                              onPressed: null,
+                              icon: Icon(
+                                Icons.edit,
+                                color: Theme.of(context).primaryIconTheme.color,
+                              ))),
+                    ],
+                  ),
                 ),
               ),
             ],

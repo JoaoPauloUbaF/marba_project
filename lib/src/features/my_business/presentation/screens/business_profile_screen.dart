@@ -7,6 +7,7 @@ import 'package:project_marba/src/features/my_business/presentation/components/b
 import 'package:project_marba/src/features/my_business/presentation/components/business_profile_image_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
+import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {
   const BusinessProfileScreen({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class BusinessProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final business = ref.watch(businessProfileScreenControllerProvider);
+    final bestOffers = ref.watch(businessOffersProvider);
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
@@ -42,10 +44,7 @@ class BusinessProfileScreen extends ConsumerWidget {
                     ],
                   )
                 : const LoadingWidget(),
-            const SizedBox(
-              height: 500,
-              child: BusinessOfferListWidget(),
-            ),
+            BusinessOfferListWidget(),
           ],
         ),
       ),
