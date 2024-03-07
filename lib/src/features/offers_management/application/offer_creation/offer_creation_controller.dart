@@ -98,6 +98,13 @@ class OfferCreationController extends _$OfferCreationController {
     throw Exception('Erro ao salvar a imagem da oferta');
   }
 
+  getOfferAvailableCategories(String offerType) {
+    if (offerType == 'product') {
+      return ProductCategory.values;
+    }
+    return ServiceCategory.values;
+  }
+
   Future<void> submitOfferCreationForm({
     required String offerType,
     required String offerTitle,
@@ -105,7 +112,7 @@ class OfferCreationController extends _$OfferCreationController {
     required String offerPrice,
     required String offerAvailableQuantity,
     required String offerItemCost,
-    required String offerCategory,
+    required Set<String> offerCategory,
     required OfferStatus? offerStatus,
     required File? offerImage,
   }) async {
@@ -155,8 +162,18 @@ class OfferCreationController extends _$OfferCreationController {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       status: offerStatus ?? OfferStatus.active,
+      type: offerType == 'product' ? OfferType.product : OfferType.service,
     );
     ref.read(offerRepositoryProviderProvider).createOffer(offer);
+  }
+
+  String getCategoryTranslation(String category, String offerType) {
+    category = category.split('.').last;
+
+    if (offerType == 'product') {
+      return productCategoryTranslations[category] ?? '';
+    }
+    return serviceCategoryTranslations[category] ?? '';
   }
 
   double currencyStringToDouble(String currencyString) {
@@ -172,5 +189,27 @@ class OfferCreationController extends _$OfferCreationController {
         'pending': 'Pendente',
         'soldOut': 'Esgotado',
         'onDemand': 'Sob Encomenda',
+      };
+
+  Map<String, String> get productCategoryTranslations => {
+        'food': 'Alimentos',
+        'drink': 'Bebidas',
+        'clothing': 'Vestuário',
+        'electronics': 'Eletrônicos',
+        'beauty': 'Beleza',
+        'health': 'Saúde',
+        'home': 'Casa',
+        'construction': 'Construção',
+        'pets': 'Animais',
+        'other': 'Outros',
+      };
+
+  Map<String, String> get serviceCategoryTranslations => {
+        'beauty': 'Beleza',
+        'health': 'Saúde',
+        'home': 'Casa',
+        'construction': 'Construção',
+        'pets': 'Animais',
+        'other': 'Outros',
       };
 }

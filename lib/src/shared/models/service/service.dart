@@ -22,3 +22,12 @@ class Service with _$Service {
   factory Service.fromJson(Map<String, dynamic> json) =>
       _$ServiceFromJson(json);
 }
+
+enum ServiceCategory {
+  beauty,
+  health,
+  home,
+  construction,
+  pets,
+  other,
+}

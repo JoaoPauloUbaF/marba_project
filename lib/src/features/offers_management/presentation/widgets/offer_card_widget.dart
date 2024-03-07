@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_edition/offer_edition_controller.dart';
+import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferCardWidget extends StatelessWidget {
@@ -12,19 +13,22 @@ class OfferCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme; // Access text theme
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      color: Theme.of(context).colorScheme.onPrimary,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          double cardWidth = constraints.maxWidth;
+    return SizedBox(
+      width: Theme.of(context).platform == TargetPlatform.iOS ||
+              Theme.of(context).platform == TargetPlatform.android
+          ? MediaQuery.of(context).size.width / 2.2
+          : MediaQuery.of(context).size.width / 3.1,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        color: Theme.of(context).colorScheme.onPrimary,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double cardWidth = constraints.maxWidth;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 2,
-                child: Image.network(
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(
                   offer.imageUrl,
                   fit: BoxFit.fill,
                   width: cardWidth,
@@ -38,15 +42,12 @@ class OfferCardWidget extends StatelessWidget {
                     );
                   },
                 ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     children: [
                       Expanded(
-                        flex: 5,
+                        flex: 2,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -72,24 +73,62 @@ class OfferCardWidget extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        flex: 1,
                         child: Consumer(
                           builder: (_, WidgetRef ref, __) {
-                            return IconButton(
-                              onPressed: () {
-                                ref
-                                    .read(
-                                        offerEditionControllerProvider.notifier)
-                                    .setSelectedOfferToEdit(offer);
+                            return Row(
+                              children: [
+                                Expanded(
+                                  child: IconButton(
+                                    onPressed: () {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          backgroundColor: Theme.of(context)
+                                              .colorScheme
+                                              .error,
+                                          content: const Text(
+                                              'Tem certeza que deseja excluir a oferta?'),
+                                          action: SnackBarAction(
+                                            label: 'Sim',
+                                            onPressed: () {
+                                              ref
+                                                  .read(
+                                                      offerRepositoryProviderProvider)
+                                                  .deleteOffer(offer.id);
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Theme.of(context)
+                                          .primaryIconTheme
+                                          .color,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: IconButton(
+                                    onPressed: () {
+                                      ref
+                                          .read(offerEditionControllerProvider
+                                              .notifier)
+                                          .setSelectedOfferToEdit(offer);
 
-                                Navigator.of(context).pushNamed(
-                                  '/edit-offer',
-                                );
-                              },
-                              icon: Icon(
-                                Icons.edit,
-                                color: Theme.of(context).primaryIconTheme.color,
-                              ),
+                                      Navigator.of(context).pushNamed(
+                                        '/edit-offer',
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.edit,
+                                      color: Theme.of(context)
+                                          .primaryIconTheme
+                                          .color,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             );
                           },
                         ),
@@ -97,10 +136,10 @@ class OfferCardWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

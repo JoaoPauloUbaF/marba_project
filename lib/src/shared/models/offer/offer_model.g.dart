@@ -10,10 +10,12 @@ _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
     _$OfferModelImpl(
       id: json['id'] as String,
       businessId: json['businessId'] as String,
-      category: json['category'] as String,
+      category:
+          (json['category'] as List<dynamic>).map((e) => e as String).toSet(),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       status: $enumDecode(_$OfferStatusEnumMap, json['status']),
+      type: $enumDecode(_$OfferTypeEnumMap, json['type']),
       product: json['product'] == null
           ? null
           : Product.fromJson(json['product'] as Map<String, dynamic>),
@@ -26,10 +28,11 @@ Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'businessId': instance.businessId,
-    'category': instance.category,
+    'category': instance.category.toList(),
     'createdAt': instance.createdAt.toIso8601String(),
     'updatedAt': instance.updatedAt.toIso8601String(),
     'status': _$OfferStatusEnumMap[instance.status]!,
+    'type': _$OfferTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -49,4 +52,9 @@ const _$OfferStatusEnumMap = {
   OfferStatus.pending: 'pending',
   OfferStatus.soldOut: 'soldOut',
   OfferStatus.onDemand: 'onDemand',
+};
+
+const _$OfferTypeEnumMap = {
+  OfferType.product: 'product',
+  OfferType.service: 'service',
 };

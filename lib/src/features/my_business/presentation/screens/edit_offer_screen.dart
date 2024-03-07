@@ -1,13 +1,13 @@
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_edition/offer_edition_controller.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
 
-import '../../../../shared/models/offer/offer_model.dart'; // Import your offer model
+import '../../../offers_management/presentation/widgets/offer_category_selection_field_widget.dart'; // Import your offer model
 
 class EditOfferScreen extends ConsumerStatefulWidget {
   const EditOfferScreen({
@@ -21,90 +21,125 @@ class EditOfferScreen extends ConsumerStatefulWidget {
 class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _priceController = TextEditingController();
   final TextEditingController _availableQuantityController =
       TextEditingController();
-  final TextEditingController _itemCostController = TextEditingController();
-  String _category = '';
+  final TextEditingController _priceController = MoneyMaskedTextController(
+    leftSymbol: 'R\$ ',
+    precision: 2,
+    decimalSeparator: ',',
+  );
+  final TextEditingController _itemCostController = MoneyMaskedTextController(
+    leftSymbol: 'R\$ ',
+    precision: 2,
+    decimalSeparator: ',',
+  );
+  final Set<String> _offerCategory = {};
   String _status = '';
-  File? _image;
   String? _imageURl;
 
   @override
   void initState() {
     final offerEditionController = ref.read(offerEditionControllerProvider);
     super.initState();
-    // Initialize the text field controllers with the offer's data
     _titleController.text =
         offerEditionController?.title ?? 'Houve um problema';
     _descriptionController.text =
         offerEditionController?.description ?? 'Houve um problema';
     _priceController.text = offerEditionController?.price.toString() ?? '';
     _availableQuantityController.text =
-        offerEditionController!.availableQuantity.toString();
-    _itemCostController.text = offerEditionController.itemCost.toString();
-    _category = offerEditionController.category;
-    _status = offerEditionController.status.toString();
-    _imageURl = offerEditionController.imageUrl;
+        offerEditionController?.availableQuantity.toString() ?? '';
+    _itemCostController.text =
+        offerEditionController?.itemCost?.toString() ?? '0,00';
+    _offerCategory.addAll(offerEditionController?.category ?? {});
+    _status = offerEditionController?.status.toString() ?? '';
+    _imageURl = offerEditionController?.imageUrl;
   }
 
-  Future<void> _pickImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image != null) {
-      setState(() {
-        _image = File(image.path);
-      });
-    }
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _availableQuantityController.dispose();
+    _priceController.dispose();
+    _itemCostController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final offerCreationController =
         ref.read(offerCreationControllerProvider.notifier);
+    final offerEditionController = ref.read(offerEditionControllerProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Offer'),
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             OfferImageField(
-              onImageSelected: (value) => setState(() {
-                _image = value;
-              }),
               offerCreationController: offerCreationController,
               imageURL: _imageURl,
             ),
             TextFormField(
               controller: _titleController,
-              decoration: const InputDecoration(labelText: 'Title'),
+              decoration: const InputDecoration(labelText: 'Titulo'),
             ),
             TextFormField(
               controller: _descriptionController,
-              decoration: const InputDecoration(labelText: 'Description'),
+              decoration: const InputDecoration(labelText: 'Descrição'),
+              maxLines: null,
             ),
             TextFormField(
               controller: _priceController,
-              decoration: const InputDecoration(labelText: 'Price'),
+              decoration: const InputDecoration(labelText: 'Preço'),
             ),
-            TextFormField(
-              controller: _availableQuantityController,
-              decoration:
-                  const InputDecoration(labelText: 'Available Quantity'),
-            ),
-            TextFormField(
-              controller: _itemCostController,
-              decoration: const InputDecoration(labelText: 'Item Cost'),
+            offerEditionController?.availableQuantity != null
+                ? TextFormField(
+                    controller: _availableQuantityController,
+                    decoration: const InputDecoration(
+                        labelText: 'Quantidade disponível'),
+                  )
+                : const SizedBox.shrink(),
+            offerEditionController?.itemCost != null
+                ? TextFormField(
+                    controller: _itemCostController,
+                    decoration: const InputDecoration(labelText: 'Custo'),
+                  )
+                : const SizedBox.shrink(),
+            const SizedBox(height: 16.0),
+            OfferCategorySelectionFieldWidget(
+              offerType: offerEditionController?.type.toString() ?? '',
+              offerCategory: _offerCategory,
+              onCategorySelected: (category, value) {
+                setState(() {
+                  if (_offerCategory.contains(category)) {
+                    _offerCategory.remove(category);
+                  } else {
+                    _offerCategory.add(category);
+                  }
+                });
+              },
             ),
             const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                // Handle form submission
-              },
-              child: const Text('Save'),
+            Row(
+              children: [
+                const Spacer(),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle form submission
+                  },
+                  child: const Text('Cancelar'),
+                ),
+                const SizedBox(width: 8.0),
+                ElevatedButton(
+                  onPressed: () {
+                    // Handle form submission
+                  },
+                  child: const Text('Salvar'),
+                ),
+              ],
             ),
           ],
         ),

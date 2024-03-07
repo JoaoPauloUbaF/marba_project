@@ -41,7 +41,9 @@ class BusinessProfileScreen extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      const BusinessOfferListWidget(),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height / 2,
+                          child: const BusinessOfferListWidget()),
                     ],
                   )
                 : const LoadingWidget(),
