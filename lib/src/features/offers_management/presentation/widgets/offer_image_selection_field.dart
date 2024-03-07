@@ -7,7 +7,7 @@ class OfferImageField extends StatefulWidget {
   final Function(File?) onImageSelected;
   final OfferCreationController offerCreationController;
 
-  String? imageURL;
+  late String? imageURL;
 
   OfferImageField({
     Key? key,
