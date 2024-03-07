@@ -31,8 +31,9 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
   @override
   Future<DocumentSnapshot?> createOffer(OfferModel offer) async {
-    final documentReference =
-        await _firestore.collection('offers').add(offer.toJson());
+    var docId = offer.id;
+    await _firestore.collection('offers').doc(docId).set(offer.toJson());
+    final documentReference = _firestore.collection('offers').doc(docId);
     final documentSnapshot = await documentReference.get();
     return documentSnapshot;
   }
@@ -49,7 +50,11 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
   @override
   Future<void> deleteOffer(String id) async {
-    await _firestore.collection('offers').doc(id).delete();
+    try {
+      await _firestore.collection('offers').doc(id).delete();
+    } catch (e) {
+      print('Error deleting offer: $e');
+    }
   }
 
   @override

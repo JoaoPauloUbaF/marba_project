@@ -4,6 +4,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_category_selection_field_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_type_selection_widget.dart';
 
@@ -27,6 +28,7 @@ class CreateOfferStepperWidgetState
   late MoneyMaskedTextController _offerPriceController;
   late TextEditingController _offerAvailableQuantityController;
   late MoneyMaskedTextController _offerItemCostController;
+  late Set<String> _offerCategory;
   late File? _offerImage;
   late OfferStatus? _offerStatus;
 
@@ -41,7 +43,7 @@ class CreateOfferStepperWidgetState
     _offerImage = null;
     _offerStatus = OfferStatus.active;
     _offerAvailableQuantityController = MaskedTextController(
-      mask: '000000000',
+      mask: '00000',
     );
     _offerPriceController = MoneyMaskedTextController(
       leftSymbol: 'R\$ ',
@@ -51,6 +53,7 @@ class CreateOfferStepperWidgetState
       leftSymbol: 'R\$ ',
       decimalSeparator: ',',
     );
+    _offerCategory = {};
   }
 
   @override
@@ -138,6 +141,20 @@ class CreateOfferStepperWidgetState
             validator: (OfferStatus? value) =>
                 offerCreationController.validateStatus(value.toString()),
           ),
+          const SizedBox(height: 8.0),
+          OfferCategorySelectionFieldWidget(
+            offerType: _offerTypeController.text,
+            offerCategory: _offerCategory,
+            onCategorySelected: (category, value) {
+              setState(() {
+                if (_offerCategory.contains(category)) {
+                  _offerCategory.remove(category);
+                } else {
+                  _offerCategory.add(category);
+                }
+              });
+            },
+          ),
         ],
       );
     }
@@ -157,11 +174,7 @@ class CreateOfferStepperWidgetState
         title: const Text('Dados da oferta'),
         content: Column(
           children: [
-            OfferImageField(
-                onImageSelected: (value) => setState(() {
-                      _offerImage = value;
-                    }),
-                offerCreationController: offerCreationController),
+            OfferImageField(offerCreationController: offerCreationController),
             buildOfferInfoField(offerCreationController),
           ],
         ),
@@ -206,7 +219,7 @@ class CreateOfferStepperWidgetState
                               offerAvailableQuantity:
                                   _offerAvailableQuantityController.text,
                               offerItemCost: _offerItemCostController.text,
-                              offerCategory: _offerTypeController.text,
+                              offerCategory: _offerCategory,
                               offerStatus: _offerStatus,
                               offerImage: _offerImage,
                             )

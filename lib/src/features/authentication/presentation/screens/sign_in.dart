@@ -19,14 +19,10 @@ class SignIn extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: SafeArea(
-            child: Stack(
-              children: [
-                Consumer(
-                  builder: (_, WidgetRef ref, __) {
-                    return FirebaseLogin(ref: ref);
-                  },
-                ),
-              ],
+            child: Consumer(
+              builder: (_, WidgetRef ref, __) {
+                return FirebaseLogin(ref: ref);
+              },
             ),
           ),
         ),
@@ -75,7 +71,8 @@ class FirebaseLogin extends StatelessWidget {
         }),
       ],
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.1),
         child: LoginView(
           showPasswordVisibilityToggle: true,
           action: AuthAction.signIn,

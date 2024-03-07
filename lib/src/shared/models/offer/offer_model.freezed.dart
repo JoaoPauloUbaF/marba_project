@@ -22,10 +22,11 @@ OfferModel _$OfferModelFromJson(Map<String, dynamic> json) {
 mixin _$OfferModel {
   String get id => throw _privateConstructorUsedError;
   String get businessId => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
+  Set<String> get category => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   OfferStatus get status => throw _privateConstructorUsedError;
+  OfferType get type => throw _privateConstructorUsedError;
   Product? get product => throw _privateConstructorUsedError;
   Service? get service => throw _privateConstructorUsedError;
 
@@ -44,10 +45,11 @@ abstract class $OfferModelCopyWith<$Res> {
   $Res call(
       {String id,
       String businessId,
-      String category,
+      Set<String> category,
       DateTime createdAt,
       DateTime updatedAt,
       OfferStatus status,
+      OfferType type,
       Product? product,
       Service? service});
 
@@ -74,6 +76,7 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? status = null,
+    Object? type = null,
     Object? product = freezed,
     Object? service = freezed,
   }) {
@@ -89,7 +92,7 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
       category: null == category
           ? _value.category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Set<String>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -102,6 +105,10 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as OfferStatus,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as OfferType,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -149,10 +156,11 @@ abstract class _$$OfferModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String businessId,
-      String category,
+      Set<String> category,
       DateTime createdAt,
       DateTime updatedAt,
       OfferStatus status,
+      OfferType type,
       Product? product,
       Service? service});
 
@@ -179,6 +187,7 @@ class __$$OfferModelImplCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
     Object? status = null,
+    Object? type = null,
     Object? product = freezed,
     Object? service = freezed,
   }) {
@@ -192,9 +201,9 @@ class __$$OfferModelImplCopyWithImpl<$Res>
           : businessId // ignore: cast_nullable_to_non_nullable
               as String,
       category: null == category
-          ? _value.category
+          ? _value._category
           : category // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Set<String>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -207,6 +216,10 @@ class __$$OfferModelImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as OfferStatus,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as OfferType,
       product: freezed == product
           ? _value.product
           : product // ignore: cast_nullable_to_non_nullable
@@ -225,13 +238,15 @@ class _$OfferModelImpl extends _OfferModel {
   _$OfferModelImpl(
       {required this.id,
       required this.businessId,
-      required this.category,
+      required final Set<String> category,
       required this.createdAt,
       required this.updatedAt,
       required this.status,
+      required this.type,
       this.product,
       this.service})
-      : super._();
+      : _category = category,
+        super._();
 
   factory _$OfferModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$OfferModelImplFromJson(json);
@@ -240,8 +255,14 @@ class _$OfferModelImpl extends _OfferModel {
   final String id;
   @override
   final String businessId;
+  final Set<String> _category;
   @override
-  final String category;
+  Set<String> get category {
+    if (_category is EqualUnmodifiableSetView) return _category;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_category);
+  }
+
   @override
   final DateTime createdAt;
   @override
@@ -249,13 +270,15 @@ class _$OfferModelImpl extends _OfferModel {
   @override
   final OfferStatus status;
   @override
+  final OfferType type;
+  @override
   final Product? product;
   @override
   final Service? service;
 
   @override
   String toString() {
-    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, product: $product, service: $service)';
+    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, product: $product, service: $service)';
   }
 
   @override
@@ -266,21 +289,30 @@ class _$OfferModelImpl extends _OfferModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.businessId, businessId) ||
                 other.businessId == businessId) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
+            const DeepCollectionEquality().equals(other._category, _category) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.type, type) || other.type == type) &&
             (identical(other.product, product) || other.product == product) &&
             (identical(other.service, service) || other.service == service));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, businessId, category,
-      createdAt, updatedAt, status, product, service);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      businessId,
+      const DeepCollectionEquality().hash(_category),
+      createdAt,
+      updatedAt,
+      status,
+      type,
+      product,
+      service);
 
   @JsonKey(ignore: true)
   @override
@@ -300,10 +332,11 @@ abstract class _OfferModel extends OfferModel {
   factory _OfferModel(
       {required final String id,
       required final String businessId,
-      required final String category,
+      required final Set<String> category,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final OfferStatus status,
+      required final OfferType type,
       final Product? product,
       final Service? service}) = _$OfferModelImpl;
   _OfferModel._() : super._();
@@ -316,13 +349,15 @@ abstract class _OfferModel extends OfferModel {
   @override
   String get businessId;
   @override
-  String get category;
+  Set<String> get category;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
   OfferStatus get status;
+  @override
+  OfferType get type;
   @override
   Product? get product;
   @override

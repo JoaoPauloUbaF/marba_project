@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
 
@@ -11,27 +12,24 @@ class BusinessOfferListWidget extends ConsumerWidget {
     final offerList = ref.watch(businessOffersProvider);
     return offerList.when(
       data: (offers) {
-        return Center(
-          child: Wrap(
-            alignment: WrapAlignment.start,
-            spacing: 4.0, // horizontal spacing between items
-            runSpacing: 4.0, // vertical spacing between lines
-            children: offers.map((offer) {
-              return LayoutBuilder(
-                builder: (context, constraints) {
-                  double itemWidth = constraints.maxWidth / 2.1;
-                  double itemHeight = itemWidth * 1.5; // half the width
-
-                  return SizedBox(
-                    width: itemWidth,
-                    height: itemHeight,
-                    child: OfferCardWidget(offer: offer),
-                  );
-                },
-              );
-            }).toList(),
-          ),
+        return MasonryGridView.count(
+          crossAxisCount: 2,
+          itemBuilder: (context, index) {
+            return OfferCardWidget(offer: offers[index]);
+          },
+          itemCount: offers.length,
+          mainAxisSpacing: 4.0,
+          crossAxisSpacing: 4.0,
         );
+
+        // return Center(
+        //   child: Wrap(
+        //     direction: Axis.horizontal,
+        //     children: offers.map((offer) {
+        //       return OfferCardWidget(offer: offer);
+        //     }).toList(),
+        //   ),
+        // );
 
         // GridView.builder(
         //   itemCount: offers.length,
