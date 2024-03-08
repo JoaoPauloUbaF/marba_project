@@ -229,6 +229,14 @@ class CreateOfferStepperWidgetState
                 ? TextButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        );
                         offerCreationController
                             .submitOfferCreationForm(
                               offerType: _offerTypeController!,
@@ -243,7 +251,32 @@ class CreateOfferStepperWidgetState
                               offerStatus: _offerStatus,
                               offerImage: _offerImage,
                             )
-                            .then((value) => Navigator.of(context).pop());
+                            .then(
+                              (value) => {
+                                Navigator.of(context).pop(),
+                                showGeneralDialog(
+                                  context: context,
+                                  pageBuilder:
+                                      (context, animation, secondaryAnimation) {
+                                    return AlertDialog(
+                                      title:
+                                          Center(child: Text('Oferta $value')),
+                                      content: const Center(
+                                          child: Text('Criada com sucesso!')),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              },
+                            );
                       }
                     },
                     child: const Text(

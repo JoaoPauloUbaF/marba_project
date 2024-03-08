@@ -105,7 +105,7 @@ class OfferCreationController extends _$OfferCreationController {
     return ServiceCategory.values;
   }
 
-  Future<void> submitOfferCreationForm({
+  Future<String> submitOfferCreationForm({
     required OfferType offerType,
     required String offerTitle,
     required String offerDescription,
@@ -128,7 +128,7 @@ class OfferCreationController extends _$OfferCreationController {
           .saveOfferImage(offerImage!, offerId);
     } catch (e) {
       print('Error uploading image: $e');
-      return;
+      return 'Erro ao salvar a imagem da oferta';
     }
 
     if (offerType == OfferType.product) {
@@ -165,6 +165,7 @@ class OfferCreationController extends _$OfferCreationController {
       type: offerType,
     );
     ref.read(offerRepositoryProviderProvider).createOffer(offer);
+    return offer.title;
   }
 
   String getCategoryTranslation(String category, OfferType offerType) {
