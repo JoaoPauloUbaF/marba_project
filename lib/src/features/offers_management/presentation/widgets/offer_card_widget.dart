@@ -83,6 +83,8 @@ class OfferCardWidget extends StatelessWidget {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
+                                          showCloseIcon: true,
+                                          duration: const Duration(seconds: 5),
                                           backgroundColor: Theme.of(context)
                                               .colorScheme
                                               .error,

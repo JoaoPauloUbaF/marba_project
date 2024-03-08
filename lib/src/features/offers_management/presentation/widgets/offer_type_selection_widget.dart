@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferTypeSelection extends StatefulWidget {
-  final Function(String) onTypeSelected;
+  final Function(OfferType) onTypeSelected;
 
   const OfferTypeSelection({Key? key, required this.onTypeSelected})
       : super(key: key);
@@ -11,7 +12,7 @@ class OfferTypeSelection extends StatefulWidget {
 }
 
 class _OfferTypeSelectionState extends State<OfferTypeSelection> {
-  String _selectedType = '';
+  OfferType? _selectedType;
 
   @override
   Widget build(BuildContext context) {
@@ -25,16 +26,16 @@ class _OfferTypeSelectionState extends State<OfferTypeSelection> {
                 IconButton(
                   icon: Icon(
                     Icons.shopping_cart_sharp,
-                    color: _selectedType == 'product'
+                    color: _selectedType == OfferType.product
                         ? Colors.orange
                         : Colors.grey,
                     size: 50, // Change colors as needed
                   ),
                   onPressed: () {
                     setState(() {
-                      _selectedType = 'product';
+                      _selectedType = OfferType.product;
                     });
-                    widget.onTypeSelected(_selectedType);
+                    widget.onTypeSelected(_selectedType!);
                   },
                 ),
               ],
@@ -47,14 +48,16 @@ class _OfferTypeSelectionState extends State<OfferTypeSelection> {
             IconButton(
               icon: Icon(
                 Icons.build_sharp,
-                color: _selectedType == 'service' ? Colors.orange : Colors.grey,
+                color: _selectedType == OfferType.service
+                    ? Colors.orange
+                    : Colors.grey,
                 size: 50, // Change colors as needed
               ),
               onPressed: () {
                 setState(() {
-                  _selectedType = 'service';
+                  _selectedType = OfferType.service;
                 });
-                widget.onTypeSelected(_selectedType);
+                widget.onTypeSelected(_selectedType!);
               },
             ),
             const Text('Serviço'),
