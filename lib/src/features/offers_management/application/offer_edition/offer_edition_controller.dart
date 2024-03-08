@@ -1,3 +1,7 @@
+import 'dart:io';
+
+import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
+import 'package:project_marba/src/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../shared/models/offer/offer_model.dart';
@@ -13,5 +17,48 @@ class OfferEditionController extends _$OfferEditionController {
 
   FutureOr<void> setSelectedOfferToEdit(OfferModel offer) {
     state = offer;
+  }
+
+  Future<String> validateAndSubmitOfferUpdate({
+    required String title,
+    required String description,
+    required String price,
+    required String availableQuantity,
+    required String itemCost,
+    required Set<String> category,
+    required OfferType type,
+    OfferStatus? status,
+    File? image,
+  }) {
+    if (type == OfferType.product) {
+      final updatedProduct = state!.product!.copyWith(
+        title: title,
+        description: description,
+        price: RegistrationUtils().currencyStringToDouble(price),
+        availableQuantity: int.parse(availableQuantity),
+        itemCost: RegistrationUtils().currencyStringToDouble(itemCost),
+        imageUrl: image != null ? image.path : state!.imageUrl,
+      );
+      final offer = state!.copyWith(product: updatedProduct);
+      return updateOffer(offer);
+    } else {
+      final updatedService = state!.service!.copyWith(
+        title: title,
+        description: description,
+        price: RegistrationUtils().currencyStringToDouble(price),
+        imageUrl: image != null ? image.path : state!.imageUrl,
+      );
+      final offer = state!.copyWith(service: updatedService);
+      return updateOffer(offer);
+    }
+  }
+
+  Future<String> updateOffer(OfferModel offer) async {
+    try {
+      ref.read(offerRepositoryProviderProvider).updateOffer(offer);
+      return 'Oferta atualizada com sucesso';
+    } catch (e) {
+      return 'Erro ao atualizar oferta';
+    }
   }
 }

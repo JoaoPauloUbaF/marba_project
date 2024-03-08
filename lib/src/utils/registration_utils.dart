@@ -45,4 +45,11 @@ class RegistrationUtils {
       );
     }).toList();
   }
+
+  double currencyStringToDouble(String currencyString) {
+    currencyString = currencyString.replaceAll('R\$ ', '');
+    currencyString = currencyString.replaceAll('.', '');
+    currencyString = currencyString.replaceAll(',', '.');
+    return double.parse(currencyString);
+  }
 }
