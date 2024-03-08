@@ -32,6 +32,8 @@ class OfferModel with _$OfferModel {
   double? get itemCost => product?.itemCost;
   Set<String> get categories => category;
   OfferType get offerType => type;
+  Product? get productOffer => product;
+  Service? get serviceOffer => service;
 
   factory OfferModel.fromJson(Map<String, dynamic> json) =>
       _$OfferModelFromJson(json);

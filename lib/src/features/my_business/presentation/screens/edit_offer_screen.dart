@@ -7,6 +7,7 @@ import 'package:project_marba/src/features/offers_management/application/offer_c
 import 'package:project_marba/src/features/offers_management/application/offer_edition/offer_edition_controller.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
 
+import '../../../../shared/models/offer/offer_model.dart';
 import '../../../offers_management/presentation/widgets/offer_category_selection_field_widget.dart'; // Import your offer model
 
 class EditOfferScreen extends ConsumerStatefulWidget {
@@ -34,7 +35,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
     decimalSeparator: ',',
   );
   final Set<String> _offerCategory = {};
-  String _status = '';
+  OfferStatus? _status;
   File? _image;
   String? _imageURl;
 
@@ -52,7 +53,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
     _itemCostController.text =
         offerEditionController?.itemCost?.toString() ?? '0,00';
     _offerCategory.addAll(offerEditionController?.category ?? {});
-    _status = offerEditionController?.status.toString() ?? '';
+    _status = offerEditionController?.status ?? OfferStatus.active;
     _imageURl = offerEditionController?.imageUrl;
   }
 
@@ -80,11 +81,12 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             OfferImageField(
-                imageURL: _imageURl,
-                onImageSelected: (value) => setState(() {
-                      _image = value;
-                    }),
-                offerCreationController: offerCreationController),
+              imageURL: _imageURl,
+              onImageSelected: (value) => setState(() {
+                _image = value;
+              }),
+              offerCreationController: offerCreationController,
+            ),
             TextFormField(
               controller: _titleController,
               decoration: const InputDecoration(labelText: 'Titulo'),
@@ -112,6 +114,28 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                   )
                 : const SizedBox.shrink(),
             const SizedBox(height: 16.0),
+            DropdownButtonFormField<OfferStatus>(
+              value: _status,
+              decoration: const InputDecoration(
+                labelText: 'Status',
+              ),
+              items: OfferStatus.values.map((OfferStatus status) {
+                return DropdownMenuItem<OfferStatus>(
+                  value: status,
+                  child: Text(offerCreationController.statusTranslations[
+                          status.toString().split('.').last] ??
+                      status.toString().split('.').last),
+                );
+              }).toList(),
+              onChanged: (OfferStatus? newValue) {
+                setState(() {
+                  _status = newValue;
+                });
+              },
+              validator: (OfferStatus? value) =>
+                  offerCreationController.validateStatus(value.toString()),
+            ),
+            const SizedBox(height: 16.0),
             OfferCategorySelectionFieldWidget(
               offerType: offerEditionController!.type,
               offerCategory: _offerCategory,
@@ -131,14 +155,44 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                 const Spacer(),
                 ElevatedButton(
                   onPressed: () {
-                    // Handle form submission
+                    Navigator.pop(context);
                   },
                   child: const Text('Cancelar'),
                 ),
                 const SizedBox(width: 8.0),
                 ElevatedButton(
                   onPressed: () {
-                    // Handle form submission
+                    ref
+                        .read(offerEditionControllerProvider.notifier)
+                        .validateAndSubmitOfferUpdate(
+                          title: _titleController.text,
+                          description: _descriptionController.text,
+                          price: _priceController.text,
+                          availableQuantity: _availableQuantityController.text,
+                          itemCost: _itemCostController.text,
+                          status: _status,
+                          category: _offerCategory,
+                          image: _image,
+                          type: offerEditionController.type,
+                        )
+                        .then((value) => showGeneralDialog(
+                            context: context,
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                              return AlertDialog(
+                                title: Text('Sucesso'),
+                                content: Text(value),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            }));
                   },
                   child: const Text('Salvar'),
                 ),
