@@ -35,6 +35,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
   );
   final Set<String> _offerCategory = {};
   String _status = '';
+  File? _image;
   String? _imageURl;
 
   @override
@@ -79,9 +80,11 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             OfferImageField(
-              offerCreationController: offerCreationController,
-              imageURL: _imageURl,
-            ),
+                imageURL: _imageURl,
+                onImageSelected: (value) => setState(() {
+                      _image = value;
+                    }),
+                offerCreationController: offerCreationController),
             TextFormField(
               controller: _titleController,
               decoration: const InputDecoration(labelText: 'Titulo'),
@@ -110,7 +113,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                 : const SizedBox.shrink(),
             const SizedBox(height: 16.0),
             OfferCategorySelectionFieldWidget(
-              offerType: offerEditionController?.type.toString() ?? '',
+              offerType: offerEditionController!.type,
               offerCategory: _offerCategory,
               onCategorySelected: (category, value) {
                 setState(() {

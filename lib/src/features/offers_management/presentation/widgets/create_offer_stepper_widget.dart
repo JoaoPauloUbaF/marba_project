@@ -22,12 +22,12 @@ class CreateOfferStepperWidget extends ConsumerStatefulWidget {
 
 class CreateOfferStepperWidgetState
     extends ConsumerState<CreateOfferStepperWidget> {
-  late TextEditingController _offerTypeController;
   late TextEditingController _offerTitleController;
   late TextEditingController _offerDescriptionController;
   late MoneyMaskedTextController _offerPriceController;
   late TextEditingController _offerAvailableQuantityController;
   late MoneyMaskedTextController _offerItemCostController;
+  late OfferType? _offerTypeController;
   late Set<String> _offerCategory;
   late File? _offerImage;
   late OfferStatus? _offerStatus;
@@ -37,7 +37,6 @@ class CreateOfferStepperWidgetState
   @override
   void initState() {
     super.initState();
-    _offerTypeController = TextEditingController();
     _offerTitleController = TextEditingController();
     _offerDescriptionController = TextEditingController();
     _offerImage = null;
@@ -54,11 +53,11 @@ class CreateOfferStepperWidgetState
       decimalSeparator: ',',
     );
     _offerCategory = {};
+    _offerTypeController = null;
   }
 
   @override
   void dispose() {
-    _offerTypeController.dispose();
     _offerTitleController.dispose();
     _offerDescriptionController.dispose();
     _offerPriceController.dispose();
@@ -100,7 +99,7 @@ class CreateOfferStepperWidgetState
             keyboardType: TextInputType.number,
             validator: (value) => offerCreationController.validatePrice(value),
           ),
-          _offerTypeController.text == 'product'
+          _offerTypeController == OfferType.product
               ? TextFormField(
                   controller: _offerAvailableQuantityController,
                   decoration: const InputDecoration(
@@ -143,7 +142,7 @@ class CreateOfferStepperWidgetState
           ),
           const SizedBox(height: 8.0),
           OfferCategorySelectionFieldWidget(
-            offerType: _offerTypeController.text,
+            offerType: _offerTypeController ?? OfferType.product,
             offerCategory: _offerCategory,
             onCategorySelected: (category, value) {
               setState(() {
@@ -165,7 +164,7 @@ class CreateOfferStepperWidgetState
         content: OfferTypeSelection(
           onTypeSelected: (value) {
             setState(() {
-              _offerTypeController.text = value;
+              _offerTypeController = value;
             });
           },
         ),
@@ -174,7 +173,11 @@ class CreateOfferStepperWidgetState
         title: const Text('Dados da oferta'),
         content: Column(
           children: [
-            OfferImageField(offerCreationController: offerCreationController),
+            OfferImageField(
+                onImageSelected: (value) => setState(() {
+                      _offerImage = value;
+                    }),
+                offerCreationController: offerCreationController),
             buildOfferInfoField(offerCreationController),
           ],
         ),
@@ -186,6 +189,23 @@ class CreateOfferStepperWidgetState
       child: Stepper(
         type: StepperType.vertical,
         currentStep: _currentStep,
+        onStepCancel: () {
+          if (_currentStep > 0) {
+            setState(() {
+              _currentStep -= 1;
+            });
+          } else {
+            Navigator.of(context).pop();
+          }
+        },
+        onStepContinue: () {
+          if (_currentStep < steps.length - 1) {
+            setState(() {
+              _currentStep += 1;
+            });
+          }
+        },
+        steps: steps,
         controlsBuilder: (context, details) => Row(
           children: [
             details.currentStep != 0
@@ -199,7 +219,7 @@ class CreateOfferStepperWidgetState
             details.currentStep != steps.length - 1
                 ? IconButton(
                     color: Colors.orange,
-                    onPressed: _offerTypeController.text.isNotEmpty
+                    onPressed: _offerTypeController != null
                         ? details.onStepContinue
                         : null,
                     icon: const Icon(Icons.arrow_forward_rounded),
@@ -211,7 +231,7 @@ class CreateOfferStepperWidgetState
                       if (formKey.currentState!.validate()) {
                         offerCreationController
                             .submitOfferCreationForm(
-                              offerType: _offerTypeController.text,
+                              offerType: _offerTypeController!,
                               offerTitle: _offerTitleController.text,
                               offerDescription:
                                   _offerDescriptionController.text,
@@ -234,23 +254,6 @@ class CreateOfferStepperWidgetState
                 : const SizedBox.shrink(),
           ],
         ),
-        onStepCancel: () {
-          if (_currentStep > 0) {
-            setState(() {
-              _currentStep -= 1;
-            });
-          } else {
-            Navigator.of(context).pop();
-          }
-        },
-        onStepContinue: () {
-          if (_currentStep < steps.length - 1) {
-            setState(() {
-              _currentStep += 1;
-            });
-          }
-        },
-        steps: steps,
       ),
     );
   }

@@ -98,15 +98,15 @@ class OfferCreationController extends _$OfferCreationController {
     throw Exception('Erro ao salvar a imagem da oferta');
   }
 
-  getOfferAvailableCategories(String offerType) {
-    if (offerType == 'product') {
+  getOfferAvailableCategories(OfferType offerType) {
+    if (offerType == OfferType.product) {
       return ProductCategory.values;
     }
     return ServiceCategory.values;
   }
 
   Future<void> submitOfferCreationForm({
-    required String offerType,
+    required OfferType offerType,
     required String offerTitle,
     required String offerDescription,
     required String offerPrice,
@@ -131,7 +131,7 @@ class OfferCreationController extends _$OfferCreationController {
       return;
     }
 
-    if (offerType == 'product') {
+    if (offerType == OfferType.product) {
       offerProduct = Product(
         title: offerTitle,
         description: offerDescription,
@@ -143,7 +143,7 @@ class OfferCreationController extends _$OfferCreationController {
       );
     }
 
-    if (offerType == 'service') {
+    if (offerType == OfferType.service) {
       offerService = Service(
         title: offerTitle,
         description: offerDescription,
@@ -162,15 +162,15 @@ class OfferCreationController extends _$OfferCreationController {
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       status: offerStatus ?? OfferStatus.active,
-      type: offerType == 'product' ? OfferType.product : OfferType.service,
+      type: offerType,
     );
     ref.read(offerRepositoryProviderProvider).createOffer(offer);
   }
 
-  String getCategoryTranslation(String category, String offerType) {
+  String getCategoryTranslation(String category, OfferType offerType) {
     category = category.split('.').last;
 
-    if (offerType == 'product') {
+    if (offerType == OfferType.product) {
       return productCategoryTranslations[category] ?? '';
     }
     return serviceCategoryTranslations[category] ?? '';

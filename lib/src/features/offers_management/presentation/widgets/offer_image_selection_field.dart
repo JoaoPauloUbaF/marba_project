@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 
 class OfferImageField extends StatefulWidget {
+  final Function(File?) onImageSelected;
   final OfferCreationController offerCreationController;
-
   final String? imageURL;
 
   const OfferImageField({
     Key? key,
+    required this.onImageSelected,
     required this.offerCreationController,
     this.imageURL,
   }) : super(key: key);
@@ -35,26 +36,28 @@ class _OfferImageFieldState extends State<OfferImageField> {
                   widget.offerCreationController.pickNewOfferImage().then(
                 (value) {
                   offerImage = value;
+                  widget.onImageSelected(value);
                 },
               ),
               child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.3,
-                child: offerImage != null
-                    ? Image.file(
-                        offerImage!,
-                        fit: BoxFit.fill,
-                      )
-                    : widget.imageURL != null
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.33,
+                  child: Container(
+                    child: widget.imageURL != null
                         ? Image.network(
                             widget.imageURL!,
                             fit: BoxFit.fill,
                           )
-                        : const Icon(
-                            Icons.add_a_photo_sharp,
-                            size: 100,
-                          ),
-              ),
+                        : offerImage != null
+                            ? Image.file(
+                                offerImage!,
+                                fit: BoxFit.fill,
+                              )
+                            : const Icon(
+                                Icons.add_a_photo_sharp,
+                                size: 100,
+                              ),
+                  )),
             ),
             field.errorText != null
                 ? Text(
