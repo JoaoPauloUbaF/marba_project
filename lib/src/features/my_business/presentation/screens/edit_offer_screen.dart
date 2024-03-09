@@ -175,12 +175,13 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                           image: _image,
                           type: offerEditionController.type,
                         )
-                        .then((value) => showGeneralDialog(
+                        .then(
+                          (value) => showGeneralDialog(
                             context: context,
                             pageBuilder:
                                 (context, animation, secondaryAnimation) {
                               return AlertDialog(
-                                title: Text('Sucesso'),
+                                title: Text('Sua oferta foi editada!'),
                                 content: Text(value),
                                 actions: [
                                   TextButton(
@@ -192,7 +193,9 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                                   ),
                                 ],
                               );
-                            }));
+                            },
+                          ),
+                        );
                   },
                   child: const Text('Salvar'),
                 ),

@@ -5,6 +5,7 @@ import 'package:project_marba/src/features/my_business/application/business_prof
 import 'package:project_marba/src/features/location_management/presentation/address_display_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/business_info_card.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/business_profile_image_widget.dart';
+import 'package:project_marba/src/features/my_business/presentation/components/business_status_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
@@ -28,7 +29,16 @@ class BusinessProfileScreen extends ConsumerWidget {
                 ? Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const BusinessProfileImageWidget(),
+                      const Stack(
+                        children: [
+                          BusinessProfileImageWidget(),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: BusinessStatusWidget(),
+                          ),
+                        ],
+                      ),
                       const BusinessContactInfoCard(),
                       AddressDisplayWidget(address: business.address),
                       Align(
@@ -42,8 +52,9 @@ class BusinessProfileScreen extends ConsumerWidget {
                         ),
                       ),
                       SizedBox(
-                          height: MediaQuery.of(context).size.height / 2,
-                          child: const BusinessOfferListWidget()),
+                        height: MediaQuery.of(context).size.height / 1.8,
+                        child: const BusinessOfferListWidget(),
+                      ),
                     ],
                   )
                 : const LoadingWidget(),
