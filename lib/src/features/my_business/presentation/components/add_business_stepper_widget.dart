@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/features/my_business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
@@ -6,21 +7,17 @@ import 'package:project_marba/src/shared/models/business/business.dart';
 import '../../../../utils/registration_utils.dart';
 import 'business_category_cards_widget.dart';
 
-class AddBusinessStepperWidget extends StatefulWidget {
-  const AddBusinessStepperWidget(
-      {Key? key, required this.myBusinessListController, required this.formKey})
-      : super(key: key);
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  final GlobalKey<FormState> formKey;
-  final MyBusinessListScreenController myBusinessListController;
-
+class AddBusinessStepperWidget extends ConsumerStatefulWidget {
+  const AddBusinessStepperWidget({Key? key}) : super(key: key);
   @override
-  // ignore: library_private_types_in_public_api
   _AddBusinessStepperWidgetState createState() =>
       _AddBusinessStepperWidgetState();
 }
 
-class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
+class _AddBusinessStepperWidgetState
+    extends ConsumerState<AddBusinessStepperWidget> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
@@ -64,8 +61,10 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
   }
 
   void _submitForm() {
-    widget.myBusinessListController.validateAndSubmitForm(
-      key: widget.formKey,
+    final myBusinessListController =
+        ref.read(myBusinessListScreenControllerProvider.notifier);
+    myBusinessListController.validateAndSubmitForm(
+      key: formKey,
       name: _nameController.text,
       email: _emailController.text,
       phoneNumber: _phoneController.text,
@@ -82,6 +81,8 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
   }
 
   List<Step> get steps {
+    final myBusinessListController =
+        ref.read(myBusinessListScreenControllerProvider.notifier);
     return [
       Step(
         title: const Text('Informações básicas'),
@@ -92,19 +93,19 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
               decoration:
                   const InputDecoration(labelText: 'Nome do Empreeendimento'),
               validator: (value) =>
-                  widget.myBusinessListController.validateName(value),
+                  myBusinessListController.validateName(value),
             ),
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'E-mail'),
               validator: (value) =>
-                  widget.myBusinessListController.validateEmail(value),
+                  myBusinessListController.validateEmail(value),
             ),
             TextFormField(
               controller: _phoneController,
               decoration: const InputDecoration(labelText: 'Telefone'),
               validator: (value) =>
-                  widget.myBusinessListController.validatePhoneNumber(value),
+                  myBusinessListController.validatePhoneNumber(value),
             ),
           ],
         ),
@@ -117,31 +118,31 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
               controller: _zipCodeController,
               decoration: const InputDecoration(labelText: 'CEP'),
               validator: (value) =>
-                  widget.myBusinessListController.validateZipCode(value),
+                  myBusinessListController.validateZipCode(value),
             ),
             TextFormField(
               controller: _streetController,
               decoration: const InputDecoration(labelText: 'Rua'),
               validator: (value) =>
-                  widget.myBusinessListController.validateAddressStreet(value),
+                  myBusinessListController.validateAddressStreet(value),
             ),
             TextFormField(
               controller: _numberController,
               decoration: const InputDecoration(labelText: 'Número'),
               validator: (value) =>
-                  widget.myBusinessListController.validateAddressNumber(value),
+                  myBusinessListController.validateAddressNumber(value),
             ),
             TextFormField(
               controller: _neighborhoodController,
               decoration: const InputDecoration(labelText: 'Bairro'),
               validator: (value) =>
-                  widget.myBusinessListController.validateNeighborhood(value),
+                  myBusinessListController.validateNeighborhood(value),
             ),
             TextFormField(
               controller: _cityController,
               decoration: const InputDecoration(labelText: 'Cidade'),
               validator: (value) =>
-                  widget.myBusinessListController.validateCity(value),
+                  myBusinessListController.validateCity(value),
             ),
             DropdownButtonFormField<String>(
               menuMaxHeight: MediaQuery.of(context).size.height * 0.45,
@@ -153,7 +154,7 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
                 _stateController.text = newValue ?? '';
               },
               validator: (value) =>
-                  widget.myBusinessListController.validateState(value),
+                  myBusinessListController.validateState(value),
             ),
           ],
         ),
@@ -181,7 +182,7 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
             );
           },
           validator: (value) =>
-              widget.myBusinessListController.validateCategories(value!),
+              myBusinessListController.validateCategories(value!),
         ),
       )
     ];
@@ -191,7 +192,7 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
   Widget build(BuildContext context) {
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: widget.formKey,
+      key: formKey,
       child: Stepper(
         type: StepperType.vertical,
         currentStep: _currentStep,
@@ -221,7 +222,7 @@ class _AddBusinessStepperWidgetState extends State<AddBusinessStepperWidget> {
             if (_currentStep == steps.length - 1)
               TextButton(
                 onPressed: () {
-                  if (widget.formKey.currentState!.validate()) {
+                  if (formKey.currentState!.validate()) {
                     _submitForm();
                   } else {
                     showDialog(

@@ -30,10 +30,7 @@ class MyBusinessListScreen extends ConsumerWidget {
                   left: 16,
                   right: 16,
                 ),
-                child: AddBusinessStepperWidget(
-                  myBusinessListController: myBusinessListController,
-                  formKey: formKey,
-                ),
+                child: const AddBusinessStepperWidget(),
               );
             },
           );

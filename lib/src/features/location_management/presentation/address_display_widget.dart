@@ -12,28 +12,22 @@ class AddressDisplayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(4.0),
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Endereço',
-                style: Theme.of(context).textTheme.headlineSmall,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Icon(Icons.location_on),
+            const SizedBox(width: 8.0),
+            Expanded(
+              child: Text(
+                '${address.street}, ${address.number} , ${address.neighborhood}, ${address.zipCode}, ${address.city} - ${address.state}',
+                style: textTheme.bodySmall,
               ),
-              Text(
-                '${address.street}, ${address.number} , ${address.neighborhood}, ${address.zipCode}',
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '${address.city} - ${address.state}',
-              ),
-              const SizedBox(width: 16), // to-do
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

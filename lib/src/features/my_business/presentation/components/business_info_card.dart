@@ -27,10 +27,10 @@ class BusinessContactInfoCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            BusinessNameAndStatus(business: business),
-            const SizedBox(height: 4),
+            //BusinessNameAndStatus(business: business),
+            const SizedBox(height: 8),
             BusinessPhoneAndEmail(business: business),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
             BusinessCategoryTiles(),
             const SizedBox(height: 8),
           ],
@@ -98,6 +98,7 @@ class BusinessNameAndStatus extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           business?.name ?? '',

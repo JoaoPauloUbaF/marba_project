@@ -24,21 +24,32 @@ class BusinessStatusWidget extends ConsumerWidget {
     final Color businessStatusColor = ref
         .watch(businessProfileScreenControllerProvider.notifier)
         .getBusinessStatusColor();
-    return Row(
-      children: [
-        Icon(
-          Icons.circle,
-          size: 12,
-          color: businessStatusColor,
+    return Container(
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor.withAlpha(100),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(20),
         ),
-        const SizedBox(width: 4),
-        Text(
-          businessStatusTranslated,
-          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: businessStatusColor,
-              ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Icon(
+              Icons.circle,
+              size: 12,
+              color: businessStatusColor,
+            ),
+            const SizedBox(width: 2),
+            Text(
+              businessStatusTranslated,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: businessStatusColor,
+                  ),
+            ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
