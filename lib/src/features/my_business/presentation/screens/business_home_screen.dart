@@ -40,6 +40,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
         leading: IconButton(
           icon: const Icon(Icons.business_center_sharp),
           onPressed: () {
+            business.dispose();
             Navigator.pop(context);
           },
         ),
@@ -47,6 +48,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
           IconButton(
             icon: const Icon(Icons.home_sharp),
             onPressed: () {
+              business.dispose();
               Navigator.pushNamed(context, '/home');
             },
           ),

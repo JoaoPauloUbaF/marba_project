@@ -137,6 +137,10 @@ class BusinessProfileScreenController
       // A permissão para acessar a galeria foi negada
     }
   }
+
+  void dispose() {
+    state = null;
+  }
 }
 
 final imageUploadingStatusProvider = StateProvider<bool>((ref) => false);
