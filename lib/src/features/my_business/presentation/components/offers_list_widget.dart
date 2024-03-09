@@ -12,6 +12,10 @@ class BusinessOfferListWidget extends ConsumerWidget {
     final offerList = ref.watch(businessOffersProvider);
     return offerList.when(
       data: (offers) {
+        if (offers.isEmpty) {
+          return const Center(
+              child: Text('Esse negócio AINDA não tem ofertas disponíveis.'));
+        }
         return MasonryGridView.count(
           crossAxisCount: 2,
           itemBuilder: (context, index) {
