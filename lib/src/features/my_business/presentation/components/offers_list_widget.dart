@@ -19,45 +19,13 @@ class BusinessOfferListWidget extends ConsumerWidget {
         return MasonryGridView.count(
           crossAxisCount: 2,
           itemBuilder: (context, index) {
+            print(offers[0].toJson());
             return OfferCardWidget(offer: offers[index]);
           },
           itemCount: offers.length,
           mainAxisSpacing: 4.0,
           crossAxisSpacing: 4.0,
         );
-
-        // return Center(
-        //   child: Wrap(
-        //     direction: Axis.horizontal,
-        //     children: offers.map((offer) {
-        //       return OfferCardWidget(offer: offer);
-        //     }).toList(),
-        //   ),
-        // );
-
-        // GridView.builder(
-        //   itemCount: offers.length,
-        //   itemBuilder: (context, index) {
-        //     return LayoutBuilder(
-        //       builder: (context, constraints) {
-        //         double itemWidth = constraints.maxWidth;
-        //         double itemHeight = itemWidth / 2; // half the width
-
-        //         return SizedBox(
-        //           width: itemWidth,
-        //           height: itemHeight,
-        //           child: OfferCardWidget(offer: offers[index]),
-        //         );
-        //       },
-        //     );
-        //   },
-        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 2,
-        //     crossAxisSpacing: 4.0,
-        //     mainAxisSpacing: 4.0,
-        //   ),
-        //   controller: ScrollController(keepScrollOffset: false),
-        // );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, stackTrace) => Center(child: Text('Error: $error')),

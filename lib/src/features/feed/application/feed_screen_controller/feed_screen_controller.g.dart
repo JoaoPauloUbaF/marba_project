@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'offer_edition_controller.dart';
+part of 'feed_screen_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$offerEditionControllerHash() =>
-    r'4dafd9d5e8ea765a9ff98fb17ea5acb27d88b350';
+String _$feedScreenControllerHash() =>
+    r'1e9100e998b0c327ee8ef598d00c5f041d60db70';
 
-/// See also [OfferEditionController].
-@ProviderFor(OfferEditionController)
-final offerEditionControllerProvider =
-    NotifierProvider<OfferEditionController, OfferModel?>.internal(
-  OfferEditionController.new,
-  name: r'offerEditionControllerProvider',
+/// See also [FeedScreenController].
+@ProviderFor(FeedScreenController)
+final feedScreenControllerProvider =
+    AutoDisposeAsyncNotifierProvider<FeedScreenController, void>.internal(
+  FeedScreenController.new,
+  name: r'feedScreenControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$offerEditionControllerHash,
+      : _$feedScreenControllerHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$OfferEditionController = Notifier<OfferModel?>;
+typedef _$FeedScreenController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
