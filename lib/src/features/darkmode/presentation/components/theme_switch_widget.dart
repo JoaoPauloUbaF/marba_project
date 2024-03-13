@@ -10,11 +10,20 @@ class ThemeSwitchWidget extends ConsumerWidget {
     ref.watch(darkModeProvider);
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Switch.adaptive(
+      child: Switch(
         value: ref.watch(darkModeProvider.notifier).isDarkMode(),
         onChanged: (val) {
           ref.read(darkModeProvider.notifier).toggle();
         },
+        thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
+            (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return const Icon(Icons.nightlight_sharp);
+          }
+
+          return const Icon(Icons.wb_sunny_sharp);
+          ; // All other states will use the default thumbIcon.
+        }),
       ),
     );
   }

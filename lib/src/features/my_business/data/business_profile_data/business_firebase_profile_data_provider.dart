@@ -35,6 +35,43 @@ class BusinessFirebaseProfileDataProvider
   }
 
   @override
+  Future<List<Business>?> getBusinessesAt({required String city}) async {
+    QuerySnapshot querySnapshot =
+        await _businessCollection.where('address.city', isEqualTo: city).get();
+    if (querySnapshot.docs.isEmpty) {
+      return null;
+    }
+    List<Business> businesses = querySnapshot.docs
+        .map((doc) => Business(
+              id: doc.id,
+              name: doc['businessName'],
+              email: doc['businessEmail'],
+              phoneNumber: doc['businessPhoneNumber'],
+              address: Address.fromJson(doc['address']),
+              status: BusinessStatus.values.firstWhere(
+                (e) => e.toString().split('.').last == doc['status'],
+              ),
+              categories: (doc['businessCategory'] as List<dynamic>)
+                  .map((e) {
+                    return BusinessCategory.values.firstWhere(
+                      (element) => element.toString().split('.').last == e,
+                      orElse: () => BusinessCategory
+                          .services, // Handle case when enum value is not found
+                    );
+                  })
+                  .where((element) => true)
+                  .toSet(),
+              offersIds: (doc['offersIds'] as Map<String, dynamic>)
+                  .values
+                  .toSet()
+                  .cast<String>(),
+              imageUrl: doc['profileImageUrl'],
+            ))
+        .toList();
+    return businesses;
+  }
+
+  @override
   Future<void> updateBusinessName({
     required String uid,
     required String businessName,

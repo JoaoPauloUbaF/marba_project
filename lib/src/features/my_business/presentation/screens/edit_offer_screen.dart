@@ -181,7 +181,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                             pageBuilder:
                                 (context, animation, secondaryAnimation) {
                               return AlertDialog(
-                                title: Text('Sua oferta foi editada!'),
+                                title: const Text('Sua oferta foi editada!'),
                                 content: Text(value),
                                 actions: [
                                   TextButton(
@@ -189,7 +189,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
                                       Navigator.pop(context);
                                       Navigator.pop(context);
                                     },
-                                    child: Text('Ok'),
+                                    child: const Text('Ok'),
                                   ),
                                 ],
                               );

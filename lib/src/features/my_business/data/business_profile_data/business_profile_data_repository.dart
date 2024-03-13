@@ -34,4 +34,5 @@ abstract class BusinessProfileDataRepository {
       {required String uid, required File imageFile});
   Future<void> updateOffers(
       {required String uid, required Set<String> offersIds});
+  Future<List<Business>?> getBusinessesAt({required String city});
 }

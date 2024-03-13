@@ -1,34 +1,29 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
+import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const BottomNavigationBarExample();
+    return const BottomNavigation();
   }
 }
 
-class BottomNavigationBarExample extends StatefulWidget {
-  const BottomNavigationBarExample({super.key});
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
 
   @override
-  State<BottomNavigationBarExample> createState() =>
-      _BottomNavigationBarExampleState();
+  State<BottomNavigation> createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationBarExampleState
-    extends State<BottomNavigationBarExample> {
+class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
+    FeedScreen(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -47,13 +42,6 @@ class _BottomNavigationBarExampleState
     setState(() {
       _selectedIndex = index;
     });
-    if (index == 2) {
-      if (FirebaseAuth.instance.currentUser == null) {
-        Navigator.pushNamed(context, '/sign-in');
-      } else {
-        Navigator.pushNamed(context, '/profile-form');
-      }
-    }
   }
 
   @override
@@ -61,6 +49,23 @@ class _BottomNavigationBarExampleState
     return Scaffold(
       appBar: AppBar(
         actions: [
+          Container(
+            width: 250,
+            height: 50,
+            child: Center(
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: '\"Encanador\", \"Vidros\"',
+                  border: const OutlineInputBorder(),
+                  contentPadding: EdgeInsets.zero,
+                  prefixIcon: IconButton(
+                    onPressed: () => print('search'),
+                    icon: const Icon(Icons.search),
+                  ),
+                ),
+              ),
+            ),
+          ),
           const ThemeSwitchWidget(),
           IconButton(
             onPressed: () {
