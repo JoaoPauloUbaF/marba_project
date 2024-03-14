@@ -49,7 +49,9 @@ class MainApp extends ConsumerWidget {
         '/profile': (context) => const AppProfileScreen(),
         '/profile-form': (context) => const ProfileFormScreen(),
         '/settings': (context) => const SettingsScreen(),
-        '/business-list': (context) => const MyBusinessListScreen(),
+        '/business-list': (context) => const MyBusinessListScreen(
+              shouldRenderAppBar: true,
+            ),
         '/business-profile': (context) => const MyBusinessHomeScreen(),
         '/edit-offer': (context) => const EditOfferScreen(),
       },

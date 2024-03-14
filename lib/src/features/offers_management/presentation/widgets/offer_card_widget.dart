@@ -105,8 +105,8 @@ class OfferCardWidget extends StatelessWidget {
                                     icon: Icon(
                                       Icons.delete,
                                       color: Theme.of(context)
-                                          .primaryIconTheme
-                                          .color,
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
                                 ),
@@ -125,8 +125,8 @@ class OfferCardWidget extends StatelessWidget {
                                     icon: Icon(
                                       Icons.edit,
                                       color: Theme.of(context)
-                                          .primaryIconTheme
-                                          .color,
+                                          .colorScheme
+                                          .secondary,
                                     ),
                                   ),
                                 ),

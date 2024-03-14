@@ -17,7 +17,7 @@ class UserBusinessListWidget extends ConsumerWidget {
         ref.watch(myBusinessListScreenControllerProvider);
 
     return RefreshIndicator(
-      color: Colors.orange,
+      // color: Colors.orange,
       onRefresh: () async {
         await myBusinessListController.fetchUserBusinessList();
       },
@@ -30,6 +30,7 @@ class UserBusinessListWidget extends ConsumerWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
+              // make it reorderableListView
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final business = snapshot.data![index];
@@ -47,7 +48,10 @@ class UserBusinessListWidget extends ConsumerWidget {
                         subtitle: Text(
                             "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
                         trailing: IconButton(
-                          icon: const Icon(Icons.delete),
+                          icon: Icon(
+                            Icons.delete,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                           onPressed: () => {
                             myBusinessListController.deleteBusiness(
                               businessId: business?.id ?? '',
@@ -55,10 +59,10 @@ class UserBusinessListWidget extends ConsumerWidget {
                           },
                         ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Divider(
-                          color: Colors.orange,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                         ),
                       ),
                     ],

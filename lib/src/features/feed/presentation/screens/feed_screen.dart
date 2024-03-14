@@ -1,10 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/widgets/item_grid.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_category_selection_field_widget.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
-import 'package:project_marba/src/shared/models/product/product.dart';
-import 'package:project_marba/src/shared/models/service/service.dart';
 
 class FeedScreen extends ConsumerWidget {
   const FeedScreen({super.key});

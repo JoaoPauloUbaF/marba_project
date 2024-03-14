@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
+import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
+
+import '../../application/home_screen_controller/home_screen_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -11,15 +17,16 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class BottomNavigation extends StatefulWidget {
+class BottomNavigation extends ConsumerStatefulWidget {
   const BottomNavigation({super.key});
 
   @override
-  State<BottomNavigation> createState() => _BottomNavigationState();
+  ConsumerState<BottomNavigation> createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationState extends State<BottomNavigation> {
+class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   int _selectedIndex = 0;
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -32,9 +39,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
       'Index 2: School',
       style: optionStyle,
     ),
-    Text(
-      'Index 3: Schools',
-      style: optionStyle,
+    MyBusinessListScreen(
+      shouldRenderAppBar: false,
     ),
   ];
 
@@ -46,10 +52,12 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.read(homeScreenControllerProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
-          Container(
+          SizedBox(
             width: 250,
             height: 50,
             child: Center(
@@ -78,29 +86,35 @@ class _BottomNavigationState extends State<BottomNavigation> {
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Feed',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category_outlined),
-            label: 'Categories',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        type: BottomNavigationBarType.fixed,
-        onTap: _onItemTapped,
+      bottomNavigationBar: FutureBuilder(
+        future: controller.hasBusiness(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          return BottomNavigationBar(
+            items: <BottomNavigationBarItem>[
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Feed',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.category_outlined),
+                label: 'Categories',
+              ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profile',
+              ),
+              if (snapshot.data)
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.monetization_on_sharp),
+                  label: 'Negócios',
+                ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            type: BottomNavigationBarType.fixed,
+            onTap: _onItemTapped,
+          );
+        },
       ),
     );
   }
