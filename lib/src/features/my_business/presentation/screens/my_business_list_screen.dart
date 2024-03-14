@@ -1,25 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/my_business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 import '../components/add_business_stepper_widget.dart';
 import '../components/user_business_list_widget.dart';
 
 class MyBusinessListScreen extends ConsumerWidget {
-  const MyBusinessListScreen({Key? key}) : super(key: key);
+  final bool shouldRenderAppBar;
+
+  const MyBusinessListScreen({Key? key, required this.shouldRenderAppBar})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final myBusinessListController =
-        ref.read(myBusinessListScreenControllerProvider.notifier);
-    final formKey = GlobalKey<FormState>();
-
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Meus Empreendimentos'),
-      ),
+      appBar: shouldRenderAppBar
+          ? AppBar(
+              title: const Text('Meus Empreendimentos'),
+            )
+          : null,
       body: const UserBusinessListWidget(),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.orange[800],
         onPressed: () {
           showDialog(
             context: context,
