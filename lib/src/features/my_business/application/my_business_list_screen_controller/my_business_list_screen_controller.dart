@@ -1,6 +1,6 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/form.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
@@ -55,8 +55,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
         .getOwnedBusinessIds(uid: authRepository.getCurrentUser()?.uid ?? '');
     final userBusinessList = await getBusinessList(
         ownedBusinessIds: userOwnedBusinessIdsList as List<String>);
-    //state =
-    AsyncValue.data(userBusinessList); // TODO: create a updateState method
+    AsyncValue.data(userBusinessList);
     return userBusinessList;
   }
 
@@ -164,7 +163,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
       await businessProfileRepository
           .createBusinessProfile(business: business)
           .then((value) async => {
-                print('Business created successfully: ${value!.id}'),
+                log('Business created successfully: ${value!.id}'),
                 ref.read(userProfileDataProvider).addOwnedBusinessId(
                     uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
                     businessId: business.id),

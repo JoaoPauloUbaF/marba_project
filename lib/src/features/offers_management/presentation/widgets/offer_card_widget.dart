@@ -14,10 +14,6 @@ class OfferCardWidget extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme; // Access text theme
 
     return SizedBox(
-      width: Theme.of(context).platform == TargetPlatform.iOS ||
-              Theme.of(context).platform == TargetPlatform.android
-          ? MediaQuery.of(context).size.width / 2.2
-          : MediaQuery.of(context).size.width / 3.1,
       child: Card(
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).colorScheme.onPrimary,
@@ -32,6 +28,7 @@ class OfferCardWidget extends StatelessWidget {
                   offer.imageUrl,
                   fit: BoxFit.fill,
                   width: cardWidth,
+                  height: cardWidth / 1.2,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) {

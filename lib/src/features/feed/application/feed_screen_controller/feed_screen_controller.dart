@@ -16,16 +16,15 @@ class FeedScreenController extends _$FeedScreenController {
   FutureOr<void> build() {}
 
   Future<List<OfferModel>> getOffersNearby() async {
-    final offersRepo = ref.watch(offerRepositoryProviderProvider);
     final userRepo = ref.watch(userProfileDataProvider);
-    final businesssRepo = ref.watch(businessProfileDataProvider);
+    final businessRepo = ref.watch(businessProfileDataProvider);
     final user = ref.watch(authRepositoryProvider);
 
     final userData =
         await userRepo.getProfileData(uid: user.getCurrentUser()?.uid ?? '');
     final userLocation = userData?.address.city;
     final business =
-        await businesssRepo.getBusinessesAt(city: userLocation ?? '');
+        await businessRepo.getBusinessesAt(city: userLocation ?? '');
     Stream<List<OfferModel>> offers = const Stream.empty();
 
     return [];

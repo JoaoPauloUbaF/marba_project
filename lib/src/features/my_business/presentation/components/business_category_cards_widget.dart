@@ -5,8 +5,8 @@ class BusinessCategoryCards extends StatefulWidget {
   final Set<BusinessCategory> selectedCategories;
   final ValueChanged<Set<BusinessCategory>> onChanged;
 
-  BusinessCategoryCards(
-      {required this.selectedCategories, required this.onChanged});
+  const BusinessCategoryCards(
+      {super.key, required this.selectedCategories, required this.onChanged});
 
   @override
   _BusinessCategoryCardsState createState() => _BusinessCategoryCardsState();

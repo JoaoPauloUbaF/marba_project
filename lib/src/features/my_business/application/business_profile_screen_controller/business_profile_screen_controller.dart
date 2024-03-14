@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -83,7 +84,7 @@ class BusinessProfileScreenController
       final imageTemp = File(image.path);
       return imageTemp;
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      log('Failed to pick image: $e');
     }
     return null;
   }

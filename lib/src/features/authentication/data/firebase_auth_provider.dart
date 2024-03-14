@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_marba/src/features/authentication/data/authentication_repository.dart';
@@ -15,7 +17,7 @@ class FirebaseAuthProvider implements AuthenticationRepository {
       return userCredential.user;
     } catch (e) {
       // Trate possíveis erros, por exemplo, log e retorno nulo.
-      print('Error during anonymous sign-in: $e');
+      log('Error during anonymous sign-in: $e');
       return null;
     }
   }
@@ -32,7 +34,7 @@ class FirebaseAuthProvider implements AuthenticationRepository {
       return userCredential.user;
     } catch (e) {
       // Trate possíveis erros, por exemplo, log e retorno nulo.
-      print('Error during email/password sign-up: $e');
+      log('Error during email/password sign-up: $e');
       return null;
     }
   }
@@ -44,7 +46,7 @@ class FirebaseAuthProvider implements AuthenticationRepository {
       await _firebaseAuth.signOut();
     } catch (e) {
       // Trate possíveis erros, por exemplo, log.
-      print('Error during sign-out: $e');
+      log('Error during sign-out: $e');
     }
   }
 
@@ -66,7 +68,7 @@ class FirebaseAuthProvider implements AuthenticationRepository {
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
       return snapshot.exists;
     } catch (e) {
-      print('Error checking user registration: $e');
+      log('Error checking user registration: $e');
       return false;
     }
   }

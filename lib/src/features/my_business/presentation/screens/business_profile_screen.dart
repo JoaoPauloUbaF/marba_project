@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
@@ -8,7 +7,6 @@ import 'package:project_marba/src/features/my_business/presentation/components/b
 import 'package:project_marba/src/features/my_business/presentation/components/business_status_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
-import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {
   const BusinessProfileScreen({Key? key}) : super(key: key);
@@ -23,41 +21,50 @@ class BusinessProfileScreen extends ConsumerWidget {
               .read(businessProfileScreenControllerProvider.notifier)
               .fetchBusinessProfile();
         },
-        child: ListView(
-          children: [
-            business != null
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Stack(
-                        children: [
-                          BusinessProfileImageWidget(),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: BusinessStatusWidget(),
-                          ),
-                        ],
-                      ),
-                      const BusinessContactInfoCard(),
-                      AddressDisplayWidget(address: business.address),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
-                          child: Text(
-                            'Melhores Ofertas',
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: business != null
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Stack(
+                          children: [
+                            BusinessProfileImageWidget(),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: BusinessStatusWidget(),
+                            ),
+                          ],
                         ),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 1.8,
-                        child: const BusinessOfferListWidget(),
-                      ),
-                    ],
-                  )
-                : const LoadingWidget(),
+                        const BusinessContactInfoCard(),
+                        AddressDisplayWidget(address: business.address),
+                      ],
+                    )
+                  : const LoadingWidget(),
+            ),
+            const SliverAppBar(
+              pinned: true,
+              automaticallyImplyLeading: false,
+              title: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Melhores Ofertas',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            const SliverFillRemaining(
+              hasScrollBody: true,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: OfferListWidget(),
+              ),
+            ),
           ],
         ),
       ),

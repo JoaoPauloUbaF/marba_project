@@ -254,24 +254,34 @@ class CreateOfferStepperWidgetState
                             .then(
                               (value) => {
                                 Navigator.of(context).pop(),
-                                showGeneralDialog(
+                                showDialog(
                                   context: context,
-                                  pageBuilder:
-                                      (context, animation, secondaryAnimation) {
-                                    return AlertDialog(
-                                      title:
-                                          Center(child: Text('Oferta $value')),
-                                      content: const Center(
-                                          child: Text('Criada com sucesso!')),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: const Text('Ok'),
+                                  builder: (context) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width, // Set the width
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.3, // Set the height
+                                        child: AlertDialog(
+                                          title: Center(
+                                              child: Text('Oferta $value')),
+                                          content: const Center(
+                                              child:
+                                                  Text('Criada com sucesso!')),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Ok'),
+                                            ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     );
                                   },
                                 ),

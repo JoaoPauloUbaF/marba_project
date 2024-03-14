@@ -63,7 +63,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
             child: Center(
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: '\"Encanador\", \"Vidros\"',
+                  hintText: '"Encanador", "Vidros"',
                   border: const OutlineInputBorder(),
                   contentPadding: EdgeInsets.zero,
                   prefixIcon: IconButton(
@@ -103,7 +103,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
                 icon: Icon(Icons.person),
                 label: 'Profile',
               ),
-              if (snapshot.data)
+              if (snapshot.data != null && snapshot.data)
                 const BottomNavigationBarItem(
                   icon: Icon(Icons.monetization_on_sharp),
                   label: 'Negócios',

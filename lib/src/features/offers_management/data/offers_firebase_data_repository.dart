@@ -58,18 +58,31 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   }
 
   @override
-  Stream<List<OfferModel>> getOffersByBusinessId(String businessId) {
-    return _firestore
+  Stream<List<OfferModel>> getOffersByBusinessId(String businessId,
+      {OfferModel? lastOffer, int? limit}) async* {
+    Query query = _firestore
         .collection('offers')
         .where('businessId', isEqualTo: businessId)
-        .snapshots()
-        .map((querySnapshot) {
+        .orderBy(
+          'createdAt',
+          descending: true,
+        )
+        // Assuming there's a field 'createdAt' to order by
+        .limit(limit!);
+
+    if (lastOffer != null) {
+      query = query.startAfterDocument(
+          await _firestore.collection('offers').doc(lastOffer.id).get());
+    }
+
+    yield* query.snapshots().map((querySnapshot) {
       if (querySnapshot.docs.isEmpty) {
         return <OfferModel>[];
       }
-      return querySnapshot.docs
-          .map((doc) => OfferModel.fromJson(doc.data()))
+      final result = querySnapshot.docs
+          .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
+      return result;
     });
   }
 

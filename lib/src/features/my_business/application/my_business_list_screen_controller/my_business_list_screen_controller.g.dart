@@ -7,7 +7,7 @@ part of 'my_business_list_screen_controller.dart';
 // **************************************************************************
 
 String _$myBusinessListScreenControllerHash() =>
-    r'7ce2f77f3138e02a85a37fe4610990abff6f6fb0';
+    r'19ed069db50bf10943e7f3eed33a157ca895e54b';
 
 /// See also [MyBusinessListScreenController].
 @ProviderFor(MyBusinessListScreenController)
