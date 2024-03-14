@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
@@ -97,7 +99,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
           address: address,
         ).then((value) => onSubmit(context));
       } catch (e) {
-        print('Error submitting form: $e');
+        log('Error submitting form: $e');
       }
     }
   }

@@ -1,34 +1,79 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
-class BusinessOfferListWidget extends ConsumerWidget {
-  const BusinessOfferListWidget({super.key});
+class OfferListWidget extends ConsumerStatefulWidget {
+  const OfferListWidget({super.key});
+
+  static const _pageSize = 3;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final offerList = ref.watch(businessOffersProvider);
-    return offerList.when(
-      data: (offers) {
-        if (offers.isEmpty) {
-          return const Center(
-              child: Text('Esse negócio AINDA não tem ofertas disponíveis.'));
-        }
-        return MasonryGridView.count(
-          crossAxisCount: 2,
-          itemBuilder: (context, index) {
-            print(offers[0].toJson());
-            return OfferCardWidget(offer: offers[index]);
-          },
-          itemCount: offers.length,
-          mainAxisSpacing: 4.0,
-          crossAxisSpacing: 4.0,
-        );
-      },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('Error: $error')),
+  ConsumerState<OfferListWidget> createState() => _OfferListWidgetState();
+}
+
+class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
+  final PagingController<int, OfferModel> _pagingController =
+      PagingController(firstPageKey: 0);
+
+  @override
+  void initState() {
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
+    super.initState();
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      List<OfferModel> newItems = await ref
+          .read(businessOffersProvider.notifier)
+          .fetchNewOffers(
+              lastOffer: _pagingController.itemList?.last,
+              limit: OfferListWidget._pageSize);
+
+      final isLastPage = newItems.length < OfferListWidget._pageSize;
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + newItems.length;
+        _pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final offersList = ref.watch(businessOffersProvider);
+    offersList.whenData((offers) {
+      _pagingController.refresh();
+    });
+
+    return RefreshIndicator(
+      onRefresh: () => Future.sync(
+        () => _pagingController.refresh(),
+      ),
+      child: PagedMasonryGridView.count(
+        shrinkWrap: true,
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate<OfferModel>(
+          itemBuilder: (context, item, index) => OfferCardWidget(
+            offer: item,
+          ),
+        ),
+        crossAxisCount: 2,
+        physics: const BouncingScrollPhysics(),
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
   }
 }

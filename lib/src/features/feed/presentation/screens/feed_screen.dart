@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/feed/presentation/screens/widgets/item_grid.dart';
+import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
+import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 
 class FeedScreen extends ConsumerWidget {
@@ -72,7 +73,7 @@ class FeedScreen extends ConsumerWidget {
                 return Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.grey,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                   margin: const EdgeInsets.all(8),
                 );
@@ -170,7 +171,7 @@ class FeedScreen extends ConsumerWidget {
           //       ),
           //   ],
           // ),
-          const ItemGrid(),
+          // OfferListWidget(offerProvider: offerRepositoryProviderProvider, offerProviderNotifier: offerRepositoryProviderProvider.notifier),
         ],
       ),
     ));

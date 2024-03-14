@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -346,7 +347,7 @@ class BusinessFirebaseProfileDataProvider
         await _businessCollection.doc(uid).update({
           'profileImageUrl': downloadUrl,
         }).whenComplete(
-            () => print(_businessCollection.doc(uid).get().toString()));
+            () => log(_businessCollection.doc(uid).get().toString()));
       } else {
         // Add 'profileImageUrl' field
         await _businessCollection.doc(uid).update({
@@ -354,7 +355,7 @@ class BusinessFirebaseProfileDataProvider
         });
       }
     } else {
-      print('Document does not exist');
+      log('Document does not exist');
     }
   }
 }

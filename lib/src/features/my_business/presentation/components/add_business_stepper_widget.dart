@@ -91,7 +91,7 @@ class _AddBusinessStepperWidgetState
             TextFormField(
               controller: _nameController,
               decoration:
-                  const InputDecoration(labelText: 'Nome do Empreeendimento'),
+                  const InputDecoration(labelText: 'Nome do Empreendimento'),
               validator: (value) =>
                   myBusinessListController.validateName(value),
             ),

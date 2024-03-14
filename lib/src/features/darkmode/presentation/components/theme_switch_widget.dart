@@ -20,9 +20,7 @@ class ThemeSwitchWidget extends ConsumerWidget {
           if (states.contains(MaterialState.selected)) {
             return const Icon(Icons.nightlight_sharp);
           }
-
           return const Icon(Icons.wb_sunny_sharp);
-          ; // All other states will use the default thumbIcon.
         }),
       ),
     );
