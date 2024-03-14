@@ -34,8 +34,12 @@ class OfferCardWidget extends StatelessWidget {
                     if (loadingProgress == null) {
                       return child;
                     }
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return SizedBox(
+                      width: cardWidth,
+                      height: cardWidth / 1.2,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
                   },
                 ),

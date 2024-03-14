@@ -8,7 +8,7 @@ import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 class OfferListWidget extends ConsumerStatefulWidget {
   const OfferListWidget({super.key});
 
-  static const _pageSize = 3;
+  static const _pageSize = 10;
 
   @override
   ConsumerState<OfferListWidget> createState() => _OfferListWidgetState();
@@ -27,6 +27,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
+    await Future.delayed(const Duration(seconds: 1));
     try {
       List<OfferModel> newItems = await ref
           .read(businessOffersProvider.notifier)

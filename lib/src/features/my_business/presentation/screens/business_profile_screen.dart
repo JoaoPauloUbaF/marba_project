@@ -21,51 +21,91 @@ class BusinessProfileScreen extends ConsumerWidget {
               .read(businessProfileScreenControllerProvider.notifier)
               .fetchBusinessProfile();
         },
-        child: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(
-              child: business != null
-                  ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Stack(
-                          children: [
-                            BusinessProfileImageWidget(),
-                            Positioned(
-                              top: 0,
-                              right: 0,
-                              child: BusinessStatusWidget(),
-                            ),
-                          ],
-                        ),
-                        const BusinessContactInfoCard(),
-                        AddressDisplayWidget(address: business.address),
-                      ],
-                    )
-                  : const LoadingWidget(),
-            ),
-            const SliverAppBar(
-              pinned: true,
-              automaticallyImplyLeading: false,
-              title: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Melhores Ofertas',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+        child: NestedScrollView(
+          body: const OfferListWidget(),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverToBoxAdapter(
+                child: business != null
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Stack(
+                            children: [
+                              BusinessProfileImageWidget(),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: BusinessStatusWidget(),
+                              ),
+                            ],
+                          ),
+                          const BusinessContactInfoCard(),
+                          AddressDisplayWidget(address: business.address),
+                        ],
+                      )
+                    : const LoadingWidget(),
+              ),
+              const SliverAppBar(
+                pinned: true,
+                automaticallyImplyLeading: false,
+                title: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Melhores Ofertas',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SliverFillRemaining(
-              hasScrollBody: true,
-              child: Padding(
-                padding: EdgeInsets.only(top: 8.0),
-                child: OfferListWidget(),
-              ),
-            ),
-          ],
+            ];
+          },
+          // slivers: [
+          //   SliverToBoxAdapter(
+          //     child: business != null
+          //         ? Column(
+          //             crossAxisAlignment: CrossAxisAlignment.center,
+          //             children: [
+          //               const Stack(
+          //                 children: [
+          //                   BusinessProfileImageWidget(),
+          //                   Positioned(
+          //                     top: 0,
+          //                     right: 0,
+          //                     child: BusinessStatusWidget(),
+          //                   ),
+          //                 ],
+          //               ),
+          //               const BusinessContactInfoCard(),
+          //               AddressDisplayWidget(address: business.address),
+          //             ],
+          //           )
+          //         : const LoadingWidget(),
+          //   ),
+          //   const SliverAppBar(
+          //     pinned: true,
+          //     automaticallyImplyLeading: false,
+          //     title: Align(
+          //       alignment: Alignment.centerLeft,
+          //       child: Text(
+          //         'Melhores Ofertas',
+          //         style: TextStyle(
+          //           fontSize: 20,
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          //   const SliverFillRemaining(
+          //     hasScrollBody: true,
+          //     child: Padding(
+          //       padding: EdgeInsets.only(top: 8.0),
+          //       child: OfferListWidget(),
+          //     ),
+          //   ),
+          // ], headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {  },
         ),
       ),
     );
