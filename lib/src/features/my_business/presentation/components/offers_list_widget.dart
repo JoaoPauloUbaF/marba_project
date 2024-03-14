@@ -62,6 +62,8 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         shrinkWrap: true,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<OfferModel>(
+          animateTransitions: true,
+          transitionDuration: const Duration(milliseconds: 1),
           itemBuilder: (context, item, index) => OfferCardWidget(
             offer: item,
           ),

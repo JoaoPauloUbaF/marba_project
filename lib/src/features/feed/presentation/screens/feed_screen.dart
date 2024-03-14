@@ -1,13 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
-
-import 'package:flutter/material.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class FeedScreen extends StatelessWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+  const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -158,41 +157,72 @@ class FeedScreen extends StatelessWidget {
               ],
             ),
           ),
+          Consumer(
+            builder: (_, WidgetRef ref, __) {
+              return FutureBuilder(
+                future: ref.read(offerRepositoryProviderProvider).getOffers(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<OfferModel>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const SliverToBoxAdapter(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    return const SliverToBoxAdapter(
+                      child: Center(
+                        child: Text('Erro ao carregar as ofertas'),
+                      ),
+                    );
+                  }
+                  final offers = snapshot.data;
+                  return SliverGrid.count(
+                    childAspectRatio: .8,
+                    crossAxisCount: 2,
+                    children: [
+                      for (var offer in offers!) OfferCardWidget(offer: offer)
+                    ],
+                  );
+                },
+              );
+            },
+          )
         ],
       ),
     );
   }
 }
 
-
-          // Wrap(
-          //   spacing: 4.0,
-          //   children: [
-          //     for (var category in ProductCategory.values)
-          //       ChoiceChip(
-          //         label: Text(
-          //           category.toString().split('.').last,
-          //         ),
-          //         selected: false,
-          //         selectedColor:
-          //             Theme.of(context).colorScheme.secondaryContainer,
-          //         onSelected: (value) {},
-          //       ),
-          //   ],
-          // ),
-          // Wrap(
-          //   spacing: 4.0,
-          //   children: [
-          //     for (var category in ServiceCategory.values)
-          //       ChoiceChip(
-          //         label: Text(
-          //           category.toString().split('.').last,
-          //         ),
-          //         selected: false,
-          //         selectedColor:
-          //             Theme.of(context).colorScheme.secondaryContainer,
-          //         onSelected: (value) {},
-          //       ),
-          //   ],
-          // ),
-          // OfferListWidget(offerProvider: offerRepositoryProviderProvider, offerProviderNotifier: offerRepositoryProviderProvider.notifier),
+// Wrap(
+//   spacing: 4.0,
+//   children: [
+//     for (var category in ProductCategory.values)
+//       ChoiceChip(
+//         label: Text(
+//           category.toString().split('.').last,
+//         ),
+//         selected: false,
+//         selectedColor:
+//             Theme.of(context).colorScheme.secondaryContainer,
+//         onSelected: (value) {},
+//       ),
+//   ],
+// ),
+// Wrap(
+//   spacing: 4.0,
+//   children: [
+//     for (var category in ServiceCategory.values)
+//       ChoiceChip(
+//         label: Text(
+//           category.toString().split('.').last,
+//         ),
+//         selected: false,
+//         selectedColor:
+//             Theme.of(context).colorScheme.secondaryContainer,
+//         onSelected: (value) {},
+//       ),
+//   ],
+// ),
+// OfferListWidget(offerProvider: offerRepositoryProviderProvider, offerProviderNotifier: offerRepositoryProviderProvider.notifier),

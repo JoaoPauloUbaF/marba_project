@@ -1,15 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
-import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 
 import '../../application/home_screen_controller/home_screen_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +58,21 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         automaticallyImplyLeading: false,
         actions: [
           SizedBox(
-            width: 250,
-            height: 50,
+            width: 230,
+            height: 35,
             child: Center(
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: '"Encanador", "Vidros"',
+                  hintText: ' "Encanador", "Vidros"',
                   border: const OutlineInputBorder(),
-                  contentPadding: EdgeInsets.zero,
-                  prefixIcon: IconButton(
-                    onPressed: () => print('search'),
-                    icon: const Icon(Icons.search),
+                  contentPadding: const EdgeInsets.all(5),
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      log('Search');
+                    },
+                    child: const Icon(
+                      Icons.search,
+                    ),
                   ),
                 ),
               ),
