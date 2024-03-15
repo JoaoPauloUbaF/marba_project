@@ -17,6 +17,7 @@ class MyBusinessOffersScreen extends ConsumerWidget {
         body: OfferListWidget(
           offerProvider: businessOffers,
           offerProviderNotifier: businessOffersNotifier,
+          isBusiness: true,
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
