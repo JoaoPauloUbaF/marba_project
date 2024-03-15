@@ -27,7 +27,7 @@ class OfferEditionController extends _$OfferEditionController {
     required String itemCost,
     required Set<String> category,
     required OfferType type,
-    OfferStatus? status,
+    required OfferStatus status,
     File? image,
   }) {
     if (type == OfferType.product) {
@@ -39,7 +39,8 @@ class OfferEditionController extends _$OfferEditionController {
         itemCost: RegistrationUtils().currencyStringToDouble(itemCost),
         imageUrl: image != null ? image.path : state!.imageUrl,
       );
-      final offer = state!.copyWith(product: updatedProduct);
+      final offer = state!.copyWith(
+          product: updatedProduct, category: category, status: status);
       return updateOffer(offer);
     } else {
       final updatedService = state!.service!.copyWith(
@@ -48,7 +49,8 @@ class OfferEditionController extends _$OfferEditionController {
         price: RegistrationUtils().currencyStringToDouble(price),
         imageUrl: image != null ? image.path : state!.imageUrl,
       );
-      final offer = state!.copyWith(service: updatedService);
+      final offer = state!.copyWith(
+          service: updatedService, category: category, status: status);
       return updateOffer(offer);
     }
   }

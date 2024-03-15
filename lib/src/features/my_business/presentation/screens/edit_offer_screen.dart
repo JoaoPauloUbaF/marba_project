@@ -35,7 +35,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
     decimalSeparator: ',',
   );
   final Set<String> _offerCategory = {};
-  OfferStatus? _status;
+  late OfferStatus _status;
   File? _image;
   String? _imageURl;
 
@@ -129,7 +129,7 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
               }).toList(),
               onChanged: (OfferStatus? newValue) {
                 setState(() {
-                  _status = newValue;
+                  _status = newValue ?? OfferStatus.active;
                 });
               },
               validator: (OfferStatus? value) =>
