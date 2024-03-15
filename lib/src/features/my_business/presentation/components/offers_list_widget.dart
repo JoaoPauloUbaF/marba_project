@@ -13,10 +13,13 @@ class OfferListWidget extends ConsumerStatefulWidget {
 
   final AsyncValue<List<OfferModel>> offerProvider;
 
+  final bool isBusiness;
+
   const OfferListWidget(
       {super.key,
       required this.offerProviderNotifier,
-      required this.offerProvider});
+      required this.offerProvider,
+      required this.isBusiness});
 
   static const _pageSize = 10;
 
@@ -104,6 +107,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
           animateTransitions: true,
           transitionDuration: const Duration(milliseconds: 1),
           itemBuilder: (context, item, index) => OfferCardWidget(
+            isBusiness: widget.isBusiness,
             offer: item,
           ),
         ),

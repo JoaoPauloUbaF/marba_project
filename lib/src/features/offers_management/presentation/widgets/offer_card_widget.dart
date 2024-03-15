@@ -7,7 +7,10 @@ import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 class OfferCardWidget extends StatelessWidget {
   final OfferModel offer;
 
-  const OfferCardWidget({super.key, required this.offer});
+  final bool isBusiness;
+
+  const OfferCardWidget(
+      {super.key, required this.offer, required this.isBusiness});
 
   @override
   Widget build(BuildContext context) {
@@ -43,105 +46,139 @@ class OfferCardWidget extends StatelessWidget {
                     );
                   },
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              offer.title,
-                              style: textTheme.titleMedium,
-                              maxLines: 2, // Adjust number of lines
-                            ),
-                            Text(
-                              "R\$ ${offer.price.toStringAsFixed(2)}",
-                              style: textTheme.labelMedium,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            // Add space between widgets
-                            offer.product != null
-                                ? Text(
-                                    "Qtd: ${offer.availableQuantity}",
-                                    style: textTheme.labelMedium,
-                                    overflow: TextOverflow.ellipsis,
-                                  )
-                                : const SizedBox.shrink(),
-                          ],
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 4.0, horizontal: 8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          offer.title,
+                          style: textTheme.titleMedium,
+                          maxLines: 2,
+                          overflow:
+                              TextOverflow.ellipsis, // Adjust number of lines
                         ),
                       ),
-                      Expanded(
-                        child: Consumer(
-                          builder: (_, WidgetRef ref, __) {
-                            return Row(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 8.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Row(
                               children: [
                                 Expanded(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          showCloseIcon: true,
-                                          duration: const Duration(seconds: 5),
-                                          backgroundColor: Theme.of(context)
-                                              .colorScheme
-                                              .error,
-                                          content: const Text(
-                                              'Tem certeza que deseja excluir a oferta?'),
-                                          action: SnackBarAction(
-                                            label: 'Sim',
-                                            onPressed: () {
-                                              ref
-                                                  .read(
-                                                      offersDataRepositoryProvider)
-                                                  .deleteOffer(offer.id);
-                                            },
-                                          ),
+                                  child: Text(
+                                    "R\$ ${offer.price.toStringAsFixed(2)}",
+                                    style: textTheme.labelLarge
+                                        ?.copyWith(fontWeight: FontWeight.w800),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                offer.product != null && isBusiness
+                                    ? Expanded(
+                                        child: Text(
+                                          "Qtd: ${offer.availableQuantity}",
+                                          style: textTheme.labelLarge?.copyWith(
+                                              fontWeight: FontWeight.w800),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      ref
-                                          .read(offerEditionControllerProvider
-                                              .notifier)
-                                          .setSelectedOfferToEdit(offer);
-
-                                      Navigator.of(context).pushNamed(
-                                        '/edit-offer',
-                                      );
-                                    },
-                                    icon: Icon(
-                                      Icons.edit,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .secondary,
-                                    ),
-                                  ),
-                                ),
+                                      )
+                                    : const SizedBox.shrink(),
                               ],
-                            );
-                          },
-                        ),
+                            ),
+                          ),
+                          if (isBusiness) OfferQuickManageWidget(offer: offer),
+                        ],
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  ],
+                )
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class OfferQuickManageWidget extends StatelessWidget {
+  const OfferQuickManageWidget({
+    super.key,
+    required this.offer,
+  });
+
+  final OfferModel offer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          color: Theme.of(context).colorScheme.onSecondary,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Consumer(
+            builder: (_, WidgetRef ref, __) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          showCloseIcon: true,
+                          duration: const Duration(seconds: 5),
+                          backgroundColor: Theme.of(context).colorScheme.error,
+                          content: const Text(
+                              'Tem certeza que deseja excluir a oferta?'),
+                          action: SnackBarAction(
+                            label: 'Sim',
+                            onPressed: () {
+                              ref
+                                  .read(offersDataRepositoryProvider)
+                                  .deleteOffer(offer.id);
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      ref
+                          .read(offerEditionControllerProvider.notifier)
+                          .setSelectedOfferToEdit(offer);
+
+                      Navigator.of(context).pushNamed(
+                        '/edit-offer',
+                      );
+                    },
+                    child: Icon(
+                      Icons.edit,
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
