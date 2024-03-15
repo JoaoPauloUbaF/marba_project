@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
 class BusinessStatusWidget extends ConsumerWidget {
-  const BusinessStatusWidget({Key? key}) : super(key: key);
+  const BusinessStatusWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

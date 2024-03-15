@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
 class BusinessCategoryTiles extends ConsumerWidget {
-  BusinessCategoryTiles({Key? key}) : super(key: key);
+  BusinessCategoryTiles({super.key});
 
   final Map<String, String> categoriesTranslations = {
     'aesthetics': 'Estética',

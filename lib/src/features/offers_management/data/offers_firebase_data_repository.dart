@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -68,7 +69,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     try {
       await _firestore.collection('offers').doc(id).delete();
     } catch (e) {
-      print('Error deleting offer: $e');
+      log('Error deleting offer: $e');
     }
   }
 
@@ -111,7 +112,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       final imageUrl = await snapshot.ref.getDownloadURL();
       return imageUrl;
     } catch (e) {
-      print('Error uploading image: $e');
+      log('Error uploading image: $e');
       return null;
     }
   }

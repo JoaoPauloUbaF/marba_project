@@ -13,7 +13,7 @@ import '../../../../shared/models/offer/offer_model.dart';
 final formKey = GlobalKey<FormState>();
 
 class CreateOfferStepperWidget extends ConsumerStatefulWidget {
-  const CreateOfferStepperWidget({Key? key}) : super(key: key);
+  const CreateOfferStepperWidget({super.key});
 
   @override
   CreateOfferStepperWidgetState createState() =>

@@ -4,14 +4,13 @@ import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 class OfferTypeSelection extends StatefulWidget {
   final Function(OfferType) onTypeSelected;
 
-  const OfferTypeSelection({Key? key, required this.onTypeSelected})
-      : super(key: key);
+  const OfferTypeSelection({super.key, required this.onTypeSelected});
 
   @override
-  _OfferTypeSelectionState createState() => _OfferTypeSelectionState();
+  OfferTypeSelectionState createState() => OfferTypeSelectionState();
 }
 
-class _OfferTypeSelectionState extends State<OfferTypeSelection> {
+class OfferTypeSelectionState extends State<OfferTypeSelection> {
   OfferType? _selectedType;
 
   @override
@@ -27,8 +26,8 @@ class _OfferTypeSelectionState extends State<OfferTypeSelection> {
                   icon: Icon(
                     Icons.shopping_cart_sharp,
                     color: _selectedType == OfferType.product
-                        ? Colors.orange
-                        : Colors.grey,
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).disabledColor,
                     size: 50, // Change colors as needed
                   ),
                   onPressed: () {
@@ -49,8 +48,8 @@ class _OfferTypeSelectionState extends State<OfferTypeSelection> {
               icon: Icon(
                 Icons.build_sharp,
                 color: _selectedType == OfferType.service
-                    ? Colors.orange
-                    : Colors.grey,
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).disabledColor,
                 size: 50, // Change colors as needed
               ),
               onPressed: () {

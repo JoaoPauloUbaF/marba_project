@@ -10,7 +10,7 @@ import 'package:project_marba/src/features/my_business/presentation/components/o
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {
-  const BusinessProfileScreen({Key? key}) : super(key: key);
+  const BusinessProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
