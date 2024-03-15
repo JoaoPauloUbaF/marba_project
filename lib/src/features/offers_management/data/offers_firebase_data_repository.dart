@@ -10,15 +10,30 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
-  Future<List<OfferModel>> getOffers() async {
-    final querySnapshot = await _firestore.collection('offers').get();
-    if (querySnapshot.docs.isEmpty) {
-      return [];
+  Stream<List<OfferModel>> getOffers({OfferModel? lastOffer}) async* {
+    Query query = _firestore
+        .collection('offers')
+        .orderBy(
+          'createdAt',
+          descending: true,
+        )
+        // Assuming there's a field 'createdAt' to order by
+        .limit(10);
+
+    if (lastOffer != null) {
+      query = query.startAfterDocument(
+          await _firestore.collection('offers').doc(lastOffer.id).get());
     }
-    final offers = querySnapshot.docs
-        .map((doc) => OfferModel.fromJson(doc.data()))
-        .toList();
-    return offers;
+
+    yield* query.snapshots().map((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        return <OfferModel>[];
+      }
+      final result = querySnapshot.docs
+          .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList();
+      return result;
+    });
   }
 
   @override

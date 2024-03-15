@@ -7,7 +7,7 @@ part of 'offer_edition_controller.dart';
 // **************************************************************************
 
 String _$offerEditionControllerHash() =>
-    r'4dafd9d5e8ea765a9ff98fb17ea5acb27d88b350';
+    r'0ada9ca2c1d9078defda790ea7a6d0b6dd3cdb70';
 
 /// See also [OfferEditionController].
 @ProviderFor(OfferEditionController)

@@ -88,7 +88,7 @@ class OfferCreationController extends _$OfferCreationController {
 
   Future<String> saveOfferImage(File image, String offerId) async {
     final imageUrl =
-        await ref.read(offerRepositoryProviderProvider).saveOfferImage(
+        await ref.read(offersDataRepositoryProvider).saveOfferImage(
               image,
               offerId,
             );
@@ -124,7 +124,7 @@ class OfferCreationController extends _$OfferCreationController {
 
     try {
       offerImageUrl = await ref
-          .read(offerRepositoryProviderProvider)
+          .read(offersDataRepositoryProvider)
           .saveOfferImage(offerImage!, offerId);
     } catch (e) {
       print('Error uploading image: $e');
@@ -164,7 +164,7 @@ class OfferCreationController extends _$OfferCreationController {
       status: offerStatus ?? OfferStatus.active,
       type: offerType,
     );
-    ref.read(offerRepositoryProviderProvider).createOffer(offer);
+    ref.read(offersDataRepositoryProvider).createOffer(offer);
     return offer.title;
   }
 

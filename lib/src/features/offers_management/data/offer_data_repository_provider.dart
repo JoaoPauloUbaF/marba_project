@@ -5,6 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'offer_data_repository_provider.g.dart';
 
 @riverpod
-OffersDataRepository offerRepositoryProvider(OfferRepositoryProviderRef ref) {
+OffersDataRepository offersDataRepository(OffersDataRepositoryRef ref) {
   return OffersFirebaseDataRepository();
 }

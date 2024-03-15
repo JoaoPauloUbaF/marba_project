@@ -96,7 +96,7 @@ class OfferCardWidget extends StatelessWidget {
                                             onPressed: () {
                                               ref
                                                   .read(
-                                                      offerRepositoryProviderProvider)
+                                                      offersDataRepositoryProvider)
                                                   .deleteOffer(offer.id);
                                             },
                                           ),
