@@ -6,7 +6,7 @@ import 'package:project_marba/src/features/authentication/application/sign_in_sc
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 
 class ThemeSwitchWidget extends ConsumerWidget {
-  const ThemeSwitchWidget({Key? key}) : super(key: key);
+  const ThemeSwitchWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

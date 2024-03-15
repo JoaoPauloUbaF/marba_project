@@ -27,9 +27,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
           ListTile(
             title: const Text('Privacy Settings'),
-            onTap: () {
-              // TODO: Implement privacy settings
-            },
+            onTap: () {},
           ),
           ListTile(
             title: const Text('Meus Negócios'),
@@ -41,9 +39,7 @@ class SettingsScreen extends ConsumerWidget {
           ),
           ListTile(
             title: const Text('About'),
-            onTap: () {
-              // TODO: Implement about screen
-            },
+            onTap: () {},
           ),
         ],
       ),

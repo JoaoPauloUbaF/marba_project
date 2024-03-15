@@ -6,7 +6,7 @@ import 'package:project_marba/src/features/my_business/application/business_prof
 import 'loading_widget.dart';
 
 class BusinessProfileImageWidget extends ConsumerWidget {
-  const BusinessProfileImageWidget({Key? key}) : super(key: key);
+  const BusinessProfileImageWidget({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

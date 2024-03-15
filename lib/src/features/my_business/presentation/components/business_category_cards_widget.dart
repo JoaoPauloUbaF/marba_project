@@ -9,10 +9,10 @@ class BusinessCategoryCards extends StatefulWidget {
       {super.key, required this.selectedCategories, required this.onChanged});
 
   @override
-  _BusinessCategoryCardsState createState() => _BusinessCategoryCardsState();
+  BusinessCategoryCardsState createState() => BusinessCategoryCardsState();
 }
 
-class _BusinessCategoryCardsState extends State<BusinessCategoryCards> {
+class BusinessCategoryCardsState extends State<BusinessCategoryCards> {
   // Mapa de traduções
   Map<String, String> translations = {
     'aesthetics': 'Estética',
@@ -53,7 +53,7 @@ class _BusinessCategoryCardsState extends State<BusinessCategoryCards> {
             height: MediaQuery.of(context).size.height / 10,
             child: Card(
               color:
-                  isSelected ? const Color.fromARGB(255, 65, 107, 142) : null,
+                  isSelected ? Theme.of(context).colorScheme.onPrimary : null,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(

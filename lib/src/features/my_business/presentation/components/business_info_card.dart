@@ -7,8 +7,8 @@ import 'package:project_marba/src/shared/models/business/business.dart';
 
 class BusinessContactInfoCard extends ConsumerWidget {
   const BusinessContactInfoCard({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

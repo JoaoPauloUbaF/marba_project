@@ -6,8 +6,7 @@ import '../components/user_business_list_widget.dart';
 class MyBusinessListScreen extends ConsumerWidget {
   final bool shouldRenderAppBar;
 
-  const MyBusinessListScreen({Key? key, required this.shouldRenderAppBar})
-      : super(key: key);
+  const MyBusinessListScreen({super.key, required this.shouldRenderAppBar});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -10,13 +10,13 @@ import 'business_category_cards_widget.dart';
 final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
 class AddBusinessStepperWidget extends ConsumerStatefulWidget {
-  const AddBusinessStepperWidget({Key? key}) : super(key: key);
+  const AddBusinessStepperWidget({super.key});
   @override
-  _AddBusinessStepperWidgetState createState() =>
-      _AddBusinessStepperWidgetState();
+  AddBusinessStepperWidgetState createState() =>
+      AddBusinessStepperWidgetState();
 }
 
-class _AddBusinessStepperWidgetState
+class AddBusinessStepperWidgetState
     extends ConsumerState<AddBusinessStepperWidget> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;

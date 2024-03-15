@@ -9,11 +9,11 @@ class OfferImageField extends StatefulWidget {
   final String? imageURL;
 
   const OfferImageField({
-    Key? key,
+    super.key,
     required this.onImageSelected,
     required this.offerCreationController,
     this.imageURL,
-  }) : super(key: key);
+  });
 
   @override
   State<OfferImageField> createState() => _OfferImageFieldState();

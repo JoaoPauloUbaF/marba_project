@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/services.dart';
@@ -81,7 +82,7 @@ class OfferCreationController extends _$OfferCreationController {
       final imageTemp = File(image.path);
       return imageTemp;
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+      log('Failed to pick image: $e');
     }
     return null;
   }
@@ -127,7 +128,7 @@ class OfferCreationController extends _$OfferCreationController {
           .read(offersDataRepositoryProvider)
           .saveOfferImage(offerImage!, offerId);
     } catch (e) {
-      print('Error uploading image: $e');
+      log('Error uploading image: $e');
       return 'Erro ao salvar a imagem da oferta';
     }
 
