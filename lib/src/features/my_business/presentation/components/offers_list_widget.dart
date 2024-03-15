@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:project_marba/src/features/feed/application/feed_screen_controller/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
@@ -39,6 +40,13 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
           await widget.offerProviderNotifier.fetchNewOffers(
         lastOffer: _pagingController.itemList?.last,
       );
+      final offerTypeFilter = ref.read(feedOffersTypeFilterProvider);
+
+      if (offerTypeFilter != null) {
+        newItems = newItems
+            .where((element) => element.offerType == offerTypeFilter)
+            .toList();
+      }
 
       final isLastPage = newItems.length < OfferListWidget._pageSize;
       if (isLastPage) {
@@ -58,6 +66,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
     offersList.whenData((offers) {
       _pagingController.refresh();
     });
+    final _ = ref.watch(feedOffersTypeFilterProvider);
 
     return RefreshIndicator(
       onRefresh: () => Future.sync(

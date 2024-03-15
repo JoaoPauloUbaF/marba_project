@@ -74,7 +74,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
   @override
   Stream<List<OfferModel>> getOffersByBusinessId(String businessId,
-      {OfferModel? lastOffer, int? limit}) async* {
+      {OfferModel? lastOffer}) async* {
     Query query = _firestore
         .collection('offers')
         .where('businessId', isEqualTo: businessId)
@@ -83,7 +83,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
           descending: true,
         )
         // Assuming there's a field 'createdAt' to order by
-        .limit(limit!);
+        .limit(10);
 
     if (lastOffer != null) {
       query = query.startAfterDocument(

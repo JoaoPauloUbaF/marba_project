@@ -1,10 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:project_marba/src/features/feed/application/feed_screen_controller/feed_offers_type_filter_provider.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_type_filter_widget.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 import '../../../my_business/presentation/components/offers_list_widget.dart';
 import '../../../offers_management/application/offer_list/feed_offers_list_provider.dart';
+import '../../../offers_management/presentation/widgets/offer_type_filter_tab.dart';
 
 class FeedScreen extends ConsumerWidget {
   const FeedScreen({super.key});
@@ -13,6 +17,9 @@ class FeedScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final feedOffers = ref.watch(feedOffersProvider);
     final feedOffersNotifier = ref.read(feedOffersProvider.notifier);
+    final feedOffersTypeFilterNotifier =
+        ref.watch(feedOffersTypeFilterProvider.notifier);
+    final feedOffersTypeFilter = ref.watch(feedOffersTypeFilterProvider);
     return Scaffold(
       body: NestedScrollView(
         body: OfferListWidget(
@@ -137,19 +144,7 @@ class FeedScreen extends ConsumerWidget {
               ),
             ),
             const SliverToBoxAdapter(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Tab(
-                    icon: Icon(Icons.shopping_cart_sharp),
-                    text: 'Produtos',
-                  ),
-                  Tab(
-                    icon: const Icon(Icons.build_sharp),
-                    text: 'Serviços',
-                  ),
-                ],
-              ),
+              child: OfferTypeFilterWidget(),
             ),
           ];
         },
@@ -157,35 +152,3 @@ class FeedScreen extends ConsumerWidget {
     );
   }
 }
-
-// Wrap(
-//   spacing: 4.0,
-//   children: [
-//     for (var category in ProductCategory.values)
-//       ChoiceChip(
-//         label: Text(
-//           category.toString().split('.').last,
-//         ),
-//         selected: false,
-//         selectedColor:
-//             Theme.of(context).colorScheme.secondaryContainer,
-//         onSelected: (value) {},
-//       ),
-//   ],
-// ),
-// Wrap(
-//   spacing: 4.0,
-//   children: [
-//     for (var category in ServiceCategory.values)
-//       ChoiceChip(
-//         label: Text(
-//           category.toString().split('.').last,
-//         ),
-//         selected: false,
-//         selectedColor:
-//             Theme.of(context).colorScheme.secondaryContainer,
-//         onSelected: (value) {},
-//       ),
-//   ],
-// ),
-// OfferListWidget(offerProvider: offerRepositoryProviderProvider, offerProviderNotifier: offerRepositoryProviderProvider.notifier),
