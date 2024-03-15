@@ -16,7 +16,7 @@ class OfferCardWidget extends StatelessWidget {
     return SizedBox(
       child: Card(
         clipBehavior: Clip.antiAlias,
-        color: Theme.of(context).colorScheme.onPrimary,
+        color: Theme.of(context).colorScheme.primaryContainer,
         child: LayoutBuilder(
           builder: (context, constraints) {
             double cardWidth = constraints.maxWidth;

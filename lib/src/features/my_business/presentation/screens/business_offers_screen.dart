@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/create_offer_stepper_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_type_filter_widget.dart';
 
 class MyBusinessOffersScreen extends ConsumerWidget {
   const MyBusinessOffersScreen({super.key});
@@ -12,13 +13,21 @@ class MyBusinessOffersScreen extends ConsumerWidget {
     final businessOffers = ref.watch(businessOffersProvider);
     final businessOffersNotifier = ref.read(businessOffersProvider.notifier);
     return Scaffold(
-      body: OfferListWidget(
-        // Use the OfferListWidget to display the offers
-        offerProvider: businessOffers,
-        offerProviderNotifier: businessOffersNotifier,
+      body: NestedScrollView(
+        body: OfferListWidget(
+          offerProvider: businessOffers,
+          offerProviderNotifier: businessOffersNotifier,
+        ),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            const SliverToBoxAdapter(
+              child: OfferTypeFilterWidget(),
+            ),
+          ];
+        },
       ),
-      // const BusinessOfferListWidget(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.onPrimary,
         onPressed: () {
           showDialog(
             context: context,

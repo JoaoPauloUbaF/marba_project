@@ -14,19 +14,17 @@ class BusinessOffers extends _$BusinessOffers {
       return const Stream.empty();
     }
     final offers = ref.read(offersDataRepositoryProvider).getOffersByBusinessId(
-        ref.read(businessProfileScreenControllerProvider)!.id,
-        limit: 3);
+          ref.read(businessProfileScreenControllerProvider)!.id,
+        );
     return offers;
   }
 
-  Future<List<OfferModel>> fetchNewOffers(
-      {OfferModel? lastOffer, int? limit}) async {
-    final fetchedOffers = ref
-        .read(offersDataRepositoryProvider)
-        .getOffersByBusinessId(
-            ref.read(businessProfileScreenControllerProvider)!.id,
-            lastOffer: lastOffer,
-            limit: limit);
+  Future<List<OfferModel>> fetchNewOffers({OfferModel? lastOffer}) async {
+    final fetchedOffers =
+        ref.read(offersDataRepositoryProvider).getOffersByBusinessId(
+              ref.read(businessProfileScreenControllerProvider)!.id,
+              lastOffer: lastOffer,
+            );
     final newOffers = await fetchedOffers.first;
     return newOffers;
   }

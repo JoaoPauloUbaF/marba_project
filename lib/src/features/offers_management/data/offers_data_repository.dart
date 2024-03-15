@@ -6,7 +6,7 @@ import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 abstract class OffersDataRepository {
   Stream<List<OfferModel>> getOffers({OfferModel? lastOffer});
   Stream<List<OfferModel>> getOffersByBusinessId(String businessId,
-      {OfferModel? lastOffer, int? limit});
+      {OfferModel? lastOffer});
   Future<OfferModel> getOffer(String id);
   Future<DocumentSnapshot?> createOffer(OfferModel offer);
   Future<void> addOffer(OfferModel offer);
