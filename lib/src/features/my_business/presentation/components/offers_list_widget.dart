@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:project_marba/src/features/feed/application/feed_screen_controller/feed_offers_type_filter_provider.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+
+import '../../../offers_management/application/offer_list/offer_product_category_filter_provider.dart';
+import '../../../offers_management/application/offer_list/offer_service_category_filter_provider.dart';
 
 class OfferListWidget extends ConsumerStatefulWidget {
   final dynamic offerProviderNotifier;
@@ -34,7 +37,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     try {
       List<OfferModel> newItems =
           await widget.offerProviderNotifier.fetchNewOffers(
@@ -43,6 +46,28 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
       final offerTypeFilter = ref.read(feedOffersTypeFilterProvider);
 
       if (offerTypeFilter != null) {
+        if (offerTypeFilter == OfferType.product) {
+          final productCategoryFilter = ref.read(productCategoryFilterProvider);
+
+          if (productCategoryFilter != null) {
+            newItems = newItems
+                .where((element) => element.offerType == offerTypeFilter)
+                .where((element) => element.categories
+                    .contains(productCategoryFilter.toString()))
+                .toList();
+          }
+        }
+        if (offerTypeFilter == OfferType.service) {
+          final serviceCategoryFilter = ref.read(serviceCategoryFilterProvider);
+          if (serviceCategoryFilter != null) {
+            newItems = newItems
+                .where((element) => element.offerType == offerTypeFilter)
+                .where((element) => element.categories
+                    .contains(serviceCategoryFilter.toString()))
+                .toList();
+          }
+        }
+
         newItems = newItems
             .where((element) => element.offerType == offerTypeFilter)
             .toList();

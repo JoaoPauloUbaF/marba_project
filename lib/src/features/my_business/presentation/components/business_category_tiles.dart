@@ -30,7 +30,7 @@ class BusinessCategoryTiles extends ConsumerWidget {
 
               return SizedBox(
                 child: Card(
-                  color: Colors.green[700],
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Text(

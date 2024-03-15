@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../shared/models/offer/offer_model.dart';
-import '../../../feed/application/feed_screen_controller/feed_offers_type_filter_provider.dart';
+import '../../application/offer_list/feed_offers_type_filter_provider.dart';
 import 'offer_type_filter_tab.dart';
 
 class OfferTypeFilterWidget extends ConsumerWidget {
@@ -15,8 +15,8 @@ class OfferTypeFilterWidget extends ConsumerWidget {
     final feedOffersTypeFilterNotifier =
         ref.watch(feedOffersTypeFilterProvider.notifier);
     final feedOffersTypeFilter = ref.watch(feedOffersTypeFilterProvider);
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
