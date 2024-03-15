@@ -6,7 +6,7 @@ part of 'business_offers_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessOffersHash() => r'c15ae2421177fbe934c0b222c1d765feca1b155b';
+String _$businessOffersHash() => r'8355f129ee372919e6dfd014cec090779a13e903';
 
 /// See also [BusinessOffers].
 @ProviderFor(BusinessOffers)

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:project_marba/src/features/offers_management/data/business_offers_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferListWidget extends ConsumerStatefulWidget {
-  const OfferListWidget({super.key});
+  final dynamic offerProviderNotifier;
+
+  final AsyncValue<List<OfferModel>> offerProvider;
+
+  const OfferListWidget(
+      {super.key,
+      required this.offerProviderNotifier,
+      required this.offerProvider});
 
   static const _pageSize = 10;
 
@@ -29,11 +35,10 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
   Future<void> _fetchPage(int pageKey) async {
     await Future.delayed(const Duration(seconds: 1));
     try {
-      List<OfferModel> newItems = await ref
-          .read(businessOffersProvider.notifier)
-          .fetchNewOffers(
-              lastOffer: _pagingController.itemList?.last,
-              limit: OfferListWidget._pageSize);
+      List<OfferModel> newItems =
+          await widget.offerProviderNotifier.fetchNewOffers(
+        lastOffer: _pagingController.itemList?.last,
+      );
 
       final isLastPage = newItems.length < OfferListWidget._pageSize;
       if (isLastPage) {
@@ -49,7 +54,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final offersList = ref.watch(businessOffersProvider);
+    final offersList = widget.offerProvider;
     offersList.whenData((offers) {
       _pagingController.refresh();
     });
