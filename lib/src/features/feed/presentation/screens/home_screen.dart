@@ -30,7 +30,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    FeedScreen(),
+    FeedScreen(), //TODO: DISPOSE FILTER WHEN CHANGING SCREEN
     Text(
       'Index 1: Business',
       style: optionStyle,

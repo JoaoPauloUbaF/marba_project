@@ -45,8 +45,7 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                   selected: categoryFilterProvider == category,
-                  selectedColor:
-                      Theme.of(context).colorScheme.secondaryContainer,
+                  selectedColor: Theme.of(context).colorScheme.onPrimary,
                   onSelected: (value) {
                     onChipSelected(category);
                   },
