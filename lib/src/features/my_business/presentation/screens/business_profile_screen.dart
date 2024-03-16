@@ -8,7 +8,6 @@ import 'package:project_marba/src/features/my_business/presentation/components/b
 import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
 import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
-import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {
   const BusinessProfileScreen({super.key});

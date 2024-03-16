@@ -10,6 +10,7 @@ import 'package:project_marba/src/features/feed/presentation/screens/home_screen
 import 'package:project_marba/src/features/my_business/presentation/screens/business_home_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/edit_offer_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/offers_management/presentation/screens/offer_details_screen.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -54,6 +55,7 @@ class MainApp extends ConsumerWidget {
             ),
         '/business-profile': (context) => const MyBusinessHomeScreen(),
         '/edit-offer': (context) => const EditOfferScreen(),
+        '/offer-details': (context) => const OfferDetailsScreen(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
