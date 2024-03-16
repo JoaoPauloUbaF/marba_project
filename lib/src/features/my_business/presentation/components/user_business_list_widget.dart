@@ -30,7 +30,6 @@ class UserBusinessListWidget extends ConsumerWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
-              // make it reorderableListView
               itemCount: snapshot.data!.length,
               itemBuilder: (context, index) {
                 final business = snapshot.data![index];

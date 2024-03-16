@@ -18,6 +18,9 @@ class OfferCardWidget extends StatelessWidget {
 
     return SizedBox(
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(3),
+        ),
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).colorScheme.primaryContainer,
         child: LayoutBuilder(
@@ -55,7 +58,7 @@ class OfferCardWidget extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Text(
                           offer.title,
-                          style: textTheme.titleMedium,
+                          style: textTheme.titleSmall,
                           maxLines: 2,
                           overflow:
                               TextOverflow.ellipsis, // Adjust number of lines
@@ -64,7 +67,7 @@ class OfferCardWidget extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 8.0),
+                          horizontal: 8.0, vertical: 4.0),
                       child: Row(
                         children: [
                           Expanded(
@@ -72,19 +75,23 @@ class OfferCardWidget extends StatelessWidget {
                             child: Row(
                               children: [
                                 Expanded(
+                                  flex: 1,
                                   child: Text(
-                                    "R\$ ${offer.price.toStringAsFixed(2)}",
-                                    style: textTheme.labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.w800),
+                                    "R\$${offer.price.toStringAsFixed(2)}",
+                                    style: textTheme.bodyMedium?.copyWith(
+                                        fontWeight: FontWeight.w800,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .error),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                offer.product != null && isBusiness
+                                offer.product != null
                                     ? Expanded(
+                                        flex: 1,
                                         child: Text(
-                                          "Qtd: ${offer.availableQuantity}",
-                                          style: textTheme.labelLarge?.copyWith(
-                                              fontWeight: FontWeight.w800),
+                                          "${offer.availableQuantity} disponíveis",
+                                          style: textTheme.labelSmall,
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                       )
