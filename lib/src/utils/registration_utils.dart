@@ -52,4 +52,13 @@ class RegistrationUtils {
     currencyString = currencyString.replaceAll(',', '.');
     return double.parse(currencyString);
   }
+
+  String formatAsCurrency(double number) {
+    var parts = number.toStringAsFixed(2).split('.');
+    parts[0] = parts[0].replaceAllMapped(
+      RegExp(r'\B(?=(\d{3})+(?!\d))'),
+      (match) => '.',
+    );
+    return 'R\$ ${parts[0]},${parts[1]}';
+  }
 }
