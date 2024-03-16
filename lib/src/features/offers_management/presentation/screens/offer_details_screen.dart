@@ -28,9 +28,9 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
       "status": "onDemand",
       "type": "service",
       "service": {
-        "title": "Jardineiro bolado meu irmao",
+        "title": "GreenCare - Soluções de Jardinagem Profissional",
         "description":
-            "Servicos de jardinagem profissa pode confiar, Servicos de jardinagem profissa pode confiar, Servicos de jardinagem profissa pode confiar",
+            "Bem-vindo ao GreenCare, onde transformamos espaços verdes em oásis de beleza e tranquilidade. Somos uma equipe dedicada de profissionais de jardinagem apaixonados por criar ambientes deslumbrantes que refletem a beleza da natureza.\nTransformamos suas ideias em realidade. Desde pequenos jardins urbanos até vastos espaços paisagísticos, nosso time de especialistas trabalha em estreita colaboração com você para criar designs personalizados que atendam às suas necessidades e superem suas expectativas.",
         "price": 200.0,
         "imageUrl":
             "https://firebasestorage.googleapis.com/v0/b/marba-project.appspot.com/o/offer_images%2Foffer_196d5350-9db4-4548-831d-1e252754b479.jpg?alt=media&token=9650053e-67d7-4177-ad98-2f598d034312",
@@ -126,11 +126,19 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              offer.title,
-                              style: Theme.of(context).textTheme.titleMedium,
+                            Expanded(
+                              child: Text(
+                                offer.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 2,
+                              ),
                             ),
-                            const Spacer(),
                             const Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8.0),
                               child: TopTenBadgeWidget(),
@@ -138,18 +146,21 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
                           ],
                         ),
                         OfferPriceWidget(offer: offer),
-                        Text(
-                          offer.description,
-                          style: Theme.of(context).textTheme.bodySmall,
-                        ),
-                        const SizedBox(height: 8),
                         const Row(
                           children: [
                             OfferRatingWidget(),
                             Spacer(),
                             OfferActionsWidget(),
                           ],
-                        )
+                        ),
+                        Divider(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                        Text(
+                          offer.description,
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),
