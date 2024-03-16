@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class ItemCategoryFilterWidget extends ConsumerWidget {
@@ -27,6 +28,7 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final offerCreationController =
         ref.read(offerCreationControllerProvider.notifier);
+    final offerType = ref.read(feedOffersTypeFilterProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -41,7 +43,7 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
                   backgroundColor: Theme.of(context).colorScheme.onSecondary,
                   label: Text(
                     offerCreationController.getCategoryTranslation(
-                        category.toString(), OfferType.product),
+                        category.toString(), offerType ?? OfferType.product),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                   selected: categoryFilterProvider == category,

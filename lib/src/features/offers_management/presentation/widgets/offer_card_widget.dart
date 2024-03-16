@@ -16,98 +16,98 @@ class OfferCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme; // Access text theme
 
-    return SizedBox(
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(3),
-        ),
-        clipBehavior: Clip.antiAlias,
-        color: Theme.of(context).colorScheme.primaryContainer,
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            double cardWidth = constraints.maxWidth;
+    return InkWell(
+      onTap: () => Navigator.of(context).pushNamed(
+        '/offer-details',
+      ),
+      child: SizedBox(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3),
+          ),
+          clipBehavior: Clip.antiAlias,
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              double cardWidth = constraints.maxWidth;
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.network(
-                  offer.imageUrl,
-                  fit: BoxFit.fill,
-                  width: cardWidth,
-                  height: cardWidth / 1.2,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    }
-                    return SizedBox(
-                      width: cardWidth,
-                      height: cardWidth / 1.2,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 4.0, horizontal: 8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          offer.title,
-                          style: textTheme.titleSmall,
-                          maxLines: 2,
-                          overflow:
-                              TextOverflow.ellipsis, // Adjust number of lines
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.network(
+                    offer.imageUrl,
+                    fit: BoxFit.fill,
+                    width: cardWidth,
+                    height: cardWidth / 1.2,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return SizedBox(
+                        width: cardWidth,
+                        height: cardWidth / 1.2,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
                         ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 4.0, horizontal: 8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        offer.title,
+                        style: textTheme.titleSmall,
+                        maxLines: 2,
+                        overflow:
+                            TextOverflow.ellipsis, // Adjust number of lines
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 4.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Text(
-                                    "R\$${offer.price.toStringAsFixed(2)}",
-                                    style: textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w800,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .error),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 4.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  "R\$${offer.price.toStringAsFixed(2)}",
+                                  style: textTheme.bodyMedium?.copyWith(
+                                      fontWeight: FontWeight.w800,
+                                      color:
+                                          Theme.of(context).colorScheme.error),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                offer.product != null
-                                    ? Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          "${offer.availableQuantity} disponíveis",
-                                          style: textTheme.labelSmall,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      )
-                                    : const SizedBox.shrink(),
-                              ],
-                            ),
+                              ),
+                              offer.product != null
+                                  ? Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        "${offer.availableQuantity} disponíveis",
+                                        style: textTheme.labelSmall,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ],
                           ),
-                          if (isBusiness) OfferQuickManageWidget(offer: offer),
-                        ],
-                      ),
+                        ),
+                        if (isBusiness) OfferQuickManageWidget(offer: offer),
+                      ],
                     ),
-                  ],
-                )
-              ],
-            );
-          },
+                  )
+                ],
+              );
+            },
+          ),
         ),
       ),
     );

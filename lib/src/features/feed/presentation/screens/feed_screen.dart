@@ -20,7 +20,7 @@ class FeedScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final feedOffers = ref.watch(feedOffersProvider);
     final feedOffersNotifier = ref.read(feedOffersProvider.notifier);
-    final feedOffersTypeFilter = ref.read(feedOffersTypeFilterProvider);
+    final feedOffersTypeFilter = ref.watch(feedOffersTypeFilterProvider);
 
     return Scaffold(
       body: NestedScrollView(
