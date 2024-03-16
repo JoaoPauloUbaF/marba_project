@@ -39,6 +39,7 @@ class MainApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       title: 'Onktem', //Onktem
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
       darkTheme: ThemeData.dark(),
