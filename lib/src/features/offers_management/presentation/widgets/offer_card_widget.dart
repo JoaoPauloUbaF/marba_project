@@ -82,8 +82,7 @@ class OfferCardWidget extends StatelessWidget {
                                   "R\$${offer.price.toStringAsFixed(2)}",
                                   style: textTheme.bodyMedium?.copyWith(
                                       fontWeight: FontWeight.w800,
-                                      color:
-                                          Theme.of(context).colorScheme.error),
+                                      color: Colors.amber[800]),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),

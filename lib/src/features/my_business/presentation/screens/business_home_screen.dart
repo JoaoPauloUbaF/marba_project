@@ -35,14 +35,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
           business.getBusinessName(),
           style: Theme.of(context).textTheme.headlineSmall!,
         ),
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: const Icon(Icons.business_center_sharp),
-          onPressed: () {
-            business.dispose();
-            Navigator.pop(context);
-          },
-        ),
+        automaticallyImplyLeading: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.home_sharp),
