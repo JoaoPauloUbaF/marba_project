@@ -7,11 +7,18 @@ part 'offer_product_category_filter_provider.g.dart';
 @riverpod
 class ProductCategoryFilter extends _$ProductCategoryFilter {
   @override
-  ProductCategory? build() {
-    return null;
+  Set<ProductCategory> build() {
+    return {};
   }
 
-  void setCategoryFilter(ProductCategory? productCategory) {
-    state = productCategory;
+  void addCategoryFilter(ProductCategory productCategory) {
+    Set<ProductCategory> newState = {...state, productCategory};
+    state = newState;
+  }
+
+  void removeCategoryFilter(ProductCategory productCategory) {
+    Set<ProductCategory> newState = {...state};
+    newState.remove(productCategory);
+    state = newState;
   }
 }

@@ -17,10 +17,10 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
   });
 
   onChipSelected(dynamic category) {
-    if (categoryFilterProvider == category) {
-      categoryFilterProviderNotifier.setCategoryFilter(null);
+    if (categoryFilterProvider.contains(category)) {
+      categoryFilterProviderNotifier.removeCategoryFilter(category);
     } else {
-      categoryFilterProviderNotifier.setCategoryFilter(category);
+      categoryFilterProviderNotifier.addCategoryFilter(category);
     }
   }
 
@@ -46,7 +46,7 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
                         category.toString(), offerType ?? OfferType.product),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
-                  selected: categoryFilterProvider == category,
+                  selected: categoryFilterProvider.contains(category),
                   selectedColor: Theme.of(context).colorScheme.onPrimary,
                   onSelected: (value) {
                     onChipSelected(category);

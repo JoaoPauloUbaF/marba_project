@@ -291,7 +291,7 @@ class TopTenBadgeWidget extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.errorContainer,
+              color: Colors.green[700],
             ),
             height: 20 * sizeMultiplier,
             child: Row(

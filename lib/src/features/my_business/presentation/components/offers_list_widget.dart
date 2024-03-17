@@ -52,21 +52,21 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         if (offerTypeFilter == OfferType.product) {
           final productCategoryFilter = ref.read(productCategoryFilterProvider);
 
-          if (productCategoryFilter != null) {
+          if (productCategoryFilter.isNotEmpty) {
             newItems = newItems
                 .where((element) => element.offerType == offerTypeFilter)
-                .where((element) => element.categories
-                    .contains(productCategoryFilter.toString()))
+                .where((element) => productCategoryFilter.any((category) =>
+                    element.categories.contains(category.toString())))
                 .toList();
           }
         }
         if (offerTypeFilter == OfferType.service) {
           final serviceCategoryFilter = ref.read(serviceCategoryFilterProvider);
-          if (serviceCategoryFilter != null) {
+          if (serviceCategoryFilter.isNotEmpty) {
             newItems = newItems
                 .where((element) => element.offerType == offerTypeFilter)
-                .where((element) => element.categories
-                    .contains(serviceCategoryFilter.toString()))
+                .where((element) => serviceCategoryFilter.any((category) =>
+                    element.categories.contains(category.toString())))
                 .toList();
           }
         }

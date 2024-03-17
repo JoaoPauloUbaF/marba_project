@@ -7,12 +7,12 @@ part of 'offer_service_category_filter_provider.dart';
 // **************************************************************************
 
 String _$serviceCategoryFilterHash() =>
-    r'2433c664e5e41051727a3226930297edc1973b9d';
+    r'82d0d0c7ec360f318a783ca74e9e76d65e5aefc9';
 
 /// See also [ServiceCategoryFilter].
 @ProviderFor(ServiceCategoryFilter)
 final serviceCategoryFilterProvider = AutoDisposeNotifierProvider<
-    ServiceCategoryFilter, ServiceCategory?>.internal(
+    ServiceCategoryFilter, Set<ServiceCategory>>.internal(
   ServiceCategoryFilter.new,
   name: r'serviceCategoryFilterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final serviceCategoryFilterProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$ServiceCategoryFilter = AutoDisposeNotifier<ServiceCategory?>;
+typedef _$ServiceCategoryFilter = AutoDisposeNotifier<Set<ServiceCategory>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
