@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
@@ -67,7 +68,16 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   @override
   Future<void> deleteOffer(String id) async {
     try {
+      log('Deleting offer: $id');
       await _firestore.collection('offers').doc(id).delete();
+      await FirebaseStorage.instance
+          .ref()
+          .child('offer_images')
+          .child(id)
+          .listAll()
+          .then((value) => value.items.forEach((element) async {
+                await element.delete();
+              }));
     } catch (e) {
       log('Error deleting offer: $e');
     }
@@ -103,10 +113,12 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   }
 
   @override
-  Future<String?> saveOfferImage(File image, String offerId) async {
+  Future<String?> saveOfferImage(File image, String offerId,
+      {bool isMedia = false}) async {
     try {
-      final storageRef = FirebaseStorage.instance.ref().child('offer_images');
-      final imageName = 'offer_$offerId.jpg';
+      final storageRef =
+          FirebaseStorage.instance.ref().child('offer_images').child(offerId);
+      final imageName = isMedia ? 'media_$offerId.jpg' : 'offer_$offerId.jpg';
       final uploadTask = storageRef.child(imageName).putFile(image);
       final snapshot = await uploadTask.whenComplete(() {});
       final imageUrl = await snapshot.ref.getDownloadURL();
@@ -115,5 +127,20 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       log('Error uploading image: $e');
       return null;
     }
+  }
+
+  @override
+  Future<List<String>> saveOfferMedia(
+      List<File?> offerMedia, String offerId) async {
+    List<String> offerMediaUrls = [];
+    for (var element in offerMedia) {
+      if (element != null) {
+        final imageUrl = await saveOfferImage(element, offerId, isMedia: true);
+        if (imageUrl != null) {
+          offerMediaUrls.add(imageUrl);
+        }
+      }
+    }
+    return offerMediaUrls;
   }
 }

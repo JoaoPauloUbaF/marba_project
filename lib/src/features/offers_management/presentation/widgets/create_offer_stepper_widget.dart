@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class CreateOfferStepperWidgetState
   late OfferType? _offerTypeController;
   late Set<String> _offerCategory;
   late File? _offerImage;
+  late List<File?> _offerMedia;
   late OfferStatus? _offerStatus;
 
   int _currentStep = 0;
@@ -40,6 +42,7 @@ class CreateOfferStepperWidgetState
     _offerTitleController = TextEditingController();
     _offerDescriptionController = TextEditingController();
     _offerImage = null;
+    _offerMedia = [];
     _offerStatus = OfferStatus.active;
     _offerAvailableQuantityController = MaskedTextController(
       mask: '00000',
@@ -173,11 +176,86 @@ class CreateOfferStepperWidgetState
         title: const Text('Dados da oferta'),
         content: Column(
           children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Imagem principal da oferta',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
             OfferImageField(
-                onImageSelected: (value) => setState(() {
-                      _offerImage = value;
-                    }),
-                offerCreationController: offerCreationController),
+              onImageSelected: (value) => setState(() {
+                _offerImage = value;
+              }),
+              offerCreationController: offerCreationController,
+            ),
+            TextButton.icon(
+              onPressed: () {
+                offerCreationController.pickMoreOfferMedia().then(
+                  (value) {
+                    setState(
+                      () {
+                        _offerMedia = value;
+                      },
+                    );
+                  },
+                );
+              },
+              icon: const Icon(Icons.image_sharp),
+              label: const Text('Adicionar mais mídias'),
+            ),
+            const SizedBox(height: 8.0),
+            if (_offerMedia.isNotEmpty)
+              Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: CarouselSlider(
+                      items: _offerMedia.map((i) {
+                        return InkWell(
+                          child: SizedBox(
+                            child: Stack(
+                              children: [
+                                Image.file(
+                                  i!,
+                                  fit: BoxFit.fill,
+                                  height: 100,
+                                  width: 200,
+                                ),
+                                Positioned(
+                                  right: 2,
+                                  top: 2,
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        _offerMedia.remove(i);
+                                      });
+                                    },
+                                    child: const Icon(
+                                      Icons.delete,
+                                      size: 16,
+                                      shadows: [
+                                        BoxShadow(
+                                          color: Colors.black,
+                                          blurRadius: 10,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      options: CarouselOptions(
+                        enlargeCenterPage: true,
+                        viewportFraction: 0.4,
+                        enableInfiniteScroll: false,
+                      ),
+                    )),
+              ),
             buildOfferInfoField(offerCreationController),
           ],
         ),
@@ -250,6 +328,7 @@ class CreateOfferStepperWidgetState
                               offerCategory: _offerCategory,
                               offerStatus: _offerStatus,
                               offerImage: _offerImage,
+                              offerMedia: _offerMedia,
                             )
                             .then(
                               (value) => {

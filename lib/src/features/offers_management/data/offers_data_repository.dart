@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -12,5 +13,10 @@ abstract class OffersDataRepository {
   Future<void> addOffer(OfferModel offer);
   Future<void> updateOffer(OfferModel offer);
   Future<void> deleteOffer(String id);
-  Future<String?> saveOfferImage(File image, String offerId);
+  Future<String?> saveOfferImage(File image, String offerId,
+      {bool isMedia = false});
+  Future<List<String>> saveOfferMedia(
+    List<File?> offerMedia,
+    String offerId,
+  );
 }
