@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 
 class OfferImageField extends StatefulWidget {
@@ -32,12 +33,55 @@ class _OfferImageFieldState extends State<OfferImageField> {
         return Column(
           children: [
             InkWell(
-              onTap: () =>
-                  widget.offerCreationController.pickNewOfferImage().then(
-                (value) {
-                  offerImage = value;
-                  widget.onImageSelected(value);
-                },
+              onTap: () => showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: const Row(
+                          children: [
+                            Icon(Icons.camera_alt),
+                            SizedBox(width: 8),
+                            Text('Câmera'),
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          widget.offerCreationController
+                              .pickNewOfferImage(ImageSource.camera)
+                              .then(
+                            (value) {
+                              offerImage = value;
+                              widget.onImageSelected(value);
+                            },
+                          );
+                        },
+                      ),
+                      ListTile(
+                        title: const Row(
+                          children: [
+                            Icon(Icons.image),
+                            SizedBox(width: 8),
+                            Text('Galeria'),
+                          ],
+                        ),
+                        onTap: () {
+                          Navigator.pop(context);
+                          widget.offerCreationController
+                              .pickNewOfferImage(ImageSource.gallery)
+                              .then(
+                            (value) {
+                              offerImage = value;
+                              widget.onImageSelected(value);
+                            },
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               child: SizedBox(
                   width: MediaQuery.of(context).size.width,

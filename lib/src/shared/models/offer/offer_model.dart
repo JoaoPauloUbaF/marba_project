@@ -18,6 +18,7 @@ class OfferModel with _$OfferModel {
     required DateTime updatedAt,
     required OfferStatus status,
     required OfferType type,
+    Set<String>? offerImagesUrls,
     Product? product,
     Service? service,
   }) = _OfferModel;

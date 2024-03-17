@@ -75,9 +75,9 @@ class OfferCreationController extends _$OfferCreationController {
     return null;
   }
 
-  Future<File?> pickNewOfferImage() async {
+  Future<File?> pickNewOfferImage(ImageSource imageSource) async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: imageSource);
       if (image == null) return null;
       final imageTemp = File(image.path);
       return imageTemp;
@@ -85,6 +85,18 @@ class OfferCreationController extends _$OfferCreationController {
       log('Failed to pick image: $e');
     }
     return null;
+  }
+
+  Future<List<File?>> pickMoreOfferMedia() async {
+    try {
+      final image = await ImagePicker().pickMultipleMedia();
+      if (image.isEmpty) return [];
+      final imagesTemp = image.map((e) => File(e.path)).toList();
+      return imagesTemp;
+    } on PlatformException catch (e) {
+      log('Failed to pick image: $e');
+    }
+    return [];
   }
 
   Future<String> saveOfferImage(File image, String offerId) async {
@@ -116,12 +128,14 @@ class OfferCreationController extends _$OfferCreationController {
     required Set<String> offerCategory,
     required OfferStatus? offerStatus,
     required File? offerImage,
+    List<File?>? offerMedia,
   }) async {
     final business = ref.read(businessProfileScreenControllerProvider)!;
     final offerId = const Uuid().v4();
     Product? offerProduct;
     Service? offerService;
     String? offerImageUrl;
+    Set<String> offerMediaUrls = {};
 
     try {
       offerImageUrl = await ref
@@ -130,6 +144,20 @@ class OfferCreationController extends _$OfferCreationController {
     } catch (e) {
       log('Error uploading image: $e');
       return 'Erro ao salvar a imagem da oferta';
+    }
+
+    if (offerMedia != null) {
+      try {
+        final mediaUrls = await ref
+            .read(offersDataRepositoryProvider)
+            .saveOfferMedia(offerMedia, offerId);
+        if (mediaUrls.isNotEmpty) {
+          offerMediaUrls = mediaUrls.toSet();
+        }
+      } catch (e) {
+        log('Error uploading media: $e');
+        return 'Erro ao salvar a imagem da oferta';
+      }
     }
 
     if (offerType == OfferType.product) {
@@ -164,6 +192,7 @@ class OfferCreationController extends _$OfferCreationController {
       updatedAt: DateTime.now(),
       status: offerStatus ?? OfferStatus.active,
       type: offerType,
+      offerImagesUrls: offerMediaUrls,
     );
     ref.read(offersDataRepositoryProvider).createOffer(offer);
     return offer.title;

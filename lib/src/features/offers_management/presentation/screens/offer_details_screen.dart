@@ -336,7 +336,7 @@ class OfferRatingWidget extends StatelessWidget {
           Icon(
             Icons.star_outline,
             color: Theme.of(context).colorScheme.error,
-            size: 20,
+            size: 16,
           ),
         const SizedBox(width: 8),
         Text(
