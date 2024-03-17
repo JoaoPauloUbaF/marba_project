@@ -7,12 +7,12 @@ part of 'offer_product_category_filter_provider.dart';
 // **************************************************************************
 
 String _$productCategoryFilterHash() =>
-    r'223519deafb08516131c78501b651b6ed61a959a';
+    r'9970c450bf06913962297fdc7f841c1a9a380947';
 
 /// See also [ProductCategoryFilter].
 @ProviderFor(ProductCategoryFilter)
 final productCategoryFilterProvider = AutoDisposeNotifierProvider<
-    ProductCategoryFilter, ProductCategory?>.internal(
+    ProductCategoryFilter, Set<ProductCategory>>.internal(
   ProductCategoryFilter.new,
   name: r'productCategoryFilterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final productCategoryFilterProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$ProductCategoryFilter = AutoDisposeNotifier<ProductCategory?>;
+typedef _$ProductCategoryFilter = AutoDisposeNotifier<Set<ProductCategory>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
