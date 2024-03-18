@@ -118,7 +118,8 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     try {
       final storageRef =
           FirebaseStorage.instance.ref().child('offer_images').child(offerId);
-      final imageName = isMedia ? 'media_$offerId.jpg' : 'offer_$offerId.jpg';
+      final imageName =
+          isMedia ? 'offer_media_$offerId.jpg' : 'offer_picture_$offerId.jpg';
       final uploadTask = storageRef.child(imageName).putFile(image);
       final snapshot = await uploadTask.whenComplete(() {});
       final imageUrl = await snapshot.ref.getDownloadURL();

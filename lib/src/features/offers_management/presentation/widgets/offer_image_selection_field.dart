@@ -91,6 +91,8 @@ class _OfferImageFieldState extends State<OfferImageField> {
                         ? Image.network(
                             widget.imageURL!,
                             fit: BoxFit.fill,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Placeholder(),
                           )
                         : offerImage != null
                             ? Image.file(
