@@ -103,8 +103,9 @@ class OfferCardWidget extends ConsumerWidget {
                         ),
                         FutureBuilder(
                           future: ref
-                              .read(businessProfileScreenControllerProvider
-                                  .notifier)
+                              .read(
+                                  businessProfileScreenControllerProvider //TODO: somente se a offer for do user logado
+                                      .notifier)
                               .isBusinessOwner(),
                           builder: (BuildContext context,
                               AsyncSnapshot<dynamic> snapshot) {

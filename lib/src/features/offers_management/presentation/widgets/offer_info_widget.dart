@@ -30,7 +30,10 @@ class OfferInfoWidget extends ConsumerWidget {
             OfferPriceWidget(offer: offer),
             const Row(
               children: [
-                OfferRatingWidget(),
+                OfferRatingWidget(
+                  rating: 4, //TODO: get from offer
+                  totalRatings: 444,
+                ),
                 Spacer(),
                 OfferActionsWidget(),
               ],
@@ -38,21 +41,6 @@ class OfferInfoWidget extends ConsumerWidget {
             Divider(
               color: Theme.of(context).colorScheme.onSecondary,
             ),
-            offer.offerType == OfferType.service
-                ? FutureBuilder(
-                    future: ref
-                        .read(businessProfileDataProvider)
-                        .getBusinessProfileData(uid: offer.businessId),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<Business?> snapshot) {
-                      if (snapshot.hasData) {
-                        return AddressDisplayWidget(
-                            address: snapshot.data!.address);
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  )
-                : const SizedBox.shrink(),
           ],
         ),
       ),

@@ -3,21 +3,36 @@ import 'package:flutter/material.dart';
 class OfferRatingWidget extends StatelessWidget {
   const OfferRatingWidget({
     super.key,
+    required this.rating,
+    required this.totalRatings,
   });
+
+  final double rating;
+  final int totalRatings;
+
+  IconData getIcon(int i) {
+    if (i <= rating) {
+      return Icons.star_sharp;
+    } else if (i == rating.round() && rating - rating.floor() >= 0.5) {
+      return Icons.star_half;
+    } else {
+      return Icons.star_border;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        for (var i = 0; i < 5; i++)
+        for (var i = 1; i < 6; i++)
           Icon(
-            Icons.star_outline,
+            getIcon(i),
             color: Theme.of(context).colorScheme.error,
             size: 16,
           ),
         const SizedBox(width: 8),
         Text(
-          "0.0",
+          rating.toString(),
           style: Theme.of(context).textTheme.bodySmall,
         ),
         SizedBox(
@@ -27,7 +42,7 @@ class OfferRatingWidget extends StatelessWidget {
           ),
         ),
         Text(
-          "444 avaliações",
+          "$totalRatings avaliações",
           style: Theme.of(context).textTheme.bodySmall,
         ),
       ],

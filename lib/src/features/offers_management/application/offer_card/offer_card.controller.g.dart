@@ -7,7 +7,7 @@ part of 'offer_card.controller.dart';
 // **************************************************************************
 
 String _$offerCardControllerHash() =>
-    r'9cf9e26a959a5bde0af812a13a1e1ef5be0bc37b';
+    r'1a5ff5971fe67a3b498ccd6e725f443a6c9f3bd5';
 
 /// See also [OfferCardController].
 @ProviderFor(OfferCardController)
