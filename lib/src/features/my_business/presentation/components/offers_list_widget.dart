@@ -101,7 +101,6 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         () => _pagingController.refresh(),
       ),
       child: PagedMasonryGridView.count(
-        shrinkWrap: true,
         pagingController: _pagingController,
         builderDelegate: PagedChildBuilderDelegate<OfferModel>(
           animateTransitions: true,

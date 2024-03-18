@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferOrderingActionsWidget extends StatelessWidget {
+  //TODO: order and cart features
   const OfferOrderingActionsWidget({
     super.key,
     required this.offer,
