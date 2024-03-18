@@ -331,14 +331,11 @@ class BusinessFirebaseProfileDataProvider
   @override
   Future<void> updateBusinessProfileImage(
       {required String uid, required File imageFile}) async {
-    // Upload image to Firebase Storage
-    String storagePath =
-        'business_profile_images/$uid/${DateTime.now().millisecondsSinceEpoch}';
+    String storagePath = 'business_profile_images/$uid/profileImage';
     Reference storageRef = FirebaseStorage.instance.ref().child(storagePath);
     UploadTask uploadTask = storageRef.putFile(imageFile);
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    // Check if 'profileImageUrl' field exists
     DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;

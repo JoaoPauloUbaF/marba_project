@@ -15,32 +15,36 @@ class OfferTypeFilterWidget extends ConsumerWidget {
     final feedOffersTypeFilterNotifier =
         ref.watch(feedOffersTypeFilterProvider.notifier);
     final feedOffersTypeFilter = ref.watch(feedOffersTypeFilterProvider);
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          OfferTypeFilterTab(
-            onTap: () => feedOffersTypeFilterNotifier.setOfferTypeFilter(null),
-            icon: Icons.local_offer_sharp,
-            text: 'Todos',
-            isSelected: feedOffersTypeFilter == null,
-          ),
-          OfferTypeFilterTab(
-            onTap: () => feedOffersTypeFilterNotifier
-                .setOfferTypeFilter(OfferType.product),
-            icon: Icons.shopping_cart_sharp,
-            text: 'Produtos',
-            isSelected: feedOffersTypeFilter == OfferType.product,
-          ),
-          OfferTypeFilterTab(
-            onTap: () => feedOffersTypeFilterNotifier
-                .setOfferTypeFilter(OfferType.service),
-            icon: Icons.build_sharp,
-            text: 'Serviços',
-            isSelected: feedOffersTypeFilter == OfferType.service,
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            OfferTypeFilterTab(
+              onTap: () =>
+                  feedOffersTypeFilterNotifier.setOfferTypeFilter(null),
+              icon: Icons.local_offer_sharp,
+              text: 'Todos',
+              isSelected: feedOffersTypeFilter == null,
+            ),
+            OfferTypeFilterTab(
+              onTap: () => feedOffersTypeFilterNotifier
+                  .setOfferTypeFilter(OfferType.product),
+              icon: Icons.shopping_cart_sharp,
+              text: 'Produtos',
+              isSelected: feedOffersTypeFilter == OfferType.product,
+            ),
+            OfferTypeFilterTab(
+              onTap: () => feedOffersTypeFilterNotifier
+                  .setOfferTypeFilter(OfferType.service),
+              icon: Icons.build_sharp,
+              text: 'Serviços',
+              isSelected: feedOffersTypeFilter == OfferType.service,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -28,7 +28,7 @@ class BusinessProfileScreen extends ConsumerWidget {
           body: OfferListWidget(
             offerProvider: businessOffers,
             offerProviderNotifier: businessOffersNotifier,
-            isBusiness: true,
+            isBusiness: true, //TODO: Change this to consume a provider
           ),
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[

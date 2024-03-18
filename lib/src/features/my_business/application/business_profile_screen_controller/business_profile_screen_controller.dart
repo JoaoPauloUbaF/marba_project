@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
+import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -91,39 +93,69 @@ class BusinessProfileScreenController
     return null;
   }
 
-  Widget getBusinessProfileImage(BuildContext context) {
-    if (state?.imageUrl != null) {
-      return Image(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.3,
-        frameBuilder: (BuildContext context, Widget child, int? frame,
-            bool wasSynchronouslyLoaded) {
-          if (wasSynchronouslyLoaded) {
-            return child;
-          }
-          return AnimatedOpacity(
-            opacity: frame == null ? 0 : 1,
-            duration: const Duration(seconds: 1),
-            curve: Curves.easeOut,
-            child: child,
-          );
-        },
-        errorBuilder:
-            (BuildContext context, Object error, StackTrace? stackTrace) {
-          return const UserAvatar(
-            size: 200,
-          );
-        },
-        fit: BoxFit.fill,
-        image: NetworkImage(
-          state?.imageUrl ?? '',
-        ),
-      );
-    }
-    return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.3,
-        child: const Icon(Icons.add_a_photo_sharp, size: 100));
+  Future<Widget> getBusinessProfileImage(BuildContext context) async {
+    return Stack(
+      children: [
+        if (state?.imageUrl != null)
+          Image(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            frameBuilder: (BuildContext context, Widget child, int? frame,
+                bool wasSynchronouslyLoaded) {
+              if (wasSynchronouslyLoaded) {
+                return child;
+              }
+              return AnimatedOpacity(
+                opacity: frame == null ? 0 : 1,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeOut,
+                child: child,
+              );
+            },
+            errorBuilder:
+                (BuildContext context, Object error, StackTrace? stackTrace) {
+              return const UserAvatar(
+                size: 200,
+              );
+            },
+            loadingBuilder: (context, child, loadingProgress) =>
+                loadingProgress == null
+                    ? child
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+            fit: BoxFit.fill,
+            image: NetworkImage(
+              state?.imageUrl ?? '',
+            ),
+          )
+        else
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: const Icon(Icons.add_a_photo_sharp, size: 100),
+          ),
+        if (await isBusinessOwner())
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: InkWell(
+              onTap: () => updateBusinessProfileImage(),
+              child: const Stack(children: [
+                Icon(
+                  Icons.add_a_photo,
+                  shadows: [
+                    BoxShadow(
+                      color: Colors.black,
+                      blurRadius: 10,
+                    )
+                  ],
+                ),
+              ]),
+            ),
+          ),
+      ],
+    );
   }
 
   Future<void> requestPermissions() async {
@@ -139,6 +171,17 @@ class BusinessProfileScreenController
     if (statuses[Permission.storage]!.isDenied) {
       // A permissão para acessar a galeria foi negada
     }
+  }
+
+  Future<bool> isBusinessOwner() async {
+    final userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
+    if (userId == null) {
+      return false;
+    }
+    final userBusinessIds = await ref
+        .read(userProfileDataProvider)
+        .getOwnedBusinessIds(uid: userId);
+    return userBusinessIds.contains(state?.id);
   }
 
   void dispose() {
