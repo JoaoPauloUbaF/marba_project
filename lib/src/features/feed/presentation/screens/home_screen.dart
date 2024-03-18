@@ -91,7 +91,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: FutureBuilder(
-        future: controller.hasBusiness(),
+        future: controller.hasBusiness(), //TODO: my business refresh on logout
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return BottomNavigationBar(
             items: <BottomNavigationBarItem>[

@@ -116,8 +116,10 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   Future<String?> saveOfferImage(File image, String offerId,
       {bool isMedia = false}) async {
     try {
-      final storageRef =
-          FirebaseStorage.instance.ref().child('offer_images').child(offerId);
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('offer_images')
+          .child(offerId); // TODO: Storage provider abstraction
       final imageName =
           isMedia ? 'offer_media_$offerId.jpg' : 'offer_picture_$offerId.jpg';
       final uploadTask = storageRef.child(imageName).putFile(image);
@@ -135,8 +137,10 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       List<File?> offerMedia, String offerId) async {
     List<String> offerMediaUrls = [];
     for (var element in offerMedia) {
+      final elementName = offerId + offerMedia.indexOf(element).toString();
       if (element != null) {
-        final imageUrl = await saveOfferImage(element, offerId, isMedia: true);
+        final imageUrl =
+            await saveOfferImage(element, elementName, isMedia: true);
         if (imageUrl != null) {
           offerMediaUrls.add(imageUrl);
         }

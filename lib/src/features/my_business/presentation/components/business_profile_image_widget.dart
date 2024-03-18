@@ -17,7 +17,10 @@ class BusinessProfileImageWidget extends ConsumerWidget {
     return imageUploadingStatus
         ? const LoadingWidget()
         : FutureBuilder(
-            future: businessController.getBusinessProfileImage(context),
+            future: businessController.getBusinessProfileImage(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+            ),
             builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Stack(
