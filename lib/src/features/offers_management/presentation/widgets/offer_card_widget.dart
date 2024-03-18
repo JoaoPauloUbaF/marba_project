@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_edition/offer_edition_controller.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
-class OfferCardWidget extends StatelessWidget {
+import '../../application/offer_card/offer_card.controller.dart';
+
+class OfferCardWidget extends ConsumerWidget {
   final OfferModel offer;
 
   final bool isBusiness;
@@ -13,13 +16,12 @@ class OfferCardWidget extends StatelessWidget {
       {super.key, required this.offer, required this.isBusiness});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     TextTheme textTheme = Theme.of(context).textTheme; // Access text theme
+    final cardController = ref.read(offerCardControllerProvider.notifier);
 
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(
-        '/offer-details',
-      ),
+      onTap: () => cardController.onCardTap(offer, context),
       child: SizedBox(
         child: Card(
           shape: RoundedRectangleBorder(
@@ -99,7 +101,21 @@ class OfferCardWidget extends StatelessWidget {
                             ],
                           ),
                         ),
-                        if (isBusiness) OfferQuickManageWidget(offer: offer),
+                        FutureBuilder(
+                          future: ref
+                              .read(businessProfileScreenControllerProvider
+                                  .notifier)
+                              .isBusinessOwner(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<dynamic> snapshot) {
+                            if (snapshot.hasData) {
+                              return snapshot.data
+                                  ? OfferQuickManageWidget(offer: offer)
+                                  : const SizedBox.shrink();
+                            }
+                            return const SizedBox.shrink();
+                          },
+                        ),
                       ],
                     ),
                   )
