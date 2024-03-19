@@ -22,30 +22,43 @@ class OfferRatingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        for (var i = 1; i < 6; i++)
-          Icon(
-            getIcon(i),
-            color: Theme.of(context).colorScheme.error,
-            size: 16,
+    return InkWell(
+      onTap: () => showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Theme.of(context).colorScheme.secondaryContainer,
+            child: const Center(
+              child: Text('Futuro modal de avaliações'),
+            ),
+          );
+        },
+      ),
+      child: Row(
+        children: [
+          for (var i = 1; i < 6; i++)
+            Icon(
+              getIcon(i),
+              color: Theme.of(context).colorScheme.error,
+              size: 16,
+            ),
+          const SizedBox(width: 8),
+          Text(
+            rating.toString(),
+            style: Theme.of(context).textTheme.bodySmall,
           ),
-        const SizedBox(width: 8),
-        Text(
-          rating.toString(),
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        SizedBox(
-          height: 16,
-          child: VerticalDivider(
-            color: Theme.of(context).colorScheme.secondary,
+          SizedBox(
+            height: 16,
+            child: VerticalDivider(
+              color: Theme.of(context).colorScheme.secondary,
+            ),
           ),
-        ),
-        Text(
-          "$totalRatings avaliações",
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-      ],
+          Text(
+            "$totalRatings avaliações",
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/my_business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
+import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
+
+import '../screens/business_profile_screen.dart';
 
 class BusinessTileWidget extends ConsumerWidget {
   const BusinessTileWidget({
@@ -25,11 +27,32 @@ class BusinessTileWidget extends ConsumerWidget {
             return InkWell(
               onTap: () {
                 ref
-                    .read(myBusinessListScreenControllerProvider.notifier)
-                    .onTapBusiness(
-                        business: snapshot.data!,
-                        context:
-                            context); //TODO: FIX BUSINESS HOME AND PROFILE NAV
+                    .read(businessProfileScreenControllerProvider.notifier)
+                    .setSelectedBusiness(snapshot.data!);
+                showModalBottomSheet(
+                  useSafeArea: true,
+                  context: context,
+                  isScrollControlled: true,
+                  builder: (BuildContext context) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.9,
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Scaffold(
+                          body: const BusinessProfileScreen(),
+                          appBar: AppBar(
+                            title: Text(snapshot.data?.name ?? ''),
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primaryContainer,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
               },
               child: Card(
                 child: Padding(

@@ -14,24 +14,30 @@ class BusinessProfileImageWidget extends ConsumerWidget {
     final businessController =
         ref.read(businessProfileScreenControllerProvider.notifier);
 
-    return imageUploadingStatus
-        ? const LoadingWidget()
-        : FutureBuilder(
-            future: businessController.getBusinessProfileImage(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondaryContainer,
+      ),
+      child: imageUploadingStatus
+          ? const LoadingWidget()
+          : FutureBuilder(
+              future: businessController.getBusinessProfileImage(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+              builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Stack(
+                    children: [
+                      snapshot.data!,
+                    ],
+                  );
+                } else {
+                  return const LoadingWidget();
+                }
+              },
             ),
-            builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return Stack(
-                  children: [
-                    snapshot.data!,
-                  ],
-                );
-              } else {
-                return const LoadingWidget();
-              }
-            },
-          );
+    );
   }
 }

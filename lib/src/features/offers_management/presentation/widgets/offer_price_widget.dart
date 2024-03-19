@@ -67,8 +67,9 @@ class OfferPriceWidget extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Text("${offer.availableQuantity} unidades disponíveis",
-              style: Theme.of(context).textTheme.bodySmall),
+          if (offer.availableQuantity != null)
+            Text("${offer.availableQuantity} unidades disponíveis",
+                style: Theme.of(context).textTheme.bodySmall),
         ],
       ),
     );
