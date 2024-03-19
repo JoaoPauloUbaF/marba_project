@@ -23,9 +23,6 @@ class OfferCardController extends _$OfferCardController {
         .setSelectedBusiness(offerBusiness!);
 
     ref.read(offerDetailsControllerProvider.notifier).setSelectedOffer(offer);
-    Navigator.of(context).pushNamed(
-      '/offer-details',
-    );
   }
 
   Future<bool> shouldShowOfferActions() async {

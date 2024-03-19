@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
-import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -186,7 +185,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
 
     Navigator.pushNamed(
       context,
-      '/business-profile',
+      '/business-home',
     );
   }
 }

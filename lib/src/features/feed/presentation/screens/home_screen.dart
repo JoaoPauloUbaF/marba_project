@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
@@ -30,7 +31,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    FeedScreen(), //TODO: DISPOSE FILTER WHEN CHANGING SCREEN
+    FeedScreen(),
     Text(
       'Index 1: Business',
       style: optionStyle,
@@ -53,6 +54,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   @override
   Widget build(BuildContext context) {
     final controller = ref.read(homeScreenControllerProvider.notifier);
+    final _ = ref.watch(authStateChangeProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -91,7 +93,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: FutureBuilder(
-        future: controller.hasBusiness(), //TODO: my business refresh on logout
+        future: controller.hasBusiness(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return BottomNavigationBar(
             items: <BottomNavigationBarItem>[

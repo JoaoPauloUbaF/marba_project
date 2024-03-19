@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/location_management/presentation/address_display_widget.dart';
-import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_actions_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_header_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_price_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_rating_widget.dart';
-import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferInfoWidget extends ConsumerWidget {

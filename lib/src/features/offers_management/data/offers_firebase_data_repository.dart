@@ -75,9 +75,11 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
           .child('offer_images')
           .child(id)
           .listAll()
-          .then((value) => value.items.forEach((element) async {
-                await element.delete();
-              }));
+          .then(
+            (value) async => {
+              for (var item in value.items) await item.delete(),
+            },
+          );
     } catch (e) {
       log('Error deleting offer: $e');
     }

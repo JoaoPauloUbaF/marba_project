@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class MockUtils {

@@ -17,60 +17,51 @@ class BusinessProfileScreen extends ConsumerWidget {
     final business = ref.watch(businessProfileScreenControllerProvider);
     final businessOffers = ref.watch(businessOffersProvider);
     final businessOffersNotifier = ref.read(businessOffersProvider.notifier);
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          ref
-              .read(businessProfileScreenControllerProvider.notifier)
-              .fetchBusinessProfile();
-        },
-        child: NestedScrollView(
-          body: OfferListWidget(
-            offerProvider: businessOffers,
-            offerProviderNotifier: businessOffersNotifier,
-            isBusiness: true, //TODO: Change this to consume a provider
-          ),
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return <Widget>[
-              SliverToBoxAdapter(
-                child: business != null
-                    ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+    return NestedScrollView(
+      body: OfferListWidget(
+        offerProvider: businessOffers,
+        offerProviderNotifier: businessOffersNotifier,
+        isBusiness: true, //TODO: Change this to consume a provider
+      ),
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverToBoxAdapter(
+            child: business != null
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Stack(
                         children: [
-                          const Stack(
-                            children: [
-                              BusinessProfileImageWidget(),
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child: BusinessStatusWidget(),
-                              ),
-                            ],
+                          BusinessProfileImageWidget(),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: BusinessStatusWidget(),
                           ),
-                          const BusinessContactInfoCard(),
-                          AddressDisplayWidget(address: business.address),
                         ],
-                      )
-                    : const LoadingWidget(),
-              ),
-              const SliverAppBar(
-                pinned: true,
-                automaticallyImplyLeading: false,
-                title: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Melhores Ofertas',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                      ),
+                      const BusinessContactInfoCard(),
+                      AddressDisplayWidget(address: business.address),
+                    ],
+                  )
+                : const LoadingWidget(),
+          ),
+          const SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            title: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Melhores Ofertas',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ];
-          },
-        ),
-      ),
+            ),
+          ),
+        ];
+      },
     );
   }
 }
