@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 class OfferDescriptionWidget extends StatelessWidget {
   const OfferDescriptionWidget({
     super.key,
-    required this.offer,
+    required this.offerDescription,
   });
 
-  final OfferModel offer;
+  final String offerDescription;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,7 @@ class OfferDescriptionWidget extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSecondaryContainer,
           ),
           Text(
-            offer.description,
+            offerDescription,
             style: Theme.of(context).textTheme.bodyMedium,
           ),
         ],
