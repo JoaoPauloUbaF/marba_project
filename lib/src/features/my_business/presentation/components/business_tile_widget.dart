@@ -30,9 +30,8 @@ class BusinessTileWidget extends ConsumerWidget {
                     .read(businessProfileScreenControllerProvider.notifier)
                     .setSelectedBusiness(snapshot.data!);
                 showModalBottomSheet(
-                  useSafeArea: true,
+                  scrollControlDisabledMaxHeightRatio: .9,
                   context: context,
-                  isScrollControlled: true,
                   builder: (BuildContext context) {
                     return SizedBox(
                       height: MediaQuery.of(context).size.height * 0.9,
@@ -45,8 +44,6 @@ class BusinessTileWidget extends ConsumerWidget {
                           body: const BusinessProfileScreen(),
                           appBar: AppBar(
                             title: Text(snapshot.data?.name ?? ''),
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primaryContainer,
                           ),
                         ),
                       ),

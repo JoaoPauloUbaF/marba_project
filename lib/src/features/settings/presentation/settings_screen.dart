@@ -3,14 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({super.key});
-
+  const SettingsScreen({super.key, this.shouldRenderAppBar = true});
+  final bool shouldRenderAppBar;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-      ),
+      appBar: shouldRenderAppBar
+          ? AppBar(
+              title: const Text('Settings'),
+            )
+          : null,
       body: ListView(
         children: [
           ListTile(

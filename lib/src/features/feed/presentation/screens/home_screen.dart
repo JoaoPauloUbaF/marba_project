@@ -6,6 +6,7 @@ import 'package:project_marba/src/features/authentication/data/firebase_auth_pro
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
 import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/settings/presentation/settings_screen.dart';
 
 import '../../application/home_screen_controller/home_screen_controller.dart';
 
@@ -28,21 +29,14 @@ class BottomNavigation extends ConsumerStatefulWidget {
 class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     FeedScreen(),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    Placeholder(),
+    Placeholder(),
     MyBusinessListScreen(
       shouldRenderAppBar: false,
     ),
+    SettingsScreen(shouldRenderAppBar: false),
   ];
 
   void _onItemTapped(int index) {
@@ -58,26 +52,43 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        actions: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.7,
-            height: 35,
-            child: Center(
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: ' "Encanador", "Vidros"',
-                  border: const OutlineInputBorder(),
-                  contentPadding: const EdgeInsets.all(5),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      log('Search');
-                    },
-                    child: const Icon(
-                      Icons.search,
-                    ),
-                  ),
+        title: SizedBox(
+          height: 40,
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: ' "Encanador", "Vidros"',
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(0),
                 ),
               ),
+              contentPadding: const EdgeInsets.all(5),
+              suffixIcon: InkWell(
+                onTap: () {
+                  log('Search');
+                },
+                child: const Icon(
+                  Icons.search,
+                ),
+              ),
+            ),
+          ),
+        ),
+        actions: [
+          IconButton(
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            onPressed: () {},
+            icon: const Icon(
+              Icons.shopping_cart_sharp,
+            ),
+          ),
+          IconButton(
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            onPressed: () {},
+            icon: const Icon(
+              Icons.chat_sharp,
             ),
           ),
           const ThemeSwitchWidget(),
@@ -92,22 +103,26 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
           return BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               const BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Feed',
+                icon: Icon(Icons.shopping_bag_sharp),
+                label: 'Ofertas',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.category_outlined),
-                label: 'Categories',
+                icon: Icon(Icons.video_camera_back_sharp),
+                label: 'Posts',
               ),
               const BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
+                icon: Icon(Icons.receipt_sharp),
+                label: 'Pedidos',
               ),
               if (snapshot.data != null && snapshot.data)
                 const BottomNavigationBarItem(
                   icon: Icon(Icons.monetization_on_sharp),
                   label: 'Negócios',
                 ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.settings_sharp),
+                label: 'Settings',
+              ),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Theme.of(context).colorScheme.primary,
