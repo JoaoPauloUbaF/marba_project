@@ -19,9 +19,9 @@ class MockUtils {
       "status": "onDemand",
       "type": "service",
       "service": {
-        "title": "Placeholder Title",
+        "title": "Título",
         "description":
-            "Esta é uma descrição de exemplo para o serviço. Por favor, substitua este texto pelo conteúdo relevante do seu serviço.",
+            "Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.",
         "price": 0.0,
         "imageUrl": "https://via.placeholder.com/300",
         "status": "OfferStatus.onDemand"

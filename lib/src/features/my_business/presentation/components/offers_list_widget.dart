@@ -106,7 +106,6 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
           animateTransitions: true,
           transitionDuration: const Duration(milliseconds: 1),
           itemBuilder: (context, item, index) => OfferCardWidget(
-            isBusiness: widget.isBusiness,
             offer: item,
           ),
         ),

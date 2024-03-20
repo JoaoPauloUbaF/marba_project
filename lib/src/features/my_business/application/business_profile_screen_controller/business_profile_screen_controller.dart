@@ -137,7 +137,7 @@ class BusinessProfileScreenController
                   child: const Icon(Icons.add_a_photo_sharp, size: 100),
                 ),
         ),
-        if (await isBusinessOwner())
+        if (await isBusinessOwner(state?.id ?? ''))
           Positioned(
             bottom: 20,
             right: 20,
@@ -175,7 +175,7 @@ class BusinessProfileScreenController
     }
   }
 
-  Future<bool> isBusinessOwner() async {
+  Future<bool> isBusinessOwner(String businessId) async {
     final userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
     if (userId == null) {
       return false;
@@ -183,7 +183,7 @@ class BusinessProfileScreenController
     final userBusinessIds = await ref
         .read(userProfileDataProvider)
         .getOwnedBusinessIds(uid: userId);
-    return userBusinessIds.contains(state?.id);
+    return userBusinessIds.contains(businessId);
   }
 
   void dispose() {

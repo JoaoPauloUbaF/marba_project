@@ -10,10 +10,10 @@ import '../../application/offer_card/offer_card.controller.dart';
 class OfferCardWidget extends ConsumerWidget {
   final OfferModel offer;
 
-  final bool isBusiness;
-
-  const OfferCardWidget(
-      {super.key, required this.offer, required this.isBusiness});
+  const OfferCardWidget({
+    super.key,
+    required this.offer,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -106,11 +106,8 @@ class OfferCardWidget extends ConsumerWidget {
                           ),
                         ),
                         FutureBuilder(
-                          future: ref
-                              .read(
-                                  businessProfileScreenControllerProvider //TODO: somente se a offer for do user logado
-                                      .notifier)
-                              .isBusinessOwner(),
+                          future: cardController
+                              .shouldShowOfferActions(offer.businessId),
                           builder: (BuildContext context,
                               AsyncSnapshot<dynamic> snapshot) {
                             if (snapshot.hasData) {

@@ -60,7 +60,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         automaticallyImplyLeading: false,
         actions: [
           SizedBox(
-            width: 230,
+            width: MediaQuery.of(context).size.width * 0.7,
             height: 35,
             child: Center(
               child: TextField(
@@ -81,12 +81,6 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
             ),
           ),
           const ThemeSwitchWidget(),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/settings');
-            },
-            icon: const Icon(Icons.settings),
-          ),
         ],
       ),
       body: Center(

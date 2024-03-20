@@ -41,11 +41,11 @@ class MainApp extends ConsumerWidget {
       title: 'Onktem', //Onktem
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.cyan,
+        colorSchemeSeed: Colors.indigo,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.cyan,
+        colorSchemeSeed: Colors.indigo,
         brightness: Brightness.dark,
       ),
       themeMode: ref.watch(darkModeProvider),

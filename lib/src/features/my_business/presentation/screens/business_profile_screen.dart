@@ -17,6 +17,7 @@ class BusinessProfileScreen extends ConsumerWidget {
     final business = ref.watch(businessProfileScreenControllerProvider);
     final businessOffers = ref.watch(businessOffersProvider);
     final businessOffersNotifier = ref.read(businessOffersProvider.notifier);
+
     return NestedScrollView(
       body: OfferListWidget(
         offerProvider: businessOffers,
