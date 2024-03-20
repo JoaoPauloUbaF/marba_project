@@ -25,9 +25,9 @@ class FeedScreen extends ConsumerWidget {
     return Scaffold(
       body: NestedScrollView(
         body: OfferListWidget(
-            offerProviderNotifier: feedOffersNotifier,
-            offerProvider: feedOffers,
-            isBusiness: false),
+          offerProviderNotifier: feedOffersNotifier,
+          offerProvider: feedOffers,
+        ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             const SliverToBoxAdapter(

@@ -13,13 +13,11 @@ class OfferListWidget extends ConsumerStatefulWidget {
 
   final AsyncValue<List<OfferModel>> offerProvider;
 
-  final bool isBusiness;
-
-  const OfferListWidget(
-      {super.key,
-      required this.offerProviderNotifier,
-      required this.offerProvider,
-      required this.isBusiness});
+  const OfferListWidget({
+    super.key,
+    required this.offerProviderNotifier,
+    required this.offerProvider,
+  });
 
   static const _pageSize = 10;
 

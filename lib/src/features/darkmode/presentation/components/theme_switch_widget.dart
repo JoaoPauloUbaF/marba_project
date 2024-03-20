@@ -8,21 +8,18 @@ class ThemeSwitchWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(darkModeProvider);
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Switch(
-        value: ref.watch(darkModeProvider.notifier).isDarkMode(),
-        onChanged: (val) {
-          ref.read(darkModeProvider.notifier).toggle();
-        },
-        thumbIcon: MaterialStateProperty.resolveWith<Icon?>(
-            (Set<MaterialState> states) {
-          if (states.contains(MaterialState.selected)) {
-            return const Icon(Icons.nightlight_sharp, color: Colors.white);
-          }
-          return const Icon(Icons.wb_sunny_sharp, color: Colors.yellow);
-        }),
-      ),
+    return Switch(
+      value: ref.watch(darkModeProvider.notifier).isDarkMode(),
+      onChanged: (val) {
+        ref.read(darkModeProvider.notifier).toggle();
+      },
+      thumbIcon:
+          MaterialStateProperty.resolveWith<Icon?>((Set<MaterialState> states) {
+        if (states.contains(MaterialState.selected)) {
+          return const Icon(Icons.nightlight_sharp, color: Colors.white);
+        }
+        return const Icon(Icons.wb_sunny_sharp, color: Colors.yellow);
+      }),
     );
   }
 }
