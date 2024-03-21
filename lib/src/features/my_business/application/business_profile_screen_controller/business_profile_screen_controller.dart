@@ -94,7 +94,9 @@ class BusinessProfileScreenController
   }
 
   Future<Widget> getBusinessProfileImage(
-      {required double width, required double height}) async {
+      {required double width,
+      required double height,
+      bool isCreating = false}) async {
     return Stack(
       children: [
         SizedBox(
@@ -137,7 +139,7 @@ class BusinessProfileScreenController
                   child: const Icon(Icons.add_a_photo_sharp, size: 100),
                 ),
         ),
-        if (await isBusinessOwner(state?.id ?? ''))
+        if (await isBusinessOwner(state?.id ?? '') || isCreating)
           Positioned(
             bottom: 20,
             right: 20,
