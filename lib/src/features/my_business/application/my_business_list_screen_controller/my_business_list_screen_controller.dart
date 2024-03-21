@@ -11,6 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../shared/models/address/address.dart';
+import '../../../../shared/models/business/enums.dart';
 
 part 'my_business_list_screen_controller.g.dart';
 

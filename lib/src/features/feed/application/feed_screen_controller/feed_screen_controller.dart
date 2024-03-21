@@ -1,8 +1,9 @@
-import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 import 'package:project_marba/src/shared/models/product/product.dart';
 import 'package:project_marba/src/shared/models/service/service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../../../shared/models/business/enums.dart';
 
 part 'feed_screen_controller.g.dart';
 

@@ -1,13 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/features/image_picker/presentation/widgets/image_field_widget.dart';
 import 'package:project_marba/src/features/my_business/application/business_creation_controller/business_creation_controller.dart';
-import 'package:project_marba/src/features/my_business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
-import 'package:project_marba/src/shared/models/business/business.dart';
 
+import '../../../../shared/models/business/enums.dart';
 import '../../../../utils/registration_utils.dart';
 import 'business_category_cards_widget.dart';
 
@@ -65,21 +62,19 @@ class AddBusinessStepperWidgetState
   }
 
   void _submitForm() {
-    final myBusinessListController =
-        ref.read(myBusinessListScreenControllerProvider.notifier);
-    myBusinessListController.validateAndSubmitForm(
-      key: formKey,
-      name: _nameController.text,
-      email: _emailController.text,
-      phoneNumber: _phoneController.text,
-      street: _streetController.text,
-      number: _numberController.text,
-      neighborhood: _neighborhoodController.text,
-      city: _cityController.text,
-      state: _stateController.text,
-      zipCode: _zipCodeController.text,
-      selectedCategories: _selectedCategories,
-    );
+    ref.read(businessCreationControllerProvider.notifier).validateAndSubmitForm(
+          key: formKey,
+          name: _nameController.text,
+          email: _emailController.text,
+          phoneNumber: _phoneController.text,
+          street: _streetController.text,
+          number: _numberController.text,
+          neighborhood: _neighborhoodController.text,
+          city: _cityController.text,
+          state: _stateController.text,
+          zipCode: _zipCodeController.text,
+          selectedCategories: _selectedCategories,
+        );
 
     Navigator.of(context).pop();
   }

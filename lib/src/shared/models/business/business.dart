@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 
+import 'enums.dart';
+
 part 'business.freezed.dart';
 part 'business.g.dart';
 
@@ -29,15 +31,4 @@ enum BusinessStatus {
   rejected,
   suspended,
   deleted,
-}
-
-enum BusinessCategory {
-  aesthetics,
-  entertainment,
-  cooking,
-  transport,
-  food,
-  clothing,
-  electronics,
-  services,
 }

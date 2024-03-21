@@ -28,7 +28,6 @@ class BusinessProfileImageWidget extends ConsumerWidget {
               future: businessController.getBusinessProfileImage(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                isCreating: isCreatingBusiness,
               ),
               builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {

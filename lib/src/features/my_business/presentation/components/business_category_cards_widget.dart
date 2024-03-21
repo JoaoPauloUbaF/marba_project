@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/models/business/business.dart';
+import '../../../../shared/models/business/enums.dart';
 
 class BusinessCategoryCards extends StatefulWidget {
   final Set<BusinessCategory> selectedCategories;
@@ -14,55 +14,35 @@ class BusinessCategoryCards extends StatefulWidget {
 
 class BusinessCategoryCardsState extends State<BusinessCategoryCards> {
   // Mapa de traduções
-  Map<String, String> translations = {
-    'aesthetics': 'Estética',
-    'entertainment': 'Entretenimento',
-    'cooking': 'Culinária',
-    'transport': 'Transporte',
-    'food': 'Alimentos',
-    'clothing': 'Vestuário',
-    'electronics': 'Eletrônicos',
-    'services': 'Serviços',
-  };
-
-  // Função para capitalizar a primeira letra
+  Map<BusinessCategory, String> translations = businessCategoryTranslations;
 
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 8.0, // gap between adjacent chips
-      runSpacing: 4.0, // gap between lines
+      spacing: 4,
       children: BusinessCategory.values.map((category) {
         bool isSelected = widget.selectedCategories.contains(category);
         String categoryName = category.toString().split('.').last;
         // Traduzir e capitalizar a categoria
-        String translatedCategory = translations[categoryName] ?? categoryName;
-        return GestureDetector(
-          onTap: () {
+        String translatedCategory = translations[category] ?? categoryName;
+        return ChoiceChip(
+          labelPadding: EdgeInsets.zero,
+          label: Text(
+            translatedCategory,
+            style: const TextStyle(fontSize: 10),
+          ),
+          selected: isSelected,
+          onSelected: (bool selected) {
             setState(() {
-              if (isSelected) {
-                widget.selectedCategories.remove(category);
-              } else {
+              if (selected) {
                 widget.selectedCategories.add(category);
+              } else {
+                widget.selectedCategories.remove(category);
               }
               widget.onChanged(widget.selectedCategories);
             });
           },
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width / 3,
-            height: MediaQuery.of(context).size.height / 10,
-            child: Card(
-              color:
-                  isSelected ? Theme.of(context).colorScheme.onPrimary : null,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  translatedCategory,
-                  style: const TextStyle(fontSize: 12),
-                ),
-              ),
-            ),
-          ),
+          selectedColor: Theme.of(context).colorScheme.onPrimary,
         );
       }).toList(),
     );
