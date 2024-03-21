@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/my_business/data/business_profile_data/business_profile_provider.dart';
+import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -40,10 +41,13 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
   Future<void> deleteBusiness({required String businessId}) async {
     final businessProfileRepository = ref.read(businessProfileDataProvider);
     final userProfileRepository = ref.read(userProfileDataProvider);
+    final offersDataRepository = ref.read(offersDataRepositoryProvider);
     await businessProfileRepository.deleteBusinessProfile(uid: businessId);
+    await offersDataRepository.deleteBusinessOffers(businessId: businessId);
     await userProfileRepository.removeOwnedBusinessId(
         uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
         businessId: businessId);
+
     var businessList = await getUserBusinessList();
     state = AsyncValue.data(businessList);
   }

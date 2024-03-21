@@ -18,8 +18,10 @@ class SettingsScreen extends ConsumerWidget {
           ListTile(
             title: const Text('Notification Settings'),
             onTap: () {},
+            leading: const Icon(Icons.notifications),
           ),
           ListTile(
+            leading: const Icon(Icons.account_circle),
             title: const Text('Account Settings'),
             onTap: () {
               ref.read(authRepositoryProvider).getCurrentUser() != null
@@ -28,10 +30,12 @@ class SettingsScreen extends ConsumerWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.privacy_tip),
             title: const Text('Privacy Settings'),
             onTap: () {},
           ),
           ListTile(
+            leading: const Icon(Icons.attach_money_sharp),
             title: const Text('Meus Negócios'),
             onTap: () {
               ref.read(authRepositoryProvider).getCurrentUser() != null
@@ -40,6 +44,7 @@ class SettingsScreen extends ConsumerWidget {
             },
           ),
           ListTile(
+            leading: const Icon(Icons.info),
             title: const Text('About'),
             onTap: () {},
           ),

@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:project_marba/src/features/image_picker/presentation/widgets/image_field_widget.dart';
+import 'package:project_marba/src/features/my_business/application/business_creation_controller/business_creation_controller.dart';
 import 'package:project_marba/src/features/my_business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 
@@ -81,31 +85,33 @@ class AddBusinessStepperWidgetState
   }
 
   List<Step> get steps {
-    final myBusinessListController =
-        ref.read(myBusinessListScreenControllerProvider.notifier);
+    final businessCreationController =
+        ref.read(businessCreationControllerProvider.notifier);
+
     return [
       Step(
         title: const Text('Informações básicas'),
         content: Column(
           children: [
+            const ImageFieldWidget(),
             TextFormField(
               controller: _nameController,
               decoration:
                   const InputDecoration(labelText: 'Nome do Empreendimento'),
               validator: (value) =>
-                  myBusinessListController.validateName(value),
+                  businessCreationController.validateName(value),
             ),
             TextFormField(
               controller: _emailController,
               decoration: const InputDecoration(labelText: 'E-mail'),
               validator: (value) =>
-                  myBusinessListController.validateEmail(value),
+                  businessCreationController.validateEmail(value),
             ),
             TextFormField(
               controller: _phoneController,
               decoration: const InputDecoration(labelText: 'Telefone'),
               validator: (value) =>
-                  myBusinessListController.validatePhoneNumber(value),
+                  businessCreationController.validatePhoneNumber(value),
             ),
           ],
         ),
@@ -118,31 +124,31 @@ class AddBusinessStepperWidgetState
               controller: _zipCodeController,
               decoration: const InputDecoration(labelText: 'CEP'),
               validator: (value) =>
-                  myBusinessListController.validateZipCode(value),
+                  businessCreationController.validateZipCode(value),
             ),
             TextFormField(
               controller: _streetController,
               decoration: const InputDecoration(labelText: 'Rua'),
               validator: (value) =>
-                  myBusinessListController.validateAddressStreet(value),
+                  businessCreationController.validateAddressStreet(value),
             ),
             TextFormField(
               controller: _numberController,
               decoration: const InputDecoration(labelText: 'Número'),
               validator: (value) =>
-                  myBusinessListController.validateAddressNumber(value),
+                  businessCreationController.validateAddressNumber(value),
             ),
             TextFormField(
               controller: _neighborhoodController,
               decoration: const InputDecoration(labelText: 'Bairro'),
               validator: (value) =>
-                  myBusinessListController.validateNeighborhood(value),
+                  businessCreationController.validateNeighborhood(value),
             ),
             TextFormField(
               controller: _cityController,
               decoration: const InputDecoration(labelText: 'Cidade'),
               validator: (value) =>
-                  myBusinessListController.validateCity(value),
+                  businessCreationController.validateCity(value),
             ),
             DropdownButtonFormField<String>(
               menuMaxHeight: MediaQuery.of(context).size.height * 0.45,
@@ -154,7 +160,7 @@ class AddBusinessStepperWidgetState
                 _stateController.text = newValue ?? '';
               },
               validator: (value) =>
-                  myBusinessListController.validateState(value),
+                  businessCreationController.validateState(value),
             ),
           ],
         ),
@@ -182,7 +188,7 @@ class AddBusinessStepperWidgetState
             );
           },
           validator: (value) =>
-              myBusinessListController.validateCategories(value!),
+              businessCreationController.validateCategories(value!),
         ),
       )
     ];

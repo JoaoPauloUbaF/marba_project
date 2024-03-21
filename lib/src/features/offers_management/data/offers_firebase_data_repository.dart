@@ -118,10 +118,8 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   Future<String?> saveOfferImage(File image, String offerId,
       {bool isMedia = false}) async {
     try {
-      final storageRef = FirebaseStorage.instance
-          .ref()
-          .child('offer_images')
-          .child(offerId); // TODO: Storage provider abstraction
+      final storageRef =
+          FirebaseStorage.instance.ref().child('offer_images').child(offerId);
       final imageName =
           isMedia ? 'offer_media_$offerId.jpg' : 'offer_picture_$offerId.jpg';
       final uploadTask = storageRef.child(imageName).putFile(image);
@@ -149,5 +147,18 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       }
     }
     return offerMediaUrls;
+  }
+
+  @override
+  Future<void> deleteBusinessOffers({required String businessId}) {
+    return _firestore
+        .collection('offers')
+        .where('businessId', isEqualTo: businessId)
+        .get()
+        .then((querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        doc.reference.delete();
+      }
+    });
   }
 }

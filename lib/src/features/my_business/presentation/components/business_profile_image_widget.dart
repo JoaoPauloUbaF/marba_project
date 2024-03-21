@@ -5,7 +5,10 @@ import 'package:project_marba/src/features/my_business/application/business_prof
 import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
 
 class BusinessProfileImageWidget extends ConsumerWidget {
-  const BusinessProfileImageWidget({super.key});
+  final bool isCreatingBusiness;
+
+  const BusinessProfileImageWidget(
+      {super.key, this.isCreatingBusiness = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,6 +28,7 @@ class BusinessProfileImageWidget extends ConsumerWidget {
               future: businessController.getBusinessProfileImage(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
+                isCreating: isCreatingBusiness,
               ),
               builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {

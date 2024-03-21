@@ -12,7 +12,6 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      imageUrl: json['imageUrl'] as String?,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       status: $enumDecode(_$BusinessStatusEnumMap, json['status']),
       categories: (json['categories'] as List<dynamic>)
@@ -20,6 +19,7 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
           .toSet(),
       offersIds:
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
@@ -28,6 +28,11 @@ Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
     'name': instance.name,
     'email': instance.email,
     'phoneNumber': instance.phoneNumber,
+    'address': instance.address.toJson(),
+    'status': _$BusinessStatusEnumMap[instance.status]!,
+    'categories':
+        instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
+    'offersIds': instance.offersIds.toList(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -37,11 +42,6 @@ Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
   }
 
   writeNotNull('imageUrl', instance.imageUrl);
-  val['address'] = instance.address.toJson();
-  val['status'] = _$BusinessStatusEnumMap[instance.status]!;
-  val['categories'] =
-      instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList();
-  val['offersIds'] = instance.offersIds.toList();
   return val;
 }
 

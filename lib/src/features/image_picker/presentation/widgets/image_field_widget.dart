@@ -1,33 +1,26 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 
-class OfferImageField extends StatefulWidget {
-  final Function(File?) onImageSelected;
-  final OfferCreationController offerCreationController;
+import '../../application/image_field_controller.dart';
+
+class ImageFieldWidget extends ConsumerWidget {
   final String? imageURL;
 
-  const OfferImageField({
+  const ImageFieldWidget({
     super.key,
-    required this.onImageSelected,
-    required this.offerCreationController,
     this.imageURL,
   });
 
   @override
-  State<OfferImageField> createState() => _OfferImageFieldState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final image = ref.watch(imageFieldControllerProvider);
+    final imageFieldController =
+        ref.read(imageFieldControllerProvider.notifier);
 
-class _OfferImageFieldState extends State<OfferImageField> {
-  File? offerImage;
-
-  @override
-  Widget build(BuildContext context) {
     return FormField(
-      validator: (value) => widget.offerCreationController.validateImageUrl(
-        offerImage?.path,
+      validator: (value) => imageFieldController.validateImageUrl(
+        image?.path,
       ),
       builder: (FormFieldState<dynamic> field) {
         return Column(
@@ -49,14 +42,8 @@ class _OfferImageFieldState extends State<OfferImageField> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          widget.offerCreationController
-                              .pickNewOfferImage(ImageSource.camera)
-                              .then(
-                            (value) {
-                              offerImage = value;
-                              widget.onImageSelected(value);
-                            },
-                          );
+                          imageFieldController
+                              .pickNewOfferImage(ImageSource.camera);
                         },
                       ),
                       ListTile(
@@ -69,14 +56,8 @@ class _OfferImageFieldState extends State<OfferImageField> {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          widget.offerCreationController
-                              .pickNewOfferImage(ImageSource.gallery)
-                              .then(
-                            (value) {
-                              offerImage = value;
-                              widget.onImageSelected(value);
-                            },
-                          );
+                          imageFieldController
+                              .pickNewOfferImage(ImageSource.gallery);
                         },
                       ),
                     ],
@@ -87,16 +68,16 @@ class _OfferImageFieldState extends State<OfferImageField> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.33,
                   child: Container(
-                    child: widget.imageURL != null
+                    child: imageURL != null
                         ? Image.network(
-                            widget.imageURL!,
+                            imageURL!,
                             fit: BoxFit.fill,
                             errorBuilder: (context, error, stackTrace) =>
                                 const Placeholder(),
                           )
-                        : offerImage != null
+                        : image != null
                             ? Image.file(
-                                offerImage!,
+                                image,
                                 fit: BoxFit.cover,
                               )
                             : const Icon(

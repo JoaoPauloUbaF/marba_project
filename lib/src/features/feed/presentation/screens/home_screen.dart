@@ -33,10 +33,10 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     FeedScreen(),
     Placeholder(),
     Placeholder(),
+    SettingsScreen(shouldRenderAppBar: false),
     MyBusinessListScreen(
       shouldRenderAppBar: false,
     ),
-    SettingsScreen(shouldRenderAppBar: false),
   ];
 
   void _onItemTapped(int index) {
@@ -114,15 +114,15 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
                 icon: Icon(Icons.receipt_sharp),
                 label: 'Pedidos',
               ),
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.settings_sharp),
+                label: 'Settings',
+              ),
               if (snapshot.data != null && snapshot.data)
                 const BottomNavigationBarItem(
                   icon: Icon(Icons.monetization_on_sharp),
                   label: 'Negócios',
                 ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.settings_sharp),
-                label: 'Settings',
-              ),
             ],
             currentIndex: _selectedIndex,
             selectedItemColor: Theme.of(context).colorScheme.primary,
