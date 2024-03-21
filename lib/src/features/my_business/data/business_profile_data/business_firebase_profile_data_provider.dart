@@ -7,6 +7,7 @@ import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../../../shared/models/address/address.dart';
+import '../../../../shared/models/business/enums.dart';
 import 'business_profile_data_repository.dart';
 
 final firestoreBusinessProfileDataProvider =
@@ -57,7 +58,7 @@ class BusinessFirebaseProfileDataProvider
                     return BusinessCategory.values.firstWhere(
                       (element) => element.toString().split('.').last == e,
                       orElse: () => BusinessCategory
-                          .services, // Handle case when enum value is not found
+                          .other, // Handle case when enum value is not found
                     );
                   })
                   .where((element) => true)
@@ -148,7 +149,7 @@ class BusinessFirebaseProfileDataProvider
             return BusinessCategory.values.firstWhere(
               (element) => element.toString().split('.').last == e,
               orElse: () => BusinessCategory
-                  .services, // Handle case when enum value is not found
+                  .other, // Handle case when enum value is not found
             );
           })
           .where((element) => true)

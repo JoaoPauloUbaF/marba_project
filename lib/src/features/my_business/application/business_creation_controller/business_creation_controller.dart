@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/image_picker/application/image_field_controller.dart';
 import 'package:project_marba/src/features/my_business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../shared/models/address/address.dart';
+import '../../../../shared/models/business/enums.dart';
 import '../../../authentication/data/firebase_auth_provider.dart';
 import '../../../user_profile/data/user_profile_provider.dart';
 import '../../data/business_profile_data/business_profile_provider.dart';
@@ -90,20 +92,22 @@ class BusinessCreationController extends _$BusinessCreationController {
     return null;
   }
 
-  Future<void> validateAndSubmitForm(
-      {required GlobalKey<FormState> key,
-      required String name,
-      required String email,
-      required String phoneNumber,
-      required String street,
-      required String number,
-      required String neighborhood,
-      required String city,
-      required String state,
-      required String zipCode,
-      required Set<BusinessCategory> selectedCategories}) async {
+  Future<void> validateAndSubmitForm({
+    required GlobalKey<FormState> key,
+    required String name,
+    required String email,
+    required String phoneNumber,
+    required String street,
+    required String number,
+    required String neighborhood,
+    required String city,
+    required String state,
+    required String zipCode,
+    required Set<BusinessCategory> selectedCategories,
+  }) async {
     if (key.currentState?.validate() ?? false) {
       final businessProfileRepository = ref.read(businessProfileDataProvider);
+      final profileImage = ref.read(imageFieldControllerProvider);
       final business = Business(
         id: const Uuid().v4().toString(),
         name: name,
@@ -125,6 +129,13 @@ class BusinessCreationController extends _$BusinessCreationController {
           .createBusinessProfile(business: business)
           .then(
             (value) async => {
+              if (profileImage != null)
+                {
+                  await businessProfileRepository.updateBusinessProfileImage(
+                    uid: value!.id,
+                    imageFile: profileImage,
+                  ),
+                },
               log('Business created successfully: ${value!.id}'),
               ref.read(userProfileDataProvider).addOwnedBusinessId(
                   uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
