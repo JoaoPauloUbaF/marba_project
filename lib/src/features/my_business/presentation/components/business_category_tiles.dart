@@ -1,21 +1,14 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/shared/models/business/enums.dart';
 
 import '../../application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
 class BusinessCategoryTiles extends ConsumerWidget {
   BusinessCategoryTiles({super.key});
 
-  final Map<String, String> categoriesTranslations = {
-    'aesthetics': 'Estética',
-    'entertainment': 'Entretenimento',
-    'cooking': 'Culinária',
-    'transport': 'Transporte',
-    'food': 'Alimentos',
-    'clothing': 'Vestuário',
-    'electronics': 'Eletrônicos',
-    'services': 'Serviços',
-  };
+  final Map<BusinessCategory, String> categoriesTranslations =
+      businessCategoryTranslations;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,9 +17,8 @@ class BusinessCategoryTiles extends ConsumerWidget {
     return Wrap(
       children: businessCategories != null
           ? businessCategories.map((category) {
-              String categoryName = category.toString().split('.').last;
               String translatedCategory =
-                  categoriesTranslations[categoryName] ?? categoryName;
+                  categoriesTranslations[category] ?? category.toString();
 
               return SizedBox(
                 child: Card(

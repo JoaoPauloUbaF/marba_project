@@ -7,7 +7,7 @@ part of 'business_profile_screen_controller.dart';
 // **************************************************************************
 
 String _$businessProfileScreenControllerHash() =>
-    r'28e5cc632a8ec97b49e1df6c68d955967ddf5d49';
+    r'77fc8f2d64b779645ce80e21b7528b1f8671f895';
 
 /// See also [BusinessProfileScreenController].
 @ProviderFor(BusinessProfileScreenController)

@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'image_field_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class ImageFieldController extends _$ImageFieldController {
   @override
   File? build() {

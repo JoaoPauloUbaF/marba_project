@@ -22,6 +22,10 @@ class BusinessCreationController extends _$BusinessCreationController {
     return null;
   }
 
+  dispose() {
+    state = null;
+  }
+
   String? validateName(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, insira o nome do seu negócio';
@@ -92,8 +96,7 @@ class BusinessCreationController extends _$BusinessCreationController {
     return null;
   }
 
-  Future<void> validateAndSubmitForm({
-    required GlobalKey<FormState> key,
+  Future<void> submitForm({
     required String name,
     required String email,
     required String phoneNumber,
@@ -105,46 +108,101 @@ class BusinessCreationController extends _$BusinessCreationController {
     required String zipCode,
     required Set<BusinessCategory> selectedCategories,
   }) async {
-    if (key.currentState?.validate() ?? false) {
-      final businessProfileRepository = ref.read(businessProfileDataProvider);
-      final profileImage = ref.read(imageFieldControllerProvider);
-      final business = Business(
-        id: const Uuid().v4().toString(),
-        name: name,
-        email: email,
-        phoneNumber: phoneNumber,
-        address: Address(
-          street: street,
-          number: number,
-          neighborhood: neighborhood,
-          city: city,
-          state: state,
-          zipCode: zipCode,
-        ),
-        categories: selectedCategories.toSet(),
-        status: BusinessStatus.pending,
-        offersIds: {},
-      );
-      await businessProfileRepository
-          .createBusinessProfile(business: business)
-          .then(
-            (value) async => {
-              if (profileImage != null)
-                {
-                  await businessProfileRepository.updateBusinessProfileImage(
-                    uid: value!.id,
-                    imageFile: profileImage,
-                  ),
-                },
-              log('Business created successfully: ${value!.id}'),
-              ref.read(userProfileDataProvider).addOwnedBusinessId(
-                  uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                  businessId: business.id),
-              await ref
-                  .read(myBusinessListScreenControllerProvider.notifier)
-                  .fetchUserBusinessList(),
-            },
-          );
-    }
+    final businessProfileRepository = ref.read(businessProfileDataProvider);
+    final profileImage = ref.read(imageFieldControllerProvider);
+    final business = Business(
+      id: const Uuid().v4().toString(),
+      name: name,
+      email: email,
+      phoneNumber: phoneNumber,
+      address: Address(
+        street: street,
+        number: number,
+        neighborhood: neighborhood,
+        city: city,
+        state: state,
+        zipCode: zipCode,
+      ),
+      categories: selectedCategories.toSet(),
+      status: BusinessStatus.pending,
+      offersIds: {},
+    );
+    await businessProfileRepository
+        .createBusinessProfile(business: business)
+        .then(
+          (value) async => {
+            if (profileImage != null)
+              {
+                await businessProfileRepository.updateBusinessProfileImage(
+                  uid: value!.id,
+                  imageFile: profileImage,
+                ),
+                ref.refresh(imageFieldControllerProvider),
+              },
+            log('Business created successfully: ${value!.id}'),
+            ref.read(userProfileDataProvider).addOwnedBusinessId(
+                uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
+                businessId: business.id),
+            await ref
+                .read(myBusinessListScreenControllerProvider.notifier)
+                .fetchUserBusinessList(),
+          },
+        );
+  }
+
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  void showSuccessDialog(BuildContext context, String value) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width, // Set the width
+            height: MediaQuery.of(context).size.height * 0.3, // Set the height
+            child: AlertDialog(
+              title: Column(
+                children: [
+                  Center(
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: 'Negócio\n',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: value,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              content: const Center(child: Text('Criado com sucesso!')),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Ok'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }
