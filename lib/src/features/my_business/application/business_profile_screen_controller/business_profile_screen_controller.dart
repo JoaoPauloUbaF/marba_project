@@ -127,7 +127,7 @@ class BusinessProfileScreenController
                           : const Center(
                               child: CircularProgressIndicator(),
                             ),
-                  fit: BoxFit.fitHeight,
+                  fit: BoxFit.fill,
                   image: NetworkImage(
                     state?.imageUrl ?? '',
                   ),

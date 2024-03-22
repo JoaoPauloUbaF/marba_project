@@ -100,34 +100,44 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
       bottomNavigationBar: FutureBuilder(
         future: controller.hasBusiness(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          return BottomNavigationBar(
-            items: <BottomNavigationBarItem>[
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.shopping_bag_sharp),
-                label: 'Ofertas',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.video_camera_back_sharp),
-                label: 'Posts',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.receipt_sharp),
-                label: 'Pedidos',
-              ),
-              const BottomNavigationBarItem(
-                icon: Icon(Icons.settings_sharp),
-                label: 'Settings',
-              ),
-              if (snapshot.data != null && snapshot.data)
+          return ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(40),
+              topRight: Radius.circular(40),
+            ),
+            child: BottomNavigationBar(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.monetization_on_sharp),
-                  label: 'Negócios',
+                  icon: Icon(Icons.shopping_bag_sharp),
+                  label: 'Ofertas',
                 ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: Theme.of(context).colorScheme.primary,
-            type: BottomNavigationBarType.fixed,
-            onTap: _onItemTapped,
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.video_camera_back_sharp),
+                  label: 'Posts',
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.receipt_sharp),
+                  label: 'Pedidos',
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.settings_sharp),
+                  label: 'Settings',
+                ),
+                if (snapshot.data != null && snapshot.data)
+                  const BottomNavigationBarItem(
+                    icon: Icon(Icons.monetization_on_sharp),
+                    label: 'Negócios',
+                  ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor:
+                  Theme.of(context).colorScheme.onPrimaryContainer,
+              unselectedItemColor:
+                  Theme.of(context).colorScheme.primary.withAlpha(200),
+              type: BottomNavigationBarType.fixed,
+              onTap: _onItemTapped,
+            ),
           );
         },
       ),

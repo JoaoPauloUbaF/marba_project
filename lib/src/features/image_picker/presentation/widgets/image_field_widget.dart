@@ -15,6 +15,7 @@ class ImageFieldWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final image = ref.watch(imageFieldControllerProvider);
+    ref.invalidate(imageFieldControllerProvider);
     final imageFieldController =
         ref.read(imageFieldControllerProvider.notifier);
 
@@ -89,7 +90,10 @@ class ImageFieldWidget extends ConsumerWidget {
             field.errorText != null
                 ? Text(
                     field.errorText.toString(),
-                    style: TextStyle(color: ThemeData().colorScheme.error),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: Theme.of(context).colorScheme.error),
                   )
                 : const SizedBox.shrink(),
           ],

@@ -1,82 +1,82 @@
 enum BusinessCategory {
-  // Serviços
-  homeServices, // Serviços Residenciais
-  automotiveServices, // Serviços Automotivos
-  professionalServices, // Serviços Profissionais
-  beautyServices, // Serviços de Beleza
-  healthServices, // Serviços de Saúde
-  entertainmentServices, // Serviços de Entretenimento
-  petServices, // Serviços para Animais de Estimação
-  eventServices, // Serviços para Eventos
-  educationServices, // Serviços Educacionais
-
   // Comércio
-  foodAndBeverage, // Alimentos e Bebidas
-  retail, // Varejo
-  clothing, // Vestuário
-  electronics, // Eletrônicos
-  homeAndGarden, // Casa e Jardim
   appliances, // Eletrodomésticos
-  toysAndGames, // Brinquedos e Jogos
-  booksAndStationery, // Livros e Papelaria
-  sportsAndOutdoors, // Esportes e Ar Livre
+  artsAndCrafts, // Artes e Artesanato
   automotive, // Automotivo
   beautyAndPersonalCare, // Beleza e Cuidados Pessoais
+  booksAndStationery, // Livros e Papelaria
+  clothing, // Vestuário
+  electronics, // Eletrônicos
+  foodAndBeverage, // Alimentos e Bebidas
   healthAndWellness, // Saúde e Bem-estar
-  artsAndCrafts, // Artes e Artesanato
+  homeAndGarden, // Casa e Jardim
   jewelryAndAccessories, // Joias e Acessórios
-  petSupplies, // Suprimentos para Animais de Estimação
-  eventPlanning, // Planejamento de Eventos
-  photography, // Fotografia
-  musicAndInstruments, // Música e Instrumentos
-  technologyServices, // Serviços de Tecnologia
-  financialServices, // Serviços Financeiros
-  legalServices, // Serviços Jurídicos
-  realEstate, // Imobiliário
   marketingAndAdvertising, // Marketing e Publicidade
-  transportationServices, // Serviços de Transporte
-  hospitalityServices, // Serviços de Hospitalidade
+  musicAndInstruments, // Música e Instrumentos
+  other, // Outros
+  petSupplies, // Suprimentos para Animais de Estimação
+  realEstate, // Imobiliário
+  retail, // Varejo
+  sportsAndOutdoors, // Esportes e Ar Livre
+  toysAndGames, // Brinquedos e Jogos
+
+  // Serviços
+  automotiveServices, // Serviços Automotivos
+  beautyServices, // Serviços de Beleza
   construction, // Construção
+  educationServices, // Serviços Educacionais
+  entertainmentServices, // Serviços de Entretenimento
+  eventPlanning, // Planejamento de Eventos
+  eventServices, // Serviços para Eventos
+  financialServices, // Serviços Financeiros
+  healthServices, // Serviços de Saúde
+  homeServices, // Serviços Residenciais
+  hospitalityServices, // Serviços de Hospitalidade
+  legalServices, // Serviços Jurídicos
+  petServices, // Serviços para Animais de Estimação
+  photography, // Fotografia
+  professionalServices, // Serviços Profissionais
   repairAndMaintenance, // Reparo e Manutenção
-  other // Outros
+  technologyServices, // Serviços de Tecnologia
+  transportationServices, // Serviços de Transporte
 }
 
 final Map<BusinessCategory, String> businessCategoryTranslations = {
-  BusinessCategory.homeServices: 'Serviços Residenciais',
-  BusinessCategory.automotiveServices: 'Serviços Automotivos',
-  BusinessCategory.professionalServices: 'Serviços Profissionais',
-  BusinessCategory.beautyServices: 'Serviços de Beleza',
-  BusinessCategory.healthServices: 'Serviços de Saúde',
-  BusinessCategory.entertainmentServices: 'Serviços de Entretenimento',
-  BusinessCategory.petServices: 'Serviços para Animais de Estimação',
-  BusinessCategory.eventServices: 'Serviços para Eventos',
-  BusinessCategory.educationServices: 'Serviços Educacionais',
-  BusinessCategory.foodAndBeverage: 'Alimentos e Bebidas',
-  BusinessCategory.retail: 'Varejo',
-  BusinessCategory.clothing: 'Vestuário',
-  BusinessCategory.electronics: 'Eletrônicos',
-  BusinessCategory.homeAndGarden: 'Casa e Jardim',
   BusinessCategory.appliances: 'Eletrodomésticos',
-  BusinessCategory.toysAndGames: 'Brinquedos e Jogos',
-  BusinessCategory.booksAndStationery: 'Livros e Papelaria',
-  BusinessCategory.sportsAndOutdoors: 'Esportes e Ar Livre',
+  BusinessCategory.artsAndCrafts: 'Artes e Artesanato',
   BusinessCategory.automotive: 'Automotivo',
   BusinessCategory.beautyAndPersonalCare: 'Beleza e Cuidados Pessoais',
+  BusinessCategory.booksAndStationery: 'Livros e Papelaria',
+  BusinessCategory.clothing: 'Vestuário',
+  BusinessCategory.electronics: 'Eletrônicos',
+  BusinessCategory.foodAndBeverage: 'Alimentos e Bebidas',
   BusinessCategory.healthAndWellness: 'Saúde e Bem-estar',
-  BusinessCategory.artsAndCrafts: 'Artes e Artesanato',
+  BusinessCategory.homeAndGarden: 'Casa e Jardim',
   BusinessCategory.jewelryAndAccessories: 'Joias e Acessórios',
-  BusinessCategory.petSupplies: 'Suprimentos para Animais de Estimação',
-  BusinessCategory.eventPlanning: 'Planejamento de Eventos',
-  BusinessCategory.photography: 'Fotografia',
-  BusinessCategory.musicAndInstruments: 'Música e Instrumentos',
-  BusinessCategory.technologyServices: 'Serviços de Tecnologia',
-  BusinessCategory.financialServices: 'Serviços Financeiros',
-  BusinessCategory.legalServices: 'Serviços Jurídicos',
-  BusinessCategory.realEstate: 'Imobiliário',
   BusinessCategory.marketingAndAdvertising: 'Marketing e Publicidade',
-  BusinessCategory.transportationServices: 'Serviços de Transporte',
-  BusinessCategory.hospitalityServices: 'Serviços de Hospitalidade',
-  BusinessCategory.construction: 'Construção',
-  BusinessCategory.repairAndMaintenance: 'Reparo e Manutenção',
+  BusinessCategory.musicAndInstruments: 'Música e Instrumentos',
   BusinessCategory.other: 'Outros',
+  BusinessCategory.petSupplies: 'Suprimentos para Animais de Estimação',
+  BusinessCategory.realEstate: 'Imobiliário',
+  BusinessCategory.retail: 'Varejo',
+  BusinessCategory.sportsAndOutdoors: 'Esportes e Ar Livre',
+  BusinessCategory.toysAndGames: 'Brinquedos e Jogos',
+  BusinessCategory.automotiveServices: 'Automotivos',
+  BusinessCategory.beautyServices: 'Beleza',
+  BusinessCategory.construction: 'Construção',
+  BusinessCategory.educationServices: 'Educacionais',
+  BusinessCategory.entertainmentServices: 'Entretenimento',
+  BusinessCategory.eventPlanning: 'Planejamento de Eventos',
+  BusinessCategory.eventServices: 'Eventos',
+  BusinessCategory.financialServices: 'Financeiros',
+  BusinessCategory.healthServices: 'Saúde',
+  BusinessCategory.homeServices: 'Residenciais',
+  BusinessCategory.hospitalityServices: 'Hospitalidade',
+  BusinessCategory.legalServices: 'Jurídicos',
+  BusinessCategory.petServices: 'Animais de Estimação',
+  BusinessCategory.photography: 'Fotografia',
+  BusinessCategory.professionalServices: 'Serviços Profissionais',
+  BusinessCategory.repairAndMaintenance: 'Reparo e Manutenção',
+  BusinessCategory.technologyServices: 'Tecnologia',
+  BusinessCategory.transportationServices: 'Transporte',
 };
