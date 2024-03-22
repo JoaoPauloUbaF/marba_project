@@ -108,7 +108,8 @@ class _OfferImageFieldState extends State<OfferImageField> {
             field.errorText != null
                 ? Text(
                     field.errorText.toString(),
-                    style: TextStyle(color: ThemeData().colorScheme.error),
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.error),
                   )
                 : const SizedBox.shrink(),
           ],

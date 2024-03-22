@@ -25,6 +25,7 @@ mixin _$Service {
   double get price => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
+  ServicePricingType get pricingType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,7 +42,8 @@ abstract class $ServiceCopyWith<$Res> {
       String description,
       double price,
       String imageUrl,
-      String status});
+      String status,
+      ServicePricingType pricingType});
 }
 
 /// @nodoc
@@ -62,6 +64,7 @@ class _$ServiceCopyWithImpl<$Res, $Val extends Service>
     Object? price = null,
     Object? imageUrl = null,
     Object? status = null,
+    Object? pricingType = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -84,6 +87,10 @@ class _$ServiceCopyWithImpl<$Res, $Val extends Service>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      pricingType: null == pricingType
+          ? _value.pricingType
+          : pricingType // ignore: cast_nullable_to_non_nullable
+              as ServicePricingType,
     ) as $Val);
   }
 }
@@ -100,7 +107,8 @@ abstract class _$$ServiceImplCopyWith<$Res> implements $ServiceCopyWith<$Res> {
       String description,
       double price,
       String imageUrl,
-      String status});
+      String status,
+      ServicePricingType pricingType});
 }
 
 /// @nodoc
@@ -119,6 +127,7 @@ class __$$ServiceImplCopyWithImpl<$Res>
     Object? price = null,
     Object? imageUrl = null,
     Object? status = null,
+    Object? pricingType = null,
   }) {
     return _then(_$ServiceImpl(
       title: null == title
@@ -141,6 +150,10 @@ class __$$ServiceImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      pricingType: null == pricingType
+          ? _value.pricingType
+          : pricingType // ignore: cast_nullable_to_non_nullable
+              as ServicePricingType,
     ));
   }
 }
@@ -153,7 +166,8 @@ class _$ServiceImpl implements _Service {
       required this.description,
       required this.price,
       required this.imageUrl,
-      required this.status});
+      required this.status,
+      required this.pricingType});
 
   factory _$ServiceImpl.fromJson(Map<String, dynamic> json) =>
       _$$ServiceImplFromJson(json);
@@ -168,10 +182,12 @@ class _$ServiceImpl implements _Service {
   final String imageUrl;
   @override
   final String status;
+  @override
+  final ServicePricingType pricingType;
 
   @override
   String toString() {
-    return 'Service(title: $title, description: $description, price: $price, imageUrl: $imageUrl, status: $status)';
+    return 'Service(title: $title, description: $description, price: $price, imageUrl: $imageUrl, status: $status, pricingType: $pricingType)';
   }
 
   @override
@@ -185,13 +201,15 @@ class _$ServiceImpl implements _Service {
             (identical(other.price, price) || other.price == price) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.pricingType, pricingType) ||
+                other.pricingType == pricingType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, description, price, imageUrl, status);
+  int get hashCode => Object.hash(
+      runtimeType, title, description, price, imageUrl, status, pricingType);
 
   @JsonKey(ignore: true)
   @override
@@ -213,7 +231,8 @@ abstract class _Service implements Service {
       required final String description,
       required final double price,
       required final String imageUrl,
-      required final String status}) = _$ServiceImpl;
+      required final String status,
+      required final ServicePricingType pricingType}) = _$ServiceImpl;
 
   factory _Service.fromJson(Map<String, dynamic> json) = _$ServiceImpl.fromJson;
 
@@ -227,6 +246,8 @@ abstract class _Service implements Service {
   String get imageUrl;
   @override
   String get status;
+  @override
+  ServicePricingType get pricingType;
   @override
   @JsonKey(ignore: true)
   _$$ServiceImplCopyWith<_$ServiceImpl> get copyWith =>

@@ -93,6 +93,8 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
       _pagingController.refresh();
     });
     final _ = ref.watch(feedOffersTypeFilterProvider);
+    // ignore: non_constant_identifier_names
+    final __ = ref.watch(productCategoryFilterProvider);
 
     return RefreshIndicator(
       onRefresh: () => Future.sync(
