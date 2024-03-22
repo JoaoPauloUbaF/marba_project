@@ -18,16 +18,3 @@ class Product with _$Product {
   factory Product.fromJson(Map<String, dynamic> json) =>
       _$ProductFromJson(json);
 }
-
-enum ProductCategory {
-  food,
-  drink,
-  clothing,
-  electronics,
-  beauty,
-  health,
-  home,
-  construction,
-  pets,
-  other,
-}

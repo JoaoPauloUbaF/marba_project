@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
@@ -8,7 +9,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../shared/models/offer/offer_model.dart';
+import '../../../../shared/models/product/enums.dart';
 import '../../../../shared/models/product/product.dart';
+import '../../../../shared/models/service/enums.dart';
 import '../../../../shared/models/service/service.dart';
 import '../../../my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
@@ -129,6 +132,7 @@ class OfferCreationController extends _$OfferCreationController {
     required OfferStatus? offerStatus,
     required File? offerImage,
     List<File?>? offerMedia,
+    ServicePricingType? servicePricingType,
   }) async {
     final business = ref.read(businessProfileScreenControllerProvider)!;
     final offerId = const Uuid().v4();
@@ -179,6 +183,7 @@ class OfferCreationController extends _$OfferCreationController {
         price: currencyStringToDouble(offerPrice),
         imageUrl: offerImageUrl ?? '',
         status: offerStatus.toString(),
+        pricingType: servicePricingType ?? ServicePricingType.fixed,
       );
     }
 
@@ -198,13 +203,11 @@ class OfferCreationController extends _$OfferCreationController {
     return offer.title;
   }
 
-  String getCategoryTranslation(String category, OfferType offerType) {
-    category = category.split('.').last;
-
+  String getCategoryTranslation(dynamic category, OfferType offerType) {
     if (offerType == OfferType.product) {
       return productCategoryTranslations[category] ?? '';
     }
-    return serviceCategoryTranslations[category] ?? '';
+    return serviceCategoryTranslations[category as ServiceCategory] ?? '';
   }
 
   double currencyStringToDouble(String currencyString) {
@@ -212,6 +215,63 @@ class OfferCreationController extends _$OfferCreationController {
     currencyString = currencyString.replaceAll('.', '');
     currencyString = currencyString.replaceAll(',', '.');
     return double.parse(currencyString);
+  }
+
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  void showSuccessDialog(BuildContext context, String value) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width, // Set the width
+            height: MediaQuery.of(context).size.height * 0.4,
+            child: AlertDialog(
+              title: Center(
+                child: Text('Oferta',
+                    style: Theme.of(context).textTheme.titleSmall),
+              ),
+              content: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      value,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8), // Reduced size
+                    Icon(Icons.check_circle,
+                        color: Theme.of(context).colorScheme.primary,
+                        size: 24), // Reduced size
+                    const SizedBox(height: 8), // Reduced size
+                    const Text('Criada com sucesso!'),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Ok'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Map<String, String> get statusTranslations => {
@@ -222,25 +282,31 @@ class OfferCreationController extends _$OfferCreationController {
         'onDemand': 'Sob Encomenda',
       };
 
-  Map<String, String> get productCategoryTranslations => {
-        'food': 'Alimentos',
-        'drink': 'Bebidas',
-        'clothing': 'Vestuário',
-        'electronics': 'Eletrônicos',
-        'beauty': 'Beleza',
-        'health': 'Saúde',
-        'home': 'Casa',
-        'construction': 'Construção',
-        'pets': 'Animais',
-        'other': 'Outros',
-      };
-
-  Map<String, String> get serviceCategoryTranslations => {
-        'beauty': 'Beleza',
-        'health': 'Saúde',
-        'home': 'Casa',
-        'construction': 'Construção',
-        'pets': 'Animais',
-        'other': 'Outros',
-      };
+  void showFormErrorDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width, // Set the width
+            height: MediaQuery.of(context).size.height * 0.3, // Set the height
+            child: AlertDialog(
+              title: const Center(child: Text('Erro')),
+              content: const Center(
+                  child:
+                      Text('Por favor, preencha todos os campos obrigatórios')),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Ok'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

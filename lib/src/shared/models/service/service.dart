@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'enums.dart';
+
 part 'service.freezed.dart';
 part 'service.g.dart';
 
@@ -11,22 +13,9 @@ class Service with _$Service {
     required double price,
     required String imageUrl,
     required String status,
-    // Address address,
-    // DateTime scheduledAt,
-    // String serviceProfessional,
-    // String contractorName,
-    // String? additionalInfo,
+    required ServicePricingType pricingType,
   }) = _Service;
 
   factory Service.fromJson(Map<String, dynamic> json) =>
       _$ServiceFromJson(json);
-}
-
-enum ServiceCategory {
-  beauty,
-  health,
-  home,
-  construction,
-  pets,
-  other,
 }

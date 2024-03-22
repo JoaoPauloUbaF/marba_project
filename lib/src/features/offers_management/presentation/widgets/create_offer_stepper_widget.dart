@@ -8,8 +8,10 @@ import 'package:project_marba/src/features/offers_management/application/offer_c
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_category_selection_field_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_type_selection_widget.dart';
+import 'package:project_marba/src/shared/models/service/service.dart';
 
 import '../../../../shared/models/offer/offer_model.dart';
+import '../../../../shared/models/service/enums.dart';
 
 final formKey = GlobalKey<FormState>();
 
@@ -33,6 +35,7 @@ class CreateOfferStepperWidgetState
   late File? _offerImage;
   late List<File?> _offerMedia;
   late OfferStatus? _offerStatus;
+  late ServicePricingType? _servicePricingType;
 
   int _currentStep = 0;
 
@@ -57,6 +60,7 @@ class CreateOfferStepperWidgetState
     );
     _offerCategory = {};
     _offerTypeController = null;
+    _servicePricingType = ServicePricingType.fixed;
   }
 
   @override
@@ -143,6 +147,27 @@ class CreateOfferStepperWidgetState
             validator: (OfferStatus? value) =>
                 offerCreationController.validateStatus(value.toString()),
           ),
+          _offerTypeController == OfferType.service
+              ? DropdownButtonFormField<ServicePricingType>(
+                  value: _servicePricingType,
+                  decoration: const InputDecoration(
+                    labelText: 'Cobrança do serviço',
+                  ),
+                  items: ServicePricingType.values
+                      .map((ServicePricingType status) {
+                    return DropdownMenuItem<ServicePricingType>(
+                      value: status,
+                      child: Text(servicePricingTypeTranslations[status] ??
+                          status.toString().split('.').last),
+                    );
+                  }).toList(),
+                  onChanged: (ServicePricingType? newValue) {
+                    setState(() {
+                      _servicePricingType = newValue;
+                    });
+                  },
+                )
+              : const SizedBox.shrink(),
           const SizedBox(height: 8.0),
           OfferCategorySelectionFieldWidget(
             offerType: _offerTypeController ?? OfferType.product,
@@ -206,55 +231,11 @@ class CreateOfferStepperWidgetState
             ),
             const SizedBox(height: 8.0),
             if (_offerMedia.isNotEmpty)
-              Align(
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    child: CarouselSlider(
-                      items: _offerMedia.map((i) {
-                        return InkWell(
-                          child: SizedBox(
-                            child: Stack(
-                              children: [
-                                Image.file(
-                                  i!,
-                                  fit: BoxFit.fill,
-                                  height: 100,
-                                  width: 200,
-                                ),
-                                Positioned(
-                                  right: 2,
-                                  top: 2,
-                                  child: InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        _offerMedia.remove(i);
-                                      });
-                                    },
-                                    child: const Icon(
-                                      Icons.delete,
-                                      size: 16,
-                                      shadows: [
-                                        BoxShadow(
-                                          color: Colors.black,
-                                          blurRadius: 10,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                      options: CarouselOptions(
-                        enlargeCenterPage: true,
-                        viewportFraction: 0.4,
-                        enableInfiniteScroll: false,
-                      ),
-                    )),
+              OfferMediaWidget(
+                offerMedia: _offerMedia,
+                onMediaRemoved: () {
+                  setState(() {});
+                },
               ),
             buildOfferInfoField(offerCreationController),
           ],
@@ -288,7 +269,7 @@ class CreateOfferStepperWidgetState
           children: [
             details.currentStep != 0
                 ? IconButton(
-                    color: Colors.orange,
+                    color: Theme.of(context).colorScheme.primary,
                     onPressed: details.onStepCancel,
                     icon: const Icon(Icons.arrow_back_rounded),
                   )
@@ -296,7 +277,7 @@ class CreateOfferStepperWidgetState
             const Spacer(),
             details.currentStep != steps.length - 1
                 ? IconButton(
-                    color: Colors.orange,
+                    color: Theme.of(context).colorScheme.primary,
                     onPressed: _offerTypeController != null
                         ? details.onStepContinue
                         : null,
@@ -307,14 +288,7 @@ class CreateOfferStepperWidgetState
                 ? TextButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          },
-                        );
+                        offerCreationController.showLoadingDialog(context);
                         offerCreationController
                             .submitOfferCreationForm(
                               offerType: _offerTypeController!,
@@ -329,52 +303,95 @@ class CreateOfferStepperWidgetState
                               offerStatus: _offerStatus,
                               offerImage: _offerImage,
                               offerMedia: _offerMedia,
+                              servicePricingType: _servicePricingType,
                             )
                             .then(
                               (value) => {
                                 Navigator.of(context).pop(),
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width, // Set the width
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.3, // Set the height
-                                        child: AlertDialog(
-                                          title: Center(
-                                              child: Text('Oferta $value')),
-                                          content: const Center(
-                                              child:
-                                                  Text('Criada com sucesso!')),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text('Ok'),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
+                                offerCreationController.showSuccessDialog(
+                                    context, value),
                               },
                             );
+                      } else {
+                        offerCreationController.showFormErrorDialog(context);
                       }
                     },
-                    child: const Text(
+                    child: Text(
                       'Salvar',
-                      style: TextStyle(color: Colors.orange),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
                     ),
                   )
                 : const SizedBox.shrink(),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class OfferMediaWidget extends StatelessWidget {
+  const OfferMediaWidget({
+    super.key,
+    required this.offerMedia,
+    required this.onMediaRemoved,
+  });
+
+  final List<File?> offerMedia;
+  final Function() onMediaRemoved;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: SizedBox(
+        height: 100,
+        width: MediaQuery.of(context).size.width,
+        child: CarouselSlider(
+          items: offerMedia.map(
+            (i) {
+              return InkWell(
+                child: SizedBox(
+                  child: Stack(
+                    children: [
+                      Image.file(
+                        i!,
+                        fit: BoxFit.fill,
+                        height: 100,
+                        width: 200,
+                      ),
+                      Positioned(
+                        right: 2,
+                        top: 2,
+                        child: InkWell(
+                          onTap: () {
+                            offerMedia.remove(i);
+                            onMediaRemoved();
+                          },
+                          child: const Icon(
+                            Icons.delete,
+                            size: 16,
+                            shadows: [
+                              BoxShadow(
+                                color: Colors.black,
+                                blurRadius: 10,
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ).toList(),
+          options: CarouselOptions(
+            enlargeCenterPage: true,
+            viewportFraction: 0.4,
+            enableInfiniteScroll: false,
+          ),
         ),
       ),
     );

@@ -43,7 +43,7 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
                   backgroundColor: Theme.of(context).colorScheme.onSecondary,
                   label: Text(
                     offerCreationController.getCategoryTranslation(
-                        category.toString(), offerType ?? OfferType.product),
+                        category, offerType ?? OfferType.product),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                   selected: categoryFilterProvider.contains(category),

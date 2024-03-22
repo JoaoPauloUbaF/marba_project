@@ -31,6 +31,7 @@ enum ServiceCategory {
   locksmith, // Chaveiro
   makeupArtist, // Maquiador(a)
   marketingConsultant, // Consultor(a) de Marketing
+  mason, // Pedreiro
   masseurMassagist, // Massagista
   nails, // Manicure
   nutritionist, // Nutricionista
@@ -89,6 +90,7 @@ final Map<ServiceCategory, String> serviceCategoryTranslations = {
   ServiceCategory.jewelryRepair: 'Conserto de Joias',
   ServiceCategory.lawyer: 'Advogado(a)',
   ServiceCategory.locksmith: 'Chaveiro',
+  ServiceCategory.mason: 'Pedreiro',
   ServiceCategory.makeupArtist: 'Maquiador(a)',
   ServiceCategory.marketingConsultant: 'Consultor(a) de Marketing',
   ServiceCategory.masseurMassagist: 'Massagista',
@@ -115,4 +117,14 @@ final Map<ServiceCategory, String> serviceCategoryTranslations = {
   ServiceCategory.windowCleaning: 'Limpeza de Vidros',
   ServiceCategory.securitySystems: 'Sistemas de Segurança',
   ServiceCategory.solarPanelInstallation: 'Instalação de Painéis Solares',
+};
+
+enum ServicePricingType { fixed, hourly, daily, weekly, monthly, yearly }
+
+final Map<ServicePricingType, String> servicePricingTypeTranslations = {
+  ServicePricingType.fixed: 'Fixo',
+  ServicePricingType.hourly: 'Por Hora',
+  ServicePricingType.daily: 'Diário',
+  ServicePricingType.weekly: 'Semanal',
+  ServicePricingType.monthly: 'Mensal',
 };

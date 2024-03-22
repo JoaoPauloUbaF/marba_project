@@ -1,6 +1,6 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../shared/models/product/product.dart';
+import '../../../../shared/models/product/enums.dart';
 
 part 'offer_product_category_filter_provider.g.dart';
 
