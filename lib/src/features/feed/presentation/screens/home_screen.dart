@@ -28,6 +28,7 @@ class BottomNavigation extends ConsumerStatefulWidget {
 
 class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   int _selectedIndex = 0;
+  bool _isSearching = false;
 
   static const List<Widget> _widgetOptions = <Widget>[
     FeedScreen(),
@@ -50,49 +51,83 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     final controller = ref.read(homeScreenControllerProvider.notifier);
     final _ = ref.watch(authStateChangeProvider);
     return Scaffold(
+      extendBody: true,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: SizedBox(
-          height: 40,
-          child: TextField(
-            decoration: InputDecoration(
-              hintText: ' "Encanador", "Vidros"',
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(0),
-                ),
-              ),
-              contentPadding: const EdgeInsets.all(5),
-              suffixIcon: InkWell(
-                onTap: () {
-                  log('Search');
-                },
-                child: const Icon(
-                  Icons.search,
-                ),
-              ),
-            ),
-          ),
+        title: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 500),
+          transitionBuilder: (Widget child, Animation<double> animation) {
+            return FadeTransition(opacity: animation, child: child);
+          },
+          child: _isSearching
+              ? SizedBox(
+                  key: const ValueKey("searchBar"),
+                  height: 40,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: ' "Encanador", "Vidros"',
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(0),
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.all(5),
+                      suffixIcon: InkWell(
+                        onTap: () {
+                          log('Search');
+                        },
+                        child: const Icon(
+                          Icons.search,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : const SizedBox.shrink(),
         ),
-        actions: [
-          IconButton(
-            padding: EdgeInsets.zero,
-            visualDensity: VisualDensity.compact,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.shopping_cart_sharp,
-            ),
-          ),
-          IconButton(
-            padding: EdgeInsets.zero,
-            visualDensity: VisualDensity.compact,
-            onPressed: () {},
-            icon: const Icon(
-              Icons.chat_sharp,
-            ),
-          ),
-          const ThemeSwitchWidget(),
-        ],
+        actions: _isSearching
+            ? []
+            : [
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                  onPressed: () {
+                    setState(() {
+                      _isSearching = !_isSearching;
+                    });
+                  },
+                  icon: const Icon(
+                    Icons.search_sharp,
+                  ),
+                ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.shopping_cart_sharp,
+                  ),
+                ),
+                IconButton(
+                  padding: EdgeInsets.zero,
+                  visualDensity: VisualDensity.compact,
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.chat_sharp,
+                  ),
+                ),
+                const ThemeSwitchWidget(),
+              ],
+        leading: _isSearching
+            ? IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () {
+                  setState(() {
+                    _isSearching = !_isSearching;
+                  });
+                },
+              )
+            : null,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
