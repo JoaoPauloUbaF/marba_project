@@ -20,6 +20,7 @@ class BusinessProfileScreen extends ConsumerWidget {
 
     return NestedScrollView(
       body: OfferListWidget(
+        //TODO: implementar melhores ofertas
         offerProvider: businessOffers,
         offerProviderNotifier: businessOffersNotifier,
       ),

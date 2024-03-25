@@ -15,24 +15,22 @@ class MyBusinessHomeScreen extends ConsumerStatefulWidget {
 class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   int _selectedIndex = 0;
 
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-
   static final List<Widget> _widgetOptions = <Widget>[
     const BusinessProfileScreen(),
     const MyBusinessOffersScreen(),
-    const AddBusinessStepperWidget(),
+    const AddBusinessStepperWidget(), //TODO: Implementar a tela de configurações
   ];
 
   @override
   Widget build(BuildContext context) {
     final _ = ref.watch(businessProfileScreenControllerProvider);
-    final business = ref.read(businessProfileScreenControllerProvider.notifier);
+    final viewController =
+        ref.read(businessProfileScreenControllerProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          business.getBusinessName(),
+          viewController.getBusinessName(),
           style: Theme.of(context).textTheme.headlineSmall!,
         ),
         automaticallyImplyLeading: true,
@@ -40,7 +38,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
           IconButton(
             icon: const Icon(Icons.home_sharp),
             onPressed: () {
-              business.dispose();
+              viewController.dispose();
               Navigator.pushNamed(context, '/home');
             },
           ),

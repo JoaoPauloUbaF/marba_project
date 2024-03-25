@@ -17,64 +17,58 @@ class UserBusinessListWidget extends ConsumerWidget {
         ref.watch(myBusinessListScreenControllerProvider);
 
     return RefreshIndicator(
-      // color: Colors.orange,
       onRefresh: () async {
         await myBusinessListController.fetchUserBusinessList();
       },
-      child: FutureBuilder<List<Business?>>(
-        future: businessListProvider.when(
-          data: (data) => Future.value(data),
-          loading: () => myBusinessListController.getUserBusinessList(),
-          error: (error, stackTrace) => Future.error(error),
-        ),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                final business = snapshot.data![index];
-                return Padding(
-                  padding:
-                      const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(business?.name ?? ''),
-                        onTap: () => myBusinessListController.onTapBusiness(
-                          business: business!,
-                          context: context,
+      child: businessListProvider.when(
+        data: (businessList) {
+          return ListView.builder(
+            itemCount: businessList.length,
+            itemBuilder: (context, index) {
+              final business = businessList[index];
+              return Padding(
+                padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
+                child: Column(
+                  children: [
+                    ListTile(
+                      //TODO: implementar slide to delete
+                      title: Text(business?.name ?? ''),
+                      onTap: () => myBusinessListController.onTapBusiness(
+                        business: business!,
+                        context: context,
+                      ),
+                      subtitle: Text(
+                          "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
-                        subtitle: Text(
-                            "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
-                        trailing: IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Theme.of(context).colorScheme.secondary,
+                        onPressed: () => {
+                          myBusinessListController.deleteBusiness(
+                            businessId: business?.id ?? '',
                           ),
-                          onPressed: () => {
-                            myBusinessListController.deleteBusiness(
-                              businessId: business?.id ?? '',
-                            ),
-                          },
-                        ),
+                        },
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Divider(
-                          color: Theme.of(context).colorScheme.primaryContainer,
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Divider(
+                        color: Theme.of(context).colorScheme.primaryContainer,
                       ),
-                    ],
-                  ),
-                );
-              },
-            );
-          } else if (snapshot.hasError) {
-            return Text('Error: ${snapshot.error}');
-          } else {
-            return const Center(child: CircularProgressIndicator());
-          }
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
         },
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        error: (error, _) => Center(
+          child: Text(error.toString()),
+        ),
       ),
     );
   }

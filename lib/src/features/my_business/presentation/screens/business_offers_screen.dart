@@ -38,7 +38,13 @@ class MyBusinessOffersScreen extends ConsumerWidget {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.hasError) {
-              return const Text('Error');
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Theme.of(context).colorScheme.onError,
+                  content: Text(snapshot.error.toString()),
+                ),
+              );
+              return const SizedBox.shrink();
             } else {
               return snapshot.data == true
                   ? FloatingActionButton(
