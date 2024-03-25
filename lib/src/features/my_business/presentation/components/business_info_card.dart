@@ -12,8 +12,8 @@ class BusinessContactInfoCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final business = ref
-        .watch(businessProfileScreenControllerProvider); // to-do use notifier
+    final business = ref.watch(businessProfileScreenControllerProvider);
+
     return Card(
       margin: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(

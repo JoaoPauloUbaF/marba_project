@@ -132,28 +132,29 @@ class BusinessProfileScreenController
                     state?.imageUrl ?? '',
                   ),
                 )
-              : SizedBox(
-                  width: width,
-                  child: const Icon(Icons.add_a_photo_sharp, size: 100),
+              : InkWell(
+                  onTap: () => updateBusinessProfileImage(),
+                  child: SizedBox(
+                    width: width,
+                    child: const Icon(Icons.add_a_photo_sharp, size: 100),
+                  ),
                 ),
         ),
-        if (await isBusinessOwner(state?.id ?? ''))
+        if (await isBusinessOwner(state?.id ?? '') && state?.imageUrl != null)
           Positioned(
             bottom: 20,
             right: 20,
             child: InkWell(
               onTap: () => updateBusinessProfileImage(),
-              child: const Stack(children: [
-                Icon(
-                  Icons.add_a_photo,
-                  shadows: [
-                    BoxShadow(
-                      color: Colors.black,
-                      blurRadius: 10,
-                    )
-                  ],
-                ),
-              ]),
+              child: const Icon(
+                Icons.add_a_photo,
+                shadows: [
+                  BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 10,
+                  )
+                ],
+              ),
             ),
           ),
       ],
