@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:project_marba/src/features/image_picker/presentation/widgets/image_field_widget.dart';
 import 'package:project_marba/src/features/my_business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/my_business/presentation/components/business_address_form_field_widget.dart';
+import 'package:project_marba/src/features/my_business/presentation/components/business_info_form_widget.dart';
+import 'package:project_marba/src/features/my_business/presentation/components/category_form_field_widget.dart';
 
 import '../../../../shared/models/business/enums.dart';
-import '../../../../utils/registration_utils.dart';
-import 'business_category_cards_widget.dart';
 
 class AddBusinessStepperWidget extends ConsumerStatefulWidget {
   const AddBusinessStepperWidget({super.key});
@@ -28,6 +28,7 @@ class AddBusinessStepperWidgetState
   late TextEditingController _stateController;
   late TextEditingController _zipCodeController;
   late Set<BusinessCategory> _selectedCategories;
+  late BusinessCreationController businessCreationController;
 
   int _currentStep = 0;
 
@@ -62,8 +63,7 @@ class AddBusinessStepperWidgetState
   }
 
   void _submitForm() {
-    final controller = ref.read(businessCreationControllerProvider.notifier);
-    controller
+    businessCreationController
         .submitForm(
           name: _nameController.text,
           email: _emailController.text,
@@ -79,138 +79,54 @@ class AddBusinessStepperWidgetState
         .then(
           (value) => {
             Navigator.of(context).pop(),
-            controller.showSuccessDialog(context, _nameController.text),
+            businessCreationController.showSuccessDialog(
+                context, _nameController.text),
           },
         );
   }
 
   List<Step> get steps {
-    final businessCreationController =
-        ref.read(businessCreationControllerProvider.notifier);
-
     return [
       Step(
         title: const Text('Informações básicas'),
-        content: Form(
+        content: BusinessInfoFormWidget(
+          formKeys: formKeys,
+          nameController: _nameController,
+          businessCreationController: businessCreationController,
+          emailController: _emailController,
+          phoneController: _phoneController,
           onChanged: () => setState(() {}),
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          key: formKeys[0],
-          child: Column(
-            children: [
-              const ImageFieldWidget(),
-              TextFormField(
-                key: const ValueKey('name'),
-                controller: _nameController,
-                decoration:
-                    const InputDecoration(labelText: 'Nome do Empreendimento'),
-                validator: (value) =>
-                    businessCreationController.validateName(value),
-              ),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'E-mail'),
-                validator: (value) =>
-                    businessCreationController.validateEmail(value),
-              ),
-              TextFormField(
-                controller: _phoneController,
-                decoration: const InputDecoration(labelText: 'Telefone'),
-                validator: (value) =>
-                    businessCreationController.validatePhoneNumber(value),
-              ),
-            ],
-          ),
         ),
       ),
       Step(
         title: const Text('Endereço'),
-        content: Form(
-          onChanged: () => setState(() {}),
-          key: formKeys[1],
-          child: Column(
-            children: [
-              TextFormField(
-                controller: _zipCodeController,
-                decoration: const InputDecoration(labelText: 'CEP'),
-                validator: (value) =>
-                    businessCreationController.validateZipCode(value),
-              ),
-              TextFormField(
-                controller: _streetController,
-                decoration: const InputDecoration(labelText: 'Rua'),
-                validator: (value) =>
-                    businessCreationController.validateAddressStreet(value),
-              ),
-              TextFormField(
-                controller: _numberController,
-                decoration: const InputDecoration(labelText: 'Número'),
-                validator: (value) =>
-                    businessCreationController.validateAddressNumber(value),
-              ),
-              TextFormField(
-                controller: _neighborhoodController,
-                decoration: const InputDecoration(labelText: 'Bairro'),
-                validator: (value) =>
-                    businessCreationController.validateNeighborhood(value),
-              ),
-              TextFormField(
-                controller: _cityController,
-                decoration: const InputDecoration(labelText: 'Cidade'),
-                validator: (value) =>
-                    businessCreationController.validateCity(value),
-              ),
-              DropdownButtonFormField<String>(
-                menuMaxHeight: MediaQuery.of(context).size.height * 0.45,
-                value: _stateController.text.isEmpty
-                    ? null
-                    : _stateController.text,
-                decoration: const InputDecoration(labelText: 'Estado'),
-                items: RegistrationUtils().getStatesList(),
-                onChanged: (String? newValue) {
-                  _stateController.text = newValue ?? '';
-                },
-                validator: (value) =>
-                    businessCreationController.validateState(value),
-              ),
-            ],
-          ),
-        ),
+        content: BusinessAddressFormFieldWidget(
+            formKeys: formKeys,
+            zipCodeController: _zipCodeController,
+            businessCreationController: businessCreationController,
+            streetController: _streetController,
+            numberController: _numberController,
+            neighborhoodController: _neighborhoodController,
+            cityController: _cityController,
+            context: context,
+            stateController: _stateController,
+            onChanged: () => setState(() {})),
       ),
       Step(
         title: const Text('Categorias'),
-        content: Form(
-          key: formKeys[2],
-          child: FormField<Set<BusinessCategory>>(
-            key: ValueKey(_currentStep),
-            initialValue: _selectedCategories,
-            builder: (FormFieldState<Set<BusinessCategory>> field) {
-              return Column(
-                children: [
-                  BusinessCategoryCards(
-                    selectedCategories: field.value!,
-                    onChanged: (value) {
-                      field.didChange(value);
-                    },
-                  ),
-                  if (field.hasError)
-                    Text(field.errorText!,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.error,
-                            )),
-                ],
-              );
-            },
-            validator: (value) =>
-                businessCreationController.validateCategories(value!),
-          ),
-        ),
+        content: CategoryFormFieldWidget(
+            formKeys: formKeys,
+            currentStep: _currentStep,
+            selectedCategories: _selectedCategories,
+            context: context,
+            businessCreationController: businessCreationController),
       )
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-    final businessCreationController =
+    businessCreationController =
         ref.read(businessCreationControllerProvider.notifier);
 
     return Stepper(
@@ -218,58 +134,43 @@ class AddBusinessStepperWidgetState
       currentStep: _currentStep,
       controlsBuilder: (context, details) => Row(
         children: [
-          details.currentStep != 0
-              ? IconButton(
-                  color: Colors.orange,
-                  onPressed: details.onStepCancel,
-                  icon: const Icon(Icons.arrow_back_rounded),
-                )
-              : const SizedBox.shrink(),
+          Visibility(
+            visible: details.currentStep != 0,
+            child: IconButton(
+              color: Theme.of(context).colorScheme.primary,
+              onPressed: details.onStepCancel,
+              icon: const Icon(Icons.arrow_back_rounded),
+            ),
+          ),
           const Spacer(),
-          details.currentStep != steps.length - 1
-              ? IconButton(
-                  color: Colors.orange,
-                  onPressed:
-                      (formKeys[_currentStep].currentState?.validate() ?? false)
-                          ? details.onStepContinue
-                          : null,
-                  icon: const Icon(Icons.arrow_forward_rounded),
-                )
-              : const SizedBox.shrink(),
-          details.currentStep == steps.length - 1
-              ? TextButton(
-                  onPressed: () {
-                    if (formKeys[_currentStep].currentState?.validate() ??
-                        false) {
-                      businessCreationController.showLoadingDialog(context);
-                      _submitForm();
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Erro'),
-                            content: const Text(
-                                'Por favor, preencha todos os campos corretamente.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
-                  },
-                  child: const Text(
-                    'Salvar',
-                    style: TextStyle(color: Colors.orange),
-                  ),
-                )
-              : const SizedBox.shrink(),
+          Visibility(
+            visible: details.currentStep != steps.length - 1,
+            child: IconButton(
+              color: Theme.of(context).colorScheme.primary,
+              onPressed:
+                  (formKeys[_currentStep].currentState?.validate() ?? false)
+                      ? details.onStepContinue
+                      : null,
+              icon: const Icon(Icons.arrow_forward_rounded),
+            ),
+          ),
+          Visibility(
+            visible: details.currentStep == steps.length - 1,
+            child: TextButton(
+              onPressed: () {
+                if (formKeys[_currentStep].currentState?.validate() ?? false) {
+                  businessCreationController.showLoadingDialog(context);
+                  _submitForm();
+                } else {
+                  businessCreationController.showMissingFieldsDialog(context);
+                }
+              },
+              child: Text(
+                'Salvar',
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
+              ),
+            ),
+          ),
         ],
       ),
       onStepCancel: () {

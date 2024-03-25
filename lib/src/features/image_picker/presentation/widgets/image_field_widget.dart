@@ -15,7 +15,6 @@ class ImageFieldWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final image = ref.watch(imageFieldControllerProvider);
-    ref.invalidate(imageFieldControllerProvider);
     final imageFieldController =
         ref.read(imageFieldControllerProvider.notifier);
 

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import '../../../../shared/models/business/enums.dart';
 
-class BusinessCategoryCards extends StatefulWidget {
+class BusinessCategoryChipsWidgets extends StatefulWidget {
   final Set<BusinessCategory> selectedCategories;
   final ValueChanged<Set<BusinessCategory>> onChanged;
 
-  const BusinessCategoryCards(
+  const BusinessCategoryChipsWidgets(
       {super.key, required this.selectedCategories, required this.onChanged});
 
   @override
-  BusinessCategoryCardsState createState() => BusinessCategoryCardsState();
+  BusinessCategoryChipsWidgetsState createState() =>
+      BusinessCategoryChipsWidgetsState();
 }
 
-class BusinessCategoryCardsState extends State<BusinessCategoryCards> {
+class BusinessCategoryChipsWidgetsState
+    extends State<BusinessCategoryChipsWidgets> {
   // Mapa de traduções
   Map<BusinessCategory, String> translations = businessCategoryTranslations;
 

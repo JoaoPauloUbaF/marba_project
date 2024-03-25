@@ -161,6 +161,27 @@ class BusinessCreationController extends _$BusinessCreationController {
     );
   }
 
+  void showMissingFieldsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Erro'),
+          content:
+              const Text('Por favor, preencha todos os campos corretamente.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void showSuccessDialog(BuildContext context, String value) {
     showDialog(
       context: context,

@@ -5,19 +5,8 @@ import 'package:project_marba/src/shared/models/business/business.dart';
 
 abstract class BusinessProfileDataRepository {
   Future<DocumentSnapshot?> createBusinessProfile({required Business business});
-  Future<String?> getBusinessId({required String uid});
-  Future<String?> getBusinessName({required String uid});
-  Future<String?> getBusinessEmail({required String uid});
-  Future<String?> getBusinessPhoneNumber({required String uid});
-  Future<Map<String, dynamic>?> getBusinessAddress({required String uid});
-  Future<BusinessStatus?> getBusinessStatus({required String uid});
-  Future<Map<String, dynamic>?> getBusinessCategory({required String uid});
-  Future<Set<String>?> getOffersIds({required String uid});
   Future<void> deleteBusinessProfile({required String uid});
   Future<Business?> getBusinessProfileData({required String uid});
-  Future<void> addOffer({required String uid, required String offerId});
-  Future<void> removeOffer({required String uid, required String offerId});
-  Future<void> updateOffer({required String uid, required String offerId});
   Future<void> updateBusinessName(
       {required String uid, required String businessName});
   Future<void> updateBusinessEmail(
