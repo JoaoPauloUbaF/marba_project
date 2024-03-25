@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
-import 'package:project_marba/src/utils/registration_utils.dart';
+import 'package:project_marba/src/shared/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../shared/models/offer/offer_model.dart';

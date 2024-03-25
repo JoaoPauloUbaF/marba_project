@@ -8,7 +8,7 @@ import 'package:project_marba/src/features/offers_management/application/offer_e
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
 
 import '../../../../shared/models/offer/offer_model.dart';
-import '../../../offers_management/presentation/widgets/offer_category_selection_field_widget.dart'; // Import your offer model
+import '../widgets/offer_category_selection_field_widget.dart'; // Import your offer model
 
 class EditOfferScreen extends ConsumerStatefulWidget {
   const EditOfferScreen({

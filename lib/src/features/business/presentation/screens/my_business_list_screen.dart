@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/image_picker/application/image_field_controller.dart';
-import '../components/add_business_stepper_widget.dart';
-import '../components/user_business_list_widget.dart';
+import '../widgets/create_business_stepper_widget.dart';
+import '../widgets/user_business_list_widget.dart';
 
 class MyBusinessListScreen extends ConsumerWidget {
   final bool shouldRenderAppBar;
@@ -33,7 +33,7 @@ class MyBusinessListScreen extends ConsumerWidget {
                     left: 16,
                     right: 16,
                   ),
-                  child: const AddBusinessStepperWidget(),
+                  child: const CreateBusinessStepperWidget(),
                 );
               },
             ).then((value) => ref.invalidate(imageFieldControllerProvider));

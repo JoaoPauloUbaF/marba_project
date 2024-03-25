@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
 
 class OfferMediaWidget extends StatefulWidget {
   const OfferMediaWidget({
@@ -39,7 +39,7 @@ class _OfferMediaWidgetState extends State<OfferMediaWidget> {
               width: MediaQuery.of(context).size.width,
               child: Image.network(
                 i,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 loadingBuilder: (context, child, loadingProgress) =>
                     loadingProgress == null ? child : const LoadingWidget(),
                 errorBuilder: (context, error, stackTrace) => const Center(

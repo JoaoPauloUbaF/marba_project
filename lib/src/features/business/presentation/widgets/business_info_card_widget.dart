@@ -1,12 +1,12 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_category_tiles.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_status_widget.dart';
+import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_category_tiles_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_status_widget.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 
-class BusinessContactInfoCard extends ConsumerWidget {
-  const BusinessContactInfoCard({
+class BusinessContactInfoCardWidget extends ConsumerWidget {
+  const BusinessContactInfoCardWidget({
     super.key,
   });
 
@@ -31,7 +31,7 @@ class BusinessContactInfoCard extends ConsumerWidget {
             const SizedBox(height: 8),
             BusinessPhoneAndEmail(business: business),
             const SizedBox(height: 8),
-            BusinessCategoryTiles(),
+            BusinessCategoryTilesWidget(),
             const SizedBox(height: 8),
           ],
         ),

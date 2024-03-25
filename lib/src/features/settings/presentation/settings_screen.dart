@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 
 import '../application/settings_screen_controller.dart';
 
