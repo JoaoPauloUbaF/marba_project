@@ -14,6 +14,7 @@ class BusinessCategoryTiles extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final businessCategories =
         ref.watch(businessProfileScreenControllerProvider)?.categories;
+
     return Wrap(
       children: businessCategories != null
           ? businessCategories.map((category) {
@@ -24,7 +25,7 @@ class BusinessCategoryTiles extends ConsumerWidget {
                 child: Card(
                   color: Theme.of(context).colorScheme.primaryContainer,
                   child: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.all(6.0),
                     child: Text(
                       translatedCategory,
                       style: const TextStyle(fontSize: 12),

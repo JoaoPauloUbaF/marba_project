@@ -18,7 +18,6 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const BusinessProfileScreen(),
     const MyBusinessOffersScreen(),
-    const AddBusinessStepperWidget(), //TODO: Implementar a tela de configurações
   ];
 
   @override
@@ -54,10 +53,6 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Ofertas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Configurações',
           ),
         ],
         currentIndex: _selectedIndex,

@@ -19,11 +19,14 @@ class BusinessStatusWidget extends ConsumerWidget {
     final business = ref.watch(businessProfileScreenControllerProvider);
     final String businessStatus =
         business?.status.toString().split('.').last ?? '';
+
     final String businessStatusTranslated =
         statusTranslations[businessStatus] ?? businessStatus;
+
     final Color businessStatusColor = ref
         .watch(businessProfileScreenControllerProvider.notifier)
         .getBusinessStatusColor();
+
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor.withAlpha(100),
