@@ -1,6 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
 
+import 'enums.dart';
+
 part 'business.freezed.dart';
 part 'business.g.dart';
 
@@ -15,6 +17,7 @@ class Business with _$Business {
     required BusinessStatus status,
     required Set<BusinessCategory> categories,
     required Set<String> offersIds,
+    String? imageUrl,
   }) = _Business;
 
   factory Business.fromJson(Map<String, dynamic> json) =>
@@ -28,15 +31,4 @@ enum BusinessStatus {
   rejected,
   suspended,
   deleted,
-}
-
-enum BusinessCategory {
-  aesthetics,
-  entertainment,
-  cooking,
-  transport,
-  food,
-  clothing,
-  electronics,
-  services,
 }

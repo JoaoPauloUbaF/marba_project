@@ -6,7 +6,7 @@ import 'package:project_marba/src/features/authentication/application/sign_in_sc
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 
 class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+  const SignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,10 @@ class SignIn extends StatelessWidget {
       body: Center(
         child: SingleChildScrollView(
           child: SafeArea(
-            child: Stack(
-              children: [
-                Consumer(
-                  builder: (_, WidgetRef ref, __) {
-                    return FirebaseLogin(ref: ref);
-                  },
-                ),
-              ],
+            child: Consumer(
+              builder: (_, WidgetRef ref, __) {
+                return FirebaseLogin(ref: ref);
+              },
             ),
           ),
         ),
@@ -75,7 +71,8 @@ class FirebaseLogin extends StatelessWidget {
         }),
       ],
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.1),
         child: LoginView(
           showPasswordVisibilityToggle: true,
           action: AuthAction.signIn,

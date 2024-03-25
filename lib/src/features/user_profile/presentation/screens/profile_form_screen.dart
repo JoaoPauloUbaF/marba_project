@@ -9,7 +9,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import '../../application/profile_forms_controller/profile_forms_screen_controller.dart';
 
 class ProfileFormScreen extends ConsumerWidget {
-  const ProfileFormScreen({Key? key}) : super(key: key);
+  const ProfileFormScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

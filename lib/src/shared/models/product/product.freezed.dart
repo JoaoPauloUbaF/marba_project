@@ -12,7 +12,7 @@ part of 'product.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Product _$ProductFromJson(Map<String, dynamic> json) {
   return _Product.fromJson(json);
@@ -20,17 +20,13 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Product {
-  String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
-  DateTime get createdAt => throw _privateConstructorUsedError;
-  DateTime get updatedAt => throw _privateConstructorUsedError;
   int get availableQuantity => throw _privateConstructorUsedError;
   double? get itemCost => throw _privateConstructorUsedError;
+  String get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,17 +39,13 @@ abstract class $ProductCopyWith<$Res> {
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
   $Res call(
-      {String id,
-      String title,
+      {String title,
       String description,
       double price,
       String imageUrl,
-      String category,
-      String status,
-      DateTime createdAt,
-      DateTime updatedAt,
       int availableQuantity,
-      double? itemCost});
+      double? itemCost,
+      String status});
 }
 
 /// @nodoc
@@ -69,23 +61,15 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? price = null,
     Object? imageUrl = null,
-    Object? category = null,
-    Object? status = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? availableQuantity = null,
     Object? itemCost = freezed,
+    Object? status = null,
   }) {
     return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -102,22 +86,6 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       availableQuantity: null == availableQuantity
           ? _value.availableQuantity
           : availableQuantity // ignore: cast_nullable_to_non_nullable
@@ -126,6 +94,10 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
           ? _value.itemCost
           : itemCost // ignore: cast_nullable_to_non_nullable
               as double?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -138,17 +110,13 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
-      String title,
+      {String title,
       String description,
       double price,
       String imageUrl,
-      String category,
-      String status,
-      DateTime createdAt,
-      DateTime updatedAt,
       int availableQuantity,
-      double? itemCost});
+      double? itemCost,
+      String status});
 }
 
 /// @nodoc
@@ -162,23 +130,15 @@ class __$$ProductImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? title = null,
     Object? description = null,
     Object? price = null,
     Object? imageUrl = null,
-    Object? category = null,
-    Object? status = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
     Object? availableQuantity = null,
     Object? itemCost = freezed,
+    Object? status = null,
   }) {
     return _then(_$ProductImpl(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -195,22 +155,6 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      createdAt: null == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
       availableQuantity: null == availableQuantity
           ? _value.availableQuantity
           : availableQuantity // ignore: cast_nullable_to_non_nullable
@@ -219,6 +163,10 @@ class __$$ProductImplCopyWithImpl<$Res>
           ? _value.itemCost
           : itemCost // ignore: cast_nullable_to_non_nullable
               as double?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -227,23 +175,17 @@ class __$$ProductImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductImpl implements _Product {
   _$ProductImpl(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.description,
       required this.price,
       required this.imageUrl,
-      required this.category,
-      required this.status,
-      required this.createdAt,
-      required this.updatedAt,
       required this.availableQuantity,
-      required this.itemCost});
+      required this.itemCost,
+      required this.status});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
 
-  @override
-  final String id;
   @override
   final String title;
   @override
@@ -253,21 +195,15 @@ class _$ProductImpl implements _Product {
   @override
   final String imageUrl;
   @override
-  final String category;
-  @override
-  final String status;
-  @override
-  final DateTime createdAt;
-  @override
-  final DateTime updatedAt;
-  @override
   final int availableQuantity;
   @override
   final double? itemCost;
+  @override
+  final String status;
 
   @override
   String toString() {
-    return 'Product(id: $id, title: $title, description: $description, price: $price, imageUrl: $imageUrl, category: $category, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, availableQuantity: $availableQuantity, itemCost: $itemCost)';
+    return 'Product(title: $title, description: $description, price: $price, imageUrl: $imageUrl, availableQuantity: $availableQuantity, itemCost: $itemCost, status: $status)';
   }
 
   @override
@@ -275,41 +211,23 @@ class _$ProductImpl implements _Product {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProductImpl &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
             (identical(other.availableQuantity, availableQuantity) ||
                 other.availableQuantity == availableQuantity) &&
             (identical(other.itemCost, itemCost) ||
-                other.itemCost == itemCost));
+                other.itemCost == itemCost) &&
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      title,
-      description,
-      price,
-      imageUrl,
-      category,
-      status,
-      createdAt,
-      updatedAt,
-      availableQuantity,
-      itemCost);
+  int get hashCode => Object.hash(runtimeType, title, description, price,
+      imageUrl, availableQuantity, itemCost, status);
 
   @JsonKey(ignore: true)
   @override
@@ -327,22 +245,16 @@ class _$ProductImpl implements _Product {
 
 abstract class _Product implements Product {
   factory _Product(
-      {required final String id,
-      required final String title,
+      {required final String title,
       required final String description,
       required final double price,
       required final String imageUrl,
-      required final String category,
-      required final String status,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
       required final int availableQuantity,
-      required final double? itemCost}) = _$ProductImpl;
+      required final double? itemCost,
+      required final String status}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
-  @override
-  String get id;
   @override
   String get title;
   @override
@@ -352,17 +264,11 @@ abstract class _Product implements Product {
   @override
   String get imageUrl;
   @override
-  String get category;
-  @override
-  String get status;
-  @override
-  DateTime get createdAt;
-  @override
-  DateTime get updatedAt;
-  @override
   int get availableQuantity;
   @override
   double? get itemCost;
+  @override
+  String get status;
   @override
   @JsonKey(ignore: true)
   _$$ProductImplCopyWith<_$ProductImpl> get copyWith =>

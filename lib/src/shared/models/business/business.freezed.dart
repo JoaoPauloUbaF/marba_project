@@ -12,7 +12,7 @@ part of 'business.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Business _$BusinessFromJson(Map<String, dynamic> json) {
   return _Business.fromJson(json);
@@ -28,6 +28,7 @@ mixin _$Business {
   BusinessStatus get status => throw _privateConstructorUsedError;
   Set<BusinessCategory> get categories => throw _privateConstructorUsedError;
   Set<String> get offersIds => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $BusinessCopyWith<$Res> {
       Address address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
-      Set<String> offersIds});
+      Set<String> offersIds,
+      String? imageUrl});
 
   $AddressCopyWith<$Res> get address;
 }
@@ -74,6 +76,7 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
     Object? status = null,
     Object? categories = null,
     Object? offersIds = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -108,6 +111,10 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
           ? _value.offersIds
           : offersIds // ignore: cast_nullable_to_non_nullable
               as Set<String>,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -136,7 +143,8 @@ abstract class _$$BusinessImplCopyWith<$Res>
       Address address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
-      Set<String> offersIds});
+      Set<String> offersIds,
+      String? imageUrl});
 
   @override
   $AddressCopyWith<$Res> get address;
@@ -161,6 +169,7 @@ class __$$BusinessImplCopyWithImpl<$Res>
     Object? status = null,
     Object? categories = null,
     Object? offersIds = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_$BusinessImpl(
       id: null == id
@@ -195,6 +204,10 @@ class __$$BusinessImplCopyWithImpl<$Res>
           ? _value._offersIds
           : offersIds // ignore: cast_nullable_to_non_nullable
               as Set<String>,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -210,7 +223,8 @@ class _$BusinessImpl implements _Business {
       required this.address,
       required this.status,
       required final Set<BusinessCategory> categories,
-      required final Set<String> offersIds})
+      required final Set<String> offersIds,
+      this.imageUrl})
       : _categories = categories,
         _offersIds = offersIds;
 
@@ -246,8 +260,11 @@ class _$BusinessImpl implements _Business {
   }
 
   @override
+  final String? imageUrl;
+
+  @override
   String toString() {
-    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds)';
+    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds, imageUrl: $imageUrl)';
   }
 
   @override
@@ -265,7 +282,9 @@ class _$BusinessImpl implements _Business {
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality()
-                .equals(other._offersIds, _offersIds));
+                .equals(other._offersIds, _offersIds) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(ignore: true)
@@ -279,7 +298,8 @@ class _$BusinessImpl implements _Business {
       address,
       status,
       const DeepCollectionEquality().hash(_categories),
-      const DeepCollectionEquality().hash(_offersIds));
+      const DeepCollectionEquality().hash(_offersIds),
+      imageUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -304,7 +324,8 @@ abstract class _Business implements Business {
       required final Address address,
       required final BusinessStatus status,
       required final Set<BusinessCategory> categories,
-      required final Set<String> offersIds}) = _$BusinessImpl;
+      required final Set<String> offersIds,
+      final String? imageUrl}) = _$BusinessImpl;
 
   factory _Business.fromJson(Map<String, dynamic> json) =
       _$BusinessImpl.fromJson;
@@ -325,6 +346,8 @@ abstract class _Business implements Business {
   Set<BusinessCategory> get categories;
   @override
   Set<String> get offersIds;
+  @override
+  String? get imageUrl;
   @override
   @JsonKey(ignore: true)
   _$$BusinessImplCopyWith<_$BusinessImpl> get copyWith =>

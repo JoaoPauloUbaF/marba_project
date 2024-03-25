@@ -19,21 +19,31 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
           .toSet(),
       offersIds:
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
+      imageUrl: json['imageUrl'] as String?,
     );
 
-Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'email': instance.email,
-      'phoneNumber': instance.phoneNumber,
-      'address': instance.address,
-      'status': _$BusinessStatusEnumMap[instance.status]!,
-      'categories': instance.categories
-          .map((e) => _$BusinessCategoryEnumMap[e]!)
-          .toList(),
-      'offersIds': instance.offersIds.toList(),
-    };
+Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'email': instance.email,
+    'phoneNumber': instance.phoneNumber,
+    'address': instance.address.toJson(),
+    'status': _$BusinessStatusEnumMap[instance.status]!,
+    'categories':
+        instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
+    'offersIds': instance.offersIds.toList(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('imageUrl', instance.imageUrl);
+  return val;
+}
 
 const _$BusinessStatusEnumMap = {
   BusinessStatus.open: 'open',
@@ -45,12 +55,41 @@ const _$BusinessStatusEnumMap = {
 };
 
 const _$BusinessCategoryEnumMap = {
-  BusinessCategory.aesthetics: 'aesthetics',
-  BusinessCategory.entertainment: 'entertainment',
-  BusinessCategory.cooking: 'cooking',
-  BusinessCategory.transport: 'transport',
-  BusinessCategory.food: 'food',
+  BusinessCategory.appliances: 'appliances',
+  BusinessCategory.artsAndCrafts: 'artsAndCrafts',
+  BusinessCategory.automotive: 'automotive',
+  BusinessCategory.beautyAndPersonalCare: 'beautyAndPersonalCare',
+  BusinessCategory.booksAndStationery: 'booksAndStationery',
   BusinessCategory.clothing: 'clothing',
   BusinessCategory.electronics: 'electronics',
-  BusinessCategory.services: 'services',
+  BusinessCategory.foodAndBeverage: 'foodAndBeverage',
+  BusinessCategory.healthAndWellness: 'healthAndWellness',
+  BusinessCategory.homeAndGarden: 'homeAndGarden',
+  BusinessCategory.jewelryAndAccessories: 'jewelryAndAccessories',
+  BusinessCategory.marketingAndAdvertising: 'marketingAndAdvertising',
+  BusinessCategory.musicAndInstruments: 'musicAndInstruments',
+  BusinessCategory.other: 'other',
+  BusinessCategory.petSupplies: 'petSupplies',
+  BusinessCategory.realEstate: 'realEstate',
+  BusinessCategory.retail: 'retail',
+  BusinessCategory.sportsAndOutdoors: 'sportsAndOutdoors',
+  BusinessCategory.toysAndGames: 'toysAndGames',
+  BusinessCategory.automotiveServices: 'automotiveServices',
+  BusinessCategory.beautyServices: 'beautyServices',
+  BusinessCategory.construction: 'construction',
+  BusinessCategory.educationServices: 'educationServices',
+  BusinessCategory.entertainmentServices: 'entertainmentServices',
+  BusinessCategory.eventPlanning: 'eventPlanning',
+  BusinessCategory.eventServices: 'eventServices',
+  BusinessCategory.financialServices: 'financialServices',
+  BusinessCategory.healthServices: 'healthServices',
+  BusinessCategory.homeServices: 'homeServices',
+  BusinessCategory.hospitalityServices: 'hospitalityServices',
+  BusinessCategory.legalServices: 'legalServices',
+  BusinessCategory.petServices: 'petServices',
+  BusinessCategory.photography: 'photography',
+  BusinessCategory.professionalServices: 'professionalServices',
+  BusinessCategory.repairAndMaintenance: 'repairAndMaintenance',
+  BusinessCategory.technologyServices: 'technologyServices',
+  BusinessCategory.transportationServices: 'transportationServices',
 };
