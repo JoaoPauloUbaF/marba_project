@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/image_picker/presentation/widgets/image_field_widget.dart';
-import 'package:project_marba/src/features/my_business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
 
 class BusinessInfoFormWidget extends StatelessWidget {
   const BusinessInfoFormWidget({

@@ -4,8 +4,8 @@ import 'package:project_marba/src/shared/models/business/enums.dart';
 
 import '../../application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
-class BusinessCategoryTiles extends ConsumerWidget {
-  BusinessCategoryTiles({super.key});
+class BusinessCategoryTilesWidget extends ConsumerWidget {
+  BusinessCategoryTilesWidget({super.key});
 
   final Map<BusinessCategory, String> categoriesTranslations =
       businessCategoryTranslations;

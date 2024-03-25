@@ -1,22 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:project_marba/src/features/my_business/application/business_creation_controller/business_creation_controller.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_address_form_field_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_info_form_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/category_form_field_widget.dart';
+import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_address_form_field_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_info_form_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/category_form_field_widget.dart';
 
 import '../../../../shared/models/business/enums.dart';
 
-class AddBusinessStepperWidget extends ConsumerStatefulWidget {
-  const AddBusinessStepperWidget({super.key});
+class CreateBusinessStepperWidget extends ConsumerStatefulWidget {
+  const CreateBusinessStepperWidget({super.key});
   @override
   AddBusinessStepperWidgetState createState() =>
       AddBusinessStepperWidgetState();
 }
 
 class AddBusinessStepperWidgetState
-    extends ConsumerState<AddBusinessStepperWidget> {
+    extends ConsumerState<CreateBusinessStepperWidget> {
   late final List<GlobalKey<FormState>> formKeys;
   late TextEditingController _nameController;
   late TextEditingController _emailController;

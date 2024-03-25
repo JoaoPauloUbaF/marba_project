@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
-import 'package:project_marba/src/utils/registration_utils.dart';
+import 'package:project_marba/src/shared/utils/registration_utils.dart';
 
 class OfferPriceWidget extends StatelessWidget {
   const OfferPriceWidget({

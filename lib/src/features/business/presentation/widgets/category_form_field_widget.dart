@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/my_business/application/business_creation_controller/business_creation_controller.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_category_chips_widget.dart';
+import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_category_chips_widget.dart';
 import 'package:project_marba/src/shared/models/business/enums.dart';
 
 class CategoryFormFieldWidget extends StatelessWidget {
@@ -30,7 +30,7 @@ class CategoryFormFieldWidget extends StatelessWidget {
         builder: (FormFieldState<Set<BusinessCategory>> field) {
           return Column(
             children: [
-              BusinessCategoryChipsWidgets(
+              BusinessCategoryChipsWidget(
                 selectedCategories: field.value!,
                 onChanged: (value) {
                   field.didChange(value);

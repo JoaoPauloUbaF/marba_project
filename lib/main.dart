@@ -7,10 +7,10 @@ import 'package:project_marba/src/features/authentication/presentation/screens/s
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
-import 'package:project_marba/src/features/my_business/presentation/screens/business_home_screen.dart';
-import 'package:project_marba/src/features/my_business/presentation/screens/business_profile_screen.dart';
-import 'package:project_marba/src/features/my_business/presentation/screens/edit_offer_screen.dart';
-import 'package:project_marba/src/features/my_business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/business/presentation/screens/business_home_screen.dart';
+import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
+import 'package:project_marba/src/features/offers_management/presentation/screens/edit_offer_screen.dart';
+import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/offers_management/presentation/screens/offer_details_screen.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';

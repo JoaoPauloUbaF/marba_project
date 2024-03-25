@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:project_marba/src/features/my_business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/location_management/presentation/address_display_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_info_card.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_profile_image_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/business_status_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/loading_widget.dart';
-import 'package:project_marba/src/features/my_business/presentation/components/offers_list_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_info_card_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile_image_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_status_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {
@@ -41,7 +41,7 @@ class BusinessProfileScreen extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      const BusinessContactInfoCard(),
+                      const BusinessContactInfoCardWidget(),
                       AddressDisplayWidget(address: business.address),
                     ],
                   )
