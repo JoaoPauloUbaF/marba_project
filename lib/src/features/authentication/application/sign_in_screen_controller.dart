@@ -5,18 +5,21 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sign_in_screen_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class SignInScreenController extends _$SignInScreenController {
   @override
-  FutureOr<void> build() {}
+  String build() {
+    return '/home';
+  }
 
-  Future<void> onSignIn(BuildContext context, SignedIn state) async {
+  Future<void> onSignIn(BuildContext context, SignedIn state,
+      {String goTo = '/home'}) async {
     await ref
         .read(authRepositoryProvider)
         .checkUserRegistration(state.user?.uid ?? '')
         .then(
           (value) => value
-              ? Navigator.pushReplacementNamed(context, '/home')
+              ? Navigator.pushReplacementNamed(context, goTo)
               : Navigator.pushReplacementNamed(context, '/profile-form'),
         );
   }
@@ -35,10 +38,16 @@ class SignInScreenController extends _$SignInScreenController {
     );
 
     // Mostra a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then((reason) {
-      // Navega para a tela de sign-in após a snackbar ser fechada
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/profile-form', (route) => false);
-    });
+    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
+      (reason) {
+        // Navega para a tela de sign-in após a snackbar ser fechada
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/profile-form', (route) => false);
+      },
+    );
+  }
+
+  void setGoToRoute(String route) {
+    state = route;
   }
 }

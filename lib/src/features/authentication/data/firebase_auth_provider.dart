@@ -8,20 +8,6 @@ import 'package:riverpod/riverpod.dart';
 class FirebaseAuthProvider implements AuthenticationRepository {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  /// Método para realizar autenticação anônima.
-  @override
-  Future<User?> signInAnonymously() async {
-    try {
-      final userCredential = await _firebaseAuth.signInAnonymously();
-
-      return userCredential.user;
-    } catch (e) {
-      // Trate possíveis erros, por exemplo, log e retorno nulo.
-      log('Error during anonymous sign-in: $e');
-      return null;
-    }
-  }
-
   /// Método para criar uma nova conta com e-mail e senha.
   @override
   Future<User?> signUpWithEmailAndPassword(
