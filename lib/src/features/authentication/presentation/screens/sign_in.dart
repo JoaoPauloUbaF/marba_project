@@ -41,12 +41,14 @@ class FirebaseLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final goToRouteAfterSignIn = ref.watch(signInScreenControllerProvider);
+
     return FirebaseUIActions(
       actions: [
         AuthStateChangeAction<SignedIn>((_, state) async {
           await ref
               .read(signInScreenControllerProvider.notifier)
-              .onSignIn(context, state);
+              .onSignIn(context, state, goTo: goToRouteAfterSignIn);
         }),
         AuthStateChangeAction<UserCreated>((context, state) {
           ref
