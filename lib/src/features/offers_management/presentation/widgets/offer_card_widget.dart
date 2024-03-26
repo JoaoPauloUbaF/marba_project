@@ -87,7 +87,9 @@ class OfferCardWidget extends ConsumerWidget {
                                   "R\$${offer.price.toStringAsFixed(2)}",
                                   style: textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w800,
-                                    color: Theme.of(context).colorScheme.error,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimaryContainer,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
