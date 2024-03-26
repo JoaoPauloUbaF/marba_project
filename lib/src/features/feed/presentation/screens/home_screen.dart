@@ -103,7 +103,9 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
                 IconButton(
                   padding: EdgeInsets.zero,
                   visualDensity: VisualDensity.compact,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/shopping-cart');
+                  },
                   icon: const Icon(
                     Icons.shopping_cart_sharp,
                   ),

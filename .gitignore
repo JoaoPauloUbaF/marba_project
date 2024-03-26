@@ -15,7 +15,6 @@
 **/android/gradlew.bat
 **/android/app/src/main/flutter_assets/
 **/android/.dart_tool/
-
 # VSCode specific
 .vscode/
 *.code-workspace
@@ -39,6 +38,7 @@
 .build/
 .dart_tool/
 .packages
+**/.flutter-plugins-dependencies
 
 # macOS
 .DS_Store

@@ -19,6 +19,7 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 import 'src/features/settings/presentation/settings_screen.dart';
+import 'src/features/shopping/presentation/screens/shopping_cart_screen.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 
 Future<void> main() async {
@@ -37,6 +38,8 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      themeAnimationCurve: Curves.easeInOut,
+      themeAnimationDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       title: 'Onktem', //Onktem
       theme: ThemeData(
@@ -63,6 +66,7 @@ class MainApp extends ConsumerWidget {
         '/business-profile': (context) => const BusinessProfileScreen(),
         '/edit-offer': (context) => const EditOfferScreen(),
         '/offer-details': (context) => const OfferDetailsScreen(),
+        '/shopping-cart': (context) => const ShoppingCartScreen(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
