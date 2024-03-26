@@ -1,5 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
+import 'package:project_marba/src/features/shopping/presentation/widgets/cart_item_widget.dart';
+import 'package:project_marba/src/shared/utils/mock_utils.dart';
 import 'package:project_marba/src/shared/widgets/large_horizontal_space_widget.dart';
 import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
 
@@ -53,18 +56,35 @@ class ShoppingCartScreen extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Meu Carrinho',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Meu Carrinho',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      const Spacer(),
+                      SegmentedButton(
+                          showSelectedIcon: false,
+                          segments: const <ButtonSegment<String>>[
+                            ButtonSegment<String>(
+                              icon: Icon(Icons.view_list_sharp),
+                              value: 'list',
+                            ),
+                            ButtonSegment<String>(
+                              icon: Icon(Icons.grid_view_sharp),
+                              value: 'grid',
+                            ),
+                          ],
+                          selected: const {'grid'},
+                          onSelectionChanged: (value) {
+                            print(value);
+                          }),
+                    ],
                   ),
-                  const CartItemWidget(),
-                  const CartItemWidget(),
-                  const CartItemWidget(),
-                  const CartItemWidget(),
-                  const CartItemWidget(),
-                  const CartItemWidget(),
+                  const CartItemsListViewWidget(),
                   const VerticalSpaceMediumWidget(),
                   Text(
                     'Endereço de Entrega',
@@ -96,6 +116,25 @@ class ShoppingCartScreen extends ConsumerWidget {
             ),
           ),
         ));
+  }
+}
+
+class CartItemsListViewWidget extends ConsumerWidget {
+  const CartItemsListViewWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final items = ref.watch(cartItemListProvider);
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return CartItemWidget(item: items.elementAt(index));
+      },
+      physics: const NeverScrollableScrollPhysics(),
+    );
   }
 }
 
@@ -269,81 +308,6 @@ class OrderAddressTileWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
         ),
         onPressed: () {},
-      ),
-    );
-  }
-}
-
-class CartItemWidget extends StatelessWidget {
-  const CartItemWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: SizedBox(
-        height: 125,
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                'https://d1ncau8tqf99kp.cloudfront.net/converted/74739_original_local_504x441_v3_converted.webp',
-                width: 125,
-                fit: BoxFit.fitWidth,
-              ),
-            ),
-            const LargeHorizontalSpaceWidget(),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    'Sony Wireless Headphone',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text('R\$ 10,00',
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  Row(children: [
-                    SizedBox(
-                      width: 30.0,
-                      height: 30.0,
-                      child: IconButton.outlined(
-                        color: Theme.of(context).colorScheme.primary,
-                        icon: const Icon(Icons.remove, size: 18.0),
-                        onPressed: () {},
-                        padding: const EdgeInsets.all(0),
-                        constraints: const BoxConstraints(),
-                      ),
-                    ),
-                    const SizedBox(width: 16),
-                    const Text('1'),
-                    const SizedBox(width: 16),
-                    SizedBox(
-                      width: 30,
-                      height: 30,
-                      child: IconButton.outlined(
-                        color: Theme.of(context).colorScheme.primary,
-                        icon: const Icon(Icons.add, size: 18.0),
-                        onPressed: () {},
-                        padding: const EdgeInsets.all(0),
-                        constraints: const BoxConstraints(),
-                      ),
-                    ),
-                  ]),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
