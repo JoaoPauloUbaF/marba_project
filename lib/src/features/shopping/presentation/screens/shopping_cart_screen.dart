@@ -37,13 +37,14 @@ class ShoppingCartScreen extends ConsumerWidget {
           height: 60,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              backgroundColor: Theme.of(context).colorScheme.primary,
             ),
             onPressed: () {},
             child: Text(
               'Finalizar Compra (R\$ 100,00)',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onPrimary,
                   ),
             ),
           ),

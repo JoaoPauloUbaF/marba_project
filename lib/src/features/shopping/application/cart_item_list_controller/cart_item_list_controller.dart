@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_item_list_controller.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CartItemList extends _$CartItemList {
   @override
   List<CartItemModel> build() {
@@ -62,19 +62,7 @@ class CartItemList extends _$CartItemList {
       state[state.indexOf(item)] = updatedItem;
       state = List.from(state);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: Theme.of(context).colorScheme.error,
-          content:
-              const Text('O item será removido do carrinho. Deseja continuar?'),
-          action: SnackBarAction(
-            label: 'Sim',
-            onPressed: () {
-              removeItem(item);
-            },
-          ),
-        ),
-      );
+      removeItem(item);
     }
   }
 }
