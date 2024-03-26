@@ -1,5 +1,7 @@
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
+import '../models/cart_item/cart_item_model.dart';
+
 class MockUtils {
   // Singleton instance
   static final MockUtils _instance = MockUtils._internal();
@@ -30,4 +32,13 @@ class MockUtils {
 
     return OfferModel.fromJson(json);
   }
+
+  final CartItemModel mockedCartItem = CartItemModel(
+    id: '1',
+    name: 'Sony Wireless Headphone',
+    price: 10.00,
+    imageUrl:
+        'https://d1ncau8tqf99kp.cloudfront.net/converted/74739_original_local_504x441_v3_converted.webp',
+    quantity: 1,
+  );
 }
