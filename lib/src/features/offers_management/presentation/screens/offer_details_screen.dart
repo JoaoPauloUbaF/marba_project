@@ -2,13 +2,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_tile_widget.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_offers_screen.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/all_business_offers_button.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_description_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_error_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_info_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_ordering_actions_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/other_business_offers_widget.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
 
 import '../../application/offer_details/offer_details_controller.dart';
-import '../widgets/offer_card_widget.dart';
 import '../widgets/offer_media_widget.dart';
 
 class OfferDetailsScreen extends ConsumerStatefulWidget {
@@ -24,191 +27,112 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
     final offer = ref.watch(offerDetailsControllerProvider);
     final offerDetailsController =
         ref.read(offerDetailsControllerProvider.notifier);
-    final items = offerDetailsController.getOfferMedia();
-    final moreBusinessOffers = ref.watch(
-      otherBusinessOffersProvider(offer?.businessId ?? ''),
-    );
+    final mediaItems = offerDetailsController.getOfferMedia();
+
     final selectedBusiness = ref.watch(businessProfileScreenControllerProvider);
     final businessName = selectedBusiness?.name ?? '';
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/shopping-cart');
+        },
+        child: const Icon(Icons.shopping_cart_sharp),
+      ),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Theme.of(context)
-                  .colorScheme
-                  .primaryContainer
-                  .withOpacity(0.5),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.arrow_back_ios_new_sharp,
+        leading: Padding(
+          padding: const EdgeInsets.all(4),
+          child: BackButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
               ),
             ),
           ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
         forceMaterialTransparency: true,
       ),
       body: offer == null
-          ? Center(
-              child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                      'Houve um erro ao carregar a oferta.\n      Tente novamente mais tarde.'),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Retornar'),
-                  ),
-                ],
-              ),
-            ))
+          ? const OfferErrorWidget()
           : SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 30.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    OfferMediaWidget(
-                      items: items,
-                    ),
-                    OfferInfoWidget(offer: offer),
-                    OfferOrderingActionsWidget(offer: offer),
-                    BusinessTileWidget(businessId: offer.businessId),
-                    Container(
-                      height: 30,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Theme.of(context).colorScheme.secondaryContainer,
-                            Theme.of(context).colorScheme.background,
-                          ],
-                        ),
-                      ),
-                    ),
-                    OfferDescriptionWidget(offerDescription: offer.description),
-                    Divider(
-                      color: Theme.of(context).colorScheme.onSecondaryContainer,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        "Outras ofertas deste negócio",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    moreBusinessOffers.when(
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      error: (error, stack) =>
-                          Center(child: Text('Error: $error')),
-                      data: (businessOffers) => SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            for (var businessOffer in businessOffers
-                                .where((element) => element.id != offer.id))
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                child: OfferCardWidget(
-                                  offer: businessOffer,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    AllBusinessOffersButton(businessName: businessName),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        "Ofertas relacionadas",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    moreBusinessOffers.when(
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      error: (error, stack) =>
-                          Center(child: Text('Error: $error')),
-                      data: (businessOffers) => SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            for (var businessOffer in businessOffers
-                                .where((element) => element.id != offer.id))
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                child: OfferCardWidget(
-                                  offer: businessOffer,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                child: OfferBodyWidget(
+                    mediaItems: mediaItems,
+                    offer: offer,
+                    businessName: businessName),
               ),
             ),
     );
   }
 }
 
-class AllBusinessOffersButton extends StatelessWidget {
-  const AllBusinessOffersButton({
+class OfferBodyWidget extends StatelessWidget {
+  const OfferBodyWidget({
     super.key,
+    required this.mediaItems,
+    required this.offer,
     required this.businessName,
   });
 
+  final Set<String> mediaItems;
+  final OfferModel offer;
   final String businessName;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TextButton.icon(
-        onPressed: () {
-          showModalBottomSheet(
-              context: context,
-              scrollControlDisabledMaxHeightRatio: .9,
-              builder: (BuildContext context) {
-                return ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                    child: Scaffold(
-                        appBar: AppBar(
-                          title: Text('Ofertas $businessName'),
-                        ),
-                        body: const MyBusinessOffersScreen()));
-              });
-        },
-        icon: const Icon(Icons.arrow_forward_ios),
-        label: const Text('Ver todas as ofertas'),
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        OfferMediaWidget(
+          items: mediaItems,
+        ),
+        OfferInfoWidget(offer: offer),
+        OfferOrderingActionsWidget(offer: offer),
+        BusinessTileWidget(businessId: offer.businessId),
+        Container(
+          height: 30,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).colorScheme.secondaryContainer,
+                Theme.of(context).colorScheme.background,
+              ],
+            ),
+          ),
+        ),
+        OfferDescriptionWidget(offerDescription: offer.description),
+        Divider(
+          color: Theme.of(context).colorScheme.onSecondaryContainer,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
+            "Outras ofertas deste negócio",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        const VerticalSpaceMediumWidget(),
+        OtherBusinessOffersWidget(
+          offerId: offer.id,
+          businessId: offer.businessId,
+        ),
+        const VerticalSpaceMediumWidget(),
+        AllBusinessOffersButton(businessName: businessName),
+        const VerticalSpaceMediumWidget(),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
+            "Ofertas relacionadas",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        const VerticalSpaceMediumWidget(),
+        OtherBusinessOffersWidget(
+            offerId: offer.id, businessId: offer.businessId),
+      ],
     );
   }
 }
