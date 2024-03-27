@@ -16,6 +16,11 @@ _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       status: $enumDecode(_$OfferStatusEnumMap, json['status']),
       type: $enumDecode(_$OfferTypeEnumMap, json['type']),
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      rating: (json['rating'] as num?)?.toDouble(),
+      discount: (json['discount'] as num?)?.toDouble(),
       offerImagesUrls: (json['offerImagesUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
@@ -44,6 +49,9 @@ Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) {
     }
   }
 
+  writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
+  writeNotNull('rating', instance.rating);
+  writeNotNull('discount', instance.discount);
   writeNotNull('offerImagesUrls', instance.offerImagesUrls?.toList());
   writeNotNull('product', instance.product?.toJson());
   writeNotNull('service', instance.service?.toJson());

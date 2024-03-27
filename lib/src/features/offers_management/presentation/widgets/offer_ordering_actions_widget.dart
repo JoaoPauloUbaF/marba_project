@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
@@ -24,14 +23,24 @@ class OrderingActionsWidget extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                offer.offerType == OfferType.service
+                offer.offerType == OfferType.product
                     ? Expanded(
                         child: TextButton.icon(
                           style: TextButton.styleFrom(
                             backgroundColor:
                                 Theme.of(context).colorScheme.onPrimary,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            ref
+                                .read(cartItemListProvider.notifier)
+                                .createNewItem(
+                                  offer.id,
+                                  offer.title,
+                                  offer.finalPrice,
+                                  offer.imageUrl,
+                                );
+                            Navigator.pushNamed(context, '/shopping-cart');
+                          },
                           icon: Icon(
                             Icons.shopping_cart_sharp,
                             color: Theme.of(context).colorScheme.secondary,
@@ -116,7 +125,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartWidget>
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -129,18 +138,22 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartWidget>
           ref.read(cartItemListProvider.notifier).createNewItem(
                 widget.offer.id,
                 widget.offer.title,
-                widget.offer.price,
+                widget.offer.finalPrice,
                 widget.offer.imageUrl,
               );
           setState(() {
             _isAdded = true;
           });
           _controller.forward().then((value) {
-            Future.delayed(const Duration(seconds: 1))
+            Future.delayed(const Duration(milliseconds: 500))
                 .then((value) => _controller.reverse())
-                .then((value) => setState(() {
+                .then(
+                  (value) => setState(
+                    () {
                       _isAdded = false;
-                    }));
+                    },
+                  ),
+                );
           });
         },
         icon: RotationTransition(

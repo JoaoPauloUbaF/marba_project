@@ -6,6 +6,8 @@ part 'user_model.g.dart';
 
 @Freezed()
 class UserModel with _$UserModel {
+  const UserModel._();
+
   const factory UserModel({
     required String id,
     required String displayName,
@@ -15,6 +17,8 @@ class UserModel with _$UserModel {
     required bool isBusinessOwner,
     Set<String>? ownedBusinessIds,
   }) = _UserModel;
+
+  Address get userAddress => address;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

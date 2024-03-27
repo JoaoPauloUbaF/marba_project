@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/shared/models/service/enums.dart';
 import 'package:project_marba/src/shared/utils/registration_utils.dart';
 
 class OfferPriceWidget extends StatelessWidget {
@@ -13,10 +16,11 @@ class OfferPriceWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double offerPrice = offer.price;
-    const double offerDiscount = 20;
+    final double offerDiscount = offer.discountValue;
     final double offerPriceWithDiscount =
         offerPrice - (offerPrice * offerDiscount / 100);
-    final bool isHourly = offer.offerType == OfferType.service;
+    final bool isHourly = offer.offerType == OfferType.service &&
+        offer.serviceOffer?.pricingType == ServicePricingType.hourly;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -26,12 +30,15 @@ class OfferPriceWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                RegistrationUtils().formatAsCurrency(offerPrice),
-                style: Theme.of(context).textTheme.labelSmall?.copyWith(
-                      decoration: TextDecoration.lineThrough,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
+              Visibility(
+                visible: offerDiscount != 0,
+                child: Text(
+                  RegistrationUtils().formatAsCurrency(offerPrice),
+                  style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        decoration: TextDecoration.lineThrough,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                ),
               ),
               Row(
                 children: [
@@ -55,15 +62,18 @@ class OfferPriceWidget extends StatelessWidget {
           const SizedBox(
             width: 8,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.tertiaryContainer,
-              borderRadius: BorderRadius.circular(2),
-            ),
-            child: Text(
-              '${offerDiscount.toString()}% OFF',
-              style: Theme.of(context).textTheme.bodySmall,
+          Visibility(
+            visible: offerDiscount != 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.tertiaryContainer,
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: Text(
+                '${offerDiscount.toStringAsFixed(0)}% OFF',
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
             ),
           ),
           const Spacer(),

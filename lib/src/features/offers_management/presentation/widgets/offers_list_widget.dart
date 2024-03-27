@@ -12,6 +12,7 @@ import '../../application/offer_list/offer_product_category_filter_provider.dart
 import '../../application/offer_list/offer_service_category_filter_provider.dart';
 
 class OfferListWidget extends ConsumerStatefulWidget {
+  //TODO: listen to offers length, so the card could listen to offer item changes, with offerid
   final dynamic offerProviderNotifier;
 
   final AsyncValue<List<OfferModel>> offerProvider;
