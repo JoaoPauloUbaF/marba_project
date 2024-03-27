@@ -2,9 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/cart_item_widget.dart';
-import 'package:project_marba/src/shared/utils/mock_utils.dart';
-import 'package:project_marba/src/shared/widgets/large_horizontal_space_widget.dart';
 import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
+
+import '../../application/delivery_provider/delivery_provider.dart';
+import '../../application/discount_coupon_provider/discount_coupon_provider.dart';
 
 class ShoppingCartScreen extends ConsumerWidget {
   const ShoppingCartScreen({super.key});
@@ -32,23 +33,7 @@ class ShoppingCartScreen extends ConsumerWidget {
             )
           ],
         ),
-        floatingActionButton: SizedBox(
-          width: MediaQuery.of(context).size.width * .8,
-          height: 60,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.primary,
-            ),
-            onPressed: () {},
-            child: Text(
-              'Finalizar Compra (R\$ 100,00)',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
-            ),
-          ),
-        ),
+        floatingActionButton: const CheckOutButtonWidget(),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: SingleChildScrollView(
@@ -120,6 +105,35 @@ class ShoppingCartScreen extends ConsumerWidget {
   }
 }
 
+class CheckOutButtonWidget extends ConsumerWidget {
+  const CheckOutButtonWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final total = ref.watch(cartItemListProvider.notifier).getTotal();
+
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * .8,
+      height: 60,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+        ),
+        onPressed: () {},
+        child: Text(
+          'Finalizar Compra ($total)',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
+        ),
+      ),
+    );
+  }
+}
+
 class CartItemsListViewWidget extends ConsumerWidget {
   const CartItemsListViewWidget({
     super.key,
@@ -139,13 +153,20 @@ class CartItemsListViewWidget extends ConsumerWidget {
   }
 }
 
-class OderSummaryWidget extends StatelessWidget {
+class OderSummaryWidget extends ConsumerWidget {
   const OderSummaryWidget({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final controller = ref.watch(cartItemListProvider.notifier);
+    final total = controller.getTotal();
+    final discount = ref.watch(shoppingCartDiscountProvider(controller.total));
+    final deliveryTax = ref.watch(deliveryTaxProvider);
+    final totalWithDelivery = controller.getTotalWithDeliveryAndDiscount(
+        total, deliveryTax, discount);
+
     return Column(
       children: [
         ListTile(
@@ -165,7 +186,7 @@ class OderSummaryWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.titleSmall,
           ),
           subtitle: Text(
-            'R\$ 10,00',
+            discount,
             style: Theme.of(context).textTheme.bodySmall,
           ),
           trailing: IconButton(
@@ -184,7 +205,7 @@ class OderSummaryWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              'R\$ 100,00',
+              total,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -200,7 +221,7 @@ class OderSummaryWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              'R\$ 10,00',
+              '+ $deliveryTax',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -216,7 +237,7 @@ class OderSummaryWidget extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              '- R\$ 10,00',
+              '- $discount',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -231,7 +252,7 @@ class OderSummaryWidget extends StatelessWidget {
               'Total',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            Text('R\$ 100,00',
+            Text(totalWithDelivery,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     )),

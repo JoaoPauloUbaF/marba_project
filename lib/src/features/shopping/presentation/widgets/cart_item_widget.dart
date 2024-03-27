@@ -31,7 +31,7 @@ class CartItemWidget extends ConsumerWidget {
                 item.imageUrl,
                 width: 125,
                 height: 125,
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
             const LargeHorizontalSpaceWidget(),
@@ -56,7 +56,10 @@ class CartItemWidget extends ConsumerWidget {
                       height: 30.0,
                       child: IconButton.outlined(
                         color: Theme.of(context).colorScheme.primary,
-                        icon: const Icon(Icons.remove, size: 18.0),
+                        icon: Icon(
+                            cartItemListController
+                                .getDecreaseIcon(item.quantity),
+                            size: 18.0),
                         onPressed: () {
                           cartItemListController.decreaseItemQuantity(
                               item, context);
@@ -75,7 +78,8 @@ class CartItemWidget extends ConsumerWidget {
                       height: 30,
                       child: IconButton.outlined(
                         color: Theme.of(context).colorScheme.primary,
-                        icon: const Icon(Icons.add, size: 18.0),
+                        icon: Icon(cartItemListController.getIncreaseIcon(item),
+                            size: 18.0),
                         onPressed: () {
                           cartItemListController.increaseItemQuantity(item);
                         },

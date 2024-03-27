@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/shared/models/cart_item/cart_item_model.dart';
+import 'package:project_marba/src/shared/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_item_list_controller.g.dart';
@@ -59,5 +60,28 @@ class CartItemList extends _$CartItemList {
     } else {
       removeItem(item);
     }
+  }
+
+  IconData getDecreaseIcon(int quantity) {
+    return quantity > 1 ? Icons.remove : Icons.delete;
+  }
+
+  IconData getIncreaseIcon(CartItemModel item) {
+    // TODO: implement the ceiling for the quantity
+    return Icons.add;
+  }
+
+  String getTotal() {
+    final totalString = RegistrationUtils().formatAsCurrency(total);
+    return totalString;
+  }
+
+  getTotalWithDeliveryAndDiscount(
+      String total, String deliveryTax, String discount) {
+    final ru = RegistrationUtils();
+    final finalTotalValue = ru.currencyStringToDouble(total) +
+        ru.currencyStringToDouble(deliveryTax) -
+        ru.currencyStringToDouble(discount);
+    return ru.formatAsCurrency(finalTotalValue);
   }
 }

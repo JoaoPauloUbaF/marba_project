@@ -1,25 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_item_list_controller.dart';
+part of 'delivery_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cartItemListHash() => r'7b5daf15559e23577f967419774bd4ea28bb5bd4';
+String _$deliveryTaxHash() => r'f7b05fc70ab41baaf30af34dda90187cce0b6b3f';
 
-/// See also [CartItemList].
-@ProviderFor(CartItemList)
-final cartItemListProvider =
-    NotifierProvider<CartItemList, List<CartItemModel>>.internal(
-  CartItemList.new,
-  name: r'cartItemListProvider',
+/// See also [deliveryTax].
+@ProviderFor(deliveryTax)
+final deliveryTaxProvider = AutoDisposeProvider<String>.internal(
+  deliveryTax,
+  name: r'deliveryTaxProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$cartItemListHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$deliveryTaxHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CartItemList = Notifier<List<CartItemModel>>;
+typedef DeliveryTaxRef = AutoDisposeProviderRef<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
