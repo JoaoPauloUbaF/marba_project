@@ -112,7 +112,10 @@ class CheckOutButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final total = ref.watch(cartItemListProvider.notifier).getTotal();
+    ref.watch(cartItemListProvider);
+    final total = ref
+        .read(cartItemListProvider.notifier)
+        .getTotalWithDeliveryAndDiscount();
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * .8,
@@ -160,12 +163,12 @@ class OderSummaryWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(cartItemListProvider);
     final controller = ref.watch(cartItemListProvider.notifier);
     final total = controller.getTotal();
     final discount = ref.watch(shoppingCartDiscountProvider(controller.total));
     final deliveryTax = ref.watch(deliveryTaxProvider);
-    final totalWithDelivery = controller.getTotalWithDeliveryAndDiscount(
-        total, deliveryTax, discount);
+    final totalWithDelivery = controller.getTotalWithDeliveryAndDiscount();
 
     return Column(
       children: [
