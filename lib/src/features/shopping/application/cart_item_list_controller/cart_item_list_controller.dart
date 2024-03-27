@@ -3,6 +3,9 @@ import 'package:project_marba/src/shared/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/shared/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../delivery_provider/delivery_provider.dart';
+import '../discount_coupon_provider/discount_coupon_provider.dart';
+
 part 'cart_item_list_controller.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -17,6 +20,12 @@ class CartItemList extends _$CartItemList {
   }
 
   void createNewItem(String id, String name, double price, String imageUrl) {
+    if (state.any((element) => element.id == id)) {
+      final item = state.firstWhere((element) => element.id == id);
+      increaseItemQuantity(item);
+      return;
+    }
+
     final item = CartItemModel(
       id: id,
       name: name,
@@ -43,7 +52,9 @@ class CartItemList extends _$CartItemList {
 
   double get total {
     return state.fold(
-        0, (previousValue, element) => previousValue + element.price);
+        0,
+        (previousValue, element) =>
+            previousValue + (element.quantity * element.price));
   }
 
   void increaseItemQuantity(CartItemModel item) {
@@ -76,10 +87,11 @@ class CartItemList extends _$CartItemList {
     return totalString;
   }
 
-  getTotalWithDeliveryAndDiscount(
-      String total, String deliveryTax, String discount) {
+  getTotalWithDeliveryAndDiscount() {
+    final discount = ref.read(shoppingCartDiscountProvider(total));
+    final deliveryTax = ref.read(deliveryTaxProvider);
     final ru = RegistrationUtils();
-    final finalTotalValue = ru.currencyStringToDouble(total) +
+    final finalTotalValue = ru.currencyStringToDouble(getTotal()) +
         ru.currencyStringToDouble(deliveryTax) -
         ru.currencyStringToDouble(discount);
     return ru.formatAsCurrency(finalTotalValue);
