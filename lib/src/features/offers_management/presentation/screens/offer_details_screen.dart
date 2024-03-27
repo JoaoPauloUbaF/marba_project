@@ -88,7 +88,7 @@ class OfferBodyWidget extends StatelessWidget {
           items: mediaItems,
         ),
         OfferInfoWidget(offer: offer),
-        OfferOrderingActionsWidget(offer: offer),
+        OrderingActionsWidget(offer: offer),
         BusinessTileWidget(businessId: offer.businessId),
         Container(
           height: 30,

@@ -30,7 +30,8 @@ class CartItemWidget extends ConsumerWidget {
               child: Image.network(
                 item.imageUrl,
                 width: 125,
-                fit: BoxFit.fitWidth,
+                height: 125,
+                fit: BoxFit.cover,
               ),
             ),
             const LargeHorizontalSpaceWidget(),

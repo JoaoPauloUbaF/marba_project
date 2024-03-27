@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/shared/models/cart_item/cart_item_model.dart';
-import 'package:project_marba/src/shared/utils/mock_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'cart_item_list_controller.g.dart';
@@ -9,11 +8,7 @@ part 'cart_item_list_controller.g.dart';
 class CartItemList extends _$CartItemList {
   @override
   List<CartItemModel> build() {
-    return [
-      MockUtils().mockedCartItem,
-      MockUtils().mockedCartItem.copyWith(name: 'Item 2', price: 2.0),
-      MockUtils().mockedCartItem.copyWith(name: 'Item 3', price: 3.0),
-    ];
+    return [];
   }
 
   void refreshState() {
