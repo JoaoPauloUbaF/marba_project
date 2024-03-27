@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:project_marba/src/shared/models/review/review_model.dart';
 
 import '../product/product.dart';
 import '../service/service.dart';
@@ -19,6 +20,9 @@ class OfferModel with _$OfferModel {
     required DateTime updatedAt,
     required OfferStatus status,
     required OfferType type,
+    List<ReviewModel>? reviews,
+    double? rating,
+    double? discount,
     Set<String>? offerImagesUrls,
     Product? product,
     Service? service,
@@ -36,6 +40,10 @@ class OfferModel with _$OfferModel {
   OfferType get offerType => type;
   Product? get productOffer => product;
   Service? get serviceOffer => service;
+  double get discountValue => discount ?? 0.0;
+  double get ratingValue => rating ?? 0.0;
+  double get finalPrice => price - (price * discountValue / 100);
+  int get totalRatings => reviews?.length ?? 0;
 
   factory OfferModel.fromJson(Map<String, dynamic> json) =>
       _$OfferModelFromJson(json);

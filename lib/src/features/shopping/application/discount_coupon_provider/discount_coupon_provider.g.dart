@@ -7,7 +7,7 @@ part of 'discount_coupon_provider.dart';
 // **************************************************************************
 
 String _$shoppingCartDiscountHash() =>
-    r'2d65ce68710b9768df6b6207b8b55168c9b18bc9';
+    r'30583885a07421ddc9917ce0c506417a0433315d';
 
 /// Copied from Dart SDK
 class _SystemHash {

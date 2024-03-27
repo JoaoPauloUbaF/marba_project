@@ -27,6 +27,9 @@ mixin _$OfferModel {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   OfferStatus get status => throw _privateConstructorUsedError;
   OfferType get type => throw _privateConstructorUsedError;
+  List<ReviewModel>? get reviews => throw _privateConstructorUsedError;
+  double? get rating => throw _privateConstructorUsedError;
+  double? get discount => throw _privateConstructorUsedError;
   Set<String>? get offerImagesUrls => throw _privateConstructorUsedError;
   Product? get product => throw _privateConstructorUsedError;
   Service? get service => throw _privateConstructorUsedError;
@@ -51,6 +54,9 @@ abstract class $OfferModelCopyWith<$Res> {
       DateTime updatedAt,
       OfferStatus status,
       OfferType type,
+      List<ReviewModel>? reviews,
+      double? rating,
+      double? discount,
       Set<String>? offerImagesUrls,
       Product? product,
       Service? service});
@@ -79,6 +85,9 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     Object? updatedAt = null,
     Object? status = null,
     Object? type = null,
+    Object? reviews = freezed,
+    Object? rating = freezed,
+    Object? discount = freezed,
     Object? offerImagesUrls = freezed,
     Object? product = freezed,
     Object? service = freezed,
@@ -112,6 +121,18 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as OfferType,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewModel>?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double?,
+      discount: freezed == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double?,
       offerImagesUrls: freezed == offerImagesUrls
           ? _value.offerImagesUrls
           : offerImagesUrls // ignore: cast_nullable_to_non_nullable
@@ -168,6 +189,9 @@ abstract class _$$OfferModelImplCopyWith<$Res>
       DateTime updatedAt,
       OfferStatus status,
       OfferType type,
+      List<ReviewModel>? reviews,
+      double? rating,
+      double? discount,
       Set<String>? offerImagesUrls,
       Product? product,
       Service? service});
@@ -196,6 +220,9 @@ class __$$OfferModelImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? status = null,
     Object? type = null,
+    Object? reviews = freezed,
+    Object? rating = freezed,
+    Object? discount = freezed,
     Object? offerImagesUrls = freezed,
     Object? product = freezed,
     Object? service = freezed,
@@ -229,6 +256,18 @@ class __$$OfferModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as OfferType,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewModel>?,
+      rating: freezed == rating
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as double?,
+      discount: freezed == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double?,
       offerImagesUrls: freezed == offerImagesUrls
           ? _value._offerImagesUrls
           : offerImagesUrls // ignore: cast_nullable_to_non_nullable
@@ -256,10 +295,14 @@ class _$OfferModelImpl extends _OfferModel {
       required this.updatedAt,
       required this.status,
       required this.type,
+      final List<ReviewModel>? reviews,
+      this.rating,
+      this.discount,
       final Set<String>? offerImagesUrls,
       this.product,
       this.service})
       : _category = category,
+        _reviews = reviews,
         _offerImagesUrls = offerImagesUrls,
         super._();
 
@@ -286,6 +329,20 @@ class _$OfferModelImpl extends _OfferModel {
   final OfferStatus status;
   @override
   final OfferType type;
+  final List<ReviewModel>? _reviews;
+  @override
+  List<ReviewModel>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final double? rating;
+  @override
+  final double? discount;
   final Set<String>? _offerImagesUrls;
   @override
   Set<String>? get offerImagesUrls {
@@ -303,7 +360,7 @@ class _$OfferModelImpl extends _OfferModel {
 
   @override
   String toString() {
-    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
+    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, reviews: $reviews, rating: $rating, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
   }
 
   @override
@@ -321,6 +378,10 @@ class _$OfferModelImpl extends _OfferModel {
                 other.updatedAt == updatedAt) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews) &&
+            (identical(other.rating, rating) || other.rating == rating) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
             const DeepCollectionEquality()
                 .equals(other._offerImagesUrls, _offerImagesUrls) &&
             (identical(other.product, product) || other.product == product) &&
@@ -338,6 +399,9 @@ class _$OfferModelImpl extends _OfferModel {
       updatedAt,
       status,
       type,
+      const DeepCollectionEquality().hash(_reviews),
+      rating,
+      discount,
       const DeepCollectionEquality().hash(_offerImagesUrls),
       product,
       service);
@@ -365,6 +429,9 @@ abstract class _OfferModel extends OfferModel {
       required final DateTime updatedAt,
       required final OfferStatus status,
       required final OfferType type,
+      final List<ReviewModel>? reviews,
+      final double? rating,
+      final double? discount,
       final Set<String>? offerImagesUrls,
       final Product? product,
       final Service? service}) = _$OfferModelImpl;
@@ -387,6 +454,12 @@ abstract class _OfferModel extends OfferModel {
   OfferStatus get status;
   @override
   OfferType get type;
+  @override
+  List<ReviewModel>? get reviews;
+  @override
+  double? get rating;
+  @override
+  double? get discount;
   @override
   Set<String>? get offerImagesUrls;
   @override
