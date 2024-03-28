@@ -25,6 +25,8 @@ mixin _$UserModel {
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   Address get address => throw _privateConstructorUsedError;
+  List<Address>? get deliveryAddresses => throw _privateConstructorUsedError;
+  List<OfferModel>? get favoriteOffers => throw _privateConstructorUsedError;
   bool get isBusinessOwner => throw _privateConstructorUsedError;
   Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
 
@@ -45,6 +47,8 @@ abstract class $UserModelCopyWith<$Res> {
       String email,
       String phoneNumber,
       Address address,
+      List<Address>? deliveryAddresses,
+      List<OfferModel>? favoriteOffers,
       bool isBusinessOwner,
       Set<String>? ownedBusinessIds});
 
@@ -69,6 +73,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
+    Object? deliveryAddresses = freezed,
+    Object? favoriteOffers = freezed,
     Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
   }) {
@@ -93,6 +99,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      deliveryAddresses: freezed == deliveryAddresses
+          ? _value.deliveryAddresses
+          : deliveryAddresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>?,
+      favoriteOffers: freezed == favoriteOffers
+          ? _value.favoriteOffers
+          : favoriteOffers // ignore: cast_nullable_to_non_nullable
+              as List<OfferModel>?,
       isBusinessOwner: null == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
@@ -127,6 +141,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String email,
       String phoneNumber,
       Address address,
+      List<Address>? deliveryAddresses,
+      List<OfferModel>? favoriteOffers,
       bool isBusinessOwner,
       Set<String>? ownedBusinessIds});
 
@@ -150,6 +166,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
+    Object? deliveryAddresses = freezed,
+    Object? favoriteOffers = freezed,
     Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
   }) {
@@ -174,6 +192,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as Address,
+      deliveryAddresses: freezed == deliveryAddresses
+          ? _value._deliveryAddresses
+          : deliveryAddresses // ignore: cast_nullable_to_non_nullable
+              as List<Address>?,
+      favoriteOffers: freezed == favoriteOffers
+          ? _value._favoriteOffers
+          : favoriteOffers // ignore: cast_nullable_to_non_nullable
+              as List<OfferModel>?,
       isBusinessOwner: null == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
@@ -195,9 +221,13 @@ class _$UserModelImpl extends _UserModel {
       required this.email,
       required this.phoneNumber,
       required this.address,
+      final List<Address>? deliveryAddresses,
+      final List<OfferModel>? favoriteOffers,
       required this.isBusinessOwner,
       final Set<String>? ownedBusinessIds})
-      : _ownedBusinessIds = ownedBusinessIds,
+      : _deliveryAddresses = deliveryAddresses,
+        _favoriteOffers = favoriteOffers,
+        _ownedBusinessIds = ownedBusinessIds,
         super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -213,6 +243,27 @@ class _$UserModelImpl extends _UserModel {
   final String phoneNumber;
   @override
   final Address address;
+  final List<Address>? _deliveryAddresses;
+  @override
+  List<Address>? get deliveryAddresses {
+    final value = _deliveryAddresses;
+    if (value == null) return null;
+    if (_deliveryAddresses is EqualUnmodifiableListView)
+      return _deliveryAddresses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<OfferModel>? _favoriteOffers;
+  @override
+  List<OfferModel>? get favoriteOffers {
+    final value = _favoriteOffers;
+    if (value == null) return null;
+    if (_favoriteOffers is EqualUnmodifiableListView) return _favoriteOffers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final bool isBusinessOwner;
   final Set<String>? _ownedBusinessIds;
@@ -227,7 +278,7 @@ class _$UserModelImpl extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds)';
+    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, deliveryAddresses: $deliveryAddresses, favoriteOffers: $favoriteOffers, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds)';
   }
 
   @override
@@ -242,6 +293,10 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
             (identical(other.address, address) || other.address == address) &&
+            const DeepCollectionEquality()
+                .equals(other._deliveryAddresses, _deliveryAddresses) &&
+            const DeepCollectionEquality()
+                .equals(other._favoriteOffers, _favoriteOffers) &&
             (identical(other.isBusinessOwner, isBusinessOwner) ||
                 other.isBusinessOwner == isBusinessOwner) &&
             const DeepCollectionEquality()
@@ -257,6 +312,8 @@ class _$UserModelImpl extends _UserModel {
       email,
       phoneNumber,
       address,
+      const DeepCollectionEquality().hash(_deliveryAddresses),
+      const DeepCollectionEquality().hash(_favoriteOffers),
       isBusinessOwner,
       const DeepCollectionEquality().hash(_ownedBusinessIds));
 
@@ -281,6 +338,8 @@ abstract class _UserModel extends UserModel {
       required final String email,
       required final String phoneNumber,
       required final Address address,
+      final List<Address>? deliveryAddresses,
+      final List<OfferModel>? favoriteOffers,
       required final bool isBusinessOwner,
       final Set<String>? ownedBusinessIds}) = _$UserModelImpl;
   const _UserModel._() : super._();
@@ -298,6 +357,10 @@ abstract class _UserModel extends UserModel {
   String get phoneNumber;
   @override
   Address get address;
+  @override
+  List<Address>? get deliveryAddresses;
+  @override
+  List<OfferModel>? get favoriteOffers;
   @override
   bool get isBusinessOwner;
   @override
