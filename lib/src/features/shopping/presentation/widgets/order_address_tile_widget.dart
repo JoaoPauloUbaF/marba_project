@@ -173,7 +173,7 @@ class _OrderAddressModalWidgetState
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.onSecondary,
+                        Theme.of(context).colorScheme.primary,
                       ),
                     ),
                     onPressed: () {
@@ -188,7 +188,7 @@ class _OrderAddressModalWidgetState
                     child: Text(
                       'Adicionar novo endereço',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary),
+                          color: Theme.of(context).colorScheme.onPrimary),
                     ),
                   ),
                 ),

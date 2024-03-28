@@ -84,7 +84,7 @@ class OrderingActionsWidget extends ConsumerWidget {
                       ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: AddToCartWidget(offer: offer),
+                  child: AddToCartButtonWidget(offer: offer),
                 ),
               ],
             ),
@@ -96,8 +96,8 @@ class OrderingActionsWidget extends ConsumerWidget {
   }
 }
 
-class AddToCartWidget extends ConsumerStatefulWidget {
-  const AddToCartWidget({
+class AddToCartButtonWidget extends ConsumerStatefulWidget {
+  const AddToCartButtonWidget({
     super.key,
     required this.offer,
   });
@@ -105,10 +105,10 @@ class AddToCartWidget extends ConsumerStatefulWidget {
   final OfferModel offer;
 
   @override
-  ConsumerState<AddToCartWidget> createState() => _AddToCartWidgetState();
+  ConsumerState<AddToCartButtonWidget> createState() => _AddToCartWidgetState();
 }
 
-class _AddToCartWidgetState extends ConsumerState<AddToCartWidget>
+class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   bool _isAdded = false;
@@ -117,7 +117,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartWidget>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 250),
       vsync: this,
     );
   }
@@ -145,7 +145,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartWidget>
             _isAdded = true;
           });
           _controller.forward().then((value) {
-            Future.delayed(const Duration(milliseconds: 500))
+            Future.delayed(const Duration(milliseconds: 250))
                 .then((value) => _controller.reverse())
                 .then(
                   (value) => setState(
