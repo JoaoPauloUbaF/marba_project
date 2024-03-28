@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/shared/models/user/user_model.dart';
 
+import '../../../shared/models/address/address.dart';
+
 abstract class ProfileDataRepository {
   Future<DocumentSnapshot?> createProfile({
     required String uid,
@@ -28,4 +30,9 @@ abstract class ProfileDataRepository {
 
   Future<void> removeOwnedBusinessId(
       {required String uid, required String businessId});
+
+  Future<void> addDeliveryAddress(
+      {required String uid, required Map<String, dynamic> address});
+
+  Stream<List<Address>> getDeliveryAddresses({required String uid});
 }

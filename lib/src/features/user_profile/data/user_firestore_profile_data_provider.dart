@@ -24,6 +24,7 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
       'displayName': displayName,
       'phoneNumber': phoneNumber,
       'address': address,
+      'deliveryAddresses': [address],
       'email': email,
     });
     return await _usersCollection.doc(uid).get();
@@ -60,6 +61,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
         displayName: data['displayName'],
         phoneNumber: data['phoneNumber'],
         address: Address.fromJson(data['address']),
+        deliveryAddresses: data['deliveryAddresses']
+            ?.map<Address>((address) => Address.fromJson(address))
+            .toList(),
         isBusinessOwner: false,
       );
     } else {
@@ -95,6 +99,28 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
       {required String uid, required String businessId}) {
     return _usersCollection.doc(uid).update({
       'ownedBusinessIds': FieldValue.arrayRemove([businessId]),
+    });
+  }
+
+  @override
+  Future<void> addDeliveryAddress(
+      {required String uid, required Map<String, dynamic> address}) {
+    return _usersCollection.doc(uid).update({
+      'deliveryAddresses': FieldValue.arrayUnion([address]),
+    });
+  }
+
+  @override
+  Stream<List<Address>> getDeliveryAddresses({required String uid}) {
+    return _usersCollection.doc(uid).snapshots().map((doc) {
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return data['deliveryAddresses']
+            ?.map<Address>((address) => Address.fromJson(address))
+            .toList();
+      } else {
+        return [];
+      }
     });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/shared/models/address/address.dart';
+import 'package:project_marba/src/shared/models/offer/offer_model.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
@@ -14,6 +15,8 @@ class UserModel with _$UserModel {
     required String email,
     required String phoneNumber,
     required Address address,
+    List<Address>? deliveryAddresses,
+    List<OfferModel>? favoriteOffers,
     required bool isBusinessOwner,
     Set<String>? ownedBusinessIds,
   }) = _UserModel;
