@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/location_management/presentation/address_display_widget.dart';
@@ -27,25 +28,29 @@ class BusinessProfileScreen extends ConsumerWidget {
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverToBoxAdapter(
-            child: business != null
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+            child: Visibility(
+              visible: business != null,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Stack(
                     children: [
-                      const Stack(
-                        children: [
-                          BusinessProfileImageWidget(),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: BusinessStatusWidget(),
-                          ),
-                        ],
+                      BusinessProfileImageWidget(),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: BusinessStatusWidget(),
                       ),
-                      const BusinessContactInfoCardWidget(),
-                      AddressDisplayWidget(address: business.address),
                     ],
-                  )
-                : const LoadingWidget(),
+                  ),
+                  const BusinessContactInfoCardWidget(),
+                  Visibility(
+                    visible: business?.address != null,
+                    child: AddressDisplayWidget(address: business!.address),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SliverAppBar(
             pinned: true,

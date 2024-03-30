@@ -134,49 +134,6 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     return null;
   }
 
-  Future<void> validateAndSubmitForm(
-      {required GlobalKey<FormState> key,
-      required String name,
-      required String email,
-      required String phoneNumber,
-      required String street,
-      required String number,
-      required String neighborhood,
-      required String city,
-      required String state,
-      required String zipCode,
-      required Set<BusinessCategory> selectedCategories}) async {
-    if (key.currentState?.validate() ?? false) {
-      final businessProfileRepository = ref.read(businessProfileDataProvider);
-      final business = Business(
-        id: const Uuid().v4().toString(),
-        name: name,
-        email: email,
-        phoneNumber: phoneNumber,
-        address: Address(
-          street: street,
-          number: number,
-          neighborhood: neighborhood,
-          city: city,
-          state: state,
-          zipCode: zipCode,
-        ),
-        categories: selectedCategories.toSet(),
-        status: BusinessStatus.pending,
-        offersIds: {},
-      );
-      await businessProfileRepository
-          .createBusinessProfile(business: business)
-          .then((value) async => {
-                log('Business created successfully: ${value!.id}'),
-                ref.read(userProfileDataProvider).addOwnedBusinessId(
-                    uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid,
-                    businessId: business.id),
-                await fetchUserBusinessList(),
-              });
-    }
-  }
-
   fetchUserBusinessList() async {
     var businessList = await getUserBusinessList();
     state = AsyncValue.data(businessList);

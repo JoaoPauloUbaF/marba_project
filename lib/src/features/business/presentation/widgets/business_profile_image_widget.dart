@@ -31,11 +31,7 @@ class BusinessProfileImageWidget extends ConsumerWidget {
               ),
               builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return Stack(
-                    children: [
-                      snapshot.data!,
-                    ],
-                  );
+                  return snapshot.data!;
                 } else {
                   return const LoadingWidget();
                 }

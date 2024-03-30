@@ -19,6 +19,8 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
           .toSet(),
       offersIds:
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
+      rating: (json['rating'] as num?)?.toDouble(),
+      deliveryFee: (json['deliveryFee'] as num).toDouble(),
       imageUrl: json['imageUrl'] as String?,
     );
 
@@ -41,6 +43,8 @@ Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
     }
   }
 
+  writeNotNull('rating', instance.rating);
+  val['deliveryFee'] = instance.deliveryFee;
   writeNotNull('imageUrl', instance.imageUrl);
   return val;
 }

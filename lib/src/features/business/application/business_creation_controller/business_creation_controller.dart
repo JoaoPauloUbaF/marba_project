@@ -107,6 +107,7 @@ class BusinessCreationController extends _$BusinessCreationController {
     required String state,
     required String zipCode,
     required Set<BusinessCategory> selectedCategories,
+    required String deliveryFee,
   }) async {
     final businessProfileRepository = ref.read(businessProfileDataProvider);
     final profileImage = ref.read(imageFieldControllerProvider);
@@ -126,6 +127,7 @@ class BusinessCreationController extends _$BusinessCreationController {
       categories: selectedCategories.toSet(),
       status: BusinessStatus.pending,
       offersIds: {},
+      deliveryFee: 0.0,
     );
     await businessProfileRepository
         .createBusinessProfile(business: business)

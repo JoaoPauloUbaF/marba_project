@@ -143,7 +143,7 @@ class BusinessProfileScreenController
         if (await isBusinessOwner(state?.id ?? '') && state?.imageUrl != null)
           Positioned(
             bottom: 20,
-            right: 20,
+            right: 10,
             child: InkWell(
               onTap: () => updateBusinessProfileImage(),
               child: const Icon(
@@ -176,7 +176,8 @@ class BusinessProfileScreenController
     }
   }
 
-  Future<bool> isBusinessOwner(String businessId) async {
+  Future<bool> isBusinessOwner(String? businessId) async {
+    businessId ??= state?.id;
     final userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
     if (userId == null) {
       return false;
