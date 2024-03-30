@@ -28,6 +28,7 @@ class AddBusinessStepperWidgetState
   late TextEditingController _stateController;
   late TextEditingController _zipCodeController;
   late Set<BusinessCategory> _selectedCategories;
+  late TextEditingController _deliveryFeeController;
   late BusinessCreationController businessCreationController;
 
   int _currentStep = 0;
@@ -44,6 +45,8 @@ class AddBusinessStepperWidgetState
     _cityController = TextEditingController(text: "Lavras");
     _stateController = TextEditingController(text: "MG");
     _zipCodeController = MaskedTextController(mask: '00000-000');
+    _deliveryFeeController = MoneyMaskedTextController(
+        leftSymbol: 'R\$ ', decimalSeparator: '.', thousandSeparator: ',');
     _selectedCategories = {};
     formKeys = List.generate(3, (_) => GlobalKey<FormState>());
   }
@@ -59,6 +62,7 @@ class AddBusinessStepperWidgetState
     _cityController.dispose();
     _stateController.dispose();
     _zipCodeController.dispose();
+    _deliveryFeeController.dispose();
     super.dispose();
   }
 
@@ -75,6 +79,7 @@ class AddBusinessStepperWidgetState
           state: _stateController.text,
           zipCode: _zipCodeController.text,
           selectedCategories: _selectedCategories,
+          deliveryFee: _deliveryFeeController.text,
         )
         .then(
           (value) => {
@@ -113,14 +118,31 @@ class AddBusinessStepperWidgetState
             onChanged: () => setState(() {})),
       ),
       Step(
-        title: const Text('Categorias'),
-        content: CategoryFormFieldWidget(
-            formKeys: formKeys,
-            currentStep: _currentStep,
-            selectedCategories: _selectedCategories,
-            context: context,
-            businessCreationController: businessCreationController),
-      )
+        title: const Text('Categorias e taxas'),
+        content: Column(
+          children: [
+            TextFormField(
+              controller: _deliveryFeeController,
+              decoration: const InputDecoration(
+                labelText: 'Taxa de entrega',
+                hintText: 'R\$ 0.00',
+              ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira a taxa de entrega';
+                }
+                return null;
+              },
+            ),
+            CategoryFormFieldWidget(
+                formKeys: formKeys,
+                currentStep: _currentStep,
+                selectedCategories: _selectedCategories,
+                context: context,
+                businessCreationController: businessCreationController),
+          ],
+        ),
+      ),
     ];
   }
 

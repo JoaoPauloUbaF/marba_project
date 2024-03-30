@@ -27,10 +27,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          viewController.getBusinessName(),
-          style: Theme.of(context).textTheme.headlineSmall!,
-        ),
+        title: AppBarWidget(viewController: viewController),
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
@@ -62,6 +59,38 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
           });
         },
       ),
+    );
+  }
+}
+
+class AppBarWidget extends StatelessWidget {
+  const AppBarWidget({
+    super.key,
+    required this.viewController,
+  });
+
+  final BusinessProfileScreenController viewController;
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: viewController.isBusinessOwner(null),
+      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return snapshot.data!
+              ? InkWell(
+                  child: Text(
+                    viewController.getBusinessName(),
+                    style: Theme.of(context).textTheme.headlineSmall!,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                  ),
+                )
+              : const Text('Negócio');
+        } else {
+          return const Text('Negócio');
+        }
+      },
     );
   }
 }

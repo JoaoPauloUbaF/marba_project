@@ -17,6 +17,8 @@ class Business with _$Business {
     required BusinessStatus status,
     required Set<BusinessCategory> categories,
     required Set<String> offersIds,
+    double? rating,
+    required double deliveryFee,
     String? imageUrl,
   }) = _Business;
 

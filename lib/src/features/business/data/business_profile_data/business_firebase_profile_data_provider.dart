@@ -68,6 +68,7 @@ class BusinessFirebaseProfileDataProvider
                   .toSet()
                   .cast<String>(),
               imageUrl: doc['profileImageUrl'],
+              deliveryFee: doc['deliveryFee'] ?? 5.0,
             ))
         .toList();
     return businesses;
@@ -172,6 +173,7 @@ class BusinessFirebaseProfileDataProvider
         categories: categories.toSet(),
         offersIds: offersIds,
         imageUrl: data['profileImageUrl'],
+        deliveryFee: data['deliveryFee'] ?? 5.0,
       );
     } else {
       return null;
