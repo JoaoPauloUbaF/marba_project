@@ -6,7 +6,6 @@ import 'package:project_marba/src/features/location_management/presentation/addr
 import 'package:project_marba/src/features/business/presentation/widgets/business_info_card_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile_image_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_status_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
 
