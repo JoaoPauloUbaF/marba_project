@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
@@ -40,7 +42,7 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
   }
 }
 
-class BusinessPhoneAndEmail extends StatelessWidget {
+class BusinessPhoneAndEmail extends StatefulWidget {
   const BusinessPhoneAndEmail({
     super.key,
     required this.business,
@@ -49,36 +51,115 @@ class BusinessPhoneAndEmail extends StatelessWidget {
   final Business? business;
 
   @override
+  State<BusinessPhoneAndEmail> createState() => _BusinessPhoneAndEmailState();
+}
+
+class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
+  bool isEditingEmail = false;
+  bool isEditingPhone = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    emailController = TextEditingController(text: widget.business?.email);
+    phoneController = MaskedTextController(
+        text: widget.business?.phoneNumber, mask: '(00) 00000-0000');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         const Spacer(),
-        Row(
-          children: [
-            const Icon(
-              Icons.phone,
-              size: 16,
-            ),
-            const SizedBox(width: 4),
-            Text(
-              business?.phoneNumber ?? '',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
+        InkWell(
+          onTap: () {
+            setState(() {
+              isEditingPhone = !isEditingPhone;
+            });
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.phone,
+                size: 16,
+              ),
+              const SizedBox(width: 4),
+              isEditingPhone
+                  ? SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: TextFormField(
+                        style: Theme.of(context).textTheme.bodySmall,
+                        decoration: InputDecoration(
+                          hintText: 'Telefone',
+                          border: const OutlineInputBorder(),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 4),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.check),
+                            onPressed: () {
+                              setState(() {
+                                isEditingPhone =
+                                    false; //TODO: implementar atualização do telefone
+                              });
+                            },
+                          ),
+                        ),
+                        controller: phoneController,
+                      ),
+                    )
+                  : Text(
+                      widget.business?.phoneNumber ?? '',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+            ],
+          ),
         ),
         const Spacer(),
-        Row(
-          children: [
-            const Icon(
-              Icons.email,
-              size: 16,
-            ),
-            const SizedBox(width: 4),
-            Text(
-              business?.email ?? '',
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          ],
+        InkWell(
+          onTap: () {
+            setState(() {
+              isEditingEmail = !isEditingEmail;
+            });
+          },
+          child: Row(
+            children: [
+              const Icon(
+                Icons.email,
+                size: 16,
+              ),
+              const SizedBox(width: 4),
+              isEditingEmail
+                  ? SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: TextFormField(
+                        style: Theme.of(context).textTheme.bodySmall,
+                        decoration: InputDecoration(
+                          hintText: 'Email',
+                          border: const OutlineInputBorder(),
+                          contentPadding:
+                              const EdgeInsets.symmetric(horizontal: 4),
+                          suffixIcon: IconButton(
+                            icon: const Icon(Icons.check),
+                            onPressed: () {
+                              setState(() {
+                                isEditingEmail =
+                                    false; //TODO: implementar atualização do email
+                              });
+                            },
+                          ),
+                        ),
+                        controller: emailController,
+                      ),
+                    )
+                  : Text(
+                      widget.business?.email ?? '',
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+            ],
+          ),
         ),
         const Spacer(),
       ],

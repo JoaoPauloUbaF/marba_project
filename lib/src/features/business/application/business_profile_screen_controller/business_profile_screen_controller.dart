@@ -191,6 +191,34 @@ class BusinessProfileScreenController
   void dispose() {
     state = null;
   }
+
+  void updateBusinessName(BuildContext context, String text) {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessName(
+          uid: state?.id ?? '',
+          businessName: text,
+        )
+        .then((value) => fetchBusinessProfile());
+  }
+
+  void changeBusinessStatus({required String status}) {
+    final statusMap = {
+      'Aberto': BusinessStatus.open,
+      'Fechado': BusinessStatus.closed,
+      'Pendente': BusinessStatus.pending,
+      'Rejeitado': BusinessStatus.rejected,
+      'Suspenso': BusinessStatus.suspended,
+      'Deletado': BusinessStatus.deleted,
+    };
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessStatus(
+          uid: state?.id ?? '',
+          status: statusMap[status] ?? BusinessStatus.open,
+        )
+        .then((value) => fetchBusinessProfile());
+  }
 }
 
 final imageUploadingStatusProvider = StateProvider<bool>((ref) => false);

@@ -63,7 +63,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   }
 }
 
-class AppBarWidget extends StatelessWidget {
+class AppBarWidget extends StatefulWidget {
   const AppBarWidget({
     super.key,
     required this.viewController,
@@ -72,23 +72,62 @@ class AppBarWidget extends StatelessWidget {
   final BusinessProfileScreenController viewController;
 
   @override
+  State<AppBarWidget> createState() => _AppBarWidgetState();
+}
+
+class _AppBarWidgetState extends State<AppBarWidget> {
+  bool isEditingBusinessName = false;
+  late TextEditingController _businessNameController;
+
+  @override
+  void initState() {
+    _businessNameController =
+        TextEditingController(text: widget.viewController.getBusinessName());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: viewController.isBusinessOwner(null),
+      future: widget.viewController.isBusinessOwner(null),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return snapshot.data!
               ? InkWell(
-                  child: Text(
-                    viewController.getBusinessName(),
-                    style: Theme.of(context).textTheme.headlineSmall!,
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                  ),
+                  onTap: () => setState(() {
+                    isEditingBusinessName = true;
+                  }),
+                  child: isEditingBusinessName
+                      ? TextField(
+                          focusNode: FocusNode()..requestFocus(),
+                          controller: _businessNameController,
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            contentPadding:
+                                const EdgeInsets.symmetric(horizontal: 8),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.check),
+                              onPressed: () {
+                                widget.viewController.updateBusinessName(
+                                    context, _businessNameController.text);
+                                setState(() {
+                                  isEditingBusinessName = false;
+                                });
+                              },
+                            ),
+                          ),
+                          maxLines: null,
+                        )
+                      : Text(
+                          widget.viewController.getBusinessName(),
+                          style: Theme.of(context).textTheme.headlineSmall!,
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                        ),
                 )
               : const Text('Negócio');
         } else {
-          return const Text('Negócio');
+          return const LinearProgressIndicator();
         }
       },
     );

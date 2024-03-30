@@ -27,30 +27,59 @@ class BusinessStatusWidget extends ConsumerWidget {
         .watch(businessProfileScreenControllerProvider.notifier)
         .getBusinessStatusColor();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).scaffoldBackgroundColor.withAlpha(100),
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Icon(
-              Icons.circle,
-              size: 12,
-              color: businessStatusColor,
-            ),
-            const SizedBox(width: 2),
-            Text(
-              businessStatusTranslated,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: businessStatusColor,
-                  ),
+    return InkWell(
+      onTap: () => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Status do Negócio'),
+          content: DropdownButton<String>(
+            value: businessStatusTranslated,
+            borderRadius: BorderRadius.circular(20),
+            items: statusTranslations.values
+                .map((status) => DropdownMenuItem(
+                      value: status,
+                      child: Text(status),
+                    ))
+                .toList(),
+            onChanged: (value) {
+              ref
+                  .read(businessProfileScreenControllerProvider.notifier)
+                  .changeBusinessStatus(status: value!);
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Fechar'),
             ),
           ],
+        ),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor.withAlpha(100),
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Icon(
+                Icons.circle,
+                size: 12,
+                color: businessStatusColor,
+              ),
+              const SizedBox(width: 2),
+              Text(
+                businessStatusTranslated,
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: businessStatusColor,
+                    ),
+              ),
+            ],
+          ),
         ),
       ),
     );
