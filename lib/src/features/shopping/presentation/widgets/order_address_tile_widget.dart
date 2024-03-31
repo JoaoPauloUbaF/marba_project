@@ -181,7 +181,10 @@ class _OrderAddressModalWidgetState
                         context: context,
                         scrollControlDisabledMaxHeightRatio: 0.7,
                         builder: (context) {
-                          return const AddNewAddressModalWidget();
+                          return const AddressFormModalWidget(
+                            title: 'Adicionar novo endereço',
+                            currentAddress: null,
+                          );
                         },
                       );
                     },
@@ -203,18 +206,24 @@ class _OrderAddressModalWidgetState
   }
 }
 
-class AddNewAddressModalWidget extends ConsumerStatefulWidget {
-  const AddNewAddressModalWidget({
+class AddressFormModalWidget extends ConsumerStatefulWidget {
+  final String title;
+
+  final Address? currentAddress;
+
+  const AddressFormModalWidget({
     super.key,
+    required this.currentAddress,
+    required this.title,
   });
 
   @override
-  ConsumerState<AddNewAddressModalWidget> createState() =>
+  ConsumerState<AddressFormModalWidget> createState() =>
       _AddNewAddressModalWidgetState();
 }
 
 class _AddNewAddressModalWidgetState
-    extends ConsumerState<AddNewAddressModalWidget> {
+    extends ConsumerState<AddressFormModalWidget> {
   TextEditingController streetController = TextEditingController();
   TextEditingController numberController = MaskedTextController(mask: '00000');
   TextEditingController zipCodeController =
@@ -223,6 +232,26 @@ class _AddNewAddressModalWidgetState
   TextEditingController cityController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    if (widget.currentAddress != null) {
+      streetController =
+          TextEditingController(text: widget.currentAddress?.street ?? '');
+      numberController = MaskedTextController(
+          mask: '00000', text: widget.currentAddress?.number ?? '');
+      zipCodeController = MaskedTextController(
+          mask: '00000-000', text: widget.currentAddress?.zipCode ?? '');
+      neighborhoodController = TextEditingController(
+          text: widget.currentAddress?.neighborhood ?? '');
+      cityController =
+          TextEditingController(text: widget.currentAddress?.city ?? '');
+      stateController =
+          TextEditingController(text: widget.currentAddress?.state ?? '');
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +276,7 @@ class _AddNewAddressModalWidgetState
                 const VerticalSpaceMediumWidget(),
                 const VerticalSpaceMediumWidget(),
                 Text(
-                  'Adicionar Novo Endereço',
+                  widget.title,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -366,7 +395,8 @@ class _AddNewAddressModalWidgetState
                             return;
                           }
                           ref
-                              .read(userProfileDataProvider)
+                              .read(
+                                  userProfileDataProvider) //TODO: move to location management
                               .addDeliveryAddress(uid: user.id, address: {
                             'street': streetController.text,
                             'number': numberController.text,
@@ -419,7 +449,11 @@ class _AddNewAddressModalWidgetState
                       );
                     }
                   },
-                  child: const Text('Adicionar'),
+                  child: Text(
+                    widget.currentAddress != null
+                        ? 'Atualizar endereço'
+                        : 'Adicionar endereço',
+                  ),
                 ),
                 const VerticalSpaceMediumWidget(),
                 const VerticalSpaceMediumWidget(),

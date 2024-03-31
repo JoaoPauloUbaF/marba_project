@@ -15,26 +15,28 @@ class BusinessCategoryTilesWidget extends ConsumerWidget {
     final businessCategories =
         ref.watch(businessProfileScreenControllerProvider)?.categories;
 
-    return Wrap(
-      children: businessCategories != null
-          ? businessCategories.map((category) {
-              String translatedCategory =
-                  categoriesTranslations[category] ?? category.toString();
+    return InkWell(
+      child: Wrap(
+        children: businessCategories != null
+            ? businessCategories.map((category) {
+                String translatedCategory =
+                    categoriesTranslations[category] ?? category.toString();
 
-              return SizedBox(
-                child: Card(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Text(
-                      translatedCategory,
-                      style: const TextStyle(fontSize: 12),
+                return SizedBox(
+                  child: Card(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        translatedCategory,
+                        style: const TextStyle(fontSize: 12),
+                      ),
                     ),
                   ),
-                ),
-              );
-            }).toList()
-          : const <Widget>[],
+                );
+              }).toList()
+            : const <Widget>[],
+      ),
     );
   }
 }

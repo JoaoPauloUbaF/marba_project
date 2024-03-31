@@ -19,7 +19,8 @@ class CartItemList extends _$CartItemList {
     state = List.from(state);
   }
 
-  void createNewItem(String id, String name, double price, String imageUrl) {
+  void createNewItem(String id, String name, double price, String imageUrl,
+      String businessId) {
     if (state.any((element) => element.id == id)) {
       final item = state.firstWhere((element) => element.id == id);
       increaseItemQuantity(item);
@@ -32,6 +33,7 @@ class CartItemList extends _$CartItemList {
       price: price,
       imageUrl: imageUrl,
       quantity: 1,
+      businessId: businessId,
     );
     addItem(item);
   }
@@ -89,11 +91,16 @@ class CartItemList extends _$CartItemList {
 
   getTotalWithDeliveryAndDiscount() {
     final discount = ref.read(shoppingCartDiscountProvider(total));
-    final deliveryTax = ref.read(deliveryTaxProvider);
+    String deliveryTax = 'R\$ 0.0';
+    ref.read(deliveryTaxProvider).whenData((value) => deliveryTax = value);
     final ru = RegistrationUtils();
     final finalTotalValue = ru.currencyStringToDouble(getTotal()) +
         ru.currencyStringToDouble(deliveryTax) -
         ru.currencyStringToDouble(discount);
     return ru.formatAsCurrency(finalTotalValue);
+  }
+
+  getDeliveryFee() {
+    return ref.read(deliveryTaxProvider);
   }
 }

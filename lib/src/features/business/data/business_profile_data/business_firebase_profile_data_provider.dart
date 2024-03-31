@@ -215,4 +215,20 @@ class BusinessFirebaseProfileDataProvider
       log('Document does not exist');
     }
   }
+
+  @override
+  Future<double> getBusinessDeliveryFee(businessId) async {
+    try {
+      final docSnapshot = await _businessCollection.doc(businessId).get();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        return data['deliveryFee'] ?? 0.0;
+      } else {
+        return 0.0;
+      }
+    } catch (e) {
+      log('Error getting delivery fee: $e');
+      return 0.0;
+    }
+  }
 }

@@ -40,5 +40,6 @@ class MockUtils {
     imageUrl:
         'https://d1ncau8tqf99kp.cloudfront.net/converted/74739_original_local_504x441_v3_converted.webp',
     quantity: 1,
+    businessId: '',
   );
 }
