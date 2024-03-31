@@ -1,10 +1,8 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_category_tiles_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_status_widget.dart';
 import 'package:project_marba/src/shared/models/business/business.dart';
 
 class BusinessContactInfoCardWidget extends ConsumerWidget {
@@ -42,7 +40,7 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
   }
 }
 
-class BusinessPhoneAndEmail extends StatefulWidget {
+class BusinessPhoneAndEmail extends ConsumerStatefulWidget {
   const BusinessPhoneAndEmail({
     super.key,
     required this.business,
@@ -51,10 +49,11 @@ class BusinessPhoneAndEmail extends StatefulWidget {
   final Business? business;
 
   @override
-  State<BusinessPhoneAndEmail> createState() => _BusinessPhoneAndEmailState();
+  ConsumerState<BusinessPhoneAndEmail> createState() =>
+      _BusinessPhoneAndEmailState();
 }
 
-class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
+class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
   bool isEditingEmail = false;
   bool isEditingPhone = false;
   TextEditingController emailController = TextEditingController();
@@ -71,6 +70,8 @@ class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
 
   @override
   Widget build(BuildContext context) {
+    final viewController =
+        ref.watch(businessProfileScreenControllerProvider.notifier);
     return Row(
       children: [
         const Spacer(),
@@ -101,6 +102,8 @@ class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
                             icon: const Icon(Icons.check),
                             onPressed: () {
                               setState(() {
+                                viewController.updateBusinessPhoneNumber(
+                                    phoneController.text);
                                 isEditingPhone =
                                     false; //TODO: implementar atualização do telefone
                               });
@@ -145,6 +148,8 @@ class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
                             icon: const Icon(Icons.check),
                             onPressed: () {
                               setState(() {
+                                viewController
+                                    .updateBusinessEmail(emailController.text);
                                 isEditingEmail =
                                     false; //TODO: implementar atualização do email
                               });
@@ -152,6 +157,7 @@ class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
                           ),
                         ),
                         controller: emailController,
+                        maxLines: null,
                       ),
                     )
                   : Text(
@@ -162,31 +168,6 @@ class _BusinessPhoneAndEmailState extends State<BusinessPhoneAndEmail> {
           ),
         ),
         const Spacer(),
-      ],
-    );
-  }
-}
-
-class BusinessNameAndStatus extends StatelessWidget {
-  const BusinessNameAndStatus({
-    super.key,
-    required this.business,
-  });
-
-  final Business? business;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          business?.name ?? '',
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
-        const SizedBox(width: 8),
-        const BusinessStatusWidget(),
       ],
     );
   }

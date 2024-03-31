@@ -219,6 +219,26 @@ class BusinessProfileScreenController
         )
         .then((value) => fetchBusinessProfile());
   }
+
+  void updateBusinessPhoneNumber(String text) {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessPhoneNumber(
+          uid: state?.id ?? '',
+          businessPhoneNumber: text,
+        )
+        .then((value) => fetchBusinessProfile());
+  }
+
+  void updateBusinessEmail(String text) {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessEmail(
+          uid: state?.id ?? '',
+          businessEmail: text,
+        )
+        .then((value) => fetchBusinessProfile());
+  }
 }
 
 final imageUploadingStatusProvider = StateProvider<bool>((ref) => false);

@@ -25,6 +25,7 @@ mixin _$CartItemModel {
   double get price => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
+  String get businessId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,7 +40,12 @@ abstract class $CartItemModelCopyWith<$Res> {
       _$CartItemModelCopyWithImpl<$Res, CartItemModel>;
   @useResult
   $Res call(
-      {String id, String name, double price, String imageUrl, int quantity});
+      {String id,
+      String name,
+      double price,
+      String imageUrl,
+      int quantity,
+      String businessId});
 }
 
 /// @nodoc
@@ -60,6 +66,7 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
     Object? price = null,
     Object? imageUrl = null,
     Object? quantity = null,
+    Object? businessId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -82,6 +89,10 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      businessId: null == businessId
+          ? _value.businessId
+          : businessId // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -95,7 +106,12 @@ abstract class _$$CartItemModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id, String name, double price, String imageUrl, int quantity});
+      {String id,
+      String name,
+      double price,
+      String imageUrl,
+      int quantity,
+      String businessId});
 }
 
 /// @nodoc
@@ -114,6 +130,7 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
     Object? price = null,
     Object? imageUrl = null,
     Object? quantity = null,
+    Object? businessId = null,
   }) {
     return _then(_$CartItemModelImpl(
       id: null == id
@@ -136,6 +153,10 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
+      businessId: null == businessId
+          ? _value.businessId
+          : businessId // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -148,7 +169,8 @@ class _$CartItemModelImpl implements _CartItemModel {
       required this.name,
       required this.price,
       required this.imageUrl,
-      required this.quantity});
+      required this.quantity,
+      required this.businessId});
 
   factory _$CartItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartItemModelImplFromJson(json);
@@ -163,10 +185,12 @@ class _$CartItemModelImpl implements _CartItemModel {
   final String imageUrl;
   @override
   final int quantity;
+  @override
+  final String businessId;
 
   @override
   String toString() {
-    return 'CartItemModel(id: $id, name: $name, price: $price, imageUrl: $imageUrl, quantity: $quantity)';
+    return 'CartItemModel(id: $id, name: $name, price: $price, imageUrl: $imageUrl, quantity: $quantity, businessId: $businessId)';
   }
 
   @override
@@ -180,13 +204,15 @@ class _$CartItemModelImpl implements _CartItemModel {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.quantity, quantity) ||
-                other.quantity == quantity));
+                other.quantity == quantity) &&
+            (identical(other.businessId, businessId) ||
+                other.businessId == businessId));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, name, price, imageUrl, quantity);
+      Object.hash(runtimeType, id, name, price, imageUrl, quantity, businessId);
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +234,8 @@ abstract class _CartItemModel implements CartItemModel {
       required final String name,
       required final double price,
       required final String imageUrl,
-      required final int quantity}) = _$CartItemModelImpl;
+      required final int quantity,
+      required final String businessId}) = _$CartItemModelImpl;
 
   factory _CartItemModel.fromJson(Map<String, dynamic> json) =
       _$CartItemModelImpl.fromJson;
@@ -223,6 +250,8 @@ abstract class _CartItemModel implements CartItemModel {
   String get imageUrl;
   @override
   int get quantity;
+  @override
+  String get businessId;
   @override
   @JsonKey(ignore: true)
   _$$CartItemModelImplCopyWith<_$CartItemModelImpl> get copyWith =>

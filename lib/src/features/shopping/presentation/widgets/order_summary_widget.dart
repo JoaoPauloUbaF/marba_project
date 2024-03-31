@@ -17,9 +17,8 @@ class OrderSummaryWidget extends ConsumerWidget {
     final controller = ref.watch(cartItemListProvider.notifier);
     final total = controller.getTotal();
     final discount = ref.watch(shoppingCartDiscountProvider(controller.total));
-    final deliveryTax = ref.watch(deliveryTaxProvider);
+    final deliveryFee = controller.getDeliveryFee();
     final totalWithDelivery = controller.getTotalWithDeliveryAndDiscount();
-
     return Column(
       children: [
         ListTile(
@@ -80,7 +79,7 @@ class OrderSummaryWidget extends ConsumerWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              '+ $deliveryTax',
+              '+ $deliveryFee',
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
