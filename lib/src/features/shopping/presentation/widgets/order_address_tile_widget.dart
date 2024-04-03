@@ -1,6 +1,7 @@
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
 import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
 import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
@@ -22,17 +23,16 @@ class OrderAddressTileWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orderAddress = ref.watch(deliveryAddressProvider);
-    ref.read(userAddressListProvider);
-    return ref.read(userAddressListProvider).when(
-          data: (address) {
-            if (address.first == null) {
-              return const OrderAddressToSignInWidget();
-            }
-            return OrderAddressTileContentWidget(address: address.first);
-          },
-          loading: () => const CircularProgressIndicator(),
-          error: (error, stackTrace) => Text('Erro: $error'),
-        );
+    return orderAddress.when(
+      data: (address) {
+        if (address == null) {
+          return const OrderAddressToSignInWidget();
+        }
+        return OrderAddressTileContentWidget(address: address);
+      },
+      loading: () => const CircularProgressIndicator(),
+      error: (error, stackTrace) => Text('Erro: $error'),
+    );
   }
 }
 
