@@ -6,13 +6,13 @@ part of 'user_address_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userAddressListHash() => r'6c27c3223b536a4a6194168d298925802e5a533a';
+String _$userAddressListHash() => r'bc4bba13329043fcf98863f8761940937022fdc5';
 
-/// See also [UserAddressList].
-@ProviderFor(UserAddressList)
+/// See also [userAddressList].
+@ProviderFor(userAddressList)
 final userAddressListProvider =
-    AutoDisposeStreamNotifierProvider<UserAddressList, List<Address>>.internal(
-  UserAddressList.new,
+    AutoDisposeStreamProvider<List<Address>>.internal(
+  userAddressList,
   name: r'userAddressListProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
@@ -21,6 +21,6 @@ final userAddressListProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$UserAddressList = AutoDisposeStreamNotifier<List<Address>>;
+typedef UserAddressListRef = AutoDisposeStreamProviderRef<List<Address>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
