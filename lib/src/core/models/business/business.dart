@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
 
 import 'enums.dart';
 

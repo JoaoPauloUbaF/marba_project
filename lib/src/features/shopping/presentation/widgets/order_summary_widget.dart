@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
-import 'package:project_marba/src/features/shopping/application/delivery_provider/delivery_provider.dart';
 import 'package:project_marba/src/features/shopping/application/discount_coupon_provider/discount_coupon_provider.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/discount_coupon_modal.dart';
-import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 class OrderSummaryWidget extends ConsumerWidget {
   const OrderSummaryWidget({

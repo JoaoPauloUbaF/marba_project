@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';

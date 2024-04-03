@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_forms_screen_controller.g.dart';

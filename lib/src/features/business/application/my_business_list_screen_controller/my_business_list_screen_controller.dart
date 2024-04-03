@@ -1,17 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
-import 'package:project_marba/src/shared/models/business/business.dart';
+import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../../shared/models/address/address.dart';
-import '../../../../shared/models/business/enums.dart';
+import '../../../../core/models/business/enums.dart';
 
 part 'my_business_list_screen_controller.g.dart';
 

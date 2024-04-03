@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../shared/models/business/enums.dart';
+import '../../../../core/models/business/enums.dart';
 
 class BusinessCategoryChipsWidget extends StatefulWidget {
   final Set<BusinessCategory> selectedCategories;

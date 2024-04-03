@@ -8,11 +8,11 @@ import 'package:project_marba/src/features/offers_management/data/offer_data_rep
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
-import '../../../../shared/models/offer/offer_model.dart';
-import '../../../../shared/models/product/enums.dart';
-import '../../../../shared/models/product/product.dart';
-import '../../../../shared/models/service/enums.dart';
-import '../../../../shared/models/service/service.dart';
+import '../../../../core/models/offer/offer_model.dart';
+import '../../../../core/models/product/enums.dart';
+import '../../../../core/models/product/product.dart';
+import '../../../../core/models/service/enums.dart';
+import '../../../../core/models/service/service.dart';
 import '../../../business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
 part 'offer_creation_controller.g.dart';

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_data_repository.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
-import 'package:project_marba/src/shared/models/user/user_model.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/core/models/user/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final firestoreProfileDataProvider = Provider<ProfileDataRepository>((ref) {

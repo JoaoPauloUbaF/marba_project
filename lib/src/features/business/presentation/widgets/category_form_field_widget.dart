@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_category_chips_widget.dart';
-import 'package:project_marba/src/shared/models/business/enums.dart';
+import 'package:project_marba/src/core/models/business/enums.dart';
 
 class CategoryFormFieldWidget extends StatelessWidget {
   const CategoryFormFieldWidget({

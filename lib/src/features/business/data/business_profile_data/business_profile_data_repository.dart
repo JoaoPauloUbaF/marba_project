@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_marba/src/shared/models/business/business.dart';
+import 'package:project_marba/src/core/models/business/business.dart';
 
 abstract class BusinessProfileDataRepository {
   Future<DocumentSnapshot?> createBusinessProfile({required Business business});

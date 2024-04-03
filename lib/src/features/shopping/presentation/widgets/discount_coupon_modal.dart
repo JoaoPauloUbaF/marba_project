@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 class DiscountCouponModal extends StatelessWidget {
   const DiscountCouponModal({

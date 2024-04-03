@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../../shared/models/offer/offer_model.dart';
-import '../../../../shared/models/product/enums.dart';
-import '../../../../shared/models/service/enums.dart';
+import '../../../../core/models/offer/offer_model.dart';
+import '../../../../core/models/product/enums.dart';
+import '../../../../core/models/service/enums.dart';
 import '../../application/offer_list/feed_offers_type_filter_provider.dart';
 import '../../application/offer_list/offer_product_category_filter_provider.dart';
 import '../../application/offer_list/offer_service_category_filter_provider.dart';

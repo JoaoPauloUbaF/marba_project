@@ -8,8 +8,8 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_info_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_ordering_actions_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/other_business_offers_widget.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
-import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 import '../../application/offer_details/offer_details_controller.dart';
 import '../widgets/offer_media_widget.dart';

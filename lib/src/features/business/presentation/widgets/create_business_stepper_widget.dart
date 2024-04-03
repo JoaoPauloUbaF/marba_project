@@ -6,7 +6,7 @@ import 'package:project_marba/src/features/business/presentation/widgets/busines
 import 'package:project_marba/src/features/business/presentation/widgets/business_info_form_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/category_form_field_widget.dart';
 
-import '../../../../shared/models/business/enums.dart';
+import '../../../../core/models/business/enums.dart';
 
 class CreateBusinessStepperWidget extends ConsumerStatefulWidget {
   const CreateBusinessStepperWidget({super.key});

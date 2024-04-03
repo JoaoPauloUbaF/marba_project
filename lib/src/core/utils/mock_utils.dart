@@ -1,4 +1,4 @@
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 import '../models/cart_item/cart_item_model.dart';
 
