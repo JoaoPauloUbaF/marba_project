@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/shared/models/cart_item/cart_item_model.dart';
-import 'package:project_marba/src/shared/utils/registration_utils.dart';
+import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../delivery_provider/delivery_provider.dart';

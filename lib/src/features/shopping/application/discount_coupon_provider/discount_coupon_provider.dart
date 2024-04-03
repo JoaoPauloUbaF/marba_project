@@ -1,4 +1,4 @@
-import 'package:project_marba/src/shared/utils/registration_utils.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'discount_coupon_provider.g.dart';

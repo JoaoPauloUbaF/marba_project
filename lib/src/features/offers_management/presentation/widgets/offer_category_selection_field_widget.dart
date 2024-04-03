@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 import '../../application/offer_creation/offer_creation_controller.dart';
 

@@ -1,5 +1,5 @@
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
-import 'package:project_marba/src/shared/models/user/user_model.dart';
+import 'package:project_marba/src/core/models/user/user_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../data/user_firestore_profile_data_provider.dart';

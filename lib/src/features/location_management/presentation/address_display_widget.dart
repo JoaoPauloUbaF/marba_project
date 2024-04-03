@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_address_tile_widget.dart';
 
-import '../../../shared/models/address/address.dart';
+import '../../../core/models/address/address.dart';
 
 class AddressDisplayWidget extends StatelessWidget {
   final Address address;

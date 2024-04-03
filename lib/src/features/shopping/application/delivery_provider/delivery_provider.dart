@@ -1,6 +1,6 @@
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
-import 'package:project_marba/src/shared/utils/registration_utils.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'delivery_provider.g.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_controller.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../business/data/business_profile_data/business_profile_provider.dart';

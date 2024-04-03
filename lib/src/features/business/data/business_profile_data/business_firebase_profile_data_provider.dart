@@ -3,11 +3,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:project_marba/src/shared/models/business/business.dart';
+import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../../../../shared/models/address/address.dart';
-import '../../../../shared/models/business/enums.dart';
+import '../../../../core/models/address/address.dart';
+import '../../../../core/models/business/enums.dart';
 import 'business_profile_data_repository.dart';
 
 final firestoreBusinessProfileDataProvider =

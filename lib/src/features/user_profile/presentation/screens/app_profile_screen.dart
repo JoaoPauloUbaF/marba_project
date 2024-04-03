@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/user_profile/application/profile_screen_controller/profile_screen_controller.dart';
-import 'package:project_marba/src/shared/models/address/address.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
 
 import '../../../darkmode/presentation/components/theme_switch_widget.dart';
 import '../../../location_management/presentation/address_display_widget.dart';

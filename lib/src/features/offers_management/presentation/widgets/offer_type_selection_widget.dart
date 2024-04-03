@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 class OfferTypeSelection extends StatefulWidget {
   final Function(OfferType) onTypeSelected;

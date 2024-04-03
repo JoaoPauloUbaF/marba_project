@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'feed_offers_type_filter_provider.g.dart';

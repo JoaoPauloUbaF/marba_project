@@ -4,7 +4,7 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_header_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_price_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_rating_widget.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 class OfferInfoWidget extends ConsumerWidget {
   const OfferInfoWidget({

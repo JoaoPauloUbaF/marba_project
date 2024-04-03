@@ -1,17 +1,21 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
+import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/cart_items_list_view_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/check_out_button_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_summary_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_address_tile_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_payment_method_widget.dart';
-import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 class ShoppingCartScreen extends ConsumerWidget {
   const ShoppingCartScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _ = ref.watch(authStateChangeProvider);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(

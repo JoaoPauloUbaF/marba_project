@@ -10,7 +10,7 @@ import 'package:project_marba/src/features/authentication/data/firebase_auth_pro
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
-import 'package:project_marba/src/shared/models/business/business.dart';
+import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:project_marba/src/shared/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 class OrderPaymentMethodWidget extends ConsumerStatefulWidget {
   const OrderPaymentMethodWidget({

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
-import 'package:project_marba/src/shared/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 class OrderingActionsWidget extends ConsumerWidget {
   //TODO: order and cart features

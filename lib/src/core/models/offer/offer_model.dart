@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:project_marba/src/shared/models/review/review_model.dart';
+import 'package:project_marba/src/core/models/review/review_model.dart';
 
 import '../product/product.dart';
 import '../service/service.dart';

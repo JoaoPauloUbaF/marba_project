@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../shared/models/offer/offer_model.dart';
-import '../../../../shared/widgets/medium_vertical_space_widget.dart';
+import '../../../../core/models/offer/offer_model.dart';
+import '../../../../core/widgets/medium_vertical_space_widget.dart';
 import '../../application/offer_edition/offer_edition_controller.dart';
 import '../../data/offer_data_repository_provider.dart';
 
