@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/user_profile/application/profile_screen_controller/profile_screen_controller.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 

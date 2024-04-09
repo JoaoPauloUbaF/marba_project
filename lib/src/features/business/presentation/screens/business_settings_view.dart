@@ -5,9 +5,6 @@ import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/shopping/application/delivery_provider/delivery_provider.dart';
-
-import '../../data/business_profile_data/business_profile_provider.dart';
 
 class BusinessSettingsView extends StatelessWidget {
   const BusinessSettingsView({super.key});
