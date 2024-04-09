@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
 
 import '../../application/user_address_list_provider/user_address_list_provider.dart';
@@ -38,14 +39,7 @@ class _OrderAddressModalWidgetState
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  height: 4,
-                  width: MediaQuery.of(context).size.width * 0.5,
-                ),
+                const ModalCenterTopLineWidget(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(

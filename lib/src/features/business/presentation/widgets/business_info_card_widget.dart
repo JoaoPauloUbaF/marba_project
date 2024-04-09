@@ -27,7 +27,6 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            //BusinessNameAndStatus(business: business),
             const SizedBox(height: 8),
             BusinessPhoneAndEmail(business: business),
             const SizedBox(height: 8),
