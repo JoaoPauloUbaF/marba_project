@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
+import 'package:project_marba/src/features/shopping/application/delivery_provider/delivery_provider.dart';
 import 'package:project_marba/src/features/shopping/application/discount_coupon_provider/discount_coupon_provider.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/discount_coupon_modal.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
@@ -12,11 +13,11 @@ class OrderSummaryWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(cartItemListProvider);
+    final cartItems = ref.watch(cartItemListProvider);
     final controller = ref.watch(cartItemListProvider.notifier);
     final total = controller.getTotal();
     final discount = ref.watch(shoppingCartDiscountProvider(controller.total));
-    final deliveryFee = controller.getDeliveryFee();
+    final deliveryFee = ref.watch(deliveryTaxProvider(cartOffers: cartItems));
     final totalWithDelivery = controller.getTotalWithDeliveryAndDiscount();
     return Column(
       children: [
@@ -77,12 +78,27 @@ class OrderSummaryWidget extends ConsumerWidget {
               'Entrega',
               style: Theme.of(context).textTheme.titleMedium,
             ),
-            Text(
-              '+ $deliveryFee',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+            deliveryFee.when(
+              data: (value) => Text(
+                '+ $value',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              loading: () => const CircularProgressIndicator(),
+              error: (error, _) => Text(
+                'Erro: $error',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
             ),
+            // Text(
+            //   '+ $deliveryFee',
+            //   style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            //         fontWeight: FontWeight.bold,
+            //       ),
+            // ),
           ],
         ),
         const VerticalSpaceMediumWidget(),

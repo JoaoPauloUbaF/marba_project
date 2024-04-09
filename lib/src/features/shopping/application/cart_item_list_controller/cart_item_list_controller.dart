@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../delivery_provider/delivery_provider.dart';
@@ -92,7 +93,9 @@ class CartItemList extends _$CartItemList {
   String getTotalWithDeliveryAndDiscount() {
     final discount = ref.read(shoppingCartDiscountProvider(total));
     String deliveryTax = 'R\$ 0.0';
-    ref.read(deliveryTaxProvider).whenData((value) => deliveryTax = value);
+    ref
+        .read(deliveryTaxProvider(cartOffers: state))
+        .whenData((value) => deliveryTax = value);
     final ru = RegistrationUtils();
     final finalTotalValue = ru.currencyStringToDouble(getTotal()) +
         ru.currencyStringToDouble(deliveryTax) -
@@ -100,9 +103,7 @@ class CartItemList extends _$CartItemList {
     return ru.formatAsCurrency(finalTotalValue);
   }
 
-  String getDeliveryFee() {
-    String deliveryTax = 'R\$ 0.0';
-    ref.read(deliveryTaxProvider).whenData((value) => deliveryTax = value);
-    return deliveryTax;
+  AsyncValue<String> getDeliveryFee() {
+    return ref.read(deliveryTaxProvider(cartOffers: state));
   }
 }
