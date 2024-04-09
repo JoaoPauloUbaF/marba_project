@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
-import 'package:project_marba/src/features/shopping/presentation/widgets/order_address_modal_widget.dart';
+import 'package:project_marba/src/features/location_management/presentation/widgets/order_address_modal_widget.dart';
 
 class OrderAddressTileContentWidget extends StatelessWidget {
   final Address address;

@@ -1,40 +1,11 @@
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
-import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
-import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
-import 'package:project_marba/src/features/shopping/presentation/widgets/order_address_tile_content_widget.dart';
-import 'package:project_marba/src/features/shopping/presentation/widgets/order_address_to_sign_in_widget.dart';
-import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
-import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
-import 'package:project_marba/src/core/models/address/address.dart';
-import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../../core/models/address/address.dart';
 import '../../../../core/utils/registration_utils.dart';
-import '../../../user_profile/application/profile_forms_controller/profile_forms_screen_controller.dart';
-
-class OrderAddressTileWidget extends ConsumerWidget {
-  const OrderAddressTileWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final orderAddress = ref.watch(deliveryAddressProvider);
-    return orderAddress.when(
-      data: (address) {
-        if (address == null) {
-          return const OrderAddressToSignInWidget();
-        }
-        return OrderAddressTileContentWidget(address: address);
-      },
-      loading: () => const CircularProgressIndicator(),
-      error: (error, stackTrace) => Text('Erro: $error'),
-    );
-  }
-}
+import '../../../../core/widgets/medium_vertical_space_widget.dart';
+import '../../application/address_view_model/address_view_model.dart';
 
 class AddressFormModalWidget extends ConsumerStatefulWidget {
   final String title;
@@ -49,10 +20,10 @@ class AddressFormModalWidget extends ConsumerStatefulWidget {
 
   @override
   ConsumerState<AddressFormModalWidget> createState() =>
-      _AddNewAddressModalWidgetState();
+      _AddressFormModalWidgetState();
 }
 
-class _AddNewAddressModalWidgetState
+class _AddressFormModalWidgetState
     extends ConsumerState<AddressFormModalWidget> {
   TextEditingController streetController = TextEditingController();
   TextEditingController numberController = MaskedTextController(mask: '00000');
@@ -65,7 +36,6 @@ class _AddNewAddressModalWidgetState
 
   @override
   void initState() {
-    // TODO: implement initState
     if (widget.currentAddress != null) {
       streetController =
           TextEditingController(text: widget.currentAddress?.street ?? '');
@@ -85,7 +55,10 @@ class _AddNewAddressModalWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final validator = ref.read(profileFormsScreenControllerProvider.notifier);
+    final pageState = ref.watch(addressViewModelProvider);
+    final viewModel = ref.read(addressViewModelProvider.notifier);
+    final validator = viewModel.validator;
+
     return SizedBox(
       child: Form(
         key: formKey,
@@ -216,68 +189,16 @@ class _AddNewAddressModalWidgetState
                     ),
                   ),
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      var user = ref.read(currentUserProvider);
-
-                      user.when(
-                        data: (user) {
-                          if (user == null) {
-                            return;
-                          }
-                          ref
-                              .read(
-                                  userProfileDataProvider) //TODO: move to location management
-                              .addDeliveryAddress(uid: user.id, address: {
-                            'street': streetController.text,
-                            'number': numberController.text,
-                            'zipCode': zipCodeController.text,
-                            'neighborhood': neighborhoodController.text,
-                            'city': cityController.text,
-                            'state': stateController.text,
-                          }).then(
-                            (value) => showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: const Center(child: Text('Sucesso')),
-                                content: const Text(
-                                    'Endereço adicionado com sucesso'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Ok'),
-                                  ),
-                                ],
-                              ),
-                            ).then((value) => Navigator.of(context).pop()),
-                          );
-                        },
-                        loading: () {
-                          showDialog(
-                            context: context,
-                            builder: (_) => const LoadingWidget(),
-                          );
-                        },
-                        error: (error, stackTrace) {
-                          showDialog(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                        title: const Text('Erro'),
-                                        content: Text('Erro: $error'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('Ok'),
-                                          ),
-                                        ],
-                                      ))
-                              .then((value) => Navigator.of(context).pop());
-                        },
-                      );
-                    }
+                    viewModel.onAddressTileTap(
+                      context: context,
+                      formKey: formKey,
+                      street: streetController.text,
+                      number: numberController.text,
+                      zipCode: zipCodeController.text,
+                      neighborhood: neighborhoodController.text,
+                      city: cityController.text,
+                      state: stateController.text,
+                    );
                   },
                   child: Text(
                     widget.currentAddress != null

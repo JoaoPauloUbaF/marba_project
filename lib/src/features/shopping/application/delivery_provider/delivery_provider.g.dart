@@ -6,7 +6,7 @@ part of 'delivery_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$deliveryTaxHash() => r'2f33f2ad9e199cf94332cc6c1dd8ae59cb2a109e';
+String _$deliveryTaxHash() => r'9f4458ebe9995213f5ce43dfe1c92543f0be0b74';
 
 /// See also [deliveryTax].
 @ProviderFor(deliveryTax)
