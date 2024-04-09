@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_type_filter_widget.dart';
 
 import '../../../offers_management/presentation/widgets/offers_list_widget.dart';
