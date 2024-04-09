@@ -4,7 +4,7 @@ import 'package:project_marba/src/features/authentication/data/firebase_auth_pro
 import 'package:project_marba/src/features/shopping/presentation/widgets/cart_items_list_view_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/check_out_button_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_summary_widget.dart';
-import 'package:project_marba/src/features/shopping/presentation/widgets/order_address_tile_widget.dart';
+import 'package:project_marba/src/features/location_management/presentation/widgets/order_address_tile_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_payment_method_widget.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 

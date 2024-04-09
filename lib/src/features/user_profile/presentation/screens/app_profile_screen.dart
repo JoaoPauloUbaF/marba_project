@@ -5,7 +5,7 @@ import 'package:project_marba/src/features/user_profile/application/profile_scre
 import 'package:project_marba/src/core/models/address/address.dart';
 
 import '../../../darkmode/presentation/components/theme_switch_widget.dart';
-import '../../../location_management/presentation/address_display_widget.dart';
+import '../../../location_management/presentation/widgets/address_display_widget.dart';
 
 class AppProfileScreen extends ConsumerWidget {
   const AppProfileScreen({super.key}); //TODO: Create my own profile screen

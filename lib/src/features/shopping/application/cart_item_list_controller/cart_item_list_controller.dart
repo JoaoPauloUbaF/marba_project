@@ -89,7 +89,7 @@ class CartItemList extends _$CartItemList {
     return totalString;
   }
 
-  getTotalWithDeliveryAndDiscount() {
+  String getTotalWithDeliveryAndDiscount() {
     final discount = ref.read(shoppingCartDiscountProvider(total));
     String deliveryTax = 'R\$ 0.0';
     ref.read(deliveryTaxProvider).whenData((value) => deliveryTax = value);
@@ -100,7 +100,9 @@ class CartItemList extends _$CartItemList {
     return ru.formatAsCurrency(finalTotalValue);
   }
 
-  getDeliveryFee() {
-    return ref.read(deliveryTaxProvider);
+  String getDeliveryFee() {
+    String deliveryTax = 'R\$ 0.0';
+    ref.read(deliveryTaxProvider).whenData((value) => deliveryTax = value);
+    return deliveryTax;
   }
 }

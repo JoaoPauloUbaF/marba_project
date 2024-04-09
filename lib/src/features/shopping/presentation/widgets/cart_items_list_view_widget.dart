@@ -11,13 +11,22 @@ class CartItemsListViewWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(cartItemListProvider);
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return CartItemWidget(item: items.elementAt(index));
-      },
-      physics: const NeverScrollableScrollPhysics(),
-    );
+    return items.isEmpty
+        ? const Center(
+            child: Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Text('Seu carrinho está vazio.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16.0)),
+            ),
+          )
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              return CartItemWidget(item: items.elementAt(index));
+            },
+            physics: const NeverScrollableScrollPhysics(),
+          );
   }
 }
