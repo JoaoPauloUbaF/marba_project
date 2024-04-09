@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
+import 'package:project_marba/src/features/shopping/application/cart_item_list_view_model/cart_item_list_view_model.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/large_horizontal_space_widget.dart';
@@ -15,8 +15,8 @@ class CartItemWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(cartItemListProvider);
-    final cartItemListController = ref.read(cartItemListProvider.notifier);
+    final cartItemListViewModel =
+        ref.read(cartItemListViewModelProvider.notifier);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -57,11 +57,11 @@ class CartItemWidget extends ConsumerWidget {
                       child: IconButton.outlined(
                         color: Theme.of(context).colorScheme.primary,
                         icon: Icon(
-                            cartItemListController
+                            cartItemListViewModel
                                 .getDecreaseIcon(item.quantity),
                             size: 18.0),
                         onPressed: () {
-                          cartItemListController.decreaseItemQuantity(
+                          cartItemListViewModel.decreaseItemQuantity(
                               item, context);
                         },
                         padding: const EdgeInsets.all(0),
@@ -78,10 +78,10 @@ class CartItemWidget extends ConsumerWidget {
                       height: 30,
                       child: IconButton.outlined(
                         color: Theme.of(context).colorScheme.primary,
-                        icon: Icon(cartItemListController.getIncreaseIcon(item),
+                        icon: Icon(cartItemListViewModel.getIncreaseIcon(item),
                             size: 18.0),
                         onPressed: () {
-                          cartItemListController.increaseItemQuantity(item);
+                          cartItemListViewModel.increaseItemQuantity(item);
                         },
                         padding: const EdgeInsets.all(0),
                         constraints: const BoxConstraints(),

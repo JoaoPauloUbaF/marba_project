@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
+import 'package:project_marba/src/features/shopping/application/cart_item_list_view_model/cart_item_list_view_model.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 class OrderingActionsWidget extends ConsumerWidget {
@@ -14,6 +14,7 @@ class OrderingActionsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cartViewModel = ref.watch(cartItemListViewModelProvider.notifier);
     return Container(
       color: Theme.of(context).colorScheme.secondaryContainer,
       child: Padding(
@@ -31,15 +32,13 @@ class OrderingActionsWidget extends ConsumerWidget {
                                 Theme.of(context).colorScheme.onPrimary,
                           ),
                           onPressed: () {
-                            ref
-                                .read(cartItemListProvider.notifier)
-                                .createNewItem(
-                                  offer.id,
-                                  offer.title,
-                                  offer.finalPrice,
-                                  offer.imageUrl,
-                                  offer.businessId,
-                                );
+                            cartViewModel.createNewItem(
+                              offer.id,
+                              offer.title,
+                              offer.finalPrice,
+                              offer.imageUrl,
+                              offer.businessId,
+                            );
                             Navigator.pushNamed(context, '/shopping-cart');
                           },
                           icon: Icon(
@@ -125,6 +124,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
 
   @override
   Widget build(BuildContext context) {
+    final cartViewModel = ref.watch(cartItemListViewModelProvider.notifier);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
@@ -136,13 +136,13 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
       ),
       child: TextButton.icon(
         onPressed: () {
-          ref.read(cartItemListProvider.notifier).createNewItem(
-                widget.offer.id,
-                widget.offer.title,
-                widget.offer.finalPrice,
-                widget.offer.imageUrl,
-                widget.offer.businessId,
-              );
+          cartViewModel.createNewItem(
+            widget.offer.id,
+            widget.offer.title,
+            widget.offer.finalPrice,
+            widget.offer.imageUrl,
+            widget.offer.businessId,
+          );
           setState(() {
             _isAdded = true;
           });

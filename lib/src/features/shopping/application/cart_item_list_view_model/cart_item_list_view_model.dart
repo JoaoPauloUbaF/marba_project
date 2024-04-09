@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
-import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../delivery_provider/delivery_provider.dart';
 import '../discount_coupon_provider/discount_coupon_provider.dart';
 
-part 'cart_item_list_controller.g.dart';
+part 'cart_item_list_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
-class CartItemList extends _$CartItemList {
+class CartItemListViewModel extends _$CartItemListViewModel {
   @override
   List<CartItemModel> build() {
     return [];
@@ -101,9 +100,5 @@ class CartItemList extends _$CartItemList {
         ru.currencyStringToDouble(deliveryTax) -
         ru.currencyStringToDouble(discount);
     return ru.formatAsCurrency(finalTotalValue);
-  }
-
-  AsyncValue<String> getDeliveryFee() {
-    return ref.read(deliveryTaxProvider(cartOffers: state));
   }
 }

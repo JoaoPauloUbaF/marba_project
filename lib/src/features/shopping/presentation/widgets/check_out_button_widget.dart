@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/shopping/application/cart_item_list_controller/cart_item_list_controller.dart';
+import 'package:project_marba/src/features/shopping/application/cart_item_list_view_model/cart_item_list_view_model.dart';
 
 class CheckOutButtonWidget extends ConsumerWidget {
   const CheckOutButtonWidget({
@@ -9,10 +9,9 @@ class CheckOutButtonWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(cartItemListProvider);
-    final total = ref
-        .read(cartItemListProvider.notifier)
-        .getTotalWithDeliveryAndDiscount();
+    ref.watch(cartItemListViewModelProvider);
+    final cartViewModel = ref.watch(cartItemListViewModelProvider.notifier);
+    final total = cartViewModel.getTotalWithDeliveryAndDiscount();
 
     return SizedBox(
       width: MediaQuery.of(context).size.width * .8,
