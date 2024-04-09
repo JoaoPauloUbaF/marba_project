@@ -32,7 +32,7 @@ class AddressViewModel extends _$AddressViewModel {
           }
 
           ref
-              .read(userProfileDataProvider) //TODO: move to location management
+              .read(userProfileDataProvider)
               .addDeliveryAddress(uid: user.id, address: {
             'street': street,
             'number': number,

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_offers_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
+import 'package:project_marba/src/features/business/presentation/screens/business_settings_view.dart';
 
 class MyBusinessHomeScreen extends ConsumerStatefulWidget {
   const MyBusinessHomeScreen({super.key});
@@ -17,11 +18,12 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const BusinessProfileScreen(),
     const MyBusinessOffersScreen(),
+    const BusinessSettingsView(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final _ = ref.watch(businessProfileScreenControllerProvider);
+    ref.watch(businessProfileScreenControllerProvider);
     final viewController =
         ref.read(businessProfileScreenControllerProvider.notifier);
 
@@ -44,11 +46,15 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Preview',
+            label: 'Perfil',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
             label: 'Ofertas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -89,7 +95,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.viewController.isBusinessOwner(null),
+      future: widget.viewController.isBusinessOwner(),
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           return snapshot.data!

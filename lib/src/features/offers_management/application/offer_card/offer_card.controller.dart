@@ -28,6 +28,6 @@ class OfferCardController extends _$OfferCardController {
   Future<bool> shouldShowOfferActions(String businessId) async {
     return await ref
         .read(businessProfileScreenControllerProvider.notifier)
-        .isBusinessOwner(businessId);
+        .isBusinessOwner(businessId: businessId);
   }
 }

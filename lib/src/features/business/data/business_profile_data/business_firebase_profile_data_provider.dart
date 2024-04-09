@@ -231,4 +231,12 @@ class BusinessFirebaseProfileDataProvider
       return 0.0;
     }
   }
+
+  @override
+  Future<void> updateBusinessDelivery(
+      {required String uid, required double deliveryFee}) {
+    return _businessCollection.doc(uid).update({
+      'deliveryFee': deliveryFee,
+    });
+  }
 }

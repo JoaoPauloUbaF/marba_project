@@ -25,4 +25,7 @@ abstract class BusinessProfileDataRepository {
       {required String uid, required Set<String> offersIds});
   Future<List<Business>?> getBusinessesAt({required String city});
   Future<double> getBusinessDeliveryFee(businessId);
+
+  Future<void> updateBusinessDelivery(
+      {required String uid, required double deliveryFee});
 }

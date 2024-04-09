@@ -140,7 +140,7 @@ class BusinessProfileScreenController
                   ),
                 ),
         ),
-        if (await isBusinessOwner(state?.id ?? '') && state?.imageUrl != null)
+        if (await isBusinessOwner() && state?.imageUrl != null)
           Positioned(
             bottom: 20,
             right: 10,
@@ -176,7 +176,7 @@ class BusinessProfileScreenController
     }
   }
 
-  Future<bool> isBusinessOwner(String? businessId) async {
+  Future<bool> isBusinessOwner({String? businessId}) async {
     businessId ??= state?.id;
     final userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
     if (userId == null) {
@@ -236,6 +236,16 @@ class BusinessProfileScreenController
         .updateBusinessEmail(
           uid: state?.id ?? '',
           businessEmail: text,
+        )
+        .then((value) => fetchBusinessProfile());
+  }
+
+  void updateBusinessDelivery(double parse) {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessDelivery(
+          uid: state?.id ?? '',
+          deliveryFee: parse,
         )
         .then((value) => fetchBusinessProfile());
   }
