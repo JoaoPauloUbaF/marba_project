@@ -12,6 +12,7 @@ import 'package:project_marba/src/features/business/presentation/screens/busines
 import 'package:project_marba/src/features/offers_management/presentation/screens/edit_offer_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/offers_management/presentation/screens/offer_details_screen.dart';
+import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -67,6 +68,7 @@ class MainApp extends ConsumerWidget {
         '/edit-offer': (context) => const EditOfferScreen(),
         '/offer-details': (context) => const OfferDetailsScreen(),
         '/shopping-cart': (context) => const ShoppingCartScreen(),
+        '/checkout': (context) => const CheckoutView(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

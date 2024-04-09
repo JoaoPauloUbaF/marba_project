@@ -101,4 +101,8 @@ class CartItemListViewModel extends _$CartItemListViewModel {
         ru.currencyStringToDouble(discount);
     return ru.formatAsCurrency(finalTotalValue);
   }
+
+  void checkOut(BuildContext context) {
+    Navigator.of(context).pushNamed('/checkout');
+  }
 }

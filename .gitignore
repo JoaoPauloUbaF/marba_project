@@ -38,7 +38,7 @@
 .build/
 .dart_tool/
 .packages
-.flutter-plugins-dependencies
+./flutter-plugins-dependencies
 
 # macOS
 .DS_Store

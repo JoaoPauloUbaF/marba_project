@@ -20,7 +20,9 @@ class CheckOutButtonWidget extends ConsumerWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).colorScheme.primary,
         ),
-        onPressed: () {},
+        onPressed: () {
+          cartViewModel.checkOut(context);
+        },
         child: Text(
           'Finalizar Compra ($total)',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
