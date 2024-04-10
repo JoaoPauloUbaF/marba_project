@@ -139,8 +139,8 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(30),
-              topRight: Radius.circular(30),
+              topLeft: Radius.circular(35),
+              topRight: Radius.circular(35),
             ),
             child: BottomNavigationBar(
               backgroundColor: Theme.of(context).colorScheme.primary,
