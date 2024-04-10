@@ -15,7 +15,7 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
       total: (json['total'] as num).toDouble(),
       totalDeliveryFee: (json['totalDeliveryFee'] as num).toDouble(),
       discount: (json['discount'] as num).toDouble(),
-      address: json['address'] as String,
+      address: Address.fromJson(json['address'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       canceledAt: json['canceledAt'] == null
@@ -31,7 +31,7 @@ Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) {
     'total': instance.total,
     'totalDeliveryFee': instance.totalDeliveryFee,
     'discount': instance.discount,
-    'address': instance.address,
+    'address': instance.address.toJson(),
     'createdAt': instance.createdAt.toIso8601String(),
     'updatedAt': instance.updatedAt.toIso8601String(),
   };

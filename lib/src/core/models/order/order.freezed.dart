@@ -26,7 +26,7 @@ mixin _$Order {
   double get total => throw _privateConstructorUsedError;
   double get totalDeliveryFee => throw _privateConstructorUsedError;
   double get discount => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime? get canceledAt => throw _privateConstructorUsedError;
@@ -48,10 +48,12 @@ abstract class $OrderCopyWith<$Res> {
       double total,
       double totalDeliveryFee,
       double discount,
-      String address,
+      Address address,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? canceledAt});
+
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -106,7 +108,7 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Address,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -120,6 +122,14 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           : canceledAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
   }
 }
 
@@ -137,10 +147,13 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
       double total,
       double totalDeliveryFee,
       double discount,
-      String address,
+      Address address,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? canceledAt});
+
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -193,7 +206,7 @@ class __$$OrderImplCopyWithImpl<$Res>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as String,
+              as Address,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -248,7 +261,7 @@ class _$OrderImpl implements _Order {
   @override
   final double discount;
   @override
-  final String address;
+  final Address address;
   @override
   final DateTime createdAt;
   @override
@@ -322,7 +335,7 @@ abstract class _Order implements Order {
       required final double total,
       required final double totalDeliveryFee,
       required final double discount,
-      required final String address,
+      required final Address address,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       final DateTime? canceledAt}) = _$OrderImpl;
@@ -342,7 +355,7 @@ abstract class _Order implements Order {
   @override
   double get discount;
   @override
-  String get address;
+  Address get address;
   @override
   DateTime get createdAt;
   @override

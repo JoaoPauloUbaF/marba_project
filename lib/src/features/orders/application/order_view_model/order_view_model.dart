@@ -1,5 +1,7 @@
+import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../../core/models/order/business_order_item.dart';
 import '../../../../core/models/order/business_order_model.dart';
@@ -15,7 +17,6 @@ class OrderViewModel extends _$OrderViewModel {
   }
 
   void createNewOrder({
-    required String id,
     required String customerId,
     required List<CartItemModel> items,
     required double total,
@@ -23,7 +24,7 @@ class OrderViewModel extends _$OrderViewModel {
     required double discount,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required String address,
+    required Address address,
     DateTime? canceledAt,
   }) {
     final groupedItemsByBusiness = <String, List<CartItemModel>>{};
@@ -63,7 +64,7 @@ class OrderViewModel extends _$OrderViewModel {
     }).toList();
 
     final order = Order(
-      id: id,
+      id: const Uuid().v4(),
       customerId: customerId,
       businessOrders: businessOrders,
       total: total,
