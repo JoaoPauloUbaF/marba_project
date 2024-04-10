@@ -20,6 +20,9 @@ BusinessOrder _$BusinessOrderFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$BusinessOrder {
+  String get id => throw _privateConstructorUsedError;
+  String get userNickname => throw _privateConstructorUsedError;
+  Address get address => throw _privateConstructorUsedError;
   String get businessId => throw _privateConstructorUsedError;
   Set<BusinessOrderItem> get items => throw _privateConstructorUsedError;
   BusinessOrderStatus get status => throw _privateConstructorUsedError;
@@ -40,12 +43,17 @@ abstract class $BusinessOrderCopyWith<$Res> {
       _$BusinessOrderCopyWithImpl<$Res, BusinessOrder>;
   @useResult
   $Res call(
-      {String businessId,
+      {String id,
+      String userNickname,
+      Address address,
+      String businessId,
       Set<BusinessOrderItem> items,
       BusinessOrderStatus status,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? canceledAt});
+
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -61,6 +69,9 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? userNickname = null,
+    Object? address = null,
     Object? businessId = null,
     Object? items = null,
     Object? status = null,
@@ -69,6 +80,18 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
     Object? canceledAt = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNickname: null == userNickname
+          ? _value.userNickname
+          : userNickname // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
       businessId: null == businessId
           ? _value.businessId
           : businessId // ignore: cast_nullable_to_non_nullable
@@ -95,6 +118,14 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
               as DateTime?,
     ) as $Val);
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressCopyWith<$Res> get address {
+    return $AddressCopyWith<$Res>(_value.address, (value) {
+      return _then(_value.copyWith(address: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -106,12 +137,18 @@ abstract class _$$BusinessOrderImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String businessId,
+      {String id,
+      String userNickname,
+      Address address,
+      String businessId,
       Set<BusinessOrderItem> items,
       BusinessOrderStatus status,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? canceledAt});
+
+  @override
+  $AddressCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -125,6 +162,9 @@ class __$$BusinessOrderImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? userNickname = null,
+    Object? address = null,
     Object? businessId = null,
     Object? items = null,
     Object? status = null,
@@ -133,6 +173,18 @@ class __$$BusinessOrderImplCopyWithImpl<$Res>
     Object? canceledAt = freezed,
   }) {
     return _then(_$BusinessOrderImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userNickname: null == userNickname
+          ? _value.userNickname
+          : userNickname // ignore: cast_nullable_to_non_nullable
+              as String,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as Address,
       businessId: null == businessId
           ? _value.businessId
           : businessId // ignore: cast_nullable_to_non_nullable
@@ -165,7 +217,10 @@ class __$$BusinessOrderImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BusinessOrderImpl implements _BusinessOrder {
   _$BusinessOrderImpl(
-      {required this.businessId,
+      {required this.id,
+      required this.userNickname,
+      required this.address,
+      required this.businessId,
       required final Set<BusinessOrderItem> items,
       required this.status,
       required this.createdAt,
@@ -176,6 +231,12 @@ class _$BusinessOrderImpl implements _BusinessOrder {
   factory _$BusinessOrderImpl.fromJson(Map<String, dynamic> json) =>
       _$$BusinessOrderImplFromJson(json);
 
+  @override
+  final String id;
+  @override
+  final String userNickname;
+  @override
+  final Address address;
   @override
   final String businessId;
   final Set<BusinessOrderItem> _items;
@@ -197,7 +258,7 @@ class _$BusinessOrderImpl implements _BusinessOrder {
 
   @override
   String toString() {
-    return 'BusinessOrder(businessId: $businessId, items: $items, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, canceledAt: $canceledAt)';
+    return 'BusinessOrder(id: $id, userNickname: $userNickname, address: $address, businessId: $businessId, items: $items, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, canceledAt: $canceledAt)';
   }
 
   @override
@@ -205,6 +266,10 @@ class _$BusinessOrderImpl implements _BusinessOrder {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BusinessOrderImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.userNickname, userNickname) ||
+                other.userNickname == userNickname) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.businessId, businessId) ||
                 other.businessId == businessId) &&
             const DeepCollectionEquality().equals(other._items, _items) &&
@@ -221,6 +286,9 @@ class _$BusinessOrderImpl implements _BusinessOrder {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
+      userNickname,
+      address,
       businessId,
       const DeepCollectionEquality().hash(_items),
       status,
@@ -244,7 +312,10 @@ class _$BusinessOrderImpl implements _BusinessOrder {
 
 abstract class _BusinessOrder implements BusinessOrder {
   factory _BusinessOrder(
-      {required final String businessId,
+      {required final String id,
+      required final String userNickname,
+      required final Address address,
+      required final String businessId,
       required final Set<BusinessOrderItem> items,
       required final BusinessOrderStatus status,
       required final DateTime createdAt,
@@ -254,6 +325,12 @@ abstract class _BusinessOrder implements BusinessOrder {
   factory _BusinessOrder.fromJson(Map<String, dynamic> json) =
       _$BusinessOrderImpl.fromJson;
 
+  @override
+  String get id;
+  @override
+  String get userNickname;
+  @override
+  Address get address;
   @override
   String get businessId;
   @override

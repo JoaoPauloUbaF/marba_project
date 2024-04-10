@@ -60,7 +60,6 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
 
   @override
   void initState() {
-    // TODO: implement initState
     emailController = TextEditingController(text: widget.business?.email);
     phoneController = MaskedTextController(
         text: widget.business?.phoneNumber, mask: '(00) 00000-0000');
@@ -77,7 +76,9 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         InkWell(
           onTap: () {
             setState(() {
-              isEditingPhone = !isEditingPhone;
+              viewController
+                  .isBusinessOwner()
+                  .whenComplete(() => isEditingPhone = !isEditingPhone);
             });
           },
           child: Row(
@@ -103,8 +104,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
                               setState(() {
                                 viewController.updateBusinessPhoneNumber(
                                     phoneController.text);
-                                isEditingPhone =
-                                    false; //TODO: implementar atualização do telefone
+                                isEditingPhone = false;
                               });
                             },
                           ),
@@ -123,7 +123,9 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         InkWell(
           onTap: () {
             setState(() {
-              isEditingEmail = !isEditingEmail;
+              viewController
+                  .isBusinessOwner()
+                  .whenComplete(() => isEditingEmail = !isEditingEmail);
             });
           },
           child: Row(
@@ -149,8 +151,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
                               setState(() {
                                 viewController
                                     .updateBusinessEmail(emailController.text);
-                                isEditingEmail =
-                                    false; //TODO: implementar atualização do email
+                                isEditingEmail = false;
                               });
                             },
                           ),

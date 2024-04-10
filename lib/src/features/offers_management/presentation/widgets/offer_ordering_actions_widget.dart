@@ -6,7 +6,6 @@ import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import '../../../scheduling/presentation/widgets/calendar_modal_widget.dart';
 
 class OrderingActionsWidget extends ConsumerWidget {
-  //TODO: order and cart features
   const OrderingActionsWidget({
     super.key,
     required this.offer,
