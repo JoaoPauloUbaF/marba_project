@@ -41,10 +41,10 @@ class DiscountCouponModal extends StatelessWidget {
         ListView.builder(
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text('Cupom de Desconto'),
-              subtitle: Text('Desconto de 10%'),
+              title: const Text('Cupom de Desconto'),
+              subtitle: const Text('Desconto de 10%'),
               trailing: IconButton(
-                icon: Icon(Icons.check_circle_sharp),
+                icon: const Icon(Icons.check_circle_sharp),
                 onPressed: () {},
               ),
             );

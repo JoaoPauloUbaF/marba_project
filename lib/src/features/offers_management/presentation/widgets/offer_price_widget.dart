@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/core/models/service/enums.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';

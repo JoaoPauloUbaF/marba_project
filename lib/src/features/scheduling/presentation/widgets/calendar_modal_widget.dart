@@ -23,7 +23,7 @@ class _CalendarModalWidgetState extends ConsumerState<CalendarModalWidget> {
           TableCalendar(
             firstDay: DateTime.utc(2010, 10, 16),
             lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: DateTime.now(), //TODO: Schedule
+            focusedDay: DateTime.now(), //TODO: Schedule implementation
           ),
         ],
       ),
