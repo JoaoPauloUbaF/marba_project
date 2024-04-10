@@ -38,6 +38,7 @@ class OrderingActionsWidget extends ConsumerWidget {
                               offer.finalPrice,
                               offer.imageUrl,
                               offer.businessId,
+                              offer.offerType,
                             );
                             Navigator.pushNamed(context, '/shopping-cart');
                           },
@@ -142,6 +143,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
             widget.offer.finalPrice,
             widget.offer.imageUrl,
             widget.offer.businessId,
+            widget.offer.offerType,
           );
           setState(() {
             _isAdded = true;

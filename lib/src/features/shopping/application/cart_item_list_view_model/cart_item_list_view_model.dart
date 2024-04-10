@@ -3,6 +3,7 @@ import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/models/offer/offer_model.dart';
 import '../delivery_provider/delivery_provider.dart';
 import '../discount_coupon_provider/discount_coupon_provider.dart';
 
@@ -20,7 +21,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   void createNewItem(String id, String name, double price, String imageUrl,
-      String businessId) {
+      String businessId, OfferType offerType) {
     if (state.any((element) => element.id == id)) {
       final item = state.firstWhere((element) => element.id == id);
       increaseItemQuantity(item);
@@ -34,6 +35,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
       imageUrl: imageUrl,
       quantity: 1,
       businessId: businessId,
+      offerType: offerType,
     );
     addItem(item);
   }

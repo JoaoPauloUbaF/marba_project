@@ -26,6 +26,7 @@ mixin _$CartItemModel {
   String get imageUrl => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   String get businessId => throw _privateConstructorUsedError;
+  OfferType get offerType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $CartItemModelCopyWith<$Res> {
       double price,
       String imageUrl,
       int quantity,
-      String businessId});
+      String businessId,
+      OfferType offerType});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
     Object? imageUrl = null,
     Object? quantity = null,
     Object? businessId = null,
+    Object? offerType = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -93,6 +96,10 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
           ? _value.businessId
           : businessId // ignore: cast_nullable_to_non_nullable
               as String,
+      offerType: null == offerType
+          ? _value.offerType
+          : offerType // ignore: cast_nullable_to_non_nullable
+              as OfferType,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$CartItemModelImplCopyWith<$Res>
       double price,
       String imageUrl,
       int quantity,
-      String businessId});
+      String businessId,
+      OfferType offerType});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
     Object? imageUrl = null,
     Object? quantity = null,
     Object? businessId = null,
+    Object? offerType = null,
   }) {
     return _then(_$CartItemModelImpl(
       id: null == id
@@ -157,6 +166,10 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
           ? _value.businessId
           : businessId // ignore: cast_nullable_to_non_nullable
               as String,
+      offerType: null == offerType
+          ? _value.offerType
+          : offerType // ignore: cast_nullable_to_non_nullable
+              as OfferType,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$CartItemModelImpl implements _CartItemModel {
       required this.price,
       required this.imageUrl,
       required this.quantity,
-      required this.businessId});
+      required this.businessId,
+      required this.offerType});
 
   factory _$CartItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartItemModelImplFromJson(json);
@@ -187,10 +201,12 @@ class _$CartItemModelImpl implements _CartItemModel {
   final int quantity;
   @override
   final String businessId;
+  @override
+  final OfferType offerType;
 
   @override
   String toString() {
-    return 'CartItemModel(id: $id, name: $name, price: $price, imageUrl: $imageUrl, quantity: $quantity, businessId: $businessId)';
+    return 'CartItemModel(id: $id, name: $name, price: $price, imageUrl: $imageUrl, quantity: $quantity, businessId: $businessId, offerType: $offerType)';
   }
 
   @override
@@ -206,13 +222,15 @@ class _$CartItemModelImpl implements _CartItemModel {
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.businessId, businessId) ||
-                other.businessId == businessId));
+                other.businessId == businessId) &&
+            (identical(other.offerType, offerType) ||
+                other.offerType == offerType));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, price, imageUrl, quantity, businessId);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, price, imageUrl, quantity, businessId, offerType);
 
   @JsonKey(ignore: true)
   @override
@@ -235,7 +253,8 @@ abstract class _CartItemModel implements CartItemModel {
       required final double price,
       required final String imageUrl,
       required final int quantity,
-      required final String businessId}) = _$CartItemModelImpl;
+      required final String businessId,
+      required final OfferType offerType}) = _$CartItemModelImpl;
 
   factory _CartItemModel.fromJson(Map<String, dynamic> json) =
       _$CartItemModelImpl.fromJson;
@@ -252,6 +271,8 @@ abstract class _CartItemModel implements CartItemModel {
   int get quantity;
   @override
   String get businessId;
+  @override
+  OfferType get offerType;
   @override
   @JsonKey(ignore: true)
   _$$CartItemModelImplCopyWith<_$CartItemModelImpl> get copyWith =>
