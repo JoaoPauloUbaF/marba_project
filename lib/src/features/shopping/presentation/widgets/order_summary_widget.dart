@@ -7,7 +7,7 @@ import 'package:project_marba/src/features/shopping/presentation/widgets/discoun
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 class OrderSummaryWidget extends ConsumerWidget {
-  //TODO: cart summary view model propria, com model
+  //TODO: cart summary view model própria, com model
   const OrderSummaryWidget({
     super.key,
   });
