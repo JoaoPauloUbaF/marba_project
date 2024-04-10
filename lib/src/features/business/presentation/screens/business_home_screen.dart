@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/presentation/screens/business_dashboard_view.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_offers_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_settings_view.dart';
@@ -16,6 +17,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   int _selectedIndex = 0;
 
   static final List<Widget> _widgetOptions = <Widget>[
+    const BusinessDashboardView(),
     const BusinessProfileScreen(),
     const MyBusinessOffersScreen(),
     const BusinessSettingsView(),
@@ -42,28 +44,36 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
         ],
       ),
       body: _widgetOptions[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Ofertas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Configurações',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
+      bottomNavigationBar: ClipRRect(
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.dashboard),
+              label: 'Dashboard',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Perfil',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Ofertas',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Configurações',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          onTap: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
+        ),
       ),
     );
   }
