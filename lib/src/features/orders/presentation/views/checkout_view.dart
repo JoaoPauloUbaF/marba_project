@@ -23,7 +23,7 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
             const Center(child: Text('Aguardando confirmação do negócio')),
             const Card(
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(30.0),
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),

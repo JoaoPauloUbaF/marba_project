@@ -14,6 +14,7 @@ _$CartItemModelImpl _$$CartItemModelImplFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String,
       quantity: json['quantity'] as int,
       businessId: json['businessId'] as String,
+      offerType: $enumDecode(_$OfferTypeEnumMap, json['offerType']),
     );
 
 Map<String, dynamic> _$$CartItemModelImplToJson(_$CartItemModelImpl instance) =>
@@ -24,4 +25,10 @@ Map<String, dynamic> _$$CartItemModelImplToJson(_$CartItemModelImpl instance) =>
       'imageUrl': instance.imageUrl,
       'quantity': instance.quantity,
       'businessId': instance.businessId,
+      'offerType': _$OfferTypeEnumMap[instance.offerType]!,
     };
+
+const _$OfferTypeEnumMap = {
+  OfferType.product: 'product',
+  OfferType.service: 'service',
+};

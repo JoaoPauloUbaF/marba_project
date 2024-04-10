@@ -7,7 +7,7 @@ part of 'cart_item_list_view_model.dart';
 // **************************************************************************
 
 String _$cartItemListViewModelHash() =>
-    r'b27316925a721b7ff19729d039dea31f4098d24b';
+    r'f8d6f7e41b963f3ef39463690c2377b708842fda';
 
 /// See also [CartItemListViewModel].
 @ProviderFor(CartItemListViewModel)

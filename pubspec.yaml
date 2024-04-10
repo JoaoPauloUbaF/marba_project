@@ -30,6 +30,7 @@ dependencies:
   permission_handler: ^11.3.0
   riverpod: ^2.4.9
   riverpod_annotation:
+  table_calendar: ^3.0.9
   uuid: ^4.2.2
 
 dev_dependencies:
