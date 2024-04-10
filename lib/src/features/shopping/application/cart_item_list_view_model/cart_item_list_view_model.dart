@@ -165,29 +165,33 @@ class CartItemListViewModel extends _$CartItemListViewModel {
       }
 
       Address? address;
-      ref.read(deliveryAddressProvider).whenData((value) {
-        address = value!;
-        ref
-            .read(orderViewModelProvider.notifier)
-            .createNewOrder(
-              items: state,
-              total: total,
-              deliveryFee: totalDelivery,
-              discount: 0.0,
-              address: address!,
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
-              canceledAt: null,
-              customerId: customerId,
-            )
-            .then((value) {
-          clearShoppingCart();
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            '/checkout',
-            (Route<dynamic> route) => route.isFirst,
+      ref.read(deliveryAddressProvider).whenData(
+        (value) {
+          address = value!;
+          ref
+              .read(orderViewModelProvider.notifier)
+              .createNewOrder(
+                items: state,
+                total: total,
+                deliveryFee: totalDelivery,
+                discount: 0.0,
+                address: address!,
+                createdAt: DateTime.now(),
+                updatedAt: DateTime.now(),
+                canceledAt: null,
+                customerId: customerId,
+              )
+              .then(
+            (value) {
+              clearShoppingCart();
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                '/checkout',
+                (Route<dynamic> route) => route.isFirst,
+              );
+            },
           );
-        });
-      });
+        },
+      );
     });
     // String? customerId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
 
