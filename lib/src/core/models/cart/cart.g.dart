@@ -7,9 +7,9 @@ part of 'cart.dart';
 // **************************************************************************
 
 _$CartImpl _$$CartImplFromJson(Map<String, dynamic> json) => _$CartImpl(
-      itemsIds:
-          (json['itemsIds'] as List<dynamic>?)?.map((e) => e as String).toSet(),
-      total: (json['total'] as num?)?.toDouble(),
+      itemsIds: (json['itemsIds'] as List<dynamic>?)
+          ?.map((e) => CartItemModel.fromJson(e as Map<String, dynamic>))
+          .toSet(),
     );
 
 Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) {
@@ -21,7 +21,6 @@ Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) {
     }
   }
 
-  writeNotNull('itemsIds', instance.itemsIds?.toList());
-  writeNotNull('total', instance.total);
+  writeNotNull('itemsIds', instance.itemsIds?.map((e) => e.toJson()).toList());
   return val;
 }

@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
-import 'package:project_marba/src/features/location_management/application/address_view_model/address_view_model.dart';
 import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
-import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
+import 'package:project_marba/src/features/shopping/data/shopping_cart_repository.dart';
+import 'package:project_marba/src/features/shopping/data/shopping_cart_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/address/address.dart';
 import '../../../../core/models/offer/offer_model.dart';
-import '../../../../core/models/order/order.dart';
 import '../../../orders/application/order_view_model/order_view_model.dart';
 import '../delivery_provider/delivery_provider.dart';
 import '../discount_coupon_provider/discount_coupon_provider.dart';
@@ -18,13 +17,31 @@ part 'cart_item_list_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class CartItemListViewModel extends _$CartItemListViewModel {
+  late ShoppingCartRepository shoppingCartRepository;
+
   @override
   List<CartItemModel> build() {
+    ref.watch(authStateChangeProvider);
+    shoppingCartRepository = ref.read(shoppingCartRepositoryProvider);
+    fetchUserShoppingCart();
     return [];
+  }
+
+  void fetchUserShoppingCart() async {
+    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    if (user != null) {
+      shoppingCartRepository
+          .getCartItems(userId: user.uid)
+          .then((value) => state = value);
+    }
   }
 
   void refreshState() {
     state = List.from(state);
+    String? userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
+    if (userId != null) {
+      shoppingCartRepository.updateCart(userId: userId, items: state);
+    }
   }
 
   void createNewItem(String id, String name, double price, String imageUrl,
@@ -57,7 +74,9 @@ class CartItemListViewModel extends _$CartItemListViewModel {
     refreshState();
   }
 
-  void clear() {
+  void clearShoppingCart() {
+    shoppingCartRepository.clearCart(
+        userId: ref.read(authRepositoryProvider).getCurrentUser()!.uid);
     state = [];
   }
 
@@ -161,7 +180,13 @@ class CartItemListViewModel extends _$CartItemListViewModel {
               canceledAt: null,
               customerId: customerId,
             )
-            .then((value) => Navigator.of(context).pushNamed('/checkout'));
+            .then((value) {
+          clearShoppingCart();
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            '/checkout',
+            (Route<dynamic> route) => route.isFirst,
+          );
+        });
       });
     });
     // String? customerId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;

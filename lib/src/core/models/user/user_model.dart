@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/core/models/cart/cart.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
 part 'user_model.freezed.dart';
@@ -19,6 +20,7 @@ class UserModel with _$UserModel {
     List<OfferModel>? favoriteOffers,
     required bool isBusinessOwner,
     Set<String>? ownedBusinessIds,
+    Cart? cart,
   }) = _UserModel;
 
   Address get userAddress => address;
