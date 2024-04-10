@@ -42,7 +42,7 @@ class OfferModel with _$OfferModel {
   Service? get serviceOffer => service;
   double get discountValue => discount ?? 0.0;
   double get ratingValue => rating ?? 0.0;
-  double get finalPrice => price - (price * discountValue / 100);
+  double get priceWithDiscount => price - (price * discountValue / 100);
   int get totalRatings => reviews?.length ?? 0;
 
   factory OfferModel.fromJson(Map<String, dynamic> json) =>

@@ -5,7 +5,8 @@ import 'package:project_marba/src/features/shopping/application/cart_item_list_v
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/large_horizontal_space_widget.dart';
-import 'package:table_calendar/table_calendar.dart';
+
+import '../../../scheduling/presentation/widgets/calendar_modal_widget.dart';
 
 class CartItemWidget extends ConsumerWidget {
   const CartItemWidget({
@@ -64,11 +65,7 @@ class CartItemWidget extends ConsumerWidget {
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {
-                                return TableCalendar(
-                                  firstDay: DateTime.utc(2010, 10, 16),
-                                  lastDay: DateTime.utc(2030, 3, 14),
-                                  focusedDay: DateTime.now(),
-                                );
+                                return const CalendarModalWidget();
                                 //TODO: Implement scheduling
                               },
                             );

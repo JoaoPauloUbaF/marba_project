@@ -139,39 +139,43 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           return ClipRRect(
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40),
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
             ),
             child: BottomNavigationBar(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              backgroundColor: Theme.of(context).colorScheme.primary,
               items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_bag_sharp),
+                  icon: Icon(Icons.shopping_bag_outlined),
+                  activeIcon: Icon(Icons.shopping_bag_sharp),
                   label: 'Ofertas',
                 ),
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.video_camera_back_sharp),
+                  icon: Icon(Icons.video_camera_back_outlined),
+                  activeIcon: Icon(Icons.video_camera_back_sharp),
                   label: 'Posts',
                 ),
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.receipt_sharp),
+                  icon: Icon(Icons.receipt_outlined),
+                  activeIcon: Icon(Icons.receipt_sharp),
                   label: 'Pedidos',
                 ),
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_sharp),
+                  icon: Icon(Icons.settings_outlined),
+                  activeIcon: Icon(Icons.settings_sharp),
                   label: 'Settings',
                 ),
                 if (snapshot.data != null && snapshot.data)
                   const BottomNavigationBarItem(
-                    icon: Icon(Icons.monetization_on_sharp),
+                    icon: Icon(Icons.monetization_on_outlined),
+                    activeIcon: Icon(Icons.monetization_on_sharp),
                     label: 'Negócios',
                   ),
               ],
               currentIndex: _selectedIndex,
-              selectedItemColor:
-                  Theme.of(context).colorScheme.onPrimaryContainer,
+              selectedItemColor: Theme.of(context).colorScheme.onPrimary,
               unselectedItemColor:
-                  Theme.of(context).colorScheme.primary.withAlpha(200),
+                  Theme.of(context).colorScheme.onPrimary.withAlpha(200),
               type: BottomNavigationBarType.fixed,
               onTap: _onItemTapped,
             ),
