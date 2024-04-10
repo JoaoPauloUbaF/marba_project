@@ -9,7 +9,6 @@ part 'offer_model.g.dart';
 
 @freezed
 class OfferModel with _$OfferModel {
-  //TODO: refactor
   const OfferModel._();
 
   factory OfferModel({

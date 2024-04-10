@@ -30,7 +30,6 @@ class UserBusinessListWidget extends ConsumerWidget {
                 child: Column(
                   children: [
                     ListTile(
-                      //TODO: implementar slide to delete
                       title: Text(business?.name ?? ''),
                       onTap: () => myBusinessListController.onTapBusiness(
                         business: business!,

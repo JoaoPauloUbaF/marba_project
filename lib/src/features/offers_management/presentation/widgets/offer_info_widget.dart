@@ -28,8 +28,7 @@ class OfferInfoWidget extends ConsumerWidget {
             Row(
               children: [
                 OfferRatingWidget(
-                  rating: offer
-                      .ratingValue, //TODO: change offer model to have rating
+                  rating: offer.ratingValue,
                   totalRatings: offer.totalRatings,
                 ),
                 const Spacer(),

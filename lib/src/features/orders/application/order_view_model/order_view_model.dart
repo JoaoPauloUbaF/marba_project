@@ -1,5 +1,6 @@
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -28,6 +29,8 @@ class OrderViewModel extends _$OrderViewModel {
     DateTime? canceledAt,
   }) async {
     final groupedItemsByBusiness = <String, List<CartItemModel>>{};
+    final String userNickname =
+        ref.read(authRepositoryProvider).getCurrentUser()?.displayName ?? '';
 
     for (var item in items) {
       final businessId = item.businessId;
@@ -55,6 +58,9 @@ class OrderViewModel extends _$OrderViewModel {
       }).toSet();
 
       return BusinessOrder(
+        id: const Uuid().v4(),
+        userNickname: userNickname,
+        address: address,
         businessId: businessId,
         items: businessOrderItems,
         status: BusinessOrderStatus.pending,
