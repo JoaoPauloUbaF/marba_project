@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
 
 import 'business_order_model.dart';
 
@@ -14,7 +15,7 @@ class Order with _$Order {
     required double total,
     required double totalDeliveryFee,
     required double discount,
-    required String address,
+    required Address address,
     required DateTime createdAt,
     required DateTime updatedAt,
     DateTime? canceledAt,

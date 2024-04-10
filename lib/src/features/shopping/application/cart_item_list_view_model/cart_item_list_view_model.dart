@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
+import 'package:project_marba/src/features/location_management/application/address_view_model/address_view_model.dart';
+import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
+import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/models/address/address.dart';
 import '../../../../core/models/offer/offer_model.dart';
 import '../../../../core/models/order/order.dart';
 import '../../../orders/application/order_view_model/order_view_model.dart';
@@ -107,17 +111,31 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   void checkOut(BuildContext context) {
+    double totalDelivery = 0.0;
+    ref.read(deliveryTaxProvider(cartOffers: state)).whenData((value) =>
+        totalDelivery = RegistrationUtils().currencyStringToDouble(value));
+    String? customerId;
+    ref.read(currentUserProvider).whenData((value) => customerId = value?.id);
+
+    if (customerId == null) {
+      Navigator.of(context).pushNamed('/sign-in');
+      return;
+    }
+
+    Address? address;
+    ref.read(deliveryAddressProvider).whenData((value) => address = value!);
+
     ref.read(orderViewModelProvider.notifier).createNewOrder(
-        items: state,
-        total: total,
-        deliveryFee: 0.0,
-        discount: 0.0,
-        address: 'Rua 1, 123',
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-        canceledAt: null,
-        customerId: '1',
-        id: '1');
+          items: state,
+          total: total,
+          deliveryFee: totalDelivery,
+          discount: 0.0,
+          address: address!,
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          canceledAt: null,
+          customerId: customerId!,
+        );
     Navigator.of(context).pushNamed('/checkout');
   }
 
