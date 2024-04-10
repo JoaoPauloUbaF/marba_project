@@ -12,7 +12,7 @@ Future<String> deliveryTax(DeliveryTaxRef ref,
   double totalDeliveryFee = 0.0;
   for (final offer in cartOffers) {
     totalDeliveryFee += await ref
-        .read(businessProfileDataProvider)
+        .watch(businessProfileDataProvider)
         .getBusinessDeliveryFee(offer.businessId);
   }
 

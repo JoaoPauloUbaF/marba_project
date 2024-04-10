@@ -8,6 +8,7 @@ class BusinessOrderItem with _$BusinessOrderItem {
   factory BusinessOrderItem({
     required String id,
     required String name,
+    required String imageUrl,
     required double price,
     required int quantity,
     DateTime? deliveredAt,

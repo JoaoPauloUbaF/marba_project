@@ -9,14 +9,14 @@ import '../../../../core/models/order/order.dart';
 
 part 'order_view_model.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class OrderViewModel extends _$OrderViewModel {
   @override
   Order? build() {
     return null;
   }
 
-  void createNewOrder({
+  Future<void> createNewOrder({
     required String customerId,
     required List<CartItemModel> items,
     required double total,
@@ -26,7 +26,7 @@ class OrderViewModel extends _$OrderViewModel {
     required DateTime updatedAt,
     required Address address,
     DateTime? canceledAt,
-  }) {
+  }) async {
     final groupedItemsByBusiness = <String, List<CartItemModel>>{};
 
     for (var item in items) {
@@ -44,6 +44,7 @@ class OrderViewModel extends _$OrderViewModel {
         return BusinessOrderItem(
           id: item.id,
           name: item.name,
+          imageUrl: item.imageUrl,
           price: item.price,
           quantity: item.quantity,
           deliveredAt: null,
@@ -77,5 +78,9 @@ class OrderViewModel extends _$OrderViewModel {
     );
 
     state = order;
+  }
+
+  List<BusinessOrderItem>? getOrderItems() {
+    return state?.businessOrders.expand((element) => element.items).toList();
   }
 }
