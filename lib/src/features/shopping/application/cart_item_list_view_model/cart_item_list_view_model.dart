@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/location_management/application/address_view_model/address_view_model.dart';
 import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
@@ -111,32 +112,80 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   void checkOut(BuildContext context) {
-    double totalDelivery = 0.0;
-    ref.read(deliveryTaxProvider(cartOffers: state)).whenData((value) =>
-        totalDelivery = RegistrationUtils().currencyStringToDouble(value));
-    String? customerId;
-    ref.read(currentUserProvider).whenData((value) => customerId = value?.id);
-
-    if (customerId == null) {
-      Navigator.of(context).pushNamed('/sign-in');
+    if (state.isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Carrinho vazio',
+                      style: Theme.of(context).textTheme.titleLarge),
+                ),
+                content: const Text(
+                  'Adicione itens ao carrinho para prosseguir com a compra',
+                  textAlign: TextAlign.center,
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ));
       return;
     }
 
-    Address? address;
-    ref.read(deliveryAddressProvider).whenData((value) => address = value!);
+    double totalDelivery = 0.0;
+    ref.read(deliveryTaxProvider(cartOffers: state)).whenData((value) {
+      totalDelivery = RegistrationUtils().currencyStringToDouble(value);
+      String? customerId =
+          ref.read(authRepositoryProvider).getCurrentUser()?.uid;
 
-    ref.read(orderViewModelProvider.notifier).createNewOrder(
-          items: state,
-          total: total,
-          deliveryFee: totalDelivery,
-          discount: 0.0,
-          address: address!,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-          canceledAt: null,
-          customerId: customerId!,
-        );
-    Navigator.of(context).pushNamed('/checkout');
+      if (customerId == null) {
+        Navigator.of(context).pushNamed('/sign-in');
+        return;
+      }
+
+      Address? address;
+      ref.read(deliveryAddressProvider).whenData((value) {
+        address = value!;
+        ref
+            .read(orderViewModelProvider.notifier)
+            .createNewOrder(
+              items: state,
+              total: total,
+              deliveryFee: totalDelivery,
+              discount: 0.0,
+              address: address!,
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
+              canceledAt: null,
+              customerId: customerId,
+            )
+            .then((value) => Navigator.of(context).pushNamed('/checkout'));
+      });
+    });
+    // String? customerId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
+
+    // if (customerId == null) {
+    //   Navigator.of(context).pushNamed('/sign-in');
+    //   return;
+    // }
+
+    // Address? address;
+    // ref.read(deliveryAddressProvider).whenData((value) => address = value!);
+
+    // ref.read(orderViewModelProvider.notifier).createNewOrder(
+    //       items: state,
+    //       total: total,
+    //       deliveryFee: totalDelivery,
+    //       discount: 0.0,
+    //       address: address!,
+    //       createdAt: DateTime.now(),
+    //       updatedAt: DateTime.now(),
+    //       canceledAt: null,
+    //       customerId: customerId!,
+    //     );
+    // Navigator.of(context).pushNamed('/checkout');
   }
 
   void showItemsNeedScheduling() {

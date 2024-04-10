@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
-
-import '../../../../core/models/address/address.dart';
+import 'package:project_marba/src/features/orders/application/order_view_model/order_view_model.dart';
 
 class CheckoutView extends ConsumerStatefulWidget {
   const CheckoutView({super.key});
@@ -16,6 +13,8 @@ class CheckoutView extends ConsumerStatefulWidget {
 class _CheckoutViewState extends ConsumerState<CheckoutView> {
   @override
   Widget build(BuildContext context) {
+    final order = ref.watch(orderViewModelProvider);
+    final orderViewModel = ref.read(orderViewModelProvider.notifier);
     return Scaffold(
         appBar: AppBar(),
         body: Column(
@@ -30,39 +29,40 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
               child: Card(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text('Pedido #123456',
-                        style: TextStyle(fontSize: 20)),
-                    const Text('Total: R\$ 100,00'),
+                    Text(
+                      'Pedido #${order?.id.split('-').first ?? ''}',
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Text('Total: R\$ ${order?.total.toStringAsFixed(2) ?? ''}'),
                     AddressDisplayWidget(
-                      address: Address(
-                        // Address
-                        street: 'Rua 1',
-                        number: '123',
-                        neighborhood: 'Bairro 1',
-                        city: 'Cidade 1',
-                        state: 'Estado 1',
-                        zipCode: '12345-678',
-                      ),
+                      address: order!.address,
                     ),
                     const Text('Produtos'),
                     ListView.builder(
                       padding: const EdgeInsets.all(8.0),
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: 4,
+                      itemCount: orderViewModel.getOrderItems()?.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          leading:
-                              Image.network('https://via.placeholder.com/150'),
-                          title: Text('Item $index'),
-                          subtitle: const Text('R\$ 10,00'),
-                          trailing: const Text('Qtd: 1'),
+                          leading: Image.network(
+                            '${orderViewModel.getOrderItems()?[index].imageUrl}',
+                            width: 50,
+                            height: 80,
+                            fit: BoxFit.fill,
+                          ),
+                          title: Text(
+                              '${orderViewModel.getOrderItems()?[index].name}'),
+                          subtitle: Text(
+                              'R\$ ${orderViewModel.getOrderItems()?[index].price.toStringAsFixed(2)}'),
+                          trailing: Text(
+                              'Qtd: ${orderViewModel.getOrderItems()?[index].quantity}'),
                         );
                       },
                     ),

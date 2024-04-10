@@ -55,7 +55,7 @@ class _AddressFormModalWidgetState
 
   @override
   Widget build(BuildContext context) {
-    final pageState = ref.watch(addressViewModelProvider);
+    final _ = ref.watch(addressViewModelProvider);
     final viewModel = ref.read(addressViewModelProvider.notifier);
     final validator = viewModel.validator;
 

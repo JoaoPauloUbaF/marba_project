@@ -11,6 +11,7 @@ _$BusinessOrderItemImpl _$$BusinessOrderItemImplFromJson(
     _$BusinessOrderItemImpl(
       id: json['id'] as String,
       name: json['name'] as String,
+      imageUrl: json['imageUrl'] as String,
       price: (json['price'] as num).toDouble(),
       quantity: json['quantity'] as int,
       deliveredAt: json['deliveredAt'] == null
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$BusinessOrderItemImplToJson(
   final val = <String, dynamic>{
     'id': instance.id,
     'name': instance.name,
+    'imageUrl': instance.imageUrl,
     'price': instance.price,
     'quantity': instance.quantity,
   };
