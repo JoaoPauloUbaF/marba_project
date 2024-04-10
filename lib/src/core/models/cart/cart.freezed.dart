@@ -20,8 +20,7 @@ Cart _$CartFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Cart {
-  Set<String>? get itemsIds => throw _privateConstructorUsedError;
-  double? get total => throw _privateConstructorUsedError;
+  Set<CartItemModel>? get itemsIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +32,7 @@ abstract class $CartCopyWith<$Res> {
   factory $CartCopyWith(Cart value, $Res Function(Cart) then) =
       _$CartCopyWithImpl<$Res, Cart>;
   @useResult
-  $Res call({Set<String>? itemsIds, double? total});
+  $Res call({Set<CartItemModel>? itemsIds});
 }
 
 /// @nodoc
@@ -50,17 +49,12 @@ class _$CartCopyWithImpl<$Res, $Val extends Cart>
   @override
   $Res call({
     Object? itemsIds = freezed,
-    Object? total = freezed,
   }) {
     return _then(_value.copyWith(
       itemsIds: freezed == itemsIds
           ? _value.itemsIds
           : itemsIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>?,
-      total: freezed == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as Set<CartItemModel>?,
     ) as $Val);
   }
 }
@@ -72,7 +66,7 @@ abstract class _$$CartImplCopyWith<$Res> implements $CartCopyWith<$Res> {
       __$$CartImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Set<String>? itemsIds, double? total});
+  $Res call({Set<CartItemModel>? itemsIds});
 }
 
 /// @nodoc
@@ -86,17 +80,12 @@ class __$$CartImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? itemsIds = freezed,
-    Object? total = freezed,
   }) {
     return _then(_$CartImpl(
       itemsIds: freezed == itemsIds
           ? _value._itemsIds
           : itemsIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>?,
-      total: freezed == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as Set<CartItemModel>?,
     ));
   }
 }
@@ -104,14 +93,14 @@ class __$$CartImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CartImpl implements _Cart {
-  _$CartImpl({final Set<String>? itemsIds, this.total}) : _itemsIds = itemsIds;
+  _$CartImpl({final Set<CartItemModel>? itemsIds}) : _itemsIds = itemsIds;
 
   factory _$CartImpl.fromJson(Map<String, dynamic> json) =>
       _$$CartImplFromJson(json);
 
-  final Set<String>? _itemsIds;
+  final Set<CartItemModel>? _itemsIds;
   @override
-  Set<String>? get itemsIds {
+  Set<CartItemModel>? get itemsIds {
     final value = _itemsIds;
     if (value == null) return null;
     if (_itemsIds is EqualUnmodifiableSetView) return _itemsIds;
@@ -120,11 +109,8 @@ class _$CartImpl implements _Cart {
   }
 
   @override
-  final double? total;
-
-  @override
   String toString() {
-    return 'Cart(itemsIds: $itemsIds, total: $total)';
+    return 'Cart(itemsIds: $itemsIds)';
   }
 
   @override
@@ -132,14 +118,13 @@ class _$CartImpl implements _Cart {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CartImpl &&
-            const DeepCollectionEquality().equals(other._itemsIds, _itemsIds) &&
-            (identical(other.total, total) || other.total == total));
+            const DeepCollectionEquality().equals(other._itemsIds, _itemsIds));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_itemsIds), total);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_itemsIds));
 
   @JsonKey(ignore: true)
   @override
@@ -156,15 +141,12 @@ class _$CartImpl implements _Cart {
 }
 
 abstract class _Cart implements Cart {
-  factory _Cart({final Set<String>? itemsIds, final double? total}) =
-      _$CartImpl;
+  factory _Cart({final Set<CartItemModel>? itemsIds}) = _$CartImpl;
 
   factory _Cart.fromJson(Map<String, dynamic> json) = _$CartImpl.fromJson;
 
   @override
-  Set<String>? get itemsIds;
-  @override
-  double? get total;
+  Set<CartItemModel>? get itemsIds;
   @override
   @JsonKey(ignore: true)
   _$$CartImplCopyWith<_$CartImpl> get copyWith =>

@@ -29,6 +29,7 @@ mixin _$UserModel {
   List<OfferModel>? get favoriteOffers => throw _privateConstructorUsedError;
   bool get isBusinessOwner => throw _privateConstructorUsedError;
   Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
+  Cart? get cart => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,9 +51,11 @@ abstract class $UserModelCopyWith<$Res> {
       List<Address>? deliveryAddresses,
       List<OfferModel>? favoriteOffers,
       bool isBusinessOwner,
-      Set<String>? ownedBusinessIds});
+      Set<String>? ownedBusinessIds,
+      Cart? cart});
 
   $AddressCopyWith<$Res> get address;
+  $CartCopyWith<$Res>? get cart;
 }
 
 /// @nodoc
@@ -77,6 +80,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? favoriteOffers = freezed,
     Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
+    Object? cart = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -115,6 +119,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
+      cart: freezed == cart
+          ? _value.cart
+          : cart // ignore: cast_nullable_to_non_nullable
+              as Cart?,
     ) as $Val);
   }
 
@@ -123,6 +131,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $AddressCopyWith<$Res> get address {
     return $AddressCopyWith<$Res>(_value.address, (value) {
       return _then(_value.copyWith(address: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CartCopyWith<$Res>? get cart {
+    if (_value.cart == null) {
+      return null;
+    }
+
+    return $CartCopyWith<$Res>(_value.cart!, (value) {
+      return _then(_value.copyWith(cart: value) as $Val);
     });
   }
 }
@@ -144,10 +164,13 @@ abstract class _$$UserModelImplCopyWith<$Res>
       List<Address>? deliveryAddresses,
       List<OfferModel>? favoriteOffers,
       bool isBusinessOwner,
-      Set<String>? ownedBusinessIds});
+      Set<String>? ownedBusinessIds,
+      Cart? cart});
 
   @override
   $AddressCopyWith<$Res> get address;
+  @override
+  $CartCopyWith<$Res>? get cart;
 }
 
 /// @nodoc
@@ -170,6 +193,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? favoriteOffers = freezed,
     Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
+    Object? cart = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -208,6 +232,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value._ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
+      cart: freezed == cart
+          ? _value.cart
+          : cart // ignore: cast_nullable_to_non_nullable
+              as Cart?,
     ));
   }
 }
@@ -224,7 +252,8 @@ class _$UserModelImpl extends _UserModel {
       final List<Address>? deliveryAddresses,
       final List<OfferModel>? favoriteOffers,
       required this.isBusinessOwner,
-      final Set<String>? ownedBusinessIds})
+      final Set<String>? ownedBusinessIds,
+      this.cart})
       : _deliveryAddresses = deliveryAddresses,
         _favoriteOffers = favoriteOffers,
         _ownedBusinessIds = ownedBusinessIds,
@@ -277,8 +306,11 @@ class _$UserModelImpl extends _UserModel {
   }
 
   @override
+  final Cart? cart;
+
+  @override
   String toString() {
-    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, deliveryAddresses: $deliveryAddresses, favoriteOffers: $favoriteOffers, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds)';
+    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, deliveryAddresses: $deliveryAddresses, favoriteOffers: $favoriteOffers, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, cart: $cart)';
   }
 
   @override
@@ -300,7 +332,8 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.isBusinessOwner, isBusinessOwner) ||
                 other.isBusinessOwner == isBusinessOwner) &&
             const DeepCollectionEquality()
-                .equals(other._ownedBusinessIds, _ownedBusinessIds));
+                .equals(other._ownedBusinessIds, _ownedBusinessIds) &&
+            (identical(other.cart, cart) || other.cart == cart));
   }
 
   @JsonKey(ignore: true)
@@ -315,7 +348,8 @@ class _$UserModelImpl extends _UserModel {
       const DeepCollectionEquality().hash(_deliveryAddresses),
       const DeepCollectionEquality().hash(_favoriteOffers),
       isBusinessOwner,
-      const DeepCollectionEquality().hash(_ownedBusinessIds));
+      const DeepCollectionEquality().hash(_ownedBusinessIds),
+      cart);
 
   @JsonKey(ignore: true)
   @override
@@ -341,7 +375,8 @@ abstract class _UserModel extends UserModel {
       final List<Address>? deliveryAddresses,
       final List<OfferModel>? favoriteOffers,
       required final bool isBusinessOwner,
-      final Set<String>? ownedBusinessIds}) = _$UserModelImpl;
+      final Set<String>? ownedBusinessIds,
+      final Cart? cart}) = _$UserModelImpl;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -365,6 +400,8 @@ abstract class _UserModel extends UserModel {
   bool get isBusinessOwner;
   @override
   Set<String>? get ownedBusinessIds;
+  @override
+  Cart? get cart;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

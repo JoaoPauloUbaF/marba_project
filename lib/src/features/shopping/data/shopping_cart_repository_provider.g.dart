@@ -1,27 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_item_list_view_model.dart';
+part of 'shopping_cart_repository_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cartItemListViewModelHash() =>
-    r'a313c511d0013603dcc1d40f06a184fce3836862';
+String _$shoppingCartRepositoryHash() =>
+    r'38ce3cb18e71f3016c90a3dcdfb6660ee6e55cb4';
 
-/// See also [CartItemListViewModel].
-@ProviderFor(CartItemListViewModel)
-final cartItemListViewModelProvider =
-    NotifierProvider<CartItemListViewModel, List<CartItemModel>>.internal(
-  CartItemListViewModel.new,
-  name: r'cartItemListViewModelProvider',
+/// See also [shoppingCartRepository].
+@ProviderFor(shoppingCartRepository)
+final shoppingCartRepositoryProvider =
+    AutoDisposeProvider<ShoppingCartRepository>.internal(
+  shoppingCartRepository,
+  name: r'shoppingCartRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$cartItemListViewModelHash,
+      : _$shoppingCartRepositoryHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CartItemListViewModel = Notifier<List<CartItemModel>>;
+typedef ShoppingCartRepositoryRef
+    = AutoDisposeProviderRef<ShoppingCartRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
