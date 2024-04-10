@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_item_list_view_model.dart';
+part of 'order_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$cartItemListViewModelHash() =>
-    r'2ab84d1f18b920966e13edb7eb958c3a910f95da';
+String _$orderViewModelHash() => r'04e9a3852e22cac8da1e7cf9f9a3c4fe3340ba4d';
 
-/// See also [CartItemListViewModel].
-@ProviderFor(CartItemListViewModel)
-final cartItemListViewModelProvider =
-    NotifierProvider<CartItemListViewModel, List<CartItemModel>>.internal(
-  CartItemListViewModel.new,
-  name: r'cartItemListViewModelProvider',
+/// See also [OrderViewModel].
+@ProviderFor(OrderViewModel)
+final orderViewModelProvider =
+    AutoDisposeNotifierProvider<OrderViewModel, Order?>.internal(
+  OrderViewModel.new,
+  name: r'orderViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$cartItemListViewModelHash,
+      : _$orderViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CartItemListViewModel = Notifier<List<CartItemModel>>;
+typedef _$OrderViewModel = AutoDisposeNotifier<Order?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

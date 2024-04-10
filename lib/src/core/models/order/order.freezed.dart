@@ -21,14 +21,15 @@ Order _$OrderFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Order {
   String get id => throw _privateConstructorUsedError;
-  String get businessId => throw _privateConstructorUsedError;
   String get customerId => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
-  Set<String> get itemsIds => throw _privateConstructorUsedError;
+  List<BusinessOrder> get businessOrders => throw _privateConstructorUsedError;
   double get total => throw _privateConstructorUsedError;
+  double get totalDeliveryFee => throw _privateConstructorUsedError;
+  double get discount => throw _privateConstructorUsedError;
+  String get address => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
-  String get address => throw _privateConstructorUsedError;
+  DateTime? get canceledAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,14 +43,15 @@ abstract class $OrderCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String businessId,
       String customerId,
-      String status,
-      Set<String> itemsIds,
+      List<BusinessOrder> businessOrders,
       double total,
+      double totalDeliveryFee,
+      double discount,
+      String address,
       DateTime createdAt,
       DateTime updatedAt,
-      String address});
+      DateTime? canceledAt});
 }
 
 /// @nodoc
@@ -66,40 +68,45 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
   @override
   $Res call({
     Object? id = null,
-    Object? businessId = null,
     Object? customerId = null,
-    Object? status = null,
-    Object? itemsIds = null,
+    Object? businessOrders = null,
     Object? total = null,
+    Object? totalDeliveryFee = null,
+    Object? discount = null,
+    Object? address = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? address = null,
+    Object? canceledAt = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      businessId: null == businessId
-          ? _value.businessId
-          : businessId // ignore: cast_nullable_to_non_nullable
-              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      itemsIds: null == itemsIds
-          ? _value.itemsIds
-          : itemsIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+      businessOrders: null == businessOrders
+          ? _value.businessOrders
+          : businessOrders // ignore: cast_nullable_to_non_nullable
+              as List<BusinessOrder>,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
+      totalDeliveryFee: null == totalDeliveryFee
+          ? _value.totalDeliveryFee
+          : totalDeliveryFee // ignore: cast_nullable_to_non_nullable
+              as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -108,10 +115,10 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      address: null == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String,
+      canceledAt: freezed == canceledAt
+          ? _value.canceledAt
+          : canceledAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -125,14 +132,15 @@ abstract class _$$OrderImplCopyWith<$Res> implements $OrderCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String businessId,
       String customerId,
-      String status,
-      Set<String> itemsIds,
+      List<BusinessOrder> businessOrders,
       double total,
+      double totalDeliveryFee,
+      double discount,
+      String address,
       DateTime createdAt,
       DateTime updatedAt,
-      String address});
+      DateTime? canceledAt});
 }
 
 /// @nodoc
@@ -147,40 +155,45 @@ class __$$OrderImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? businessId = null,
     Object? customerId = null,
-    Object? status = null,
-    Object? itemsIds = null,
+    Object? businessOrders = null,
     Object? total = null,
+    Object? totalDeliveryFee = null,
+    Object? discount = null,
+    Object? address = null,
     Object? createdAt = null,
     Object? updatedAt = null,
-    Object? address = null,
+    Object? canceledAt = freezed,
   }) {
     return _then(_$OrderImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      businessId: null == businessId
-          ? _value.businessId
-          : businessId // ignore: cast_nullable_to_non_nullable
-              as String,
       customerId: null == customerId
           ? _value.customerId
           : customerId // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      itemsIds: null == itemsIds
-          ? _value._itemsIds
-          : itemsIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
+      businessOrders: null == businessOrders
+          ? _value._businessOrders
+          : businessOrders // ignore: cast_nullable_to_non_nullable
+              as List<BusinessOrder>,
       total: null == total
           ? _value.total
           : total // ignore: cast_nullable_to_non_nullable
               as double,
+      totalDeliveryFee: null == totalDeliveryFee
+          ? _value.totalDeliveryFee
+          : totalDeliveryFee // ignore: cast_nullable_to_non_nullable
+              as double,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      address: null == address
+          ? _value.address
+          : address // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -189,10 +202,10 @@ class __$$OrderImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      address: null == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as String,
+      canceledAt: freezed == canceledAt
+          ? _value.canceledAt
+          : canceledAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -202,15 +215,16 @@ class __$$OrderImplCopyWithImpl<$Res>
 class _$OrderImpl implements _Order {
   _$OrderImpl(
       {required this.id,
-      required this.businessId,
       required this.customerId,
-      required this.status,
-      required final Set<String> itemsIds,
+      required final List<BusinessOrder> businessOrders,
       required this.total,
+      required this.totalDeliveryFee,
+      required this.discount,
+      required this.address,
       required this.createdAt,
       required this.updatedAt,
-      required this.address})
-      : _itemsIds = itemsIds;
+      this.canceledAt})
+      : _businessOrders = businessOrders;
 
   factory _$OrderImpl.fromJson(Map<String, dynamic> json) =>
       _$$OrderImplFromJson(json);
@@ -218,31 +232,33 @@ class _$OrderImpl implements _Order {
   @override
   final String id;
   @override
-  final String businessId;
-  @override
   final String customerId;
+  final List<BusinessOrder> _businessOrders;
   @override
-  final String status;
-  final Set<String> _itemsIds;
-  @override
-  Set<String> get itemsIds {
-    if (_itemsIds is EqualUnmodifiableSetView) return _itemsIds;
+  List<BusinessOrder> get businessOrders {
+    if (_businessOrders is EqualUnmodifiableListView) return _businessOrders;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_itemsIds);
+    return EqualUnmodifiableListView(_businessOrders);
   }
 
   @override
   final double total;
   @override
+  final double totalDeliveryFee;
+  @override
+  final double discount;
+  @override
+  final String address;
+  @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
   @override
-  final String address;
+  final DateTime? canceledAt;
 
   @override
   String toString() {
-    return 'Order(id: $id, businessId: $businessId, customerId: $customerId, status: $status, itemsIds: $itemsIds, total: $total, createdAt: $createdAt, updatedAt: $updatedAt, address: $address)';
+    return 'Order(id: $id, customerId: $customerId, businessOrders: $businessOrders, total: $total, totalDeliveryFee: $totalDeliveryFee, discount: $discount, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, canceledAt: $canceledAt)';
   }
 
   @override
@@ -251,18 +267,22 @@ class _$OrderImpl implements _Order {
         (other.runtimeType == runtimeType &&
             other is _$OrderImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.businessId, businessId) ||
-                other.businessId == businessId) &&
             (identical(other.customerId, customerId) ||
                 other.customerId == customerId) &&
-            (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other._itemsIds, _itemsIds) &&
+            const DeepCollectionEquality()
+                .equals(other._businessOrders, _businessOrders) &&
             (identical(other.total, total) || other.total == total) &&
+            (identical(other.totalDeliveryFee, totalDeliveryFee) ||
+                other.totalDeliveryFee == totalDeliveryFee) &&
+            (identical(other.discount, discount) ||
+                other.discount == discount) &&
+            (identical(other.address, address) || other.address == address) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.canceledAt, canceledAt) ||
+                other.canceledAt == canceledAt));
   }
 
   @JsonKey(ignore: true)
@@ -270,14 +290,15 @@ class _$OrderImpl implements _Order {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      businessId,
       customerId,
-      status,
-      const DeepCollectionEquality().hash(_itemsIds),
+      const DeepCollectionEquality().hash(_businessOrders),
       total,
+      totalDeliveryFee,
+      discount,
+      address,
       createdAt,
       updatedAt,
-      address);
+      canceledAt);
 
   @JsonKey(ignore: true)
   @override
@@ -296,35 +317,38 @@ class _$OrderImpl implements _Order {
 abstract class _Order implements Order {
   factory _Order(
       {required final String id,
-      required final String businessId,
       required final String customerId,
-      required final String status,
-      required final Set<String> itemsIds,
+      required final List<BusinessOrder> businessOrders,
       required final double total,
+      required final double totalDeliveryFee,
+      required final double discount,
+      required final String address,
       required final DateTime createdAt,
       required final DateTime updatedAt,
-      required final String address}) = _$OrderImpl;
+      final DateTime? canceledAt}) = _$OrderImpl;
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$OrderImpl.fromJson;
 
   @override
   String get id;
   @override
-  String get businessId;
-  @override
   String get customerId;
   @override
-  String get status;
-  @override
-  Set<String> get itemsIds;
+  List<BusinessOrder> get businessOrders;
   @override
   double get total;
+  @override
+  double get totalDeliveryFee;
+  @override
+  double get discount;
+  @override
+  String get address;
   @override
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
   @override
-  String get address;
+  DateTime? get canceledAt;
   @override
   @JsonKey(ignore: true)
   _$$OrderImplCopyWith<_$OrderImpl> get copyWith =>

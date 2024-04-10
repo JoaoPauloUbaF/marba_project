@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_view_model/cart_item_list_view_model.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
+import '../../../scheduling/presentation/widgets/calendar_modal_widget.dart';
+
 class OrderingActionsWidget extends ConsumerWidget {
   //TODO: order and cart features
   const OrderingActionsWidget({
@@ -35,7 +37,7 @@ class OrderingActionsWidget extends ConsumerWidget {
                             cartViewModel.createNewItem(
                               offer.id,
                               offer.title,
-                              offer.finalPrice,
+                              offer.priceWithDiscount,
                               offer.imageUrl,
                               offer.businessId,
                               offer.offerType,
@@ -65,7 +67,13 @@ class OrderingActionsWidget extends ConsumerWidget {
                             backgroundColor:
                                 Theme.of(context).colorScheme.onPrimary,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return const CalendarModalWidget();
+                                });
+                          },
                           icon: Icon(
                             Icons.calendar_month_sharp,
                             color: Theme.of(context).colorScheme.secondary,
@@ -140,7 +148,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
           cartViewModel.createNewItem(
             widget.offer.id,
             widget.offer.title,
-            widget.offer.finalPrice,
+            widget.offer.priceWithDiscount,
             widget.offer.imageUrl,
             widget.offer.businessId,
             widget.offer.offerType,

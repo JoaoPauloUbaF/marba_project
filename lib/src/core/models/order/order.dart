@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'business_order_model.dart';
+
 part 'order.freezed.dart';
 part 'order.g.dart';
 
@@ -7,15 +9,23 @@ part 'order.g.dart';
 class Order with _$Order {
   factory Order({
     required String id,
-    required String businessId,
     required String customerId,
-    required String status,
-    required Set<String> itemsIds,
+    required List<BusinessOrder> businessOrders,
     required double total,
+    required double totalDeliveryFee,
+    required double discount,
+    required String address,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required String address,
+    DateTime? canceledAt,
   }) = _Order;
 
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+}
+
+enum OrderStatus {
+  pending,
+  running,
+  done,
+  canceled,
 }

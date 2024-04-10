@@ -4,6 +4,8 @@ import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
+import '../../../../core/models/order/order.dart';
+import '../../../orders/application/order_view_model/order_view_model.dart';
 import '../delivery_provider/delivery_provider.dart';
 import '../discount_coupon_provider/discount_coupon_provider.dart';
 
@@ -105,6 +107,28 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   void checkOut(BuildContext context) {
+    ref.read(orderViewModelProvider.notifier).createNewOrder(
+        items: state,
+        total: total,
+        deliveryFee: 0.0,
+        discount: 0.0,
+        address: 'Rua 1, 123',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+        canceledAt: null,
+        customerId: '1',
+        id: '1');
     Navigator.of(context).pushNamed('/checkout');
+  }
+
+  void showItemsNeedScheduling() {
+    final items = state
+        .where((element) => element.offerType == OfferType.service)
+        .toList();
+    if (items.isNotEmpty) {
+      // items.any((element) => element.scheduleDate == null) TODO: implement the schedule date
+      //     ? showScheduleDialog(context)
+      //     : checkOut(context);
+    }
   }
 }
