@@ -7,6 +7,7 @@ import 'package:project_marba/src/features/darkmode/presentation/components/them
 import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/settings/presentation/settings_screen.dart';
+import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 
 import '../../application/home_screen_controller/home_screen_controller.dart';
 
@@ -50,6 +51,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   Widget build(BuildContext context) {
     final controller = ref.read(homeScreenControllerProvider.notifier);
     final _ = ref.watch(authStateChangeProvider);
+    ref.watch(currentUserProvider);
     return Scaffold(
       extendBody: true,
       appBar: AppBar(

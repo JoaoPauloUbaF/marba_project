@@ -9,7 +9,6 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import '../../application/profile_forms_controller/profile_forms_screen_controller.dart';
 
 class ProfileFormScreen extends ConsumerWidget {
-  // TODO: Improve this form
   const ProfileFormScreen({super.key});
 
   @override
