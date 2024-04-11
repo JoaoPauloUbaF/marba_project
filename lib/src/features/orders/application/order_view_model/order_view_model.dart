@@ -6,14 +6,14 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../core/models/order/business_order_item.dart';
 import '../../../../core/models/order/business_order_model.dart';
-import '../../../../core/models/order/order.dart';
+import '../../../../core/models/order/order_model.dart';
 
 part 'order_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class OrderViewModel extends _$OrderViewModel {
   @override
-  Order? build() {
+  OrderModel? build() {
     return null;
   }
 
@@ -70,10 +70,10 @@ class OrderViewModel extends _$OrderViewModel {
       );
     }).toList();
 
-    final order = Order(
+    final order = OrderModel(
       id: const Uuid().v4(),
       customerId: customerId,
-      businessOrders: businessOrders,
+      businessOrdersIds: businessOrders.map((e) => e.id).toList(),
       total: total,
       createdAt: createdAt,
       updatedAt: updatedAt,
@@ -87,6 +87,18 @@ class OrderViewModel extends _$OrderViewModel {
   }
 
   List<BusinessOrderItem>? getOrderItems() {
-    return state?.businessOrders.expand((element) => element.items).toList();
+    return [
+      BusinessOrderItem(
+        id: '1',
+        name: 'Pizza de Calabresa',
+        imageUrl: 'assets/images/pizza_calabresa.jpg',
+        price: 35.0,
+        quantity: 1,
+        deliveredAt: null,
+        canceledAt: null,
+        scheduledAt: null,
+        status: BusinessOrderItemStatus.pending,
+      ),
+    ];
   }
 }

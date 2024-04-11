@@ -1,4 +1,4 @@
-import '../../../../core/models/order/order.dart';
+import '../../../../core/models/order/order_model.dart';
 
 /// Repository interface for managing user-specific operations related to orders.
 abstract class UserOrdersRepository {
@@ -6,22 +6,22 @@ abstract class UserOrdersRepository {
   ///
   /// [userId]: The ID of the user/customer whose orders to retrieve.
   ///
-  /// Returns a list of [Order] objects placed by the specified user.
-  Future<List<Order>> getUserOrders();
+  /// Returns a list of [OrderModel] objects placed by the specified user.
+  Future<List<OrderModel>> getUserOrders();
 
   /// Retrieves open orders associated with a specific user/customer.
   ///
   /// [userId]: The ID of the user/customer whose open orders to retrieve.
   ///
-  /// Returns a list of open [Order] objects placed by the specified user.
-  Future<List<Order>> getUserOpenOrders();
+  /// Returns a list of open [OrderModel] objects placed by the specified user.
+  Future<List<OrderModel>> getUserOpenOrders();
 
   /// Retrieves closed orders associated with a specific user/customer.
   ///
   /// [userId]: The ID of the user/customer whose closed orders to retrieve.
   ///
-  /// Returns a list of closed [Order] objects placed by the specified user.
-  Future<List<Order>> getUserClosedOrders();
+  /// Returns a list of closed [OrderModel] objects placed by the specified user.
+  Future<List<OrderModel>> getUserClosedOrders();
 
   /// Retrieves the total number of orders placed by a specific user.
   ///
