@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
@@ -54,35 +55,47 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
                       Text(
                           'Total: R\$ ${order?.total.toStringAsFixed(2) ?? ''}'),
                       const VerticalSpaceMediumWidget(),
-                      AddressDisplayWidget(
-                        address: order!.address,
-                        isEditable: false,
-                        isBusinessAddress: false,
+                      Visibility(
+                        visible: order?.address != null,
+                        child: AddressDisplayWidget(
+                          address: order!.address,
+                          isEditable: false,
+                          isBusinessAddress: false,
+                        ),
                       ),
                       const VerticalSpaceMediumWidget(),
                       const Text('Produtos'),
-                      ListView.builder(
-                        padding: const EdgeInsets.all(2.0),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: orderViewModel.getOrderItems()?.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: Image.network(
-                              '${orderViewModel.getOrderItems()?[index].imageUrl}',
-                              width: 50,
-                              height: 80,
-                              fit: BoxFit.fill,
-                            ),
-                            title: Text(
-                                '${orderViewModel.getOrderItems()?[index].name}'),
-                            subtitle: Text(
-                                'R\$ ${orderViewModel.getOrderItems()?[index].price.toStringAsFixed(2)}'),
-                            trailing: Text(
-                                'Qtd: ${orderViewModel.getOrderItems()?[index].quantity}'),
-                          );
-                        },
-                      ),
+                      FutureBuilder(
+                          future: orderViewModel.getOrderItems(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            return ListView.builder(
+                              padding: const EdgeInsets.all(2.0),
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: snapshot.data?.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Image.network(
+                                    '${snapshot.data?[index].imageUrl}',
+                                    width: 50,
+                                    height: 80,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  title: Text('${snapshot.data?[index].name}'),
+                                  subtitle: Text(
+                                      'R\$ ${snapshot.data?[index].price.toStringAsFixed(2)}'),
+                                  trailing: Text(
+                                      'Qtd: ${snapshot.data?[index].quantity}'),
+                                );
+                              },
+                            );
+                          }),
                     ],
                   ),
                 ),

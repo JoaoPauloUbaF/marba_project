@@ -1,3 +1,6 @@
+import 'package:project_marba/src/core/models/order/business_order_item.dart';
+import 'package:project_marba/src/core/models/order/business_order_model.dart';
+
 import '../../../../core/models/order/order_model.dart';
 
 /// Repository interface for managing general order operations.
@@ -47,4 +50,12 @@ abstract class OrdersRepository {
   ///
   /// Throws an exception if the order with the specified ID is not found.
   Future<void> completeOrder({required String orderId});
+
+  /// Retrieves all items associated with a specific order.
+  ///
+  /// [orderId]: The ID of the order to retrieve items for.
+  ///
+  /// Returns a list of [BusinessOrderItem] objects associated with the order.
+
+  Future<List<BusinessOrderItem>> getOrderItems({required String orderId});
 }

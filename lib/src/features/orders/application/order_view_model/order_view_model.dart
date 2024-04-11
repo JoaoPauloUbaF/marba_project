@@ -1,6 +1,8 @@
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository_provider.dart';
+import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -57,7 +59,7 @@ class OrderViewModel extends _$OrderViewModel {
         );
       }).toSet();
 
-      return BusinessOrder(
+      final businessOrderTemp = BusinessOrder(
         id: const Uuid().v4(),
         userNickname: userNickname,
         address: address,
@@ -68,6 +70,12 @@ class OrderViewModel extends _$OrderViewModel {
         updatedAt: updatedAt,
         canceledAt: null,
       );
+
+      ref
+          .read(businessOrdersRepositoryProvider)
+          .addOrder(order: businessOrderTemp);
+
+      return businessOrderTemp;
     }).toList();
 
     final order = OrderModel(
@@ -83,22 +91,24 @@ class OrderViewModel extends _$OrderViewModel {
       discount: discount,
     );
 
-    state = order;
+    ref
+        .read(ordersRepositoryProvider)
+        .saveOrder(order: order)
+        .then((value) => state = order);
   }
 
-  List<BusinessOrderItem>? getOrderItems() {
-    return [
-      BusinessOrderItem(
-        id: '1',
-        name: 'Pizza de Calabresa',
-        imageUrl: 'assets/images/pizza_calabresa.jpg',
-        price: 35.0,
-        quantity: 1,
-        deliveredAt: null,
-        canceledAt: null,
-        scheduledAt: null,
-        status: BusinessOrderItemStatus.pending,
-      ),
-    ];
+  Future<List<BusinessOrderItem>?> getOrderItems() async {
+    //TODO: change to a provider
+    final orderItems = await ref
+        .read(ordersRepositoryProvider)
+        .getOrderItems(orderId: state!.id);
+    return orderItems;
+  }
+
+  void fetchOrder() {
+    ref
+        .read(ordersRepositoryProvider)
+        .getOrderById(orderId: state!.id)
+        .then((value) => state = value);
   }
 }
