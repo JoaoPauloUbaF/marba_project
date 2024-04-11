@@ -123,7 +123,8 @@ class ProductStepperWidget extends StatelessWidget {
             color: Theme.of(context).colorScheme.primary,
             icon: Icon(cartItemListViewModel.getIncreaseIcon(item), size: 18.0),
             onPressed: () {
-              cartItemListViewModel.increaseItemQuantity(item);
+              cartItemListViewModel.increaseItemQuantity(item,
+                  context: context);
             },
             padding: const EdgeInsets.all(0),
             constraints: const BoxConstraints(),
