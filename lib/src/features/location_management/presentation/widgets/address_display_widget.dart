@@ -21,23 +21,28 @@ class AddressDisplayWidget extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final addressViewModel = ref.watch(addressViewModelProvider.notifier);
 
-    return InkWell(
-      onTap: isEditable
-          ? () => addressViewModel.onAddressTileTap(
-              context, address, isBusinessAddress)
-          : null,
-      child: Card(
-        child: ListTile(
-          leading: const Icon(Icons.location_on_sharp),
-          title: Text(
-            '${address.street}, ${address.number}',
-            style: textTheme.titleMedium,
-          ),
-          subtitle: Text(
-            '${address.city} - ${address.state}',
-            style: textTheme.bodyMedium,
-          ),
-          trailing: const Icon(Icons.directions_sharp),
+    return Card(
+      child: ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+        onTap: isEditable
+            ? () => addressViewModel.onAddressTileTap(
+                context, address, isBusinessAddress)
+            : null,
+        leading: const Icon(Icons.location_on_sharp),
+        title: Text(
+          '${address.street}, ${address.number}, ${address.neighborhood}',
+          style: textTheme.titleMedium,
+        ),
+        subtitle: Text(
+          '${address.city} - ${address.state}',
+          style: textTheme.bodyMedium,
+        ),
+        trailing: IconButton(
+          padding: EdgeInsets.zero,
+          onPressed: () => {
+            //TODO: Implementar ação de abrir o mapa
+          },
+          icon: const Icon(Icons.directions_sharp, size: 30.0),
         ),
       ),
     );

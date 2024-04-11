@@ -15,11 +15,14 @@ class OfferErrorWidget extends StatelessWidget {
         children: [
           const Text(
               'Houve um erro ao carregar a oferta.\n      Tente novamente mais tarde.'),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Retornar'),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Retornar'),
+            ),
           ),
         ],
       ),

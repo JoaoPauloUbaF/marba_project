@@ -74,13 +74,9 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         const Spacer(),
         InkWell(
           onTap: () {
-            setState(
-              () {
-                viewController
-                    .isBusinessOwner()
-                    .then((value) => isEditingPhone = value);
-              },
-            );
+            viewController
+                .isBusinessOwner()
+                .then((value) => setState(() => isEditingPhone = value));
           },
           child: Row(
             children: [
@@ -123,11 +119,9 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         const Spacer(),
         InkWell(
           onTap: () {
-            setState(() {
-              viewController
-                  .isBusinessOwner()
-                  .then((value) => isEditingEmail = value);
-            });
+            viewController
+                .isBusinessOwner()
+                .then((value) => setState(() => isEditingEmail = value));
           },
           child: Row(
             children: [

@@ -11,7 +11,7 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
-import '../../application/offer_details/offer_details_controller.dart';
+import '../../application/offer_details/offer_details_view_model.dart';
 import '../widgets/offer_media_widget.dart';
 
 class OfferDetailsScreen extends ConsumerStatefulWidget {
@@ -24,9 +24,9 @@ class OfferDetailsScreen extends ConsumerStatefulWidget {
 class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
   @override
   Widget build(BuildContext context) {
-    final offer = ref.watch(offerDetailsControllerProvider);
+    final offer = ref.watch(offerDetailsViewModelProvider);
     final offerDetailsController =
-        ref.read(offerDetailsControllerProvider.notifier);
+        ref.read(offerDetailsViewModelProvider.notifier);
     final mediaItems = offerDetailsController.getOfferMedia();
 
     final selectedBusiness = ref.watch(businessProfileViewModelProvider);
