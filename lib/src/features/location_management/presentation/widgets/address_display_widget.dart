@@ -1,50 +1,43 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/models/address/address.dart';
-import 'order_address_form_widget.dart';
+import '../../application/address_view_model/address_view_model.dart';
 
-class AddressDisplayWidget extends StatelessWidget {
+class AddressDisplayWidget extends ConsumerWidget {
   final Address address;
+  final bool isEditable;
+  final bool isBusinessAddress;
 
   const AddressDisplayWidget({
     super.key,
     required this.address,
+    required this.isEditable,
+    required this.isBusinessAddress,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
+    final addressViewModel = ref.watch(addressViewModelProvider.notifier);
+
     return InkWell(
-      onTap: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              contentPadding: const EdgeInsets.all(0),
-              content: AddressFormModalWidget(
-                currentAddress: address,
-                title: 'Editar Endereço',
-              ),
-            );
-          },
-        );
-      },
+      onTap: isEditable
+          ? () => addressViewModel.onAddressTileTap(
+              context, address, isBusinessAddress)
+          : null,
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              const Icon(Icons.location_on),
-              const SizedBox(width: 8.0),
-              Expanded(
-                child: Text(
-                  '${address.street}, ${address.number} , ${address.neighborhood}, ${address.zipCode}, ${address.city} - ${address.state}',
-                  style: textTheme.bodySmall,
-                ),
-              ),
-            ],
+        child: ListTile(
+          leading: const Icon(Icons.location_on_sharp),
+          title: Text(
+            '${address.street}, ${address.number}',
+            style: textTheme.titleMedium,
           ),
+          subtitle: Text(
+            '${address.city} - ${address.state}',
+            style: textTheme.bodyMedium,
+          ),
+          trailing: const Icon(Icons.directions_sharp),
         ),
       ),
     );

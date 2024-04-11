@@ -46,7 +46,10 @@ class AppProfileScreen extends ConsumerWidget {
               return const Text(
                   'Parece que houve um erro, tente novamente mais tarde.');
             } else {
-              return AddressDisplayWidget(address: snapshot.data!);
+              return AddressDisplayWidget(
+                  address: snapshot.data!,
+                  isBusinessAddress: false,
+                  isEditable: true);
             }
           },
         ),

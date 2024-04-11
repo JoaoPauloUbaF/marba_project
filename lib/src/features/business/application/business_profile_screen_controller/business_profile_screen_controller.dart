@@ -17,8 +17,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'business_profile_screen_controller.g.dart';
 
 @Riverpod(keepAlive: true)
-class BusinessProfileScreenController
-    extends _$BusinessProfileScreenController {
+class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   @override
   Business? build() {
     return null;
@@ -27,6 +26,10 @@ class BusinessProfileScreenController
   void setSelectedBusiness(Business business) {
     state = business;
     fetchBusinessProfile();
+  }
+
+  String getBusinessId() {
+    return state?.id ?? '';
   }
 
   String getBusinessName() {
@@ -246,6 +249,18 @@ class BusinessProfileScreenController
         .updateBusinessDelivery(
           uid: state?.id ?? '',
           deliveryFee: parse,
+        )
+        .then((value) => fetchBusinessProfile());
+  }
+
+  Future<void> updateBusinessAddress(
+      {required String businessId,
+      required Map<String, String> address}) async {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessAddress(
+          uid: businessId,
+          address: address,
         )
         .then((value) => fetchBusinessProfile());
   }

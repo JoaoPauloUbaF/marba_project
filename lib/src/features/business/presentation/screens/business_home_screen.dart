@@ -25,9 +25,8 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(businessProfileScreenControllerProvider);
-    final viewController =
-        ref.read(businessProfileScreenControllerProvider.notifier);
+    ref.watch(businessProfileViewModelProvider);
+    final viewController = ref.read(businessProfileViewModelProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -85,7 +84,7 @@ class AppBarWidget extends StatefulWidget {
     required this.viewController,
   });
 
-  final BusinessProfileScreenController viewController;
+  final BusinessProfileViewModel viewController;
 
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();

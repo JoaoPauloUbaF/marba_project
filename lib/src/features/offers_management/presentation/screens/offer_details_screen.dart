@@ -29,7 +29,7 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
         ref.read(offerDetailsControllerProvider.notifier);
     final mediaItems = offerDetailsController.getOfferMedia();
 
-    final selectedBusiness = ref.watch(businessProfileScreenControllerProvider);
+    final selectedBusiness = ref.watch(businessProfileViewModelProvider);
     final businessName = selectedBusiness?.name ?? '';
     return Scaffold(
       floatingActionButton: FloatingActionButton(

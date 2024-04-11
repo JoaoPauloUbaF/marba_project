@@ -134,7 +134,7 @@ class OfferCreationController extends _$OfferCreationController {
     List<File?>? offerMedia,
     ServicePricingType? servicePricingType,
   }) async {
-    final business = ref.read(businessProfileScreenControllerProvider)!;
+    final business = ref.read(businessProfileViewModelProvider)!;
     final offerId = const Uuid().v4();
     Product? offerProduct;
     Service? offerService;

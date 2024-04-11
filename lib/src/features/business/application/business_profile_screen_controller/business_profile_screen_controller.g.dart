@@ -6,22 +6,22 @@ part of 'business_profile_screen_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessProfileScreenControllerHash() =>
-    r'ff26b4ebd3172fe9edb8fdc8eb88cbc9ca5ecf0e';
+String _$businessProfileViewModelHash() =>
+    r'f492c1f85e8601a457425cc0089d3a53a59080b0';
 
-/// See also [BusinessProfileScreenController].
-@ProviderFor(BusinessProfileScreenController)
-final businessProfileScreenControllerProvider =
-    NotifierProvider<BusinessProfileScreenController, Business?>.internal(
-  BusinessProfileScreenController.new,
-  name: r'businessProfileScreenControllerProvider',
+/// See also [BusinessProfileViewModel].
+@ProviderFor(BusinessProfileViewModel)
+final businessProfileViewModelProvider =
+    NotifierProvider<BusinessProfileViewModel, Business?>.internal(
+  BusinessProfileViewModel.new,
+  name: r'businessProfileViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$businessProfileScreenControllerHash,
+      : _$businessProfileViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$BusinessProfileScreenController = Notifier<Business?>;
+typedef _$BusinessProfileViewModel = Notifier<Business?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

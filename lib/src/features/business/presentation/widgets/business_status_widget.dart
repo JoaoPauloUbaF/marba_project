@@ -16,7 +16,7 @@ class BusinessStatusWidget extends ConsumerWidget {
       'deleted': 'Deletado',
     };
 
-    final business = ref.watch(businessProfileScreenControllerProvider);
+    final business = ref.watch(businessProfileViewModelProvider);
     final String businessStatus =
         business?.status.toString().split('.').last ?? '';
 
@@ -24,7 +24,7 @@ class BusinessStatusWidget extends ConsumerWidget {
         statusTranslations[businessStatus] ?? businessStatus;
 
     final Color businessStatusColor = ref
-        .watch(businessProfileScreenControllerProvider.notifier)
+        .watch(businessProfileViewModelProvider.notifier)
         .getBusinessStatusColor();
 
     return InkWell(
@@ -43,7 +43,7 @@ class BusinessStatusWidget extends ConsumerWidget {
                 .toList(),
             onChanged: (value) {
               ref
-                  .read(businessProfileScreenControllerProvider.notifier)
+                  .read(businessProfileViewModelProvider.notifier)
                   .changeBusinessStatus(status: value!);
             },
           ),

@@ -13,7 +13,7 @@ class BusinessCategoryTilesWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final businessCategories =
-        ref.watch(businessProfileScreenControllerProvider)?.categories;
+        ref.watch(businessProfileViewModelProvider)?.categories;
 
     return InkWell(
       child: Wrap(

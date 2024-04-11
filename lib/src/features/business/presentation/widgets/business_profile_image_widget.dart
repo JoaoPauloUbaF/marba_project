@@ -12,10 +12,10 @@ class BusinessProfileImageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _ = ref.watch(businessProfileScreenControllerProvider);
+    final _ = ref.watch(businessProfileViewModelProvider);
     final imageUploadingStatus = ref.watch(imageUploadingStatusProvider);
     final businessController =
-        ref.read(businessProfileScreenControllerProvider.notifier);
+        ref.read(businessProfileViewModelProvider.notifier);
 
     return Container(
       clipBehavior: Clip.antiAlias,
