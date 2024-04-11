@@ -27,7 +27,7 @@ class FirebaseUsersOrdersRepository extends UserOrdersRepository {
     final userId = container.read(currentUserProvider)?.id;
 
     if (userId == null) {
-      throw Exception('Business ID not found');
+      throw Exception('User ID not found');
     }
 
     try {
@@ -49,7 +49,7 @@ class FirebaseUsersOrdersRepository extends UserOrdersRepository {
     final userId = container.read(currentUserProvider)?.id;
 
     if (userId == null) {
-      throw Exception('Business ID not found');
+      throw Exception('User ID not found');
     }
 
     try {
@@ -72,18 +72,18 @@ class FirebaseUsersOrdersRepository extends UserOrdersRepository {
   }
 
   @override
-  Future<List<OrderModel>> getUserOrders() async {
+  Stream<List<OrderModel>> getUserOrders() async* {
     final container = ProviderContainer();
     final userId = container.read(currentUserProvider)?.id;
 
     if (userId == null) {
-      throw Exception('Business ID not found');
+      throw Exception('User ID not found');
     }
 
     try {
       final snapshot =
           await ordersCollection.where('customerId', isEqualTo: userId).get();
-      return snapshot.docs
+      yield snapshot.docs
           .map((doc) => OrderModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
     } catch (e) {
