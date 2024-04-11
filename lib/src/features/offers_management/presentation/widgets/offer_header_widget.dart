@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_controller.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_view_model.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/top_ten/presentation/widgets/top_ten_badge_widget.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
@@ -24,46 +24,55 @@ class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     ref.read(offersDataRepositoryProvider);
-    final offerDetailViewModel = ref.read(offerDetailsControllerProvider);
+    final offerDetailsViewModel =
+        ref.read(offerDetailsViewModelProvider.notifier);
 
     return Row(
       children: [
         Expanded(
           child: InkWell(
-              onTap: () => setState(() {
-                    isEditing = !isEditing;
-                  }),
-              child: !isEditing
-                  ? Text(
-                      widget.offer.title,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                    )
-                  : TextFormField(
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        contentPadding:
-                            const EdgeInsets.symmetric(horizontal: 8.0),
-                        suffixIcon: InkWell(
-                          child: const Icon(Icons.check),
-                          onTap: () {
-                            setState(() {
-                              // TODO: Update offer title
-                              isEditing = false;
-                            });
-                          },
+            onTap: () => setState(
+              () {
+                offerDetailsViewModel
+                    .isOfferOwner(widget.offer.businessId)
+                    .then((value) => isEditing = value);
+              },
+            ),
+            child: !isEditing
+                ? Text(
+                    widget.offer.title,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w500,
                         ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                  )
+                : TextFormField(
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 8.0),
+                      suffixIcon: InkWell(
+                        child: const Icon(Icons.check),
+                        onTap: () {
+                          setState(() {
+                            offerDetailsViewModel.updateOfferTitle(
+                              offerId: widget.offer.id,
+                              newTitle: newTitle,
+                            );
+                            isEditing = false;
+                          });
+                        },
                       ),
-                      initialValue: widget.offer.title,
-                      onChanged: (value) {
-                        setState(() {
-                          newTitle = value;
-                        });
-                      },
-                    )),
+                    ),
+                    initialValue: widget.offer.title,
+                    onChanged: (value) {
+                      setState(() {
+                        newTitle = value;
+                      });
+                    },
+                  ),
+          ),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 8.0),

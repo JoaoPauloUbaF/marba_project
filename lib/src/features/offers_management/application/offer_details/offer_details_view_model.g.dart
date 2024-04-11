@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'offer_details_controller.dart';
+part of 'offer_details_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -159,22 +159,22 @@ class _OtherBusinessOffersProviderElement
   String get businessId => (origin as OtherBusinessOffersProvider).businessId;
 }
 
-String _$offerDetailsControllerHash() =>
-    r'3cef6bc288dd0597b812a26ac693a8e123c601c1';
+String _$offerDetailsViewModelHash() =>
+    r'0c825c1df6c954942077efee88869a25aab3939d';
 
-/// See also [OfferDetailsController].
-@ProviderFor(OfferDetailsController)
-final offerDetailsControllerProvider =
-    NotifierProvider<OfferDetailsController, OfferModel?>.internal(
-  OfferDetailsController.new,
-  name: r'offerDetailsControllerProvider',
+/// See also [OfferDetailsViewModel].
+@ProviderFor(OfferDetailsViewModel)
+final offerDetailsViewModelProvider =
+    NotifierProvider<OfferDetailsViewModel, OfferModel?>.internal(
+  OfferDetailsViewModel.new,
+  name: r'offerDetailsViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$offerDetailsControllerHash,
+      : _$offerDetailsViewModelHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$OfferDetailsController = Notifier<OfferModel?>;
+typedef _$OfferDetailsViewModel = Notifier<OfferModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
