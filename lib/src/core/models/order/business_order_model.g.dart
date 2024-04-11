@@ -9,9 +9,9 @@ part of 'business_order_model.dart';
 _$BusinessOrderImpl _$$BusinessOrderImplFromJson(Map<String, dynamic> json) =>
     _$BusinessOrderImpl(
       id: json['id'] as String,
+      businessId: json['businessId'] as String,
       userNickname: json['userNickname'] as String,
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
-      businessId: json['businessId'] as String,
       items: (json['items'] as List<dynamic>)
           .map((e) => BusinessOrderItem.fromJson(e as Map<String, dynamic>))
           .toSet(),
@@ -26,9 +26,9 @@ _$BusinessOrderImpl _$$BusinessOrderImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$BusinessOrderImplToJson(_$BusinessOrderImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'businessId': instance.businessId,
     'userNickname': instance.userNickname,
     'address': instance.address.toJson(),
-    'businessId': instance.businessId,
     'items': instance.items.map((e) => e.toJson()).toList(),
     'status': _$BusinessOrderStatusEnumMap[instance.status]!,
     'createdAt': instance.createdAt.toIso8601String(),
@@ -50,5 +50,6 @@ const _$BusinessOrderStatusEnumMap = {
   BusinessOrderStatus.preparing: 'preparing',
   BusinessOrderStatus.delivering: 'delivering',
   BusinessOrderStatus.delivered: 'delivered',
+  BusinessOrderStatus.done: 'done',
   BusinessOrderStatus.canceled: 'canceled',
 };
