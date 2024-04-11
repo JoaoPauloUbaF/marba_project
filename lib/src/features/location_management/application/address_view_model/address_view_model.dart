@@ -4,10 +4,9 @@ import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import '../../../business/presentation/widgets/loading_widget.dart';
 import '../../../user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import '../../../user_profile/data/user_profile_provider.dart';
-import '../../presentation/widgets/order_address_form_widget.dart';
+import '../../presentation/widgets/address_form_widget.dart';
 part 'address_view_model.g.dart';
 
 @riverpod
@@ -48,58 +47,33 @@ class AddressViewModel extends _$AddressViewModel {
 
       var user = ref.watch(currentUserProvider);
 
-      user.when(
-        data: (user) {
-          if (user == null) {
-            return;
-          }
-          currentAddress != null
-              ? ref.read(userProfileDataProvider).updateProfile(
-                  uid: user.id,
-                  address: {
-                    'street': street,
-                    'number': number,
-                    'zipCode': zipCode,
-                    'neighborhood': neighborhood,
-                    'city': city,
-                    'state': state,
-                  },
-                ).then((value) => showSuccessDialog(context,
-                  message: 'Endereço atualizado com sucesso'))
-              : ref
-                  .read(userProfileDataProvider)
-                  .addDeliveryAddress(uid: user.id, address: {
-                  'street': street,
-                  'number': number,
-                  'zipCode': zipCode,
-                  'neighborhood': neighborhood,
-                  'city': city,
-                  'state': state,
-                }).then((value) => showSuccessDialog(context));
-        },
-        loading: () {
-          showDialog(
-            context: context,
-            builder: (_) => const LoadingWidget(),
-          );
-        },
-        error: (error, stackTrace) {
-          showDialog(
-              context: context,
-              builder: (_) => AlertDialog(
-                    title: const Text('Erro'),
-                    content: Text('Erro: $error'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Ok'),
-                      ),
-                    ],
-                  )).then((value) => Navigator.of(context).pop());
-        },
-      );
+      if (user == null) {
+        return;
+      }
+
+      currentAddress != null
+          ? ref.read(userProfileDataProvider).updateProfile(
+              uid: user.id,
+              address: {
+                'street': street,
+                'number': number,
+                'zipCode': zipCode,
+                'neighborhood': neighborhood,
+                'city': city,
+                'state': state,
+              },
+            ).then((value) => showSuccessDialog(context,
+              message: 'Endereço atualizado com sucesso'))
+          : ref
+              .read(userProfileDataProvider)
+              .addDeliveryAddress(uid: user.id, address: {
+              'street': street,
+              'number': number,
+              'zipCode': zipCode,
+              'neighborhood': neighborhood,
+              'city': city,
+              'state': state,
+            }).then((value) => showSuccessDialog(context));
     }
   }
 

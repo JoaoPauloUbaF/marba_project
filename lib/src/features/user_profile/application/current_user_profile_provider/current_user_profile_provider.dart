@@ -8,17 +8,19 @@ part 'current_user_profile_provider.g.dart';
 
 @riverpod
 class CurrentUser extends _$CurrentUser {
-  //TODO: mantain a user instance and change with this provider
   @override
-  Future<UserModel?>? build() async {
+  UserModel? build() {
+    ref.watch(authStateChangeProvider);
     final uid = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
 
     if (uid == null) {
       return null;
     }
 
-    return await ref
+    ref
         .watch(firestoreProfileDataProvider)
-        .getProfileData(uid: uid);
+        .getProfileData(uid: uid)
+        .then((value) => state = value);
+    return null;
   }
 }
