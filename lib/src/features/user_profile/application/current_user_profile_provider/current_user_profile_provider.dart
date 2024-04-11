@@ -6,7 +6,7 @@ import '../../data/user_firestore_profile_data_provider.dart';
 
 part 'current_user_profile_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class CurrentUser extends _$CurrentUser {
   @override
   UserModel? build() {

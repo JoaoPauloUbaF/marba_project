@@ -6,6 +6,7 @@ import 'package:project_marba/src/features/authentication/data/firebase_auth_pro
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/feed_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/orders/presentation/views/user_orders_view.dart';
 import 'package:project_marba/src/features/settings/presentation/settings_screen.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 
@@ -34,7 +35,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   static const List<Widget> _widgetOptions = <Widget>[
     FeedScreen(),
     Placeholder(),
-    Placeholder(),
+    UserOrdersView(),
     SettingsScreen(shouldRenderAppBar: false),
     MyBusinessListScreen(
       shouldRenderAppBar: false,
