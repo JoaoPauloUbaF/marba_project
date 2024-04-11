@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import 'package:project_marba/src/features/shopping/data/shopping_cart_repository.dart';
 import 'package:project_marba/src/features/shopping/data/shopping_cart_repository_provider.dart';
@@ -87,10 +88,34 @@ class CartItemListViewModel extends _$CartItemListViewModel {
             previousValue + (element.quantity * element.price));
   }
 
-  void increaseItemQuantity(CartItemModel item) {
-    final updatedItem = item.copyWith(quantity: item.quantity + 1);
-    state[state.indexOf(item)] = updatedItem;
-    refreshState();
+  void increaseItemQuantity(CartItemModel item, {BuildContext? context}) {
+    ref.read(offersDataRepositoryProvider).getOffer(item.id).then((value) {
+      if (value.availableQuantity?.compareTo(item.quantity) == 1) {
+        final updatedItem = item.copyWith(quantity: item.quantity + 1);
+        state[state.indexOf(item)] = updatedItem;
+        refreshState();
+      } else {
+        showDialog(
+          context: context!,
+          builder: (context) => AlertDialog(
+            title: Center(
+              child: Text('Quantidade indisponível',
+                  style: Theme.of(context).textTheme.titleLarge),
+            ),
+            content: const Text(
+              'A quantidade desejada não está disponível no momento',
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    });
   }
 
   void decreaseItemQuantity(CartItemModel item, BuildContext context) {
@@ -108,7 +133,6 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   IconData getIncreaseIcon(CartItemModel item) {
-    // TODO: implement the ceiling for the quantity
     return Icons.add;
   }
 
