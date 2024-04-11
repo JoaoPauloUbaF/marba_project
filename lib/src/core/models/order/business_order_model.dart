@@ -10,9 +10,9 @@ part 'business_order_model.g.dart';
 class BusinessOrder with _$BusinessOrder {
   factory BusinessOrder({
     required String id,
+    required String businessId,
     required String userNickname,
     required Address address,
-    required String businessId,
     required Set<BusinessOrderItem> items,
     required BusinessOrderStatus status,
     required DateTime createdAt,
@@ -29,5 +29,6 @@ enum BusinessOrderStatus {
   preparing,
   delivering,
   delivered,
+  done,
   canceled,
 }
