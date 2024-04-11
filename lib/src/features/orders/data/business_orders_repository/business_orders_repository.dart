@@ -5,7 +5,7 @@ abstract class BusinessOrdersRepository {
   /// Retrieves a list of all business orders.
   ///
   /// Returns a list of [BusinessOrder] objects.
-  Future<List<BusinessOrder>> getOrders();
+  Stream<List<BusinessOrder>> getOrders();
 
   /// Adds a new business order to the repository.
   ///

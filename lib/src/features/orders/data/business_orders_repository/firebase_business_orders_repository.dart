@@ -116,7 +116,7 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Future<List<BusinessOrder>> getOrders() async {
+  Stream<List<BusinessOrder>> getOrders() async* {
     final container = ProviderContainer();
     final businessId = container.read(businessProfileViewModelProvider)?.id;
 
@@ -125,13 +125,13 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
     }
 
     try {
-      final snapshot = await businessOrdersCollection
+      yield* businessOrdersCollection
           .where('businessId', isEqualTo: businessId)
-          .get();
-      return snapshot.docs
-          .map((doc) =>
-              BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
-          .toList();
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((doc) =>
+                  BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
+              .toList());
     } catch (e) {
       rethrow;
     }
