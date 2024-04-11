@@ -138,7 +138,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
   void onTapBusiness(
       {required Business business, required BuildContext context}) {
     ref
-        .read(businessProfileScreenControllerProvider.notifier)
+        .read(businessProfileViewModelProvider.notifier)
         .setSelectedBusiness(business);
 
     Navigator.pushNamed(

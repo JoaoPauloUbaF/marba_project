@@ -13,7 +13,7 @@ class BusinessProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final business = ref.watch(businessProfileScreenControllerProvider);
+    final business = ref.watch(businessProfileViewModelProvider);
     final businessOffers = ref.watch(businessOffersProvider);
     final businessOffersNotifier = ref.read(businessOffersProvider.notifier);
 
@@ -44,7 +44,11 @@ class BusinessProfileScreen extends ConsumerWidget {
                   const BusinessContactInfoCardWidget(),
                   Visibility(
                     visible: business?.address != null,
-                    child: AddressDisplayWidget(address: business!.address),
+                    child: AddressDisplayWidget(
+                      address: business!.address,
+                      isEditable: true,
+                      isBusinessAddress: true,
+                    ),
                   ),
                 ],
               ),

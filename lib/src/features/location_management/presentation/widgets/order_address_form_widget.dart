@@ -11,11 +11,13 @@ class AddressFormModalWidget extends ConsumerStatefulWidget {
   final String title;
 
   final Address? currentAddress;
+  final String? businessId;
 
   const AddressFormModalWidget({
     super.key,
     required this.currentAddress,
     required this.title,
+    this.businessId,
   });
 
   @override
@@ -189,7 +191,7 @@ class _AddressFormModalWidgetState
                     ),
                   ),
                   onPressed: () {
-                    viewModel.onAddressTileTap(
+                    viewModel.saveOrUpdateAddress(
                       context: context,
                       formKey: formKey,
                       street: streetController.text,
@@ -198,6 +200,8 @@ class _AddressFormModalWidgetState
                       neighborhood: neighborhoodController.text,
                       city: cityController.text,
                       state: stateController.text,
+                      currentAddress: widget.currentAddress,
+                      businessId: widget.businessId,
                     );
                   },
                   child: Text(

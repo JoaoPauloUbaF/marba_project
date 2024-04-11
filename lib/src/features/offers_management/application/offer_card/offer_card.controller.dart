@@ -19,7 +19,7 @@ class OfferCardController extends _$OfferCardController {
         .getBusinessProfileData(uid: offer.businessId);
 
     ref
-        .read(businessProfileScreenControllerProvider.notifier)
+        .read(businessProfileViewModelProvider.notifier)
         .setSelectedBusiness(offerBusiness!);
 
     ref.read(offerDetailsControllerProvider.notifier).setSelectedOffer(offer);
@@ -27,7 +27,7 @@ class OfferCardController extends _$OfferCardController {
 
   Future<bool> shouldShowOfferActions(String businessId) async {
     return await ref
-        .read(businessProfileScreenControllerProvider.notifier)
+        .read(businessProfileViewModelProvider.notifier)
         .isBusinessOwner(businessId: businessId);
   }
 }

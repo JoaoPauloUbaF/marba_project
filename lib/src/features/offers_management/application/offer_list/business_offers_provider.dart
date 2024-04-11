@@ -9,12 +9,12 @@ part 'business_offers_provider.g.dart';
 class BusinessOffers extends _$BusinessOffers {
   @override
   Stream<List<OfferModel>> build() {
-    final business = ref.read(businessProfileScreenControllerProvider);
+    final business = ref.read(businessProfileViewModelProvider);
     if (business?.id == null) {
       return const Stream.empty();
     }
     final offers = ref.read(offersDataRepositoryProvider).getOffersByBusinessId(
-          ref.read(businessProfileScreenControllerProvider)!.id,
+          ref.read(businessProfileViewModelProvider)!.id,
         );
     return offers;
   }
@@ -22,7 +22,7 @@ class BusinessOffers extends _$BusinessOffers {
   Future<List<OfferModel>> fetchNewOffers({OfferModel? lastOffer}) async {
     final fetchedOffers =
         ref.read(offersDataRepositoryProvider).getOffersByBusinessId(
-              ref.read(businessProfileScreenControllerProvider)!.id,
+              ref.read(businessProfileViewModelProvider)!.id,
               lastOffer: lastOffer,
             );
     final newOffers = await fetchedOffers.first;

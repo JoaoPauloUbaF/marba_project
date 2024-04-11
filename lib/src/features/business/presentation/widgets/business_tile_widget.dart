@@ -27,7 +27,7 @@ class BusinessTileWidget extends ConsumerWidget {
             return InkWell(
               onTap: () {
                 ref
-                    .read(businessProfileScreenControllerProvider.notifier)
+                    .read(businessProfileViewModelProvider.notifier)
                     .setSelectedBusiness(snapshot.data!);
                 showModalBottomSheet(
                   scrollControlDisabledMaxHeightRatio: .9,

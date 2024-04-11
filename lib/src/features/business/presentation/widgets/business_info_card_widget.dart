@@ -12,7 +12,7 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final business = ref.watch(businessProfileScreenControllerProvider);
+    final business = ref.watch(businessProfileViewModelProvider);
 
     return Card(
       margin: EdgeInsets.zero,
@@ -68,18 +68,19 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
 
   @override
   Widget build(BuildContext context) {
-    final viewController =
-        ref.watch(businessProfileScreenControllerProvider.notifier);
+    final viewController = ref.watch(businessProfileViewModelProvider.notifier);
     return Row(
       children: [
         const Spacer(),
         InkWell(
           onTap: () {
-            setState(() {
-              viewController
-                  .isBusinessOwner()
-                  .whenComplete(() => isEditingPhone = !isEditingPhone);
-            });
+            setState(
+              () {
+                viewController
+                    .isBusinessOwner()
+                    .then((value) => isEditingPhone = value);
+              },
+            );
           },
           child: Row(
             children: [
@@ -125,7 +126,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
             setState(() {
               viewController
                   .isBusinessOwner()
-                  .whenComplete(() => isEditingEmail = !isEditingEmail);
+                  .then((value) => isEditingEmail = value);
             });
           },
           child: Row(

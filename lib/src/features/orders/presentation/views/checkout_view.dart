@@ -56,6 +56,8 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
                       const VerticalSpaceMediumWidget(),
                       AddressDisplayWidget(
                         address: order!.address,
+                        isEditable: false,
+                        isBusinessAddress: false,
                       ),
                       const VerticalSpaceMediumWidget(),
                       const Text('Produtos'),

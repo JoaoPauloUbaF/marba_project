@@ -82,9 +82,8 @@ class _DeliveryModalWidgetState extends ConsumerState<DeliveryModalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final business = ref.watch(businessProfileScreenControllerProvider);
-    final viewModel =
-        ref.watch(businessProfileScreenControllerProvider.notifier);
+    final business = ref.watch(businessProfileViewModelProvider);
+    final viewModel = ref.watch(businessProfileViewModelProvider.notifier);
     double baseDeliveryFee = business?.deliveryFee ?? 0.0;
     _baseDeliveryFeeController.text = baseDeliveryFee.toStringAsFixed(2);
 

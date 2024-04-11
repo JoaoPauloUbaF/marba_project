@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_controller.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/top_ten/presentation/widgets/top_ten_badge_widget.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
@@ -23,6 +24,7 @@ class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
   @override
   Widget build(BuildContext context) {
     ref.read(offersDataRepositoryProvider);
+    final offerDetailViewModel = ref.read(offerDetailsControllerProvider);
 
     return Row(
       children: [

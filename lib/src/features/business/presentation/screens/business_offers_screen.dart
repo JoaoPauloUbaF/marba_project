@@ -14,9 +14,9 @@ class MyBusinessOffersScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final businessOffers = ref.watch(businessOffersProvider);
     final businessOffersNotifier = ref.read(businessOffersProvider.notifier);
-    final business = ref.watch(businessProfileScreenControllerProvider);
+    final business = ref.watch(businessProfileViewModelProvider);
     final isOwner = ref
-        .read(businessProfileScreenControllerProvider.notifier)
+        .read(businessProfileViewModelProvider.notifier)
         .isBusinessOwner(businessId: business?.id);
 
     return Scaffold(
