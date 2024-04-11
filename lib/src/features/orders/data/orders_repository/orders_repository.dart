@@ -1,29 +1,29 @@
-import '../../../../core/models/order/order.dart';
+import '../../../../core/models/order/order_model.dart';
 
 /// Repository interface for managing general order operations.
 abstract class OrdersRepository {
   /// Places a new order in the repository.
   ///
-  /// [order]: The [Order] object representing the new order to place.
+  /// [order]: The [OrderModel] object representing the new order to place.
   /// [userId]: The ID of the user placing the order.
   /// [businessId]: The ID of the business associated with the order.
   ///
   /// Returns the ID of the newly placed order.
-  Future<String> saveOrder({required Order order, required String userId});
+  Future<String> saveOrder({required OrderModel order});
 
   /// Retrieves a specific order by its ID.
   ///
   /// [orderId]: The ID of the order to retrieve.
   ///
-  /// Returns the [Order] object corresponding to the given ID.
-  Future<Order?> getOrderById({required String orderId});
+  /// Returns the [OrderModel] object corresponding to the given ID.
+  Future<OrderModel?> getOrderById({required String orderId});
 
   /// Retrieves orders filtered by a specific status.
   ///
   /// [status]: The status to filter orders by.
   ///
-  /// Returns a list of [Order] objects with the specified status.
-  Future<List<Order>> getOrdersByStatus({required String status});
+  /// Returns a list of [OrderModel] objects with the specified status.
+  Future<List<OrderModel>> getOrdersByStatus({required String status});
 
   /// Updates the status of an existing order in the repository.
   ///

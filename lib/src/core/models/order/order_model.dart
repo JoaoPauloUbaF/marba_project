@@ -1,17 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 
-import 'business_order_model.dart';
-
-part 'order.freezed.dart';
-part 'order.g.dart';
+part 'order_model.freezed.dart';
+part 'order_model.g.dart';
 
 @freezed
-class Order with _$Order {
-  factory Order({
+class OrderModel with _$OrderModel {
+  factory OrderModel({
     required String id,
     required String customerId,
-    required List<BusinessOrder> businessOrders,
+    required List<String> businessOrdersIds,
     required double total,
     required double totalDeliveryFee,
     required double discount,
@@ -19,9 +17,10 @@ class Order with _$Order {
     required DateTime createdAt,
     required DateTime updatedAt,
     DateTime? canceledAt,
-  }) = _Order;
+  }) = _OrderModel;
 
-  factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
+  factory OrderModel.fromJson(Map<String, dynamic> json) =>
+      _$OrderModelFromJson(json);
 }
 
 enum OrderStatus {

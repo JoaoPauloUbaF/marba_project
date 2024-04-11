@@ -1,16 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'order.dart';
+part of 'order_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
+_$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
+    _$OrderModelImpl(
       id: json['id'] as String,
       customerId: json['customerId'] as String,
-      businessOrders: (json['businessOrders'] as List<dynamic>)
-          .map((e) => BusinessOrder.fromJson(e as Map<String, dynamic>))
+      businessOrdersIds: (json['businessOrdersIds'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
       total: (json['total'] as num).toDouble(),
       totalDeliveryFee: (json['totalDeliveryFee'] as num).toDouble(),
@@ -23,11 +24,11 @@ _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
           : DateTime.parse(json['canceledAt'] as String),
     );
 
-Map<String, dynamic> _$$OrderImplToJson(_$OrderImpl instance) {
+Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'customerId': instance.customerId,
-    'businessOrders': instance.businessOrders.map((e) => e.toJson()).toList(),
+    'businessOrdersIds': instance.businessOrdersIds,
     'total': instance.total,
     'totalDeliveryFee': instance.totalDeliveryFee,
     'discount': instance.discount,
