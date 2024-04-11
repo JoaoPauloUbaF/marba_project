@@ -4,7 +4,7 @@ part 'payment_method_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class PaymentMethodViewModel extends _$PaymentMethodViewModel {
-  //TODO: pagamentos com cartão salvos do firebase do user
+  //TODO: implementar cartoes salvos
   @override
   PaymentMethod build() {
     return PaymentMethod.pix;
