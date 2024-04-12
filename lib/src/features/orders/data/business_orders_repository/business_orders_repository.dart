@@ -1,3 +1,4 @@
+import '../../../../core/models/order/business_order_item.dart';
 import '../../../../core/models/order/business_order_model.dart';
 
 /// Repository interface for managing business orders.
@@ -27,7 +28,7 @@ abstract class BusinessOrdersRepository {
   /// [orderId]: The ID of the order to retrieve.
   ///
   /// Returns the [BusinessOrder] object corresponding to the given ID.
-  Future<BusinessOrder?> getOrderById({required String orderId});
+  Stream<BusinessOrder?> getBusinessOrderById({required String orderId});
 
   /// Updates the status of an existing business order in the repository.
   ///
@@ -93,6 +94,8 @@ abstract class BusinessOrdersRepository {
   /// Returns the total revenue generated from orders within the specified date range.
   Future<double> getTotalRevenueByDateRange(
       DateTime startDate, DateTime endDate);
+
+  Future<Set<BusinessOrderItem>> getOrderItems({required String orderId});
 
   // Additional methods for managing orders and gathering statistics can be added here...
 }

@@ -87,32 +87,32 @@ class FirebaseOrdersRepository implements OrdersRepository {
   }
 
   @override
-  Future<List<BusinessOrderItem>> getOrderItems({required String orderId}) {
+  Future<List<BusinessOrderItem>> getOrderItems(
+      {required String orderId}) async {
     final container = ProviderContainer();
     final businessOrdersRepository =
         container.read(businessOrdersRepositoryProvider);
 
     try {
-      return _ordersCollection
-          .doc(orderId)
-          .collection('businessOrdersIds')
-          .get()
-          .then(
-        (querySnapshot) async {
-          final businessOrdersIds = querySnapshot.docs
-              .map((doc) => doc.data()['id'] as String)
-              .toList();
-          List<BusinessOrderItem> items = [];
-          for (var businessOrderId in businessOrdersIds) {
-            final businessOrder = await businessOrdersRepository.getOrderById(
-                orderId: businessOrderId);
-            items.addAll(businessOrder?.items ?? []);
-          }
-          return items;
-        },
-      );
+      final orderDocSnapshot = await _ordersCollection.doc(orderId).get();
+      if (!orderDocSnapshot.exists) {
+        throw Exception('Order with ID $orderId does not exist');
+      }
+
+      final order =
+          OrderModel.fromJson(orderDocSnapshot.data() as Map<String, dynamic>);
+
+      List<BusinessOrderItem> items = [];
+
+      for (var businessOrderId in order.businessOrdersIds) {
+        final businessOrderItems = await businessOrdersRepository.getOrderItems(
+            orderId: businessOrderId);
+        items.addAll(businessOrderItems);
+      }
+
+      return items;
     } catch (e) {
-      throw Exception('Falha ao buscar itens da ordem: $e');
+      throw Exception('Failed to fetch order items: $e');
     }
   }
 }

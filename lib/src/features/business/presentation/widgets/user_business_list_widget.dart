@@ -21,41 +21,39 @@ class UserBusinessListWidget extends ConsumerWidget {
       },
       child: businessListProvider.when(
         data: (businessList) {
-          return ListView.builder(
+          return ListView.separated(
             itemCount: businessList.length,
             itemBuilder: (context, index) {
               final business = businessList[index];
               return Padding(
                 padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text(business?.name ?? ''),
-                      onTap: () => myBusinessListController.onTapBusiness(
-                        business: business!,
-                        context: context,
-                      ),
-                      subtitle: Text(
-                          "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
-                      trailing: IconButton(
-                        icon: Icon(
-                          Icons.delete,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        onPressed: () => {
-                          myBusinessListController.deleteBusiness(
-                            businessId: business?.id ?? '',
-                          ),
-                        },
-                      ),
+                child: ListTile(
+                  title: Text(business?.name ?? ''),
+                  onTap: () => myBusinessListController.onTapBusiness(
+                    business: business!,
+                    context: context,
+                  ),
+                  subtitle: Text(
+                      "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
+                  trailing: IconButton(
+                    icon: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Divider(
-                        color: Theme.of(context).colorScheme.primaryContainer,
+                    onPressed: () => {
+                      myBusinessListController.deleteBusiness(
+                        businessId: business?.id ?? '',
                       ),
-                    ),
-                  ],
+                    },
+                  ),
+                ),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Divider(
+                  color: Theme.of(context).colorScheme.primaryContainer,
                 ),
               );
             },
