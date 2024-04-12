@@ -21,8 +21,11 @@ class OpenOrdersListWidget extends ConsumerWidget {
         return ListView.builder(
           itemCount: orders.length,
           itemBuilder: (context, index) {
+            final sortedOrders = orders.toList()
+              ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+            final order = sortedOrders[index];
             return OrderListItem(
-              order: orders[index],
+              order: order,
             );
           },
         );

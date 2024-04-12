@@ -25,11 +25,26 @@ class OpenOrdersGridWidget extends ConsumerWidget {
           ),
           itemCount: orders.length,
           itemBuilder: (context, index) {
+            final sortedOrders = orders.toList()
+              ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
+            final order = sortedOrders[index];
             return OrderGridItem(
-              order: orders[index],
+              order: order,
             );
           },
         );
+        // return GridView.builder(
+        //   shrinkWrap: true,
+        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        //     crossAxisCount: 2,
+        //   ),
+        //   itemCount: orders.length,
+        //   itemBuilder: (context, index) {
+        //     return OrderGridItem(
+        //       order: orders[index],
+        //     );
+        //   },
+        // );
       },
       loading: () => const Center(
         child: CircularProgressIndicator(),
