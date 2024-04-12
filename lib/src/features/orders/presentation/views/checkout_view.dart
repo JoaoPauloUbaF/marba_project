@@ -25,125 +25,154 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
 
     return Scaffold(
         appBar: AppBar(),
-        body: Column(
-          children: <Widget>[
-            Center(
-              child: Text(
-                'Aguardando confirmação do pedido',
-                style: Theme.of(context).textTheme.titleLarge,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  'Aguardando confirmação',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: order?.businessOrdersIds.length ?? 0,
-                itemBuilder: (BuildContext context, int index) {
-                  final userOrderStream = ref.watch(getBusinessOrderProvider(
-                      businessOrderId: order?.businessOrdersIds[index] ?? ''));
-                  return userOrderStream.when(
-                    data: (order) {
-                      return ListTile(
-                        trailing: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          transitionBuilder:
-                              (Widget child, Animation<double> animation) {
-                            return ScaleTransition(
-                                child: child, scale: animation);
-                          },
-                          child: order?.status == BusinessOrderStatus.accepted
-                              ? const Icon(Icons.done, key: Key('done'))
-                              : const CircularProgressIndicator(
-                                  key: Key('loading')),
-                        ),
-                        title: FutureBuilder(
-                          future: orderViewModel.getBusinessOrderBusinessName(
-                              order?.businessId ?? ''),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const LinearProgressIndicator();
-                            }
-                            return Text(snapshot.data.toString());
-                          },
-                        ),
-                        subtitle: Text(ref
-                            .read(businessOrdersViewModelProvider.notifier)
-                            .getStatusTranslation(
-                                order!.status.toString().split('.').last)),
-                      );
-                    },
-                    loading: () => const CircularProgressIndicator(),
-                    error: (error, stackTrace) => Text('Error  $error'),
-                  );
-                },
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: order?.businessOrdersIds.length ?? 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    final userOrderStream = ref.watch(getBusinessOrderProvider(
+                        businessOrderId:
+                            order?.businessOrdersIds[index] ?? ''));
+                    return userOrderStream.when(
+                      data: (order) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color:
+                                      Theme.of(context).secondaryHeaderColor),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: ListTile(
+                              trailing: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 300),
+                                transitionBuilder: (Widget child,
+                                    Animation<double> animation) {
+                                  return ScaleTransition(
+                                      scale: animation, child: child);
+                                },
+                                child: order?.status ==
+                                        BusinessOrderStatus.accepted
+                                    ? const Icon(Icons.done, key: Key('done'))
+                                    : const CircularProgressIndicator(
+                                        key: Key('loading')),
+                              ),
+                              title: FutureBuilder(
+                                future:
+                                    orderViewModel.getBusinessOrderBusinessName(
+                                        order?.businessId ?? ''),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return const LinearProgressIndicator();
+                                  }
+                                  return Text(snapshot.data.toString());
+                                },
+                              ),
+                              subtitle: Text(
+                                ref
+                                    .read(businessOrdersViewModelProvider
+                                        .notifier)
+                                    .getStatusTranslation(order?.status
+                                                .toString()
+                                                .split('.')
+                                                .last ==
+                                            'accepted'
+                                        ? 'accepted'
+                                        : 'waitingConfirmation'),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      loading: () => const CircularProgressIndicator(),
+                      error: (error, stackTrace) => Text('Error  $error'),
+                    );
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Pedido #${order?.id.split('-').first ?? ''}',
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const VerticalSpaceMediumWidget(),
-                      Text(
-                          'Total: R\$ ${order?.total.toStringAsFixed(2) ?? ''}'),
-                      const VerticalSpaceMediumWidget(),
-                      if (orderAddress != null)
-                        AddressDisplayWidget(
-                          address: orderAddress,
-                          isEditable: false,
-                          isBusinessAddress: false,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Pedido #${order?.id.split('-').first ?? ''}',
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      const VerticalSpaceMediumWidget(),
-                      const Text('Produtos'),
-                      FutureBuilder(
-                          future: orderViewModel.getOrderItems(),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            }
-
-                            return ListView.separated(
-                              padding: const EdgeInsets.all(2.0),
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              itemCount: snapshot.data?.length ?? 0,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  leading: Image.network(
-                                    '${snapshot.data?[index].imageUrl}',
-                                    width: 50,
-                                    height: 80,
-                                    fit: BoxFit.fill,
-                                  ),
-                                  title: Text('${snapshot.data?[index].name}'),
-                                  subtitle: Text(
-                                      'R\$ ${snapshot.data?[index].price.toStringAsFixed(2)}'),
-                                  trailing: Text(
-                                      'Qtd: ${snapshot.data?[index].quantity}'),
+                        const VerticalSpaceMediumWidget(),
+                        Text(
+                            'Total: R\$ ${order?.total.toStringAsFixed(2) ?? ''}'),
+                        const VerticalSpaceMediumWidget(),
+                        if (orderAddress != null)
+                          AddressDisplayWidget(
+                            address: orderAddress,
+                            isEditable: false,
+                            isBusinessAddress: false,
+                          ),
+                        const VerticalSpaceMediumWidget(),
+                        const Text('Produtos'),
+                        FutureBuilder(
+                            future: orderViewModel.getOrderItems(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
                                 );
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return const Divider();
-                              },
-                            );
-                          }),
-                    ],
+                              }
+
+                              return ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                padding: const EdgeInsets.all(2.0),
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: snapshot.data?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  return ListTile(
+                                    leading: Image.network(
+                                      '${snapshot.data?[index].imageUrl}',
+                                      width: 50,
+                                      height: 80,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    title:
+                                        Text('${snapshot.data?[index].name}'),
+                                    subtitle: Text(
+                                        'R\$ ${snapshot.data?[index].price.toStringAsFixed(2)}'),
+                                    trailing: Text(
+                                        'Qtd: ${snapshot.data?[index].quantity}'),
+                                  );
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return const Divider();
+                                },
+                              );
+                            }),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }
