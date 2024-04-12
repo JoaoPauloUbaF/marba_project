@@ -25,7 +25,8 @@ class BusinessOrder with _$BusinessOrder {
 }
 
 enum BusinessOrderStatus {
-  pending,
+  waitingConfirmation,
+  accepted,
   preparing,
   delivering,
   delivered,

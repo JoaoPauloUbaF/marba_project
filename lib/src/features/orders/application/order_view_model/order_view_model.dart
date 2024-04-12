@@ -66,7 +66,7 @@ class OrderViewModel extends _$OrderViewModel {
         address: address,
         businessId: businessId,
         items: businessOrderItems,
-        status: BusinessOrderStatus.pending,
+        status: BusinessOrderStatus.waitingConfirmation,
         createdAt: createdAt,
         updatedAt: updatedAt,
         canceledAt: null,
@@ -119,18 +119,4 @@ class OrderViewModel extends _$OrderViewModel {
         .getBusinessProfileData(uid: businessId)
         .then((value) => value!.name);
   }
-}
-
-@riverpod
-Stream<List<BusinessOrder>> getBusinessOrders(GetBusinessOrdersRef ref) async* {
-  final businessOrders = <BusinessOrder>[];
-  for (var businessOrderId
-      in ref.watch(orderViewModelProvider)?.businessOrdersIds ?? []) {
-    final businessOrder = await ref
-        .watch(businessOrdersRepositoryProvider)
-        .getBusinessOrderById(orderId: businessOrderId)
-        .first;
-    businessOrders.add(businessOrder!);
-  }
-  yield businessOrders;
 }

@@ -6,7 +6,7 @@ abstract class BusinessOrdersRepository {
   /// Retrieves a list of all business orders.
   ///
   /// Returns a list of [BusinessOrder] objects.
-  Stream<List<BusinessOrder>> getOrders();
+  Stream<List<BusinessOrder>> getOrders({required String? businessId});
 
   /// Adds a new business order to the repository.
   ///

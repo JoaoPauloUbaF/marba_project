@@ -41,7 +41,7 @@ class _BusinessDashboardViewState extends ConsumerState<BusinessDashboardView>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          BusinessOpenOrdersPageView(),
+          BusinessOrdersPageView(),
           HistoryPage(),
           PerformanceStatisticsPage(),
         ],

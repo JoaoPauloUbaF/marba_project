@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/features/business/application/business_orders_view_model/business_orders_view_model.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
 import 'package:project_marba/src/features/orders/application/order_view_model/order_view_model.dart';
 
@@ -41,9 +42,18 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
                   return userOrderStream.when(
                     data: (order) {
                       return ListTile(
-                        trailing: order?.status == BusinessOrderStatus.done
-                            ? Icon(Icons.done)
-                            : CircularProgressIndicator(),
+                        trailing: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          transitionBuilder:
+                              (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                                child: child, scale: animation);
+                          },
+                          child: order?.status == BusinessOrderStatus.accepted
+                              ? const Icon(Icons.done, key: Key('done'))
+                              : const CircularProgressIndicator(
+                                  key: Key('loading')),
+                        ),
                         title: FutureBuilder(
                           future: orderViewModel.getBusinessOrderBusinessName(
                               order?.businessId ?? ''),
@@ -54,8 +64,10 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
                             return Text(snapshot.data.toString());
                           },
                         ),
-                        subtitle: Text(
-                            'Status: ${order?.status.toString().split('.')[1] ?? ''}'),
+                        subtitle: Text(ref
+                            .read(businessOrdersViewModelProvider.notifier)
+                            .getStatusTranslation(
+                                order!.status.toString().split('.').last)),
                       );
                     },
                     loading: () => const CircularProgressIndicator(),
