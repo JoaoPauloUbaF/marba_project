@@ -52,7 +52,7 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
     try {
       final snapshot = await businessOrdersCollection
           .where('businessId', isEqualTo: businessId)
-          .where('status', isEqualTo: BusinessOrderStatus.pending.toString())
+          .where('status', isNotEqualTo: BusinessOrderStatus.done.toString())
           .get();
       return snapshot.docs
           .map((doc) =>
@@ -110,10 +110,7 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Stream<List<BusinessOrder>> getOrders() async* {
-    final container = ProviderContainer();
-    final businessId = container.read(businessProfileViewModelProvider)?.id;
-
+  Stream<List<BusinessOrder>> getOrders({required String? businessId}) async* {
     if (businessId == null) {
       throw Exception('Business ID not found');
     }
@@ -208,16 +205,8 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   @override
   Future<void> updateOrderStatus(
       {required String orderId, required String newStatus}) async {
-    final container = ProviderContainer();
-    final businessId = container.read(businessProfileViewModelProvider)?.id;
-
-    if (businessId == null) {
-      throw Exception('Business ID not found');
-    }
-
     try {
       businessOrdersCollection
-          .where('businessId', isEqualTo: businessId)
           .where('id', isEqualTo: orderId)
           .get()
           .then((snapshot) {

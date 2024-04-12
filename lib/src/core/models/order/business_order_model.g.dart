@@ -46,7 +46,8 @@ Map<String, dynamic> _$$BusinessOrderImplToJson(_$BusinessOrderImpl instance) {
 }
 
 const _$BusinessOrderStatusEnumMap = {
-  BusinessOrderStatus.pending: 'pending',
+  BusinessOrderStatus.waitingConfirmation: 'waitingConfirmation',
+  BusinessOrderStatus.accepted: 'accepted',
   BusinessOrderStatus.preparing: 'preparing',
   BusinessOrderStatus.delivering: 'delivering',
   BusinessOrderStatus.delivered: 'delivered',

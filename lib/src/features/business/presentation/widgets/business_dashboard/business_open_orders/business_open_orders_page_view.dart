@@ -1,48 +1,73 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:project_marba/src/core/models/order/business_order_item.dart';
 import 'package:project_marba/src/core/models/order/business_order_model.dart';
 import 'package:project_marba/src/core/widgets/large_horizontal_space_widget.dart';
-import '../../../../../../core/models/address/address.dart';
+import 'package:project_marba/src/features/business/application/business_orders_view_model/business_orders_view_model.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_open_orders/open_orders_grid_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_open_orders/open_orders_list_widget.dart';
 
-class BusinessOpenOrdersPageView extends StatefulWidget {
+class BusinessOrdersPageView extends ConsumerStatefulWidget {
   // TODO: orders repository
-  const BusinessOpenOrdersPageView({super.key});
+  const BusinessOrdersPageView({super.key});
 
   @override
-  State<BusinessOpenOrdersPageView> createState() =>
-      _BusinessOpenOrdersPageViewState();
+  ConsumerState<BusinessOrdersPageView> createState() =>
+      _BusinessOrdersPageViewState();
 }
 
-class _BusinessOpenOrdersPageViewState
-    extends State<BusinessOpenOrdersPageView> {
+class _BusinessOrdersPageViewState
+    extends ConsumerState<BusinessOrdersPageView> {
   bool _isGridMode = false;
 
   @override
   Widget build(BuildContext context) {
+    final businessOrdersViewModel =
+        ref.watch(businessOrdersViewModelProvider.notifier);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              height: 40,
-              child: ToggleButtons(
-                isSelected: [_isGridMode, !_isGridMode],
-                onPressed: (index) {
-                  setState(() {
-                    _isGridMode = index == 0;
-                  });
-                },
-                children: const [
-                  Icon(Icons.grid_view),
-                  Icon(Icons.list),
-                ],
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+                  icon: const Icon(Icons.filter_list_sharp),
+                  value: BusinessOrderStatus.waitingConfirmation,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  borderRadius: BorderRadius.circular(8),
+                  items: BusinessOrderStatus.values.map((status) {
+                    return DropdownMenuItem(
+                      value: status,
+                      child: Text(businessOrdersViewModel.getStatusTranslation(
+                          status.toString().split('.').last)),
+                    );
+                  }).toList(),
+                  onChanged: (value) {},
+                ),
               ),
             ),
-          ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                height: 40,
+                child: ToggleButtons(
+                  isSelected: [_isGridMode, !_isGridMode],
+                  onPressed: (index) {
+                    setState(() {
+                      _isGridMode = index == 0;
+                    });
+                  },
+                  children: const [
+                    Icon(Icons.grid_view),
+                    Icon(Icons.list),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
         Expanded(
           child: _isGridMode
@@ -50,230 +75,6 @@ class _BusinessOpenOrdersPageViewState
               : const OpenOrdersListWidget(),
         ),
       ],
-    );
-  }
-}
-
-class OpenOrdersListWidget extends StatelessWidget {
-  const OpenOrdersListWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10, // You can replace this with your actual order list length
-      itemBuilder: (context, index) {
-        return OrderListItem(
-          order: _getOrderData()[index],
-        );
-      },
-    );
-  }
-}
-
-class OpenOrdersGridWidget extends StatelessWidget {
-  const OpenOrdersGridWidget({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
-        ),
-        itemCount:
-            10, // You can replace this with your actual order list length
-        itemBuilder: (context, index) {
-          return OrderGridItem(
-            order: _getOrderData()[index],
-          );
-        },
-      ),
-    );
-  }
-}
-
-List<BusinessOrder> _getOrderData() {
-  return List.generate(
-    10,
-    (index) {
-      return BusinessOrder(
-        id: 'id',
-        userNickname: 'userNickname',
-        address: Address(
-          city: 'city',
-          neighborhood: 'neighborhood',
-          number: 'number',
-          state: 'state',
-          street: 'street',
-          zipCode: 'zipCode',
-        ),
-        businessId: 'businessId',
-        items: {
-          BusinessOrderItem(
-              id: 'id',
-              name: 'name',
-              imageUrl: 'imageUrl',
-              price: 100.0,
-              quantity: 1,
-              status: BusinessOrderItemStatus.pending),
-        },
-        status: BusinessOrderStatus.pending,
-        createdAt: DateTime.now(),
-        updatedAt: DateTime.now(),
-      );
-    },
-  );
-}
-
-class OrderListItem extends StatelessWidget {
-  final BusinessOrder order;
-
-  const OrderListItem({
-    super.key,
-    required this.order,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: InkWell(
-        onTap: () {
-          // Navigate to order details page
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(
-                    'Pedido #${order.businessId}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    order.status.toString().split('.').last,
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: order.status == BusinessOrderStatus.pending
-                              ? Colors.orange
-                              : order.status == BusinessOrderStatus.delivered
-                                  ? Colors.green
-                                  : order.status == BusinessOrderStatus.canceled
-                                      ? Colors.red
-                                      : Colors.grey,
-                        ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    ' R\$${order.items.fold(0.0, (total, item) => total + item.price * item.quantity).toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    DateFormat('dd/MM/yyyy', 'pt_BR').format(order.createdAt),
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                  const LargeHorizontalSpaceWidget(),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class OrderGridItem extends StatelessWidget {
-  final BusinessOrder order;
-
-  const OrderGridItem({
-    super.key,
-    required this.order,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 2,
-      child: InkWell(
-        onTap: () {
-          // Navigate to order details page
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Pedido #${order.businessId}',
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    Icons.arrow_forward,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                DateFormat('dd/MM/yyyy', 'pt_BR').format(order.createdAt),
-                style: const TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                order.status.toString().split('.').last,
-                style: const TextStyle(fontSize: 14, color: Colors.grey),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'R\$${order.items.fold(0.0, (total, item) => total + item.price * item.quantity).toStringAsFixed(2)}',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
