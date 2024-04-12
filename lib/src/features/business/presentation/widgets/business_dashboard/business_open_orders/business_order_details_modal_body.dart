@@ -43,13 +43,17 @@ class BusinessOrderDetailModalBody extends ConsumerWidget {
             const SizedBox(height: 16),
             Row(
               children: [
-                Text(
-                  businessOrdersViewModel.getStatusTranslation(
-                      order.status.toString().split('.').last),
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: businessOrdersViewModel.getCardColor(
-                            status: order.status),
-                      ),
+                Chip(
+                  backgroundColor: businessOrdersViewModel.getCardColor(
+                      status: order.status),
+                  label: Text(
+                    businessOrdersViewModel.getStatusTranslation(
+                        order.status.toString().split('.').last),
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          color: businessOrdersViewModel.getStatusTextColor(
+                              status: order.status),
+                        ),
+                  ),
                 ),
                 const Spacer(),
                 DropdownButton<String>(
@@ -87,27 +91,33 @@ class BusinessOrderDetailModalBody extends ConsumerWidget {
                   ),
             ),
             const SizedBox(height: 16),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: order.items.length,
-              itemBuilder: (context, index) {
-                final item = order.items.elementAt(index);
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '${item.quantity}x ${item.name}',
-                      style: Theme.of(context).textTheme.bodyMedium,
+            Expanded(
+              child: ListView.separated(
+                padding: EdgeInsets.zero,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: order.items.length,
+                itemBuilder: (context, index) {
+                  final item = order.items.elementAt(index);
+                  return ListTile(
+                    visualDensity: VisualDensity.compact,
+                    contentPadding: EdgeInsets.zero,
+                    title: Text(item.name),
+                    leading: Image.network(
+                      item.imageUrl,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.fill,
                     ),
-                    Text(
-                      'R\$${item.price.toStringAsFixed(2)}',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    subtitle: Text(
+                        'R\$${item.price.toStringAsFixed(2)} x ${item.quantity}'),
+                    trailing: Text(
+                      'R\$${(item.price * item.quantity).toStringAsFixed(2)}',
                     ),
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) => const Divider(),
+                  );
+                },
+                separatorBuilder: (context, index) => const Divider(),
+              ),
             ),
             const Spacer(),
             Row(
@@ -124,15 +134,34 @@ class BusinessOrderDetailModalBody extends ConsumerWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  businessOrdersRepository.updateOrderStatus(
-                    orderId: order.id,
-                    newStatus: BusinessOrderStatus.done.toString(),
-                  );
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Finalizar'),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      businessOrdersRepository.updateOrderStatus(
+                        orderId: order.id,
+                        newStatus:
+                            BusinessOrderStatus.done.toString().split('.').last,
+                      );
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Finalizar'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      businessOrdersRepository.updateOrderStatus(
+                        orderId: order.id,
+                        newStatus: BusinessOrderStatus.canceled
+                            .toString()
+                            .split('.')
+                            .last,
+                      );
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Cancelar'),
+                  ),
+                ],
               ),
             ),
           ],

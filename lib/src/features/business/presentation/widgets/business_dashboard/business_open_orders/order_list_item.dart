@@ -65,7 +65,8 @@ class OrderListItem extends ConsumerWidget {
                   ),
                   const Spacer(),
                   Text(
-                    DateFormat('dd/MM/yyyy', 'pt_BR').format(order.createdAt),
+                    DateFormat('dd/MM/yyyy hh:mm', 'pt_BR')
+                        .format(order.createdAt),
                   ),
                   const LargeHorizontalSpaceWidget(),
                   Icon(

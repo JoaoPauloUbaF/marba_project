@@ -51,12 +51,12 @@ class OrderGridItem extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                DateFormat('dd/MM/yyyy', 'pt_BR').format(order.createdAt),
+                DateFormat('dd/MM/yyyy hh:mm', 'pt_BR').format(order.createdAt),
               ),
               const SizedBox(height: 8),
               Text(order.userNickname,
                   style: Theme.of(context).textTheme.bodyLarge),
-              Spacer(),
+              const Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

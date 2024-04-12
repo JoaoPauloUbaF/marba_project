@@ -21,6 +21,8 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
     final order = ref.watch(orderViewModelProvider);
     final orderViewModel = ref.read(orderViewModelProvider.notifier);
 
+    final orderAddress = order?.address;
+
     return Scaffold(
         appBar: AppBar(),
         body: Column(
@@ -93,14 +95,12 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
                       Text(
                           'Total: R\$ ${order?.total.toStringAsFixed(2) ?? ''}'),
                       const VerticalSpaceMediumWidget(),
-                      Visibility(
-                        visible: order?.address != null,
-                        child: AddressDisplayWidget(
-                          address: order!.address,
+                      if (orderAddress != null)
+                        AddressDisplayWidget(
+                          address: orderAddress,
                           isEditable: false,
                           isBusinessAddress: false,
                         ),
-                      ),
                       const VerticalSpaceMediumWidget(),
                       const Text('Produtos'),
                       FutureBuilder(
