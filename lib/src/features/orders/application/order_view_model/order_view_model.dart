@@ -1,6 +1,7 @@
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository_provider.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -111,4 +112,25 @@ class OrderViewModel extends _$OrderViewModel {
         .getOrderById(orderId: state!.id)
         .then((value) => state = value);
   }
+
+  Future<String> getBusinessOrderBusinessName(String businessId) async {
+    return await ref
+        .read(businessProfileDataProvider)
+        .getBusinessProfileData(uid: businessId)
+        .then((value) => value!.name);
+  }
+}
+
+@riverpod
+Stream<List<BusinessOrder>> getBusinessOrders(GetBusinessOrdersRef ref) async* {
+  final businessOrders = <BusinessOrder>[];
+  for (var businessOrderId
+      in ref.watch(orderViewModelProvider)?.businessOrdersIds ?? []) {
+    final businessOrder = await ref
+        .watch(businessOrdersRepositoryProvider)
+        .getBusinessOrderById(orderId: businessOrderId)
+        .first;
+    businessOrders.add(businessOrder!);
+  }
+  yield businessOrders;
 }

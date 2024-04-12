@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/models/order/business_order_item.dart';
 import 'package:project_marba/src/core/models/order/business_order_model.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository.dart';
@@ -11,7 +12,7 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   @override
   Future<void> addOrder({required BusinessOrder order}) async {
     try {
-      businessOrdersCollection.add(order.toJson());
+      businessOrdersCollection.doc(order.id).set(order.toJson());
     } catch (e) {
       rethrow;
     }
@@ -63,25 +64,18 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Future<BusinessOrder?> getOrderById({required String orderId}) async {
-    final container = ProviderContainer();
-    final businessId = container.read(businessProfileViewModelProvider)?.id;
-
-    if (businessId == null) {
-      throw Exception('Business ID not found');
-    }
-
+  Stream<BusinessOrder?> getBusinessOrderById(
+      {required String orderId}) async* {
     try {
-      final snapshot = await businessOrdersCollection
-          .where('businessId', isEqualTo: businessId)
-          .where('id', isEqualTo: orderId)
-          .get();
-      if (snapshot.docs.isNotEmpty) {
-        return BusinessOrder.fromJson(
-            snapshot.docs.first.data() as Map<String, dynamic>);
-      } else {
-        return null;
-      }
+      final docReference = businessOrdersCollection.doc(orderId);
+      yield* docReference.snapshots().map((snapshot) {
+        if (snapshot.exists) {
+          return BusinessOrder.fromJson(
+              snapshot.data() as Map<String, dynamic>);
+        } else {
+          return null;
+        }
+      });
     } catch (e) {
       rethrow;
     }
@@ -233,6 +227,19 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
       });
     } catch (e) {
       rethrow;
+    }
+  }
+
+  @override
+  Future<Set<BusinessOrderItem>> getOrderItems({required String orderId}) {
+    try {
+      return businessOrdersCollection.doc(orderId).get().then((querySnapshot) {
+        final BusinessOrder order = BusinessOrder.fromJson(
+            querySnapshot.data() as Map<String, dynamic>);
+        return order.items;
+      });
+    } catch (e) {
+      throw Exception('Falha ao buscar itens do pedido: $e');
     }
   }
 }
