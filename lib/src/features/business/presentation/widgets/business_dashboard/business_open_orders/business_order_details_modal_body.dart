@@ -34,6 +34,7 @@ class BusinessOrderDetailModalBody extends ConsumerWidget {
           children: [
             const Center(child: ModalCenterTopLineWidget()),
             const VerticalSpaceMediumWidget(),
+            const VerticalSpaceMediumWidget(),
             Text(
               'Pedido #${order.id.split('-').first}',
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
@@ -60,7 +61,12 @@ class BusinessOrderDetailModalBody extends ConsumerWidget {
                   value: order.status.toString().split('.').last,
                   onChanged: (String? newValue) {
                     if (newValue != null) {
+                      businessOrdersViewModel.updateOrderStatus(
+                        orderId: order.id,
+                        newStatus: newValue,
+                      );
                       businessOrdersRepository.updateOrderStatus(
+                        //TODO: to this on a viewmodel
                         orderId: order.id,
                         newStatus: newValue,
                       );

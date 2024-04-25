@@ -14,6 +14,7 @@ import 'package:project_marba/src/features/business/presentation/screens/my_busi
 import 'package:project_marba/src/features/offers_management/presentation/screens/offer_details_screen.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
+import 'package:project_marba/themes.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
@@ -44,15 +45,8 @@ class MainApp extends ConsumerWidget {
       themeAnimationDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       title: 'Onktem', //Onktem
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blueGrey,
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.blueGrey,
-        brightness: Brightness.dark,
-      ),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       themeMode: ref.watch(darkModeProvider),
       initialRoute: '/home',
       routes: {

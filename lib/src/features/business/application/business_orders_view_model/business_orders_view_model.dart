@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/order/business_order_model.dart';
@@ -95,6 +97,55 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
         return BusinessOrderDetailModalBody(orderId: order.id);
       },
     );
+  }
+
+  void updateOrderStatus({required String orderId, required String newStatus}) {
+    ref
+        .read(businessOrdersRepositoryProvider)
+        .updateOrderStatus(orderId: orderId, newStatus: newStatus)
+        .then((value) => {
+              checkBusinessOrderItemsAndUpdate(
+                  orderId: orderId, newStatus: newStatus),
+            });
+  }
+
+  void checkBusinessOrderItemsAndUpdate(
+      {required String orderId, required String newStatus}) {
+    if (newStatus == BusinessOrderStatus.done.toString().split('.').last) {
+      ref
+          .read(businessOrdersRepositoryProvider)
+          .getOrderItems(orderId: orderId)
+          .then(
+            (items) async => {
+              for (var item in items)
+                {
+                  await ref
+                      .read(offersDataRepositoryProvider)
+                      .getOffer(item.id)
+                      .then(
+                    (orderOffer) {
+                      if (orderOffer.type == OfferType.product &&
+                          orderOffer.availableQuantity != null) {
+                        final newQuantity =
+                            orderOffer.availableQuantity! - item.quantity;
+                        updateBusinessOrderItemOfferAvailableQuantity(
+                            offerId: orderOffer.id, newQuantity: newQuantity);
+                      }
+                    },
+                  )
+                }
+            },
+          );
+    }
+  }
+
+  Future<void> updateBusinessOrderItemOfferAvailableQuantity(
+      {required String offerId, required int newQuantity}) async {
+    final offer =
+        await ref.read(offersDataRepositoryProvider).getOffer(offerId);
+    final updatedOffer = offer.copyWith(
+        product: offer.product?.copyWith(availableQuantity: newQuantity));
+    ref.read(offersDataRepositoryProvider).updateOffer(updatedOffer);
   }
 }
 

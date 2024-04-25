@@ -99,7 +99,6 @@ class OrderViewModel extends _$OrderViewModel {
   }
 
   Future<List<BusinessOrderItem>?> getOrderItems() async {
-    //TODO: change to a provider
     final orderItems = await ref
         .read(ordersRepositoryProvider)
         .getOrderItems(orderId: state!.id);

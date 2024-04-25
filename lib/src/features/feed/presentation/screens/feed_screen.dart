@@ -5,8 +5,8 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import '../../../offers_management/presentation/widgets/offers_list_widget.dart';
 import '../../../offers_management/application/offer_list/feed_offers_list_provider.dart';
 
-class FeedScreen extends ConsumerWidget {
-  const FeedScreen({super.key});
+class OffersFeedView extends ConsumerWidget {
+  const OffersFeedView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
