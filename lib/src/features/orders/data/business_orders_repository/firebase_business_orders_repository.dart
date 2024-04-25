@@ -206,14 +206,19 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   Future<void> updateOrderStatus(
       {required String orderId, required String newStatus}) async {
     try {
-      businessOrdersCollection
-          .where('id', isEqualTo: orderId)
-          .get()
-          .then((snapshot) {
-        if (snapshot.docs.isNotEmpty) {
-          snapshot.docs.first.reference.update({'status': newStatus});
-        }
-      });
+      businessOrdersCollection.where('id', isEqualTo: orderId).get().then(
+        (snapshot) {
+          if (snapshot.docs.isNotEmpty) {
+            snapshot.docs.first.reference.update({'status': newStatus});
+            snapshot.docs.first.reference
+                .update({'updatedAt': DateTime.now().toString()});
+            if (newStatus == BusinessOrderStatus.delivered.toString()) {
+              snapshot.docs.first.reference
+                  .update({'deliveredAt': DateTime.now().toString()});
+            }
+          }
+        },
+      );
     } catch (e) {
       rethrow;
     }

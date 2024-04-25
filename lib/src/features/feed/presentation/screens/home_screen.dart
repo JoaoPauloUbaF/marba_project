@@ -10,6 +10,7 @@ import 'package:project_marba/src/features/orders/presentation/views/user_orders
 import 'package:project_marba/src/features/settings/presentation/settings_screen.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 
+import '../../../search/presentation/views/search_view.dart';
 import '../../application/home_screen_controller/home_screen_controller.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -33,8 +34,8 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   bool _isSearching = false;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    FeedScreen(),
-    Placeholder(),
+    SearchView(),
+    OffersFeedView(),
     UserOrdersView(),
     SettingsScreen(shouldRenderAppBar: false),
     MyBusinessListScreen(
@@ -60,79 +61,79 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         title: AnimatedSwitcher(
           duration: const Duration(milliseconds: 500),
           transitionBuilder: (Widget child, Animation<double> animation) {
-            return FadeTransition(opacity: animation, child: child);
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
           },
-          child: _isSearching
+          child: _isSearching //TODO: search is the main page
               ? SizedBox(
                   key: const ValueKey("searchBar"),
                   height: 40,
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: ' "Encanador", "Vidros"',
-                      border: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(0),
+                        hintText: ' "Encanador", "Vidros"',
+                        border: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(0),
+                          ),
                         ),
-                      ),
-                      contentPadding: const EdgeInsets.all(5),
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          log('Search');
-                        },
-                        child: const Icon(
-                          Icons.search,
+                        contentPadding: const EdgeInsets.all(5),
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            log('Search');
+                          },
+                          child: const Icon(
+                            Icons.search,
+                          ),
                         ),
-                      ),
-                    ),
+                        prefixIcon: IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            setState(() {
+                              _isSearching = !_isSearching;
+                            });
+                          },
+                        )),
                   ),
                 )
-              : const SizedBox.shrink(),
+              : Row(
+                  children: [
+                    const Spacer(),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      onPressed: () {
+                        setState(() {
+                          _isSearching = !_isSearching;
+                        });
+                      },
+                      icon: const Icon(
+                        Icons.search_sharp,
+                      ),
+                    ),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/shopping-cart');
+                      },
+                      icon: const Icon(
+                        Icons.shopping_cart_sharp,
+                      ),
+                    ),
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      visualDensity: VisualDensity.compact,
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.chat_sharp,
+                      ),
+                    ),
+                    const ThemeSwitchWidget(),
+                  ],
+                ),
         ),
-        actions: _isSearching
-            ? []
-            : [
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
-                  onPressed: () {
-                    setState(() {
-                      _isSearching = !_isSearching;
-                    });
-                  },
-                  icon: const Icon(
-                    Icons.search_sharp,
-                  ),
-                ),
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/shopping-cart');
-                  },
-                  icon: const Icon(
-                    Icons.shopping_cart_sharp,
-                  ),
-                ),
-                IconButton(
-                  padding: EdgeInsets.zero,
-                  visualDensity: VisualDensity.compact,
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.chat_sharp,
-                  ),
-                ),
-                const ThemeSwitchWidget(),
-              ],
-        leading: _isSearching
-            ? IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () {
-                  setState(() {
-                    _isSearching = !_isSearching;
-                  });
-                },
-              )
-            : null,
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -147,31 +148,33 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
             ),
             child: BottomNavigationBar(
               backgroundColor: Theme.of(context).colorScheme.primary,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
               items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_bag_outlined),
-                  activeIcon: Icon(Icons.shopping_bag_sharp),
+                  icon: Icon(Icons.search_outlined, size: 30),
+                  activeIcon: Icon(Icons.search_sharp, size: 35),
+                  label: 'Buscar',
+                ),
+                const BottomNavigationBarItem(
+                  icon: Icon(Icons.shopping_bag_outlined, size: 30),
+                  activeIcon: Icon(Icons.shopping_bag_sharp, size: 35),
                   label: 'Ofertas',
                 ),
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.video_camera_back_outlined),
-                  activeIcon: Icon(Icons.video_camera_back_sharp),
-                  label: 'Posts',
-                ),
-                const BottomNavigationBarItem(
-                  icon: Icon(Icons.receipt_outlined),
-                  activeIcon: Icon(Icons.receipt_sharp),
+                  icon: Icon(Icons.receipt_outlined, size: 30),
+                  activeIcon: Icon(Icons.receipt_sharp, size: 35),
                   label: 'Pedidos',
                 ),
                 const BottomNavigationBarItem(
-                  icon: Icon(Icons.settings_outlined),
-                  activeIcon: Icon(Icons.settings_sharp),
-                  label: 'Settings',
+                  icon: Icon(Icons.settings_outlined, size: 30),
+                  activeIcon: Icon(Icons.settings_sharp, size: 35),
+                  label: 'Configurações',
                 ),
                 if (snapshot.data != null && snapshot.data)
                   const BottomNavigationBarItem(
-                    icon: Icon(Icons.monetization_on_outlined),
-                    activeIcon: Icon(Icons.monetization_on_sharp),
+                    icon: Icon(Icons.monetization_on_outlined, size: 35),
+                    activeIcon: Icon(Icons.monetization_on_sharp, size: 35),
                     label: 'Negócios',
                   ),
               ],
