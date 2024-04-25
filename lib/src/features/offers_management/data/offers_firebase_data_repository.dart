@@ -161,4 +161,16 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       }
     });
   }
+
+  @override
+  Future<void> updateOfferAvailableQuantity(
+      {required String offerId, required int newQuantity}) async {
+    final offerAvailableQuantity = await getOffer(offerId);
+    if (offerAvailableQuantity.availableQuantity == newQuantity) {
+      return;
+    }
+    return _firestore.collection('offers').doc(offerId).update({
+      'availableQuantity': newQuantity,
+    });
+  }
 }

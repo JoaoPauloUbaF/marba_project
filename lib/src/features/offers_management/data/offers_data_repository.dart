@@ -12,6 +12,8 @@ abstract class OffersDataRepository {
   Future<DocumentSnapshot?> createOffer(OfferModel offer);
   Future<void> addOffer(OfferModel offer);
   Future<void> updateOffer(OfferModel offer);
+  Future<void> updateOfferAvailableQuantity(
+      {required String offerId, required int newQuantity});
   Future<void> deleteOffer(String id);
   Future<void> deleteBusinessOffers({required String businessId});
   Future<String?> saveOfferImage(File image, String offerId,

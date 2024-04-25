@@ -96,7 +96,7 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
       builder: (context) {
         return BusinessOrderDetailModalBody(orderId: order.id);
       },
-    );
+    ).then((value) => ref.invalidate(selectedOrderProvider));
   }
 
   void updateOrderStatus({required String orderId, required String newStatus}) {
@@ -104,12 +104,12 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
         .read(businessOrdersRepositoryProvider)
         .updateOrderStatus(orderId: orderId, newStatus: newStatus)
         .then((value) => {
-              checkBusinessOrderItemsAndUpdate(
+              businessOrderItemOfferIsProduct(
                   orderId: orderId, newStatus: newStatus),
             });
   }
 
-  void checkBusinessOrderItemsAndUpdate(
+  void businessOrderItemOfferIsProduct(
       {required String orderId, required String newStatus}) {
     if (newStatus == BusinessOrderStatus.done.toString().split('.').last) {
       ref
@@ -124,12 +124,11 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
                       .getOffer(item.id)
                       .then(
                     (orderOffer) {
-                      if (orderOffer.type == OfferType.product &&
-                          orderOffer.availableQuantity != null) {
-                        final newQuantity =
-                            orderOffer.availableQuantity! - item.quantity;
+                      if (orderOffer.type == OfferType.product) {
                         updateBusinessOrderItemOfferAvailableQuantity(
-                            offerId: orderOffer.id, newQuantity: newQuantity);
+                            offerId: orderOffer.id,
+                            orderOffer: orderOffer,
+                            itemQuantity: item.quantity);
                       }
                     },
                   )
@@ -140,12 +139,18 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
   }
 
   Future<void> updateBusinessOrderItemOfferAvailableQuantity(
-      {required String offerId, required int newQuantity}) async {
-    final offer =
-        await ref.read(offersDataRepositoryProvider).getOffer(offerId);
-    final updatedOffer = offer.copyWith(
-        product: offer.product?.copyWith(availableQuantity: newQuantity));
-    ref.read(offersDataRepositoryProvider).updateOffer(updatedOffer);
+      {required String offerId,
+      required OfferModel orderOffer,
+      required int itemQuantity}) async {
+    if (orderOffer.availableQuantity == null ||
+        orderOffer.availableQuantity == 0) {
+      return;
+    }
+
+    final newQuantity = orderOffer.availableQuantity! - itemQuantity;
+
+    ref.read(offersDataRepositoryProvider).updateOfferAvailableQuantity(
+        offerId: offerId, newQuantity: newQuantity);
   }
 }
 
