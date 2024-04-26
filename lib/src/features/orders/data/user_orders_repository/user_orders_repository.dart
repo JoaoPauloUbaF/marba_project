@@ -7,7 +7,7 @@ abstract class UserOrdersRepository {
   /// [userId]: The ID of the user/customer whose orders to retrieve.
   ///
   /// Returns a list of [OrderModel] objects placed by the specified user.
-  Stream<List<OrderModel>> getUserOrders();
+  Stream<List<OrderModel>> getUserOrders({String? lastOrderId});
 
   /// Retrieves open orders associated with a specific user/customer.
   ///

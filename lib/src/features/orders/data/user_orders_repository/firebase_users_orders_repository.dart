@@ -73,7 +73,7 @@ class FirebaseUsersOrdersRepository extends UserOrdersRepository {
   }
 
   @override
-  Stream<List<OrderModel>> getUserOrders() async* {
+  Stream<List<OrderModel>> getUserOrders({String? lastOrderId}) async* {
     final container = ProviderContainer();
     final userId = container.read(authRepositoryProvider).getCurrentUser()?.uid;
 
@@ -81,14 +81,24 @@ class FirebaseUsersOrdersRepository extends UserOrdersRepository {
       throw Exception('User ID not found');
     }
 
-    try {
-      final snapshot =
-          await ordersCollection.where('customerId', isEqualTo: userId).get();
-      yield snapshot.docs
+    Query query = ordersCollection
+        .where('customerId', isEqualTo: userId)
+        .orderBy('updatedAt', descending: true)
+        .limit(3);
+
+    if (lastOrderId != null && lastOrderId.isNotEmpty) {
+      query = query
+          .startAfterDocument(await ordersCollection.doc(lastOrderId).get());
+    }
+
+    yield* query.snapshots().map((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        return <OrderModel>[];
+      }
+      final result = querySnapshot.docs
           .map((doc) => OrderModel.fromJson(doc.data() as Map<String, dynamic>))
           .toList();
-    } catch (e) {
-      rethrow;
-    }
+      return result;
+    });
   }
 }
