@@ -33,18 +33,6 @@ class OpenOrdersGridWidget extends ConsumerWidget {
             );
           },
         );
-        // return GridView.builder(
-        //   shrinkWrap: true,
-        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 2,
-        //   ),
-        //   itemCount: orders.length,
-        //   itemBuilder: (context, index) {
-        //     return OrderGridItem(
-        //       order: orders[index],
-        //     );
-        //   },
-        // );
       },
       loading: () => const Center(
         child: CircularProgressIndicator(),
