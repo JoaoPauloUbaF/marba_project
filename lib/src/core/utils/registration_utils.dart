@@ -64,7 +64,7 @@ class RegistrationUtils {
     return double.parse(currencyString);
   }
 
-  String formatAsCurrency(double number) {
+  String doubleAsCurrency(double number) {
     var parts = number.toStringAsFixed(2).split('.');
     parts[0] = parts[0].replaceAllMapped(
       RegExp(r'\B(?=(\d{3})+(?!\d))'),

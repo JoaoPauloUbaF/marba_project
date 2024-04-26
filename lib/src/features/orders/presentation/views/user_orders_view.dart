@@ -4,9 +4,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:intl/intl.dart';
 import 'package:project_marba/src/core/models/order/order_model.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/features/orders/application/user_orders_view_model/user_orders_view_model.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
+
+import '../../application/order_view_model/order_view_model.dart';
 
 class UserOrdersView extends ConsumerStatefulWidget {
   const UserOrdersView({super.key});
@@ -60,7 +64,6 @@ class _UserOrdersViewState extends ConsumerState<UserOrdersView> {
     userOrders.whenData(
       (value) => _pagingController.refresh(),
     );
-
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () => Future.sync(
@@ -93,7 +96,7 @@ class _UserOrdersViewState extends ConsumerState<UserOrdersView> {
   }
 }
 
-class UserOrderItemWidget extends StatelessWidget {
+class UserOrderItemWidget extends ConsumerWidget {
   final OrderModel order;
 
   const UserOrderItemWidget({
@@ -105,10 +108,15 @@ class UserOrderItemWidget extends StatelessWidget {
   final WidgetRef ref;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final orderViewModel = ref.read(orderViewModelProvider.notifier);
+
     return InkWell(
-      onTap: () => Navigator.of(context)
-          .pushNamed('/user-order-details', arguments: order),
+      onTap: () {
+        orderViewModel.setState(order: order);
+        Navigator.of(context)
+            .pushNamed('/user-order-details', arguments: order);
+      },
       child: Card(
         child: Column(
           children: [
@@ -165,7 +173,7 @@ class UserOrderItemWidget extends StatelessWidget {
                                 log('$error');
                                 return Center(
                                   child: Padding(
-                                    padding: EdgeInsets.all(20.0),
+                                    padding: const EdgeInsets.all(20.0),
                                     child: Icon(
                                       Icons.error,
                                       color:
@@ -185,8 +193,12 @@ class UserOrderItemWidget extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.shopping_cart),
-              title: Text('Pedido #${order.id.split('-').first}'),
-              subtitle: Text('Total: R\$ ${order.total.toStringAsFixed(2)}'),
+              title: Text(
+                'Pedido #${order.id.split('-').first}',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              subtitle: Text(
+                  '${DateFormat.yMd().add_jm().format(order.createdAt.toLocal())}\nTotal: ${RegistrationUtils().doubleAsCurrency(order.total)}'),
               trailing: const Icon(Icons.arrow_forward_ios),
             ),
           ],

@@ -31,7 +31,7 @@ class OfferPriceWidget extends StatelessWidget {
               Visibility(
                 visible: offerDiscount != 0,
                 child: Text(
-                  RegistrationUtils().formatAsCurrency(offerPrice),
+                  RegistrationUtils().doubleAsCurrency(offerPrice),
                   style: Theme.of(context).textTheme.labelSmall?.copyWith(
                         decoration: TextDecoration.lineThrough,
                         color: Theme.of(context).colorScheme.error,
@@ -42,7 +42,7 @@ class OfferPriceWidget extends StatelessWidget {
                 children: [
                   Text(
                     RegistrationUtils()
-                        .formatAsCurrency(offerPriceWithDiscount),
+                        .doubleAsCurrency(offerPriceWithDiscount),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),

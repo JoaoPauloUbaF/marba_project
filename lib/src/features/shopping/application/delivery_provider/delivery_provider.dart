@@ -16,5 +16,5 @@ Future<String> deliveryTax(DeliveryTaxRef ref,
         .getBusinessDeliveryFee(offer.businessId);
   }
 
-  return RegistrationUtils().formatAsCurrency(totalDeliveryFee);
+  return RegistrationUtils().doubleAsCurrency(totalDeliveryFee);
 }

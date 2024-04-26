@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/order_model.dart';
 import 'package:project_marba/src/core/models/order/business_order_item.dart';
+import 'package:project_marba/src/features/orders/application/order_view_model/order_view_model.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
+import 'package:project_marba/src/features/orders/presentation/widgets/order_items_list_widget.dart';
 
 class UserOrderDetailsView extends ConsumerWidget {
-  const UserOrderDetailsView({Key? key}) : super(key: key);
+  const UserOrderDetailsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final OrderModel order =
         ModalRoute.of(context)!.settings.arguments as OrderModel;
+    final orderViewModel = ref.read(orderViewModelProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,50 +27,30 @@ class UserOrderDetailsView extends ConsumerWidget {
             children: [
               Text(
                 'Detalhes do Pedido',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 'Status: ${_getOrderStatus(order)}',
-                style: TextStyle(fontSize: 18),
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Endereço de Entrega:',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 '${order.address.street}, ${order.address.city}, ${order.address.state}, ${order.address.zipCode}',
-                style: TextStyle(fontSize: 16),
+                style: Theme.of(context).textTheme.bodyMedium,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Text(
                 'Itens do Pedido:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
-              SizedBox(height: 10),
-              FutureBuilder<List<BusinessOrderItem>>(
-                future: ref
-                    .read(ordersRepositoryProvider)
-                    .getOrderItems(orderId: order.id),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  }
-                  if (snapshot.hasError) {
-                    return Text('Erro ao carregar os itens do pedido');
-                  }
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Text('Nenhum item encontrado');
-                  }
-                  return Column(
-                    children: snapshot.data!
-                        .map((item) => _buildOrderItemWidget(item))
-                        .toList(),
-                  );
-                },
-              ),
+              const SizedBox(height: 10),
+              OrderItemsListWidget(orderViewModel: orderViewModel),
             ],
           ),
         ),

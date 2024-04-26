@@ -6,5 +6,5 @@ part 'discount_coupon_provider.g.dart';
 @riverpod
 String shoppingCartDiscount(ShoppingCartDiscountRef ref, double total) {
   const discount = .0;
-  return RegistrationUtils().formatAsCurrency(total * discount);
+  return RegistrationUtils().doubleAsCurrency(total * discount);
 }

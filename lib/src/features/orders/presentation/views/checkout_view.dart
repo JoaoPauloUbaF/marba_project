@@ -7,6 +7,7 @@ import 'package:project_marba/src/features/orders/application/order_view_model/o
 
 import '../../../../core/models/order/business_order_model.dart';
 import '../../application/business_order_provider/business_order_provider.dart';
+import '../widgets/order_items_list_widget.dart';
 
 class CheckoutView extends ConsumerStatefulWidget {
   const CheckoutView({super.key});
@@ -129,43 +130,7 @@ class _CheckoutViewState extends ConsumerState<CheckoutView> {
                           ),
                         const VerticalSpaceMediumWidget(),
                         const Text('Produtos'),
-                        FutureBuilder(
-                            future: orderViewModel.getOrderItems(),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              }
-
-                              return ListView.separated(
-                                physics: const NeverScrollableScrollPhysics(),
-                                padding: const EdgeInsets.all(2.0),
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: snapshot.data?.length ?? 0,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    leading: Image.network(
-                                      '${snapshot.data?[index].imageUrl}',
-                                      width: 50,
-                                      height: 80,
-                                      fit: BoxFit.fill,
-                                    ),
-                                    title:
-                                        Text('${snapshot.data?[index].name}'),
-                                    subtitle: Text(
-                                        'R\$ ${snapshot.data?[index].price.toStringAsFixed(2)}'),
-                                    trailing: Text(
-                                        'Qtd: ${snapshot.data?[index].quantity}'),
-                                  );
-                                },
-                                separatorBuilder:
-                                    (BuildContext context, int index) {
-                                  return const Divider();
-                                },
-                              );
-                            }),
+                        OrderItemsListWidget(orderViewModel: orderViewModel),
                       ],
                     ),
                   ),
