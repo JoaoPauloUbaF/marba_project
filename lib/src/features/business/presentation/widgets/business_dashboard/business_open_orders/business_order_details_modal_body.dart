@@ -2,12 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project_marba/src/core/models/order/business_order_model.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
 import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository.dart';
 
 import '../../../../../orders/data/business_orders_repository/business_orders_repository_provider.dart';
+import '../../../../application/business_order_view_model/business_order_view_model.dart';
 import '../../../../application/business_orders_view_model/business_orders_view_model.dart';
 
 class BusinessOrderDetailModalBody extends ConsumerStatefulWidget {
@@ -26,6 +28,8 @@ class _BusinessOrderDetailModalBodyState
   Widget build(BuildContext context) {
     final businessOrdersViewModel =
         ref.watch(businessOrdersViewModelProvider.notifier);
+    final businessOrderViewModel =
+        ref.read(businessOrderViewModelProvider.notifier);
     final businessOrdersRepository = ref.read(businessOrdersRepositoryProvider);
     final selectedOrder = ref.watch(selectedOrderProvider(widget.orderId));
 
@@ -39,6 +43,7 @@ class _BusinessOrderDetailModalBodyState
       return SuccessBodyWidget(
         order: order,
         businessOrdersViewModel: businessOrdersViewModel,
+        businessOrderViewModel: businessOrderViewModel,
         businessOrdersRepository: businessOrdersRepository,
       );
     }, error: (error, stack) {
@@ -59,8 +64,10 @@ class SuccessBodyWidget extends StatefulWidget {
     required this.order,
     required this.businessOrdersViewModel,
     required this.businessOrdersRepository,
+    required this.businessOrderViewModel,
   });
 
+  final BusinessOrderViewModel businessOrderViewModel;
   final BusinessOrder order;
   final BusinessOrdersViewModel businessOrdersViewModel;
   final BusinessOrdersRepository businessOrdersRepository;
@@ -109,7 +116,7 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
                     BusinessOrderStatus.waitingConfirmation,
                 child: ElevatedButton(
                   onPressed: () {
-                    widget.businessOrdersRepository.updateOrderStatus(
+                    widget.businessOrderViewModel.updateOrderStatus(
                       orderId: widget.order.id,
                       newStatus: BusinessOrderStatus.accepted
                           .toString()
@@ -166,9 +173,8 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
           Expanded(
             child: ListView.separated(
               padding: EdgeInsets.zero,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
               itemCount: widget.order.items.length,
+              shrinkWrap: true,
               itemBuilder: (context, index) {
                 final item = widget.order.items.elementAt(index);
                 return ListTile(
@@ -191,12 +197,12 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
               separatorBuilder: (context, index) => const Divider(),
             ),
           ),
-          const Spacer(),
+          const VerticalSpaceMediumWidget(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Total: R\$${widget.order.items.fold(0.0, (total, item) => total + item.price * item.quantity).toStringAsFixed(2)}',
+                'Total: ${RegistrationUtils().formatAsCurrency(widget.order.items.fold(0.0, (total, item) => total + item.price * item.quantity))}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -211,7 +217,7 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    widget.businessOrdersViewModel.updateOrderStatus(
+                    widget.businessOrderViewModel.updateOrderStatus(
                       orderId: widget.order.id,
                       newStatus: _orderStatus.toString().split('.').last,
                     );
@@ -224,7 +230,7 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    widget.businessOrdersViewModel.updateOrderStatus(
+                    widget.businessOrderViewModel.updateOrderStatus(
                       orderId: widget.order.id,
                       newStatus: BusinessOrderStatus.canceled
                           .toString()
