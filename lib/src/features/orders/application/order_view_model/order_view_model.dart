@@ -112,10 +112,18 @@ class OrderViewModel extends _$OrderViewModel {
         .then((value) => state = value);
   }
 
+  void setState({required OrderModel order}) {
+    state = order;
+  }
+
   Future<String> getBusinessOrderBusinessName(String businessId) async {
     return await ref
         .read(businessProfileDataProvider)
         .getBusinessProfileData(uid: businessId)
         .then((value) => value!.name);
+  }
+
+  void dispose() {
+    state = null;
   }
 }

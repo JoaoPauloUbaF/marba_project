@@ -15,11 +15,9 @@ class UserOrdersViewModel extends _$UserOrdersViewModel {
   }
 
   Future<List<OrderModel>> fetchNewOffers({required String lastOrderId}) async {
-    //state = const AsyncValue.loading();
     final newOrders = ref
         .read(userOrdersRepositoryProvider)
         .getUserOrders(lastOrderId: lastOrderId);
-    //state = AsyncValue.data(await newOrders.first);
     return newOrders.first;
   }
 }

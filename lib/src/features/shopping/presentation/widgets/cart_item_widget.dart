@@ -51,7 +51,7 @@ class CartItemWidget extends ConsumerWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  Text(RegistrationUtils().formatAsCurrency(item.price),
+                  Text(RegistrationUtils().doubleAsCurrency(item.price),
                       style: Theme.of(context).textTheme.bodyMedium),
                   item.offerType == OfferType.product
                       ? ProductStepperWidget(

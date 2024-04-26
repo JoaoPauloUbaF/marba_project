@@ -202,7 +202,7 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Total: ${RegistrationUtils().formatAsCurrency(widget.order.items.fold(0.0, (total, item) => total + item.price * item.quantity))}',
+                'Total: ${RegistrationUtils().doubleAsCurrency(widget.order.items.fold(0.0, (total, item) => total + item.price * item.quantity))}',
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

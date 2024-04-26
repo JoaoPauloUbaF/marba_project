@@ -120,7 +120,7 @@ class OfferCardWidget extends ConsumerWidget {
                                   offer.discount != 0.0,
                               child: Text(
                                 RegistrationUtils()
-                                    .formatAsCurrency(offer.price),
+                                    .doubleAsCurrency(offer.price),
                                 style: textTheme.bodySmall?.copyWith(
                                   color: Theme.of(context).colorScheme.error,
                                   decoration: TextDecoration.lineThrough,
@@ -130,7 +130,7 @@ class OfferCardWidget extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              RegistrationUtils().formatAsCurrency(offer.price -
+                              RegistrationUtils().doubleAsCurrency(offer.price -
                                   ((offer.discount ?? 0) / 100 * offer.price)),
                               style: textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.w800,

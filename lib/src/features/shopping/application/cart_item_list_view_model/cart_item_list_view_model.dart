@@ -137,7 +137,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   String getTotal() {
-    final totalString = RegistrationUtils().formatAsCurrency(total);
+    final totalString = RegistrationUtils().doubleAsCurrency(total);
     return totalString;
   }
 
@@ -151,7 +151,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
     final finalTotalValue = ru.currencyStringToDouble(getTotal()) +
         ru.currencyStringToDouble(deliveryTax) -
         ru.currencyStringToDouble(discount);
-    return ru.formatAsCurrency(finalTotalValue);
+    return ru.doubleAsCurrency(finalTotalValue);
   }
 
   void checkOut(BuildContext context) {
