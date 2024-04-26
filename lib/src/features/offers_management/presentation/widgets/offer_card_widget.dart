@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
@@ -56,6 +58,19 @@ class OfferCardWidget extends ConsumerWidget {
                           height: cardWidth / 1.2,
                           child: const Center(
                             child: CircularProgressIndicator(),
+                          ),
+                        );
+                      },
+                      errorBuilder: (context, error, stackTrace) {
+                        log('$error');
+                        return Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(50.0),
+                            child: Icon(
+                              Icons.error,
+                              color: Theme.of(context).colorScheme.error,
+                              size: 30,
+                            ),
                           ),
                         );
                       },

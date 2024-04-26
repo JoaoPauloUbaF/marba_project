@@ -9,6 +9,17 @@ part 'user_orders_view_model.g.dart';
 class UserOrdersViewModel extends _$UserOrdersViewModel {
   @override
   Stream<List<OrderModel>> build() {
-    return ref.read(userOrdersRepositoryProvider).getUserOrders();
+    return ref
+        .watch(userOrdersRepositoryProvider)
+        .getUserOrders(lastOrderId: null);
+  }
+
+  Future<List<OrderModel>> fetchNewOffers({required String lastOrderId}) async {
+    //state = const AsyncValue.loading();
+    final newOrders = ref
+        .read(userOrdersRepositoryProvider)
+        .getUserOrders(lastOrderId: lastOrderId);
+    //state = AsyncValue.data(await newOrders.first);
+    return newOrders.first;
   }
 }

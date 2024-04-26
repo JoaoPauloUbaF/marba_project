@@ -95,7 +95,6 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
           'createdAt',
           descending: true,
         )
-        // Assuming there's a field 'createdAt' to order by
         .limit(10);
 
     if (lastOffer != null) {
