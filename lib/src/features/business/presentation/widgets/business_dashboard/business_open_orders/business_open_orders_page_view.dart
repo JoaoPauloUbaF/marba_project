@@ -16,11 +16,14 @@ class BusinessOrdersPageView extends ConsumerStatefulWidget {
 class _BusinessOrdersPageViewState
     extends ConsumerState<BusinessOrdersPageView> {
   bool _isGridMode = false;
+  BusinessOrderStatus? _status;
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(businessOrdersViewModelProvider);
     final businessOrdersViewModel =
         ref.watch(businessOrdersViewModelProvider.notifier);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -31,17 +34,35 @@ class _BusinessOrdersPageViewState
               child: DropdownButtonHideUnderline(
                 child: DropdownButton(
                   icon: const Icon(Icons.filter_list_sharp),
-                  value: BusinessOrderStatus.waitingConfirmation,
+                  value: _status,
                   style: Theme.of(context).textTheme.bodyMedium,
                   borderRadius: BorderRadius.circular(8),
-                  items: BusinessOrderStatus.values.map((status) {
-                    return DropdownMenuItem(
-                      value: status,
-                      child: Text(businessOrdersViewModel.getStatusTranslation(
-                          status.toString().split('.').last)),
-                    );
-                  }).toList(),
-                  onChanged: (value) {},
+                  items: [
+                    const DropdownMenuItem(
+                      value: null,
+                      child: Text(
+                          'Todos'), // replace 'None' with your desired placeholder text
+                    ),
+                    ...BusinessOrderStatus.values.map((status) {
+                      return DropdownMenuItem(
+                        value: status,
+                        child: Text(
+                            businessOrdersViewModel.getStatusTranslation(
+                                status.toString().split('.').last)),
+                      );
+                    }),
+                  ],
+                  onChanged: (value) {
+                    if (value == null) {
+                      ref.invalidate(businessOrdersViewModelProvider);
+                      _status = null;
+                      return;
+                    }
+                    setState(() {
+                      _status = value!;
+                    });
+                    businessOrdersViewModel.applyOrdersStatusFilter(value!);
+                  },
                 ),
               ),
             ),

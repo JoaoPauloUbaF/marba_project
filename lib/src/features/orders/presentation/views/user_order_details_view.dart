@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/order_model.dart';
-import 'package:project_marba/src/core/models/order/business_order_item.dart';
-import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
 import 'package:project_marba/src/features/orders/application/order_view_model/order_view_model.dart';
 import 'package:project_marba/src/features/orders/presentation/widgets/order_items_list_widget.dart';

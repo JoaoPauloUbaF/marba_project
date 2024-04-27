@@ -21,8 +21,40 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
 
     final businessOrders = ref
         .watch(businessOrdersRepositoryProvider)
-        .getOrders(businessId: businessId);
+        .getOpenOrders(businessId: businessId);
     return businessOrders;
+  }
+
+  Future<void> applyOrdersStatusFilter(BusinessOrderStatus status) async {
+    if (status == null) {
+      build();
+    }
+    state = const AsyncValue.loading();
+    final businessId = ref.watch(businessProfileViewModelProvider)?.id;
+    if (businessId == null) {
+      throw Exception('Business ID not found');
+    }
+
+    final businessOrders =
+        await ref.watch(businessOrdersRepositoryProvider).getOrdersByStatus(
+              status: status.toString().split('.').last,
+              businessId: businessId,
+            );
+    state = AsyncValue.data(businessOrders);
+  }
+
+  Stream<List<BusinessOrder>> getOpenOrders() {
+    state.maybeWhen(
+      data: (orders) {
+        return orders
+            .where((order) =>
+                order.status != BusinessOrderStatus.done &&
+                order.status != BusinessOrderStatus.canceled)
+            .toList();
+      },
+      orElse: () => [],
+    );
+    return const Stream.empty();
   }
 
   Color? getCardColor({required BusinessOrderStatus status}) {
@@ -97,45 +129,6 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
         return BusinessOrderDetailModalBody(orderId: order.id);
       },
     ).then((value) => ref.invalidate(selectedOrderProvider));
-  }
-
-  void updateOrderStatus({required String orderId, required String newStatus}) {
-    ref
-        .read(businessOrdersRepositoryProvider)
-        .updateOrderStatus(orderId: orderId, newStatus: newStatus)
-        .then((value) => {
-              businessOrderItemOfferIsProduct(
-                  orderId: orderId, newStatus: newStatus),
-            });
-  }
-
-  void businessOrderItemOfferIsProduct(
-      {required String orderId, required String newStatus}) {
-    if (newStatus == BusinessOrderStatus.done.toString().split('.').last) {
-      ref
-          .read(businessOrdersRepositoryProvider)
-          .getOrderItems(orderId: orderId)
-          .then(
-            (items) async => {
-              for (var item in items)
-                {
-                  await ref
-                      .read(offersDataRepositoryProvider)
-                      .getOffer(item.id)
-                      .then(
-                    (orderOffer) {
-                      if (orderOffer.type == OfferType.product) {
-                        updateBusinessOrderItemOfferAvailableQuantity(
-                            offerId: orderOffer.id,
-                            orderOffer: orderOffer,
-                            itemQuantity: item.quantity);
-                      }
-                    },
-                  )
-                }
-            },
-          );
-    }
   }
 
   Future<void> updateBusinessOrderItemOfferAvailableQuantity(

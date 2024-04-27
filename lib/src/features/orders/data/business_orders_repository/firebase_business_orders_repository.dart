@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/business_order_item.dart';
@@ -43,22 +45,21 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Future<List<BusinessOrder>> getOpenOrders() async {
-    final container = ProviderContainer();
-    final businessId = container.read(businessProfileViewModelProvider)?.id;
-    if (businessId == null) {
-      throw Exception('Business ID not found');
-    }
+  Stream<List<BusinessOrder>> getOpenOrders(
+      {required String businessId}) async* {
     try {
       final snapshot = await businessOrdersCollection
           .where('businessId', isEqualTo: businessId)
-          .where('status', isNotEqualTo: BusinessOrderStatus.done.toString())
+          .where('status',
+              isNotEqualTo: BusinessOrderStatus.done.toString().split('.').last)
           .get();
-      return snapshot.docs
+      yield snapshot.docs
           .map((doc) =>
               BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
+          .where((order) => order.status != BusinessOrderStatus.canceled)
           .toList();
     } catch (e) {
+      log('Error: $e');
       rethrow;
     }
   }
@@ -144,14 +145,7 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
 
   @override
   Future<List<BusinessOrder>> getOrdersByStatus(
-      {required String status}) async {
-    final container = ProviderContainer();
-    final businessId = container.read(businessProfileViewModelProvider)?.id;
-
-    if (businessId == null) {
-      throw Exception('Business ID not found');
-    }
-
+      {required String status, required String businessId}) async {
     try {
       final snapshot = await businessOrdersCollection
           .where('businessId', isEqualTo: businessId)
