@@ -84,12 +84,19 @@ class OfferBodyWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        OfferMediaWidget(
-          items: mediaItems,
+        Container(
+          color: Theme.of(context).colorScheme.secondaryContainer,
+          child: Column(
+            children: [
+              OfferMediaWidget(
+                items: mediaItems,
+              ),
+              OfferInfoWidget(offer: offer),
+              OrderingActionsWidget(offer: offer),
+              BusinessTileWidget(businessId: offer.businessId),
+            ],
+          ),
         ),
-        OfferInfoWidget(offer: offer),
-        OrderingActionsWidget(offer: offer),
-        BusinessTileWidget(businessId: offer.businessId),
         Container(
           height: 30,
           decoration: BoxDecoration(

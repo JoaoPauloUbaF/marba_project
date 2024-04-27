@@ -7,6 +7,7 @@ part 'business_order_item.g.dart';
 class BusinessOrderItem with _$BusinessOrderItem {
   factory BusinessOrderItem({
     required String id,
+    required String businessOrderId,
     required String name,
     required String imageUrl,
     required double price,

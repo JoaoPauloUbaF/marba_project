@@ -21,6 +21,7 @@ BusinessOrderItem _$BusinessOrderItemFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BusinessOrderItem {
   String get id => throw _privateConstructorUsedError;
+  String get businessOrderId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $BusinessOrderItemCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String businessOrderId,
       String name,
       String imageUrl,
       double price,
@@ -68,6 +70,7 @@ class _$BusinessOrderItemCopyWithImpl<$Res, $Val extends BusinessOrderItem>
   @override
   $Res call({
     Object? id = null,
+    Object? businessOrderId = null,
     Object? name = null,
     Object? imageUrl = null,
     Object? price = null,
@@ -81,6 +84,10 @@ class _$BusinessOrderItemCopyWithImpl<$Res, $Val extends BusinessOrderItem>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessOrderId: null == businessOrderId
+          ? _value.businessOrderId
+          : businessOrderId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -128,6 +135,7 @@ abstract class _$$BusinessOrderItemImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String businessOrderId,
       String name,
       String imageUrl,
       double price,
@@ -150,6 +158,7 @@ class __$$BusinessOrderItemImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? businessOrderId = null,
     Object? name = null,
     Object? imageUrl = null,
     Object? price = null,
@@ -163,6 +172,10 @@ class __$$BusinessOrderItemImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      businessOrderId: null == businessOrderId
+          ? _value.businessOrderId
+          : businessOrderId // ignore: cast_nullable_to_non_nullable
               as String,
       name: null == name
           ? _value.name
@@ -205,6 +218,7 @@ class __$$BusinessOrderItemImplCopyWithImpl<$Res>
 class _$BusinessOrderItemImpl implements _BusinessOrderItem {
   _$BusinessOrderItemImpl(
       {required this.id,
+      required this.businessOrderId,
       required this.name,
       required this.imageUrl,
       required this.price,
@@ -219,6 +233,8 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
 
   @override
   final String id;
+  @override
+  final String businessOrderId;
   @override
   final String name;
   @override
@@ -238,7 +254,7 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
 
   @override
   String toString() {
-    return 'BusinessOrderItem(id: $id, name: $name, imageUrl: $imageUrl, price: $price, quantity: $quantity, deliveredAt: $deliveredAt, canceledAt: $canceledAt, scheduledAt: $scheduledAt, status: $status)';
+    return 'BusinessOrderItem(id: $id, businessOrderId: $businessOrderId, name: $name, imageUrl: $imageUrl, price: $price, quantity: $quantity, deliveredAt: $deliveredAt, canceledAt: $canceledAt, scheduledAt: $scheduledAt, status: $status)';
   }
 
   @override
@@ -247,6 +263,8 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
         (other.runtimeType == runtimeType &&
             other is _$BusinessOrderItemImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.businessOrderId, businessOrderId) ||
+                other.businessOrderId == businessOrderId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
@@ -264,8 +282,8 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, imageUrl, price,
-      quantity, deliveredAt, canceledAt, scheduledAt, status);
+  int get hashCode => Object.hash(runtimeType, id, businessOrderId, name,
+      imageUrl, price, quantity, deliveredAt, canceledAt, scheduledAt, status);
 
   @JsonKey(ignore: true)
   @override
@@ -285,6 +303,7 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
 abstract class _BusinessOrderItem implements BusinessOrderItem {
   factory _BusinessOrderItem(
       {required final String id,
+      required final String businessOrderId,
       required final String name,
       required final String imageUrl,
       required final double price,
@@ -299,6 +318,8 @@ abstract class _BusinessOrderItem implements BusinessOrderItem {
 
   @override
   String get id;
+  @override
+  String get businessOrderId;
   @override
   String get name;
   @override

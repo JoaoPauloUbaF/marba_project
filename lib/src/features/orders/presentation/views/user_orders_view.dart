@@ -117,91 +117,99 @@ class UserOrderItemWidget extends ConsumerWidget {
         Navigator.of(context)
             .pushNamed('/user-order-details', arguments: order);
       },
-      child: Card(
-        child: Column(
-          children: [
-            FutureBuilder(
-              future: ref
-                  .read(ordersRepositoryProvider)
-                  .getOrderItems(orderId: order.id),
-              builder: (context, snapshot) {
-                return CarouselSlider(
-                  options: CarouselOptions(
-                    height: 200,
-                    aspectRatio: 16 / 9,
-                    viewportFraction: .6,
-                    initialPage: 0,
-                    reverse: false,
-                    autoPlay: snapshot.data?.length == 1 ? false : true,
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayAnimationDuration:
-                        const Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enableInfiniteScroll: false,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                  items: snapshot.data
-                      ?.map<Widget>(
-                        (item) => Container(
-                          margin: const EdgeInsets.all(5.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              item.imageUrl,
-                              fit: BoxFit.fill,
-                              width: 200,
-                              frameBuilder: (context, child, frame,
-                                      wasSynchronouslyLoaded) =>
-                                  child,
-                              loadingBuilder:
-                                  (context, child, loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                }
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
-                              errorBuilder: (context, error, stackTrace) {
-                                log('$error');
-                                return Center(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: Icon(
-                                      Icons.error,
-                                      color:
-                                          Theme.of(context).colorScheme.error,
-                                      size: 30,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          child: Column(
+            children: [
+              FutureBuilder(
+                future: ref
+                    .read(ordersRepositoryProvider)
+                    .getOrderItems(orderId: order.id),
+                builder: (context, snapshot) {
+                  return CarouselSlider(
+                    options: CarouselOptions(
+                      height: 200,
+                      aspectRatio: 16 / 9,
+                      viewportFraction: .6,
+                      initialPage: 0,
+                      reverse: false,
+                      autoPlay: snapshot.data?.length == 1 ? false : true,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 800),
+                      autoPlayCurve: Curves.fastOutSlowIn,
+                      enableInfiniteScroll: false,
+                      scrollDirection: Axis.horizontal,
+                    ),
+                    items: snapshot.data
+                        ?.map<Widget>(
+                          (item) => Container(
+                            margin: const EdgeInsets.all(5.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              child: Image.network(
+                                item.imageUrl,
+                                fit: BoxFit.fill,
+                                width: 200,
+                                frameBuilder: (context, child, frame,
+                                        wasSynchronouslyLoaded) =>
+                                    child,
+                                loadingBuilder:
+                                    (context, child, loadingProgress) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                                errorBuilder: (context, error, stackTrace) {
+                                  log('$error');
+                                  return Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Icon(
+                                        Icons.error,
+                                        color:
+                                            Theme.of(context).colorScheme.error,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.shopping_cart),
-              title: Text(
-                'Pedido #${order.id.split('-').first}',
-                style: Theme.of(context).textTheme.titleMedium,
+                        )
+                        .toList(),
+                  );
+                },
               ),
-              subtitle: Text(
-                  '${DateFormat.yMd().add_jm().format(order.createdAt.toLocal())}\nTotal: ${RegistrationUtils().doubleAsCurrency(order.total)}'),
-              trailing: const Icon(Icons.arrow_forward_ios),
-            ),
-          ],
+              ListTile(
+                leading: Icon(
+                  Icons.shopping_cart,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                title: Text(
+                  'Pedido #${order.id.split('-').first}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                subtitle: Text(
+                    '${DateFormat.yMd().add_jm().format(order.createdAt.toLocal())}\nTotal: ${RegistrationUtils().doubleAsCurrency(order.total)}'),
+                trailing: const Icon(Icons.arrow_forward_ios),
+              ),
+            ],
+          ),
         ),
       ),
     );
