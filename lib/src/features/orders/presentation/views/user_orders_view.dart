@@ -32,7 +32,6 @@ class _UserOrdersViewState extends ConsumerState<UserOrdersView> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    await Future.delayed(const Duration(milliseconds: 2000));
     try {
       final newItems =
           await ref.read(userOrdersViewModelProvider.notifier).fetchNewOffers(
@@ -152,9 +151,6 @@ class UserOrderItemWidget extends ConsumerWidget {
                                 item.imageUrl,
                                 fit: BoxFit.fill,
                                 width: 200,
-                                frameBuilder: (context, child, frame,
-                                        wasSynchronouslyLoaded) =>
-                                    child,
                                 loadingBuilder:
                                     (context, child, loadingProgress) {
                                   if (loadingProgress == null) {

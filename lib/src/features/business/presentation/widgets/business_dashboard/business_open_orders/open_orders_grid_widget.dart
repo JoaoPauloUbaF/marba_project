@@ -10,6 +10,8 @@ class OpenOrdersGridWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final businessOrdersViewModel =
+        ref.watch(businessOrdersViewModelProvider.notifier);
     final businessOrders = ref.watch(businessOrdersViewModelProvider);
     return businessOrders.when(
       data: (orders) {

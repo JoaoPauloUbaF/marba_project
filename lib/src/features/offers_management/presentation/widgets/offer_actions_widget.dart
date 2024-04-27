@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class OfferActionsWidget extends StatefulWidget {
-  //TODO: favorite offers feature, share feature, chat feature
+  //TODO: favorite offers feature
+  //TODO: share feature
+  //TODO: chat feature
   const OfferActionsWidget({
     super.key,
   });
