@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:project_marba/src/core/models/order/business_order_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
@@ -116,6 +117,8 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
                     BusinessOrderStatus.waitingConfirmation,
                 child: ElevatedButton(
                   onPressed: () {
+                    _orderStatus =
+                        BusinessOrderStatus.accepted.toString().split('.').last;
                     widget.businessOrderViewModel.updateOrderStatus(
                       orderId: widget.order.id,
                       newStatus: BusinessOrderStatus.accepted

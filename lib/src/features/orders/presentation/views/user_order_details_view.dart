@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/order_model.dart';
 import 'package:project_marba/src/core/models/order/business_order_item.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
 import 'package:project_marba/src/features/orders/application/order_view_model/order_view_model.dart';
-import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
 import 'package:project_marba/src/features/orders/presentation/widgets/order_items_list_widget.dart';
 
 class UserOrderDetailsView extends ConsumerWidget {
@@ -17,7 +18,10 @@ class UserOrderDetailsView extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pedido ${order.id.split('-').first}'),
+        title: Text(
+          'Pedido ${order.id.split('-').first}',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -26,53 +30,29 @@ class UserOrderDetailsView extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Detalhes do Pedido',
-                style: Theme.of(context).textTheme.headlineSmall,
+                'Detalhes ',
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: 20),
+              const Divider(),
               Text(
-                'Status: ${_getOrderStatus(order)}',
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Endereço de Entrega:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                'Endereço de Entrega',
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 5),
+              AddressDisplayWidget(
+                  address: order.address,
+                  isEditable: false,
+                  isBusinessAddress: false),
+              const SizedBox(height: 8),
               Text(
-                '${order.address.street}, ${order.address.city}, ${order.address.state}, ${order.address.zipCode}',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20),
-              Text(
-                'Itens do Pedido:',
+                'Itens do Pedido',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
-              const SizedBox(height: 10),
               OrderItemsListWidget(orderViewModel: orderViewModel),
             ],
           ),
         ),
       ),
     );
-  }
-
-  Widget _buildOrderItemWidget(BusinessOrderItem item) {
-    return ListTile(
-      title: Text(item.name),
-      subtitle: Text(
-          'Quantidade: ${item.quantity}, Preço: R\$ ${item.price.toStringAsFixed(2)}'),
-    );
-  }
-
-  String _getOrderStatus(OrderModel order) {
-    if (order.canceledAt != null) {
-      return 'Cancelado';
-    } else if (DateTime.now().isAfter(order.updatedAt)) {
-      return 'Concluído';
-    } else {
-      return 'Em andamento';
-    }
   }
 }
