@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
+import '../../../application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 
 class UserBusinessListWidget extends ConsumerWidget {
   const UserBusinessListWidget({

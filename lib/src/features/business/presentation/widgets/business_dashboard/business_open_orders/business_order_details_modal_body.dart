@@ -5,7 +5,7 @@ import 'package:project_marba/src/core/models/order/business_order_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
+import 'package:project_marba/src/core/widgets/loading_widget.dart';
 import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository.dart';
 
 import '../../../../../orders/data/business_orders_repository/business_orders_repository_provider.dart';
@@ -219,6 +219,7 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
               children: [
                 ElevatedButton(
                   onPressed: () {
+                    if (_orderStatus.isEmpty) return;
                     widget.businessOrderViewModel.updateOrderStatus(
                       orderId: widget.order.id,
                       newStatus: _orderStatus.toString().split('.').last,

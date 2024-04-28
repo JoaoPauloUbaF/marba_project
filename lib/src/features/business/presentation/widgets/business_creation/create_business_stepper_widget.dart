@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_address_form_field_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_info_form_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/category_form_field_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_address_form_field_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_info_form_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_creation/category_form_field_widget.dart';
 
-import '../../../../core/models/business/enums.dart';
+import '../../../../../core/models/business/enums.dart';
 
 class CreateBusinessStepperWidget extends ConsumerStatefulWidget {
   const CreateBusinessStepperWidget({super.key});

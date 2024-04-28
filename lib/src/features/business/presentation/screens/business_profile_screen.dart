@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_info_card_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_profile_image_widget.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_status_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_info_card_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_profile_image_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_status_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
 

@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/business/enums.dart';
 
-import '../../application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import '../../../application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
 class BusinessCategoryTilesWidget extends ConsumerWidget {
   BusinessCategoryTilesWidget({super.key});

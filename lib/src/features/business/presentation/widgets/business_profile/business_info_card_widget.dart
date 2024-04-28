@@ -2,7 +2,7 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_category_tiles_widget.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_category_tiles_widget.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 
 class BusinessContactInfoCardWidget extends ConsumerWidget {

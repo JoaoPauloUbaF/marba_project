@@ -1,6 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
+import 'package:project_marba/src/core/widgets/loading_widget.dart';
 
 class OfferMediaWidget extends StatefulWidget {
   const OfferMediaWidget({

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
