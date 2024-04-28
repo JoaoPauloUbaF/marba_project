@@ -21,7 +21,7 @@ abstract class BusinessProfileDataRepository {
       {required String uid, required Map<String, dynamic> businessCategory});
   Future<void> updateBusinessProfileImage(
       {required String uid, required File imageFile});
-  Future<void> updateOffers(
+  Future<void> updateBusinessOffers(
       {required String uid, required Set<String> offersIds});
   Future<List<Business>?> getBusinessesAt({required String city});
   Future<double> getBusinessDeliveryFee(businessId);

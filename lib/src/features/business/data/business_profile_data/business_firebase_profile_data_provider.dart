@@ -37,40 +37,45 @@ class BusinessFirebaseProfileDataProvider
   }
 
   @override
-  Future<List<Business>?> getBusinessesAt({required String city}) async {
+  getBusinessesAt({required String city}) async {
     QuerySnapshot querySnapshot =
         await _businessCollection.where('address.city', isEqualTo: city).get();
     if (querySnapshot.docs.isEmpty) {
       return null;
     }
-    List<Business> businesses = querySnapshot.docs
-        .map((doc) => Business(
-              id: doc.id,
-              name: doc['businessName'],
-              email: doc['businessEmail'],
-              phoneNumber: doc['businessPhoneNumber'],
-              address: Address.fromJson(doc['address']),
-              status: BusinessStatus.values.firstWhere(
-                (e) => e.toString().split('.').last == doc['status'],
-              ),
-              categories: (doc['businessCategory'] as List<dynamic>)
-                  .map((e) {
-                    return BusinessCategory.values.firstWhere(
-                      (element) => element.toString().split('.').last == e,
-                      orElse: () => BusinessCategory
-                          .other, // Handle case when enum value is not found
-                    );
-                  })
-                  .where((element) => true)
-                  .toSet(),
-              offersIds: (doc['offersIds'] as Map<String, dynamic>)
-                  .values
-                  .toSet()
-                  .cast<String>(),
-              imageUrl: doc['profileImageUrl'],
-              deliveryFee: doc['deliveryFee'] ?? 5.0,
-            ))
-        .toList();
+    final businesses = querySnapshot.docs.map((doc) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      final categories = (data['businessCategory'] as List<dynamic>)
+          .map((e) {
+            return BusinessCategory.values.firstWhere(
+              (element) => element.toString().split('.').last == e,
+              orElse: () => BusinessCategory
+                  .other, // Handle case when enum value is not found
+            );
+          })
+          .where((element) => true)
+          .toSet();
+
+      final offersIds = (data['offersIds'] as Map<String, dynamic>)
+          .values
+          .toSet()
+          .cast<String>();
+
+      return Business(
+        id: doc.id,
+        name: data['businessName'],
+        email: data['businessEmail'],
+        phoneNumber: data['businessPhoneNumber'],
+        address: Address.fromJson(data['address']),
+        status: BusinessStatus.values.firstWhere(
+          (e) => e.toString().split('.').last == data['status'],
+        ),
+        categories: categories.toSet(),
+        offersIds: offersIds,
+        imageUrl: data['profileImageUrl'],
+        deliveryFee: 5.0,
+      );
+    }).toList();
     return businesses;
   }
 
@@ -181,7 +186,7 @@ class BusinessFirebaseProfileDataProvider
   }
 
   @override
-  Future<void> updateOffers(
+  Future<void> updateBusinessOffers(
       {required String uid, required Set<String> offersIds}) {
     return _businessCollection.doc(uid).update({
       'offersIds': offersIds.toList(),
