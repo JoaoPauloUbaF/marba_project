@@ -5,18 +5,12 @@ import '../widgets/business_creation/create_business_stepper_widget.dart';
 import '../widgets/business_list/user_business_list_widget.dart';
 
 class MyBusinessListScreen extends ConsumerWidget {
-  final bool shouldRenderAppBar;
-
-  const MyBusinessListScreen({super.key, required this.shouldRenderAppBar});
+  const MyBusinessListScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: shouldRenderAppBar
-          ? AppBar(
-              title: const Text('Meus Empreendimentos'),
-            )
-          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endContained,
       body: const UserBusinessListWidget(),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 100),

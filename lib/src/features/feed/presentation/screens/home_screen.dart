@@ -35,9 +35,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     OffersFeedView(),
     UserOrdersView(),
     SettingsScreen(shouldRenderAppBar: false),
-    MyBusinessListScreen(
-      shouldRenderAppBar: false,
-    ),
+    MyBusinessListScreen(),
   ];
 
   void _onItemTapped(int index) {
