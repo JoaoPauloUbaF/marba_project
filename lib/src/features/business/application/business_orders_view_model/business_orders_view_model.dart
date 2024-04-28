@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
@@ -21,40 +22,29 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
 
     final businessOrders = ref
         .watch(businessOrdersRepositoryProvider)
-        .getOpenOrders(businessId: businessId);
+        .getOrders(businessId: businessId);
+
     return businessOrders;
   }
 
-  Future<void> applyOrdersStatusFilter(BusinessOrderStatus status) async {
+  List<BusinessOrder> getFilteredOrders({required List<BusinessOrder> orders}) {
+    final status = ref.read(businessOrdersStatusFilterProvider);
     if (status == null) {
-      build();
-    }
-    state = const AsyncValue.loading();
-    final businessId = ref.watch(businessProfileViewModelProvider)?.id;
-    if (businessId == null) {
-      throw Exception('Business ID not found');
+      return orders
+          .where((order) =>
+              order.status != BusinessOrderStatus.done &&
+              order.status != BusinessOrderStatus.canceled)
+          .toList();
     }
 
-    final businessOrders =
-        await ref.watch(businessOrdersRepositoryProvider).getOrdersByStatus(
-              status: status.toString().split('.').last,
-              businessId: businessId,
-            );
-    state = AsyncValue.data(businessOrders);
+    return orders.where((order) => order.status == status).toList();
   }
 
-  Stream<List<BusinessOrder>> getOpenOrders() {
-    state.maybeWhen(
-      data: (orders) {
-        return orders
-            .where((order) =>
-                order.status != BusinessOrderStatus.done &&
-                order.status != BusinessOrderStatus.canceled)
-            .toList();
-      },
-      orElse: () => [],
-    );
-    return const Stream.empty();
+  Future<void> applyOrdersStatusFilter(
+      {required BusinessOrderStatus? status}) async {
+    ref
+        .read(businessOrdersStatusFilterProvider.notifier)
+        .setBusinessOfferStatusFilter(status);
   }
 
   Color? getCardColor({required BusinessOrderStatus status}) {
@@ -152,4 +142,16 @@ Stream<BusinessOrder?> selectedOrder(SelectedOrderRef ref, String orderId) {
   return ref
       .read(businessOrdersRepositoryProvider)
       .getBusinessOrderById(orderId: orderId);
+}
+
+@riverpod
+class BusinessOrdersStatusFilter extends _$BusinessOrdersStatusFilter {
+  @override
+  BusinessOrderStatus? build() {
+    return null;
+  }
+
+  void setBusinessOfferStatusFilter(BusinessOrderStatus? status) {
+    state = status;
+  }
 }

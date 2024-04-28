@@ -44,7 +44,7 @@ abstract class BusinessOrdersRepository {
   /// [status]: The status to filter orders by.
   ///
   /// Returns a list of [BusinessOrder] objects with the specified status.
-  Future<List<BusinessOrder>> getOrdersByStatus(
+  Stream<List<BusinessOrder>> getOrdersByStatus(
       {required String status, required String businessId});
 
   /// Retrieves orders placed by a specific customer.

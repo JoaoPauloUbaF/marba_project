@@ -13,6 +13,7 @@ class OpenOrdersGridWidget extends ConsumerWidget {
     final businessOrdersViewModel =
         ref.watch(businessOrdersViewModelProvider.notifier);
     final businessOrders = ref.watch(businessOrdersViewModelProvider);
+    ref.watch(businessOrdersStatusFilterProvider);
     return businessOrders.when(
       data: (orders) {
         if (orders.isEmpty) {
@@ -20,6 +21,7 @@ class OpenOrdersGridWidget extends ConsumerWidget {
             child: Text('Nenhum pedido encontrado'),
           );
         }
+        orders = businessOrdersViewModel.getFilteredOrders(orders: orders);
         return GridView.builder(
           shrinkWrap: true,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

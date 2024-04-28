@@ -156,7 +156,7 @@ class _SelectedOrderProviderElement
 }
 
 String _$businessOrdersViewModelHash() =>
-    r'68aba8425a37b211206de9a03b08bef87c28ce2e';
+    r'5b576b06f50629a84e0e7cc8a8853404708d1dd3';
 
 /// See also [BusinessOrdersViewModel].
 @ProviderFor(BusinessOrdersViewModel)
@@ -173,5 +173,23 @@ final businessOrdersViewModelProvider = AutoDisposeStreamNotifierProvider<
 
 typedef _$BusinessOrdersViewModel
     = AutoDisposeStreamNotifier<List<BusinessOrder>>;
+String _$businessOrdersStatusFilterHash() =>
+    r'4f5b93170b8176821e9cf3036b73fc77edba1a6e';
+
+/// See also [BusinessOrdersStatusFilter].
+@ProviderFor(BusinessOrdersStatusFilter)
+final businessOrdersStatusFilterProvider = AutoDisposeNotifierProvider<
+    BusinessOrdersStatusFilter, BusinessOrderStatus?>.internal(
+  BusinessOrdersStatusFilter.new,
+  name: r'businessOrdersStatusFilterProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$businessOrdersStatusFilterHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$BusinessOrdersStatusFilter
+    = AutoDisposeNotifier<BusinessOrderStatus?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

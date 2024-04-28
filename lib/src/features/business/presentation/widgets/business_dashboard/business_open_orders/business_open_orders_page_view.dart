@@ -20,9 +20,9 @@ class _BusinessOrdersPageViewState
 
   @override
   Widget build(BuildContext context) {
-    ref.watch(businessOrdersViewModelProvider);
     final businessOrdersViewModel =
         ref.watch(businessOrdersViewModelProvider.notifier);
+    ref.watch(businessOrdersStatusFilterProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,14 +54,14 @@ class _BusinessOrdersPageViewState
                   ],
                   onChanged: (value) {
                     if (value == null) {
-                      ref.invalidate(businessOrdersViewModelProvider);
-                      _status = null;
-                      return;
+                      businessOrdersViewModel.applyOrdersStatusFilter(
+                          status: null);
                     }
                     setState(() {
-                      _status = value!;
+                      _status = null;
                     });
-                    businessOrdersViewModel.applyOrdersStatusFilter(value!);
+                    businessOrdersViewModel.applyOrdersStatusFilter(
+                        status: value);
                   },
                 ),
               ),
