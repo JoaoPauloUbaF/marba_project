@@ -41,7 +41,9 @@ class UserBusinessListWidget extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                     onPressed: () => {
-                      myBusinessListController.deleteBusiness(
+                      myBusinessListController
+                          .showDeleteBusinessConfirmationDialog(
+                        context,
                         businessId: business?.id ?? '',
                       ),
                     },

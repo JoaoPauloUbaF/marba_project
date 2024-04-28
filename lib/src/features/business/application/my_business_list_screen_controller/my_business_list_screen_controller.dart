@@ -35,6 +35,33 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     return businessList;
   }
 
+  void showDeleteBusinessConfirmationDialog(BuildContext context,
+      {required String businessId}) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Deletar negócio'),
+        content: const Text('Tem certeza que deseja deletar este negócio?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              return;
+            },
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              deleteBusiness(businessId: businessId);
+            },
+            child: const Text('Deletar'),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> deleteBusiness({required String businessId}) async {
     final businessProfileRepository = ref.read(businessProfileDataProvider);
     final userProfileRepository = ref.read(userProfileDataProvider);

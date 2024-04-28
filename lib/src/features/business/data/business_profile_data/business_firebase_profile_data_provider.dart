@@ -73,7 +73,7 @@ class BusinessFirebaseProfileDataProvider
         categories: categories.toSet(),
         offersIds: offersIds,
         imageUrl: data['profileImageUrl'],
-        deliveryFee: 5.0,
+        deliveryFee: data['deliveryFee'] ?? 5.0,
       );
     }).toList();
     return businesses;
