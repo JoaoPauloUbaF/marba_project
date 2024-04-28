@@ -7,6 +7,7 @@ import 'package:project_marba/src/features/business/application/business_profile
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository_provider.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
+import 'package:project_marba/src/features/payment/application/payment_method_view_model/payment_method_view_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
 
@@ -33,6 +34,7 @@ class OrderViewModel extends _$OrderViewModel {
     required DateTime updatedAt,
     required Address address,
     DateTime? canceledAt,
+    required PaymentMethod paymentMethod,
   }) async {
     final groupedItemsByBusiness = <String, List<CartItemModel>>{};
     final String userNickname =
@@ -92,6 +94,7 @@ class OrderViewModel extends _$OrderViewModel {
       createdAt: createdAt,
       updatedAt: updatedAt,
       address: address,
+      paymentMethod: paymentMethod,
       canceledAt: canceledAt,
       totalDeliveryFee: deliveryFee,
       discount: discount,

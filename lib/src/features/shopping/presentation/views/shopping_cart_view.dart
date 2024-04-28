@@ -55,22 +55,6 @@ class ShoppingCartScreen extends ConsumerWidget {
                           ),
                     ),
                     const Spacer(),
-                    // SegmentedButton(
-                    //     showSelectedIcon: false,
-                    //     segments: const <ButtonSegment<String>>[
-                    //       ButtonSegment<String>(
-                    //         icon: Icon(Icons.view_list_sharp),
-                    //         value: 'list',
-                    //       ),
-                    //       ButtonSegment<String>(
-                    //         icon: Icon(Icons.grid_view_sharp),
-                    //         value: 'grid',
-                    //       ),
-                    //     ],
-                    //     selected: const {'grid'},
-                    //     onSelectionChanged: (value) {
-                    //       print(value);
-                    //     }),
                   ],
                 ),
                 const CartItemsListViewWidget(),

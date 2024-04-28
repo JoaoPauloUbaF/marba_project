@@ -29,6 +29,8 @@ mixin _$OrderModel {
   Address get address => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
+  PaymentMethod get paymentMethod => throw _privateConstructorUsedError;
+  DateTime? get paymentConfirmedAt => throw _privateConstructorUsedError;
   DateTime? get canceledAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,6 +55,8 @@ abstract class $OrderModelCopyWith<$Res> {
       Address address,
       DateTime createdAt,
       DateTime updatedAt,
+      PaymentMethod paymentMethod,
+      DateTime? paymentConfirmedAt,
       DateTime? canceledAt});
 
   $AddressCopyWith<$Res> get address;
@@ -80,6 +84,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
     Object? address = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? paymentMethod = null,
+    Object? paymentConfirmedAt = freezed,
     Object? canceledAt = freezed,
   }) {
     return _then(_value.copyWith(
@@ -119,6 +125,14 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      paymentMethod: null == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as PaymentMethod,
+      paymentConfirmedAt: freezed == paymentConfirmedAt
+          ? _value.paymentConfirmedAt
+          : paymentConfirmedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       canceledAt: freezed == canceledAt
           ? _value.canceledAt
           : canceledAt // ignore: cast_nullable_to_non_nullable
@@ -153,6 +167,8 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       Address address,
       DateTime createdAt,
       DateTime updatedAt,
+      PaymentMethod paymentMethod,
+      DateTime? paymentConfirmedAt,
       DateTime? canceledAt});
 
   @override
@@ -179,6 +195,8 @@ class __$$OrderModelImplCopyWithImpl<$Res>
     Object? address = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? paymentMethod = null,
+    Object? paymentConfirmedAt = freezed,
     Object? canceledAt = freezed,
   }) {
     return _then(_$OrderModelImpl(
@@ -218,6 +236,14 @@ class __$$OrderModelImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      paymentMethod: null == paymentMethod
+          ? _value.paymentMethod
+          : paymentMethod // ignore: cast_nullable_to_non_nullable
+              as PaymentMethod,
+      paymentConfirmedAt: freezed == paymentConfirmedAt
+          ? _value.paymentConfirmedAt
+          : paymentConfirmedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       canceledAt: freezed == canceledAt
           ? _value.canceledAt
           : canceledAt // ignore: cast_nullable_to_non_nullable
@@ -239,6 +265,8 @@ class _$OrderModelImpl implements _OrderModel {
       required this.address,
       required this.createdAt,
       required this.updatedAt,
+      required this.paymentMethod,
+      this.paymentConfirmedAt,
       this.canceledAt})
       : _businessOrdersIds = businessOrdersIds;
 
@@ -271,11 +299,15 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   final DateTime updatedAt;
   @override
+  final PaymentMethod paymentMethod;
+  @override
+  final DateTime? paymentConfirmedAt;
+  @override
   final DateTime? canceledAt;
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, customerId: $customerId, businessOrdersIds: $businessOrdersIds, total: $total, totalDeliveryFee: $totalDeliveryFee, discount: $discount, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, canceledAt: $canceledAt)';
+    return 'OrderModel(id: $id, customerId: $customerId, businessOrdersIds: $businessOrdersIds, total: $total, totalDeliveryFee: $totalDeliveryFee, discount: $discount, address: $address, createdAt: $createdAt, updatedAt: $updatedAt, paymentMethod: $paymentMethod, paymentConfirmedAt: $paymentConfirmedAt, canceledAt: $canceledAt)';
   }
 
   @override
@@ -298,6 +330,10 @@ class _$OrderModelImpl implements _OrderModel {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.paymentMethod, paymentMethod) ||
+                other.paymentMethod == paymentMethod) &&
+            (identical(other.paymentConfirmedAt, paymentConfirmedAt) ||
+                other.paymentConfirmedAt == paymentConfirmedAt) &&
             (identical(other.canceledAt, canceledAt) ||
                 other.canceledAt == canceledAt));
   }
@@ -315,6 +351,8 @@ class _$OrderModelImpl implements _OrderModel {
       address,
       createdAt,
       updatedAt,
+      paymentMethod,
+      paymentConfirmedAt,
       canceledAt);
 
   @JsonKey(ignore: true)
@@ -342,6 +380,8 @@ abstract class _OrderModel implements OrderModel {
       required final Address address,
       required final DateTime createdAt,
       required final DateTime updatedAt,
+      required final PaymentMethod paymentMethod,
+      final DateTime? paymentConfirmedAt,
       final DateTime? canceledAt}) = _$OrderModelImpl;
 
   factory _OrderModel.fromJson(Map<String, dynamic> json) =
@@ -365,6 +405,10 @@ abstract class _OrderModel implements OrderModel {
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
+  @override
+  PaymentMethod get paymentMethod;
+  @override
+  DateTime? get paymentConfirmedAt;
   @override
   DateTime? get canceledAt;
   @override

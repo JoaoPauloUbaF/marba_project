@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_sales_performance_statistics/sales_performance_statistics_page_view.dart';
 
 import '../widgets/business_dashboard/business_open_orders/business_open_orders_page_view.dart';
 
@@ -41,20 +42,9 @@ class _BusinessDashboardViewState extends ConsumerState<BusinessDashboardView>
         controller: _tabController,
         children: const [
           BusinessOrdersPageView(),
-          PerformanceStatisticsPage(),
+          SalesPerformanceStatisticsPageView(),
         ],
       ),
-    );
-  }
-}
-
-class PerformanceStatisticsPage extends StatelessWidget {
-  const PerformanceStatisticsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Performance Statistics Page'),
     );
   }
 }
