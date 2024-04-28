@@ -30,9 +30,9 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
     final status = ref.read(businessOrdersStatusFilterProvider);
     if (status == null) {
       return orders
-          .where((order) =>
-              order.status != BusinessOrderStatus.done &&
-              order.status != BusinessOrderStatus.canceled)
+          // .where((order) =>
+          //     order.status != BusinessOrderStatus.done &&
+          //     order.status != BusinessOrderStatus.canceled)
           .toList();
     }
 

@@ -3,6 +3,7 @@ import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
+import 'package:project_marba/src/features/payment/application/payment_method_view_model/payment_method_view_model.dart';
 import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import 'package:project_marba/src/features/shopping/data/shopping_cart_repository.dart';
 import 'package:project_marba/src/features/shopping/data/shopping_cart_repository_provider.dart';
@@ -188,10 +189,14 @@ class CartItemListViewModel extends _$CartItemListViewModel {
         return;
       }
 
-      Address? address;
       ref.read(deliveryAddressProvider).whenData(
         (value) {
-          address = value!;
+          Address? address = value;
+          if (address == null) {
+            return;
+          }
+          PaymentMethod paymentMethod =
+              ref.read(paymentMethodViewModelProvider);
           ref
               .read(orderViewModelProvider.notifier)
               .createNewOrder(
@@ -199,7 +204,8 @@ class CartItemListViewModel extends _$CartItemListViewModel {
                 total: total,
                 deliveryFee: totalDelivery,
                 discount: 0.0,
-                address: address!,
+                address: address,
+                paymentMethod: paymentMethod,
                 createdAt: DateTime.now(),
                 updatedAt: DateTime.now(),
                 canceledAt: null,
@@ -217,28 +223,6 @@ class CartItemListViewModel extends _$CartItemListViewModel {
         },
       );
     });
-    // String? customerId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
-
-    // if (customerId == null) {
-    //   Navigator.of(context).pushNamed('/sign-in');
-    //   return;
-    // }
-
-    // Address? address;
-    // ref.read(deliveryAddressProvider).whenData((value) => address = value!);
-
-    // ref.read(orderViewModelProvider.notifier).createNewOrder(
-    //       items: state,
-    //       total: total,
-    //       deliveryFee: totalDelivery,
-    //       discount: 0.0,
-    //       address: address!,
-    //       createdAt: DateTime.now(),
-    //       updatedAt: DateTime.now(),
-    //       canceledAt: null,
-    //       customerId: customerId!,
-    //     );
-    // Navigator.of(context).pushNamed('/checkout');
   }
 
   void showItemsNeedScheduling() {

@@ -19,6 +19,10 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       address: Address.fromJson(json['address'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
+      paymentMethod: $enumDecode(_$PaymentMethodEnumMap, json['paymentMethod']),
+      paymentConfirmedAt: json['paymentConfirmedAt'] == null
+          ? null
+          : DateTime.parse(json['paymentConfirmedAt'] as String),
       canceledAt: json['canceledAt'] == null
           ? null
           : DateTime.parse(json['canceledAt'] as String),
@@ -35,6 +39,7 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) {
     'address': instance.address.toJson(),
     'createdAt': instance.createdAt.toIso8601String(),
     'updatedAt': instance.updatedAt.toIso8601String(),
+    'paymentMethod': _$PaymentMethodEnumMap[instance.paymentMethod]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -43,6 +48,14 @@ Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) {
     }
   }
 
+  writeNotNull(
+      'paymentConfirmedAt', instance.paymentConfirmedAt?.toIso8601String());
   writeNotNull('canceledAt', instance.canceledAt?.toIso8601String());
   return val;
 }
+
+const _$PaymentMethodEnumMap = {
+  PaymentMethod.creditCard: 'creditCard',
+  PaymentMethod.pix: 'pix',
+  PaymentMethod.boleto: 'boleto',
+};
