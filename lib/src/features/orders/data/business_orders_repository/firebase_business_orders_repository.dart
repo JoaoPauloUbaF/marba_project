@@ -45,26 +45,6 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Stream<List<BusinessOrder>> getOpenOrders(
-      {required String businessId}) async* {
-    try {
-      final snapshot = await businessOrdersCollection
-          .where('businessId', isEqualTo: businessId)
-          .where('status',
-              isNotEqualTo: BusinessOrderStatus.done.toString().split('.').last)
-          .get();
-      yield snapshot.docs
-          .map((doc) =>
-              BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
-          .where((order) => order.status != BusinessOrderStatus.canceled)
-          .toList();
-    } catch (e) {
-      log('Error: $e');
-      rethrow;
-    }
-  }
-
-  @override
   Stream<BusinessOrder?> getBusinessOrderById(
       {required String orderId}) async* {
     try {
@@ -130,6 +110,26 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
+  Stream<List<BusinessOrder>> getOpenOrders(
+      {required String businessId}) async* {
+    try {
+      final snapshot = await businessOrdersCollection
+          .where('businessId', isEqualTo: businessId)
+          .where('status',
+              isNotEqualTo: BusinessOrderStatus.done.toString().split('.').last)
+          .get();
+      yield snapshot.docs
+          .map((doc) =>
+              BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
+          .where((order) => order.status != BusinessOrderStatus.canceled)
+          .toList();
+    } catch (e) {
+      log('Error: $e');
+      rethrow;
+    }
+  }
+
+  @override
   Future<List<BusinessOrder>> getOrdersByCustomer(
       {required String customerId}) async {
     // TODO: implement getOrdersByCustomer
@@ -144,14 +144,14 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Future<List<BusinessOrder>> getOrdersByStatus(
-      {required String status, required String businessId}) async {
+  Stream<List<BusinessOrder>> getOrdersByStatus(
+      {required String status, required String businessId}) async* {
     try {
       final snapshot = await businessOrdersCollection
           .where('businessId', isEqualTo: businessId)
           .where('status', isEqualTo: status)
           .get();
-      return snapshot.docs
+      yield snapshot.docs
           .map((doc) =>
               BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
           .toList();

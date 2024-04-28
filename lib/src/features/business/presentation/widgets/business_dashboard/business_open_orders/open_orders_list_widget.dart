@@ -11,8 +11,12 @@ class OpenOrdersListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final businessOrders = ref.watch(businessOrdersViewModelProvider);
+    final businessOrdersViewModel =
+        ref.watch(businessOrdersViewModelProvider.notifier);
+    ref.watch(businessOrdersStatusFilterProvider);
     return businessOrders.when(
       data: (orders) {
+        orders = businessOrdersViewModel.getFilteredOrders(orders: orders);
         if (orders.isEmpty) {
           return const Center(
             child: Text('Nenhum pedido encontrado'),
