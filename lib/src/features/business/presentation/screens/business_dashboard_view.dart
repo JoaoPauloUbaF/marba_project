@@ -18,7 +18,7 @@ class _BusinessDashboardViewState extends ConsumerState<BusinessDashboardView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -34,7 +34,6 @@ class _BusinessDashboardViewState extends ConsumerState<BusinessDashboardView>
         controller: _tabController,
         tabs: const [
           Tab(text: 'Pedidos'),
-          Tab(text: 'Histórico'),
           Tab(text: 'Estatísticas'),
         ],
       ),
@@ -42,21 +41,9 @@ class _BusinessDashboardViewState extends ConsumerState<BusinessDashboardView>
         controller: _tabController,
         children: const [
           BusinessOrdersPageView(),
-          HistoryPage(),
           PerformanceStatisticsPage(),
         ],
       ),
-    );
-  }
-}
-
-class HistoryPage extends StatelessWidget {
-  const HistoryPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('History Page'),
     );
   }
 }

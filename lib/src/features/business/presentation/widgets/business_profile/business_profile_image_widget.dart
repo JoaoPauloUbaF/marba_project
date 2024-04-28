@@ -2,7 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/loading_widget.dart';
+import 'package:project_marba/src/core/widgets/loading_widget.dart';
 
 class BusinessProfileImageWidget extends ConsumerWidget {
   final bool isCreatingBusiness;
