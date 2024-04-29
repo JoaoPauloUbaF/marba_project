@@ -56,12 +56,14 @@ class SearchBodyWidgetState extends State<SearchBodyWidget>
               child = const Center(child: CircularProgressIndicator());
               break;
             case SearchViewState.display:
-              child = const Column(
-                children: [
-                  HotOffersWidget(),
-                  VerticalSpaceMediumWidget(),
-                  HotBusinessesWidget(),
-                ],
+              child = const SingleChildScrollView(
+                child: Column(
+                  children: [
+                    HotOffersWidget(),
+                    VerticalSpaceMediumWidget(),
+                    HotBusinessesWidget(),
+                  ],
+                ),
               );
               break;
             case SearchViewState.searching:

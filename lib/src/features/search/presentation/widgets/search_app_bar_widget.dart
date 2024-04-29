@@ -48,6 +48,7 @@ class SearchAppBarWidgetState extends State<SearchAppBarWidget>
       toolbarHeight: kToolbarHeight * 1.2,
       pinned: true,
       floating: true,
+      automaticallyImplyLeading: false,
       title: FadeTransition(
         opacity: _controller,
         child: Row(

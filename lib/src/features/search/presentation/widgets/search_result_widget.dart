@@ -36,6 +36,7 @@ class SearchResultWidgetState extends State<SearchResultWidget>
         controller: _scrollController,
         headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
           SliverAppBar(
+            automaticallyImplyLeading: false,
             title: TabBar(
               controller: _tabController,
               tabs: const [

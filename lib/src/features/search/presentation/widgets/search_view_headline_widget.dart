@@ -47,6 +47,7 @@ class SearchViewHeadlineWidgetState extends State<SearchViewHeadlineWidget>
     return widget.searchViewState == SearchViewState.display ||
             widget.searchViewState == SearchViewState.loading
         ? SliverAppBar(
+            automaticallyImplyLeading: false,
             title: FadeTransition(
               opacity: _controller,
               child: Text(

@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/search/presentation/views/search_view.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/cart_items_list_view_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/check_out_button_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_summary_widget.dart';
@@ -27,9 +29,21 @@ class ShoppingCartScreen extends ConsumerWidget {
                     scrollControlDisabledMaxHeightRatio: .8,
                     context: context,
                     builder: (context) {
-                      return const Center(
-                          child: Text(
-                              'This is the search modal')); //TODO: Implement search modal
+                      return ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(16.0),
+                              topRight: Radius.circular(16.0)),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const VerticalSpaceMediumWidget(),
+                              const ModalCenterTopLineWidget(),
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * .7,
+                                  child: const SearchView()),
+                            ],
+                          ));
                     });
               },
             ),
