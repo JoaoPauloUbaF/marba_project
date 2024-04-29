@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -15,6 +16,7 @@ import 'package:project_marba/src/features/offers_management/presentation/screen
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'package:project_marba/themes.dart';
+import 'package:project_marba/typography.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
@@ -24,6 +26,7 @@ import 'src/features/orders/presentation/views/user_order_details_view.dart';
 import 'src/features/settings/presentation/settings_screen.dart';
 import 'src/features/shopping/presentation/views/shopping_cart_view.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
+import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,8 +48,8 @@ class MainApp extends ConsumerWidget {
       themeAnimationDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       title: 'Onktem', //Onktem
-      theme: lightTheme,
-      darkTheme: darkTheme,
+      theme: MaterialTheme(GoogleFonts.robotoCondensedTextTheme()).light(),
+      darkTheme: MaterialTheme(GoogleFonts.robotoCondensedTextTheme()).dark(),
       themeMode: ref.watch(darkModeProvider),
       initialRoute: '/home',
       routes: {

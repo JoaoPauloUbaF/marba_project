@@ -39,7 +39,10 @@ class HotBusinessesWidget extends ConsumerWidget {
                             bottom: 0,
                             left: 0,
                             child: Container(
-                              color: Colors.black.withOpacity(0.8),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .background
+                                  .withOpacity(0.7),
                               padding: const EdgeInsets.all(4.0),
                               width: MediaQuery.of(context).size.width,
                               child: Column(
