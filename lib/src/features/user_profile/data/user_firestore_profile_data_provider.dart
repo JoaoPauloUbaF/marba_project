@@ -111,6 +111,27 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
+  Future<void> addQueryToSearchHistory(
+      {required String uid, required String query}) async {
+    DocumentSnapshot userDoc = await _usersCollection.doc(uid).get();
+
+    if (userDoc.exists) {
+      Map<String, dynamic>? data = userDoc.data() as Map<String, dynamic>?;
+      if (data != null && data.containsKey('searchHistory')) {
+        // If 'searchHistory' field exists, update it
+        return _usersCollection.doc(uid).update({
+          'searchHistory': FieldValue.arrayUnion([query]),
+        });
+      } else {
+        // If 'searchHistory' field doesn't exist, set it
+        return _usersCollection.doc(uid).set({
+          'searchHistory': [query],
+        }, SetOptions(merge: true));
+      }
+    }
+  }
+
+  @override
   Stream<List<Address>> getDeliveryAddresses({required String uid}) {
     return _usersCollection.doc(uid).snapshots().map((doc) {
       if (doc.exists) {
@@ -121,6 +142,24 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
       } else {
         return [];
       }
+    });
+  }
+
+  @override
+  Future<List<String>> getSearchHistory({required String uid}) async {
+    DocumentSnapshot doc = await _usersCollection.doc(uid).get();
+    if (doc.exists) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return data['searchHistory']?.cast<String>() ?? [];
+    } else {
+      return [];
+    }
+  }
+
+  @override
+  Future<void> clearSearchHistory({required String uid}) async {
+    return await _usersCollection.doc(uid).update({
+      'searchHistory': FieldValue.delete(),
     });
   }
 }

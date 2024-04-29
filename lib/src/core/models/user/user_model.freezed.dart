@@ -29,6 +29,8 @@ mixin _$UserModel {
   List<OfferModel>? get favoriteOffers => throw _privateConstructorUsedError;
   bool get isBusinessOwner => throw _privateConstructorUsedError;
   Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
+  Set<String>? get favoriteOfferIds => throw _privateConstructorUsedError;
+  List<String>? get searchHistory => throw _privateConstructorUsedError;
   Cart? get cart => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,6 +54,8 @@ abstract class $UserModelCopyWith<$Res> {
       List<OfferModel>? favoriteOffers,
       bool isBusinessOwner,
       Set<String>? ownedBusinessIds,
+      Set<String>? favoriteOfferIds,
+      List<String>? searchHistory,
       Cart? cart});
 
   $AddressCopyWith<$Res> get address;
@@ -80,6 +84,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? favoriteOffers = freezed,
     Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
+    Object? favoriteOfferIds = freezed,
+    Object? searchHistory = freezed,
     Object? cart = freezed,
   }) {
     return _then(_value.copyWith(
@@ -119,6 +125,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
+      favoriteOfferIds: freezed == favoriteOfferIds
+          ? _value.favoriteOfferIds
+          : favoriteOfferIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
+      searchHistory: freezed == searchHistory
+          ? _value.searchHistory
+          : searchHistory // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       cart: freezed == cart
           ? _value.cart
           : cart // ignore: cast_nullable_to_non_nullable
@@ -165,6 +179,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       List<OfferModel>? favoriteOffers,
       bool isBusinessOwner,
       Set<String>? ownedBusinessIds,
+      Set<String>? favoriteOfferIds,
+      List<String>? searchHistory,
       Cart? cart});
 
   @override
@@ -193,6 +209,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? favoriteOffers = freezed,
     Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
+    Object? favoriteOfferIds = freezed,
+    Object? searchHistory = freezed,
     Object? cart = freezed,
   }) {
     return _then(_$UserModelImpl(
@@ -232,6 +250,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value._ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
+      favoriteOfferIds: freezed == favoriteOfferIds
+          ? _value._favoriteOfferIds
+          : favoriteOfferIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>?,
+      searchHistory: freezed == searchHistory
+          ? _value._searchHistory
+          : searchHistory // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       cart: freezed == cart
           ? _value.cart
           : cart // ignore: cast_nullable_to_non_nullable
@@ -253,10 +279,14 @@ class _$UserModelImpl extends _UserModel {
       final List<OfferModel>? favoriteOffers,
       required this.isBusinessOwner,
       final Set<String>? ownedBusinessIds,
+      final Set<String>? favoriteOfferIds,
+      final List<String>? searchHistory,
       this.cart})
       : _deliveryAddresses = deliveryAddresses,
         _favoriteOffers = favoriteOffers,
         _ownedBusinessIds = ownedBusinessIds,
+        _favoriteOfferIds = favoriteOfferIds,
+        _searchHistory = searchHistory,
         super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -305,12 +335,32 @@ class _$UserModelImpl extends _UserModel {
     return EqualUnmodifiableSetView(value);
   }
 
+  final Set<String>? _favoriteOfferIds;
+  @override
+  Set<String>? get favoriteOfferIds {
+    final value = _favoriteOfferIds;
+    if (value == null) return null;
+    if (_favoriteOfferIds is EqualUnmodifiableSetView) return _favoriteOfferIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
+
+  final List<String>? _searchHistory;
+  @override
+  List<String>? get searchHistory {
+    final value = _searchHistory;
+    if (value == null) return null;
+    if (_searchHistory is EqualUnmodifiableListView) return _searchHistory;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final Cart? cart;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, deliveryAddresses: $deliveryAddresses, favoriteOffers: $favoriteOffers, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, cart: $cart)';
+    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, deliveryAddresses: $deliveryAddresses, favoriteOffers: $favoriteOffers, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, favoriteOfferIds: $favoriteOfferIds, searchHistory: $searchHistory, cart: $cart)';
   }
 
   @override
@@ -333,6 +383,10 @@ class _$UserModelImpl extends _UserModel {
                 other.isBusinessOwner == isBusinessOwner) &&
             const DeepCollectionEquality()
                 .equals(other._ownedBusinessIds, _ownedBusinessIds) &&
+            const DeepCollectionEquality()
+                .equals(other._favoriteOfferIds, _favoriteOfferIds) &&
+            const DeepCollectionEquality()
+                .equals(other._searchHistory, _searchHistory) &&
             (identical(other.cart, cart) || other.cart == cart));
   }
 
@@ -349,6 +403,8 @@ class _$UserModelImpl extends _UserModel {
       const DeepCollectionEquality().hash(_favoriteOffers),
       isBusinessOwner,
       const DeepCollectionEquality().hash(_ownedBusinessIds),
+      const DeepCollectionEquality().hash(_favoriteOfferIds),
+      const DeepCollectionEquality().hash(_searchHistory),
       cart);
 
   @JsonKey(ignore: true)
@@ -376,6 +432,8 @@ abstract class _UserModel extends UserModel {
       final List<OfferModel>? favoriteOffers,
       required final bool isBusinessOwner,
       final Set<String>? ownedBusinessIds,
+      final Set<String>? favoriteOfferIds,
+      final List<String>? searchHistory,
       final Cart? cart}) = _$UserModelImpl;
   const _UserModel._() : super._();
 
@@ -400,6 +458,10 @@ abstract class _UserModel extends UserModel {
   bool get isBusinessOwner;
   @override
   Set<String>? get ownedBusinessIds;
+  @override
+  Set<String>? get favoriteOfferIds;
+  @override
+  List<String>? get searchHistory;
   @override
   Cart? get cart;
   @override

@@ -20,6 +20,8 @@ class UserModel with _$UserModel {
     List<OfferModel>? favoriteOffers,
     required bool isBusinessOwner,
     Set<String>? ownedBusinessIds,
+    Set<String>? favoriteOfferIds,
+    List<String>? searchHistory,
     Cart? cart,
   }) = _UserModel;
 

@@ -23,6 +23,12 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       ownedBusinessIds: (json['ownedBusinessIds'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
+      favoriteOfferIds: (json['favoriteOfferIds'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toSet(),
+      searchHistory: (json['searchHistory'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       cart: json['cart'] == null
           ? null
           : Cart.fromJson(json['cart'] as Map<String, dynamic>),
@@ -49,6 +55,8 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
       instance.favoriteOffers?.map((e) => e.toJson()).toList());
   val['isBusinessOwner'] = instance.isBusinessOwner;
   writeNotNull('ownedBusinessIds', instance.ownedBusinessIds?.toList());
+  writeNotNull('favoriteOfferIds', instance.favoriteOfferIds?.toList());
+  writeNotNull('searchHistory', instance.searchHistory);
   writeNotNull('cart', instance.cart?.toJson());
   return val;
 }
