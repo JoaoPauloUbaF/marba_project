@@ -35,4 +35,11 @@ abstract class ProfileDataRepository {
       {required String uid, required Map<String, dynamic> address});
 
   Stream<List<Address>> getDeliveryAddresses({required String uid});
+
+  Future<void> addQueryToSearchHistory(
+      {required String uid, required String query});
+
+  Future<List<String>> getSearchHistory({required String uid});
+
+  Future<void> clearSearchHistory({required String uid});
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/search/presentation/widgets/search_suggestions_widget.dart';
 
 import '../../../../core/widgets/medium_vertical_space_widget.dart';
 import '../../application/search_view_model/search_view_model.dart';
@@ -64,17 +65,7 @@ class SearchBodyWidgetState extends State<SearchBodyWidget>
               );
               break;
             case SearchViewState.searching:
-              child = SizedBox(
-                height: MediaQuery.of(context).size.height * .7,
-                child: ListView.builder(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text('$index'),
-                    trailing: const Icon(Icons.history_sharp),
-                  ),
-                ),
-              );
+              child = const SearchingSuggestionsWidget();
               break;
             case SearchViewState.result:
               child = const SearchResultWidget();

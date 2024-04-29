@@ -1,5 +1,8 @@
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
+import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
+import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/business/business.dart';
@@ -51,11 +54,31 @@ class SearchViewModel extends _$SearchViewModel {
     if (query == null || query.isEmpty) {
       return;
     }
+    ref.read(userProfileDataProvider).addQueryToSearchHistory(
+        query: query, uid: ref.read(currentUserProvider)?.id ?? '');
     state = SearchViewState.result;
   }
 
   void onSearchCancel() {
     state = SearchViewState.display;
+  }
+
+  Future<List<String>>? getSuggestions() async {
+    final userId = ref.read(currentUserProvider)?.id;
+    if (userId == null) {
+      return [];
+    }
+    return await ref
+        .read(userProfileDataProvider)
+        .getSearchHistory(uid: userId);
+  }
+
+  Future<void> clearSearchHistory() async {
+    final userId = ref.read(currentUserProvider)?.id;
+    if (userId == null) {
+      return;
+    }
+    await ref.read(userProfileDataProvider).clearSearchHistory(uid: userId);
   }
 }
 
