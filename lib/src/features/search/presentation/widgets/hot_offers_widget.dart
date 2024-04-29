@@ -18,40 +18,80 @@ class HotOffersWidget extends ConsumerWidget {
       data: (offers) => CarouselSlider(
         items: offers
             .map((offer) => Card(
+                  color: Theme.of(context).colorScheme.tertiary,
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: Center(
-                    child: Column(
+                    child: Stack(
                       children: [
-                        Expanded(
-                          child: Image.network(
-                            offer.imageUrl,
-                            fit: BoxFit.cover,
-                            width: MediaQuery.of(context).size.width,
-                            loadingBuilder: (context, child, loadingProgress) =>
-                                loadingProgress == null
-                                    ? child
-                                    : const Center(
-                                        child: CircularProgressIndicator(),
-                                      ),
-                          ),
+                        Image.network(
+                          offer.imageUrl,
+                          fit: BoxFit.fill,
+                          width: MediaQuery.of(context).size.width,
+                          loadingBuilder: (context, child, loadingProgress) =>
+                              loadingProgress == null
+                                  ? child
+                                  : const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
                         ),
-                        ListTile(
-                          style: ListTileStyle.drawer,
-                          title: Text(
-                            offer.title,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
-                          subtitle: Text(
-                            RegistrationUtils().doubleAsCurrency(offer.price),
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Container(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .background
+                                  .withOpacity(0.7),
+                              padding: const EdgeInsets.all(8),
+                              width: MediaQuery.of(context).size.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    offer.title,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Text(
+                                    RegistrationUtils()
+                                        .doubleAsCurrency(offer.price),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+
+                        // ListTile(
+                        //   style: ListTileStyle.drawer,
+                        //   title: Text(
+                        //     offer.title,
+                        //     overflow: TextOverflow.ellipsis,
+                        //     style: Theme.of(context).textTheme.headlineSmall,
+                        //   ),
+                        //   subtitle: Text(
+                        //     RegistrationUtils().doubleAsCurrency(offer.price),
+                        //     style: Theme.of(context)
+                        //         .textTheme
+                        //         .titleLarge
+                        //         ?.copyWith(
+                        //             color:
+                        //                 Theme.of(context).colorScheme.primary),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
