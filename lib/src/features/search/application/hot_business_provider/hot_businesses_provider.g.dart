@@ -1,26 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_view_model.dart';
+part of 'hot_businesses_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$searchViewModelHash() => r'724378b929ac5275a9e7469b218fc43e00a93ff4';
+String _$hotBusinessesHash() => r'c019b343fc6ef4848b834b8e088d7b3c78d4c08d';
 
-/// See also [SearchViewModel].
-@ProviderFor(SearchViewModel)
-final searchViewModelProvider =
-    AutoDisposeAsyncNotifierProvider<SearchViewModel, void>.internal(
-  SearchViewModel.new,
-  name: r'searchViewModelProvider',
+/// See also [HotBusinesses].
+@ProviderFor(HotBusinesses)
+final hotBusinessesProvider =
+    AutoDisposeAsyncNotifierProvider<HotBusinesses, List<Business>?>.internal(
+  HotBusinesses.new,
+  name: r'hotBusinessesProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$searchViewModelHash,
+      : _$hotBusinessesHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SearchViewModel = AutoDisposeAsyncNotifier<void>;
+typedef _$HotBusinesses = AutoDisposeAsyncNotifier<List<Business>?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
