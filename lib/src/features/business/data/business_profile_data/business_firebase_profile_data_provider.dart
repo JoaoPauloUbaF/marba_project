@@ -26,11 +26,13 @@ class BusinessFirebaseProfileDataProvider
   }) async {
     await _businessCollection.doc(business.id).set({
       'businessName': business.name,
+      'businessNameWords': business.nameWords,
       'businessEmail': business.email,
       'businessPhoneNumber': business.phoneNumber,
       'address': business.address.toJson(),
       'status': business.status.name.toString(),
       'businessCategory': business.categories.map((e) => e.name).toList(),
+      'businessCategoriesWords': business.categoriesWords,
       'offersIds': business.offersIds.toList().asMap(),
     });
     return await _businessCollection.doc(business.id).get();
@@ -86,6 +88,9 @@ class BusinessFirebaseProfileDataProvider
   }) async {
     await _businessCollection.doc(uid).update({
       'businessName': businessName,
+    });
+    await _businessCollection.doc(uid).update({
+      'businessNameWords': businessName.toLowerCase().split(' '),
     });
   }
 

@@ -18,7 +18,7 @@ class CategoryFormFieldWidget extends StatelessWidget {
   final int _currentStep;
   final Set<BusinessCategory> _selectedCategories;
   final BuildContext context;
-  final BusinessCreationController businessCreationController;
+  final BusinessCreationViewModel businessCreationController;
 
   @override
   Widget build(BuildContext context) {

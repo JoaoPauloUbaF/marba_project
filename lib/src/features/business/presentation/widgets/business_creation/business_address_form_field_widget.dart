@@ -19,7 +19,7 @@ class BusinessAddressFormFieldWidget extends StatelessWidget {
 
   final List<GlobalKey<FormState>> formKeys;
   final TextEditingController zipCodeController;
-  final BusinessCreationController businessCreationController;
+  final BusinessCreationViewModel businessCreationController;
   final TextEditingController streetController;
   final TextEditingController numberController;
   final TextEditingController neighborhoodController;

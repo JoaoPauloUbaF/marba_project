@@ -29,7 +29,7 @@ class AddBusinessStepperWidgetState
   late TextEditingController _zipCodeController;
   late Set<BusinessCategory> _selectedCategories;
   late TextEditingController _deliveryFeeController;
-  late BusinessCreationController businessCreationController;
+  late BusinessCreationViewModel businessCreationController;
 
   int _currentStep = 0;
 
@@ -149,7 +149,7 @@ class AddBusinessStepperWidgetState
   @override
   Widget build(BuildContext context) {
     businessCreationController =
-        ref.read(businessCreationControllerProvider.notifier);
+        ref.read(businessCreationViewModelProvider.notifier);
 
     return Stepper(
       type: StepperType.vertical,
