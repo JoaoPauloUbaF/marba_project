@@ -44,7 +44,7 @@ class OfferCardWidget extends ConsumerWidget {
                 children: [
                   Stack(children: [
                     Image.network(
-                      offer.imageUrl,
+                      offer.getImageUrl,
                       fit: BoxFit.fill,
                       width: cardWidth,
                       height: cardWidth / 1.2,
@@ -99,7 +99,7 @@ class OfferCardWidget extends ConsumerWidget {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        offer.title,
+                        offer.getTitle,
                         style: textTheme.titleSmall,
                         maxLines: 2,
                         overflow:
@@ -120,7 +120,7 @@ class OfferCardWidget extends ConsumerWidget {
                                   offer.discount != 0.0,
                               child: Text(
                                 RegistrationUtils()
-                                    .doubleAsCurrency(offer.price),
+                                    .doubleAsCurrency(offer.getPrice),
                                 style: textTheme.bodySmall?.copyWith(
                                   color: Theme.of(context).colorScheme.error,
                                   decoration: TextDecoration.lineThrough,
@@ -130,8 +130,11 @@ class OfferCardWidget extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              RegistrationUtils().doubleAsCurrency(offer.price -
-                                  ((offer.discount ?? 0) / 100 * offer.price)),
+                              RegistrationUtils().doubleAsCurrency(
+                                  offer.getPrice -
+                                      ((offer.discount ?? 0) /
+                                          100 *
+                                          offer.getPrice)),
                               style: textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.w800,
                                 color: Theme.of(context)

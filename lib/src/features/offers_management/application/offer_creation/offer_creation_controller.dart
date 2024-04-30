@@ -166,10 +166,6 @@ class OfferCreationController extends _$OfferCreationController {
 
     if (offerType == OfferType.product) {
       offerProduct = Product(
-        title: offerTitle,
-        description: offerDescription,
-        price: currencyStringToDouble(offerPrice),
-        imageUrl: offerImageUrl ?? '',
         availableQuantity: int.parse(offerAvailableQuantity),
         itemCost: currencyStringToDouble(offerItemCost),
         status: offerStatus.toString(),
@@ -178,10 +174,6 @@ class OfferCreationController extends _$OfferCreationController {
 
     if (offerType == OfferType.service) {
       offerService = Service(
-        title: offerTitle,
-        description: offerDescription,
-        price: currencyStringToDouble(offerPrice),
-        imageUrl: offerImageUrl ?? '',
         status: offerStatus.toString(),
         pricingType: servicePricingType ?? ServicePricingType.fixed,
       );
@@ -189,7 +181,13 @@ class OfferCreationController extends _$OfferCreationController {
 
     final offer = OfferModel(
       id: offerId, // Generate or provide ID
-      businessId: business.id, // Provide business ID
+      businessId: business.id,
+      title: offerTitle,
+      titleWords: offerTitle.toLowerCase().split(' '),
+      description: offerDescription,
+      descriptionWords: offerDescription.toLowerCase().split(' '),
+      price: currencyStringToDouble(offerPrice),
+      imageUrl: offerImageUrl ?? '', // Provide business ID
       category: offerCategory,
       service: offerService,
       product: offerProduct,
@@ -200,7 +198,7 @@ class OfferCreationController extends _$OfferCreationController {
       offerImagesUrls: offerMediaUrls,
     );
     ref.read(offersDataRepositoryProvider).createOffer(offer);
-    return offer.title;
+    return offer.getTitle;
   }
 
   String getCategoryTranslation(dynamic category, OfferType offerType) {
@@ -235,7 +233,7 @@ class OfferCreationController extends _$OfferCreationController {
         return Center(
           child: SizedBox(
             width: MediaQuery.of(context).size.width, // Set the width
-            height: MediaQuery.of(context).size.height * 0.4,
+            height: MediaQuery.of(context).size.height * 0.6,
             child: AlertDialog(
               title: Center(
                 child: Text('Oferta',

@@ -72,4 +72,12 @@ class RegistrationUtils {
     );
     return 'R\$ ${parts[0]},${parts[1]}';
   }
+
+  String stringToCamelCase(String text) {
+    final result = text
+        .split(' ')
+        .map((word) => word[0].toUpperCase() + word.substring(1).toLowerCase())
+        .join(' ');
+    return result;
+  }
 }

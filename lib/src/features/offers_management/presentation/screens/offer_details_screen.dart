@@ -110,7 +110,7 @@ class OfferBodyWidget extends StatelessWidget {
             ),
           ),
         ),
-        OfferDescriptionWidget(offerDescription: offer.description),
+        OfferDescriptionWidget(offerDescription: offer.getDescription),
         Divider(
           color: Theme.of(context).colorScheme.onSecondaryContainer,
         ),

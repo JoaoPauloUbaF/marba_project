@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 
 import '../../../core/models/offer/offer_model.dart';
 import 'offers_data_repository.dart';
@@ -171,5 +172,102 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     return _firestore.collection('offers').doc(offerId).update({
       'availableQuantity': newQuantity,
     });
+  }
+
+  @override
+  Future<List<OfferModel>>? queryOffersByTitle(String queryStr) async {
+    final queryArray = queryStr.toLowerCase().split(' ');
+    Query query = _firestore.collection('offers').where(
+          'titleWords',
+          arrayContainsAny: queryArray,
+        );
+
+    final offerList = await query.get();
+    return offerList.docs
+        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<List<OfferModel>>? queryOffersByBusinessCategory(
+      String queryStr) async {
+    Query query = _firestore
+        .collection('offers')
+        .where('businessCategory', isEqualTo: queryStr);
+
+    final offerList = await query.get();
+    return offerList.docs
+        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<List<OfferModel>>? queryOffersByBusinessName(String queryStr) async {
+    Query query = _firestore
+        .collection('offers')
+        .where('businessName', isEqualTo: queryStr);
+
+    final offerList = await query.get();
+    return offerList.docs
+        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<List<OfferModel>>? queryOffersByCategory(String queryStr) async {
+    Query query =
+        _firestore.collection('offers').where('category', isEqualTo: queryStr);
+
+    final offerList = await query.get();
+    return offerList.docs
+        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<List<OfferModel>>? queryOffersByDescription(String queryStr) async {
+    Query query = _firestore
+        .collection('offers')
+        .where('description', isEqualTo: queryStr);
+
+    final offerList = await query.get();
+    return offerList.docs
+        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<List<OfferModel>>? queryOffers({required String queryStr}) async {
+    // Call all the query methods
+    var offersByTitle = await queryOffersByTitle(queryStr);
+    var offersByBusinessCategory =
+        await queryOffersByBusinessCategory(queryStr);
+    var offersByBusinessName = await queryOffersByBusinessName(queryStr);
+    var offersByCategory = await queryOffersByCategory(queryStr);
+    var offersByDescription = await queryOffersByDescription(queryStr);
+
+    // Combine all the results into one list
+    var allOffers = <OfferModel>[];
+    if (offersByTitle != null && offersByTitle.isNotEmpty) {
+      allOffers.addAll(offersByTitle);
+    }
+    if (offersByBusinessCategory != null &&
+        offersByBusinessCategory.isNotEmpty) {
+      allOffers.addAll(offersByBusinessCategory);
+    }
+    if (offersByBusinessName != null && offersByBusinessName.isNotEmpty) {
+      allOffers.addAll(offersByBusinessName);
+    }
+    if (offersByCategory != null && offersByCategory.isNotEmpty) {
+      allOffers.addAll(offersByCategory);
+    }
+    if (offersByDescription != null && offersByDescription.isNotEmpty) {
+      allOffers.addAll(offersByDescription);
+    }
+
+    // Remove duplicates from the list
+    var uniqueOffers = allOffers.toSet().toList();
+
+    return uniqueOffers;
   }
 }

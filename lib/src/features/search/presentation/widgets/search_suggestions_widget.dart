@@ -58,6 +58,7 @@ class _SearchingSuggestionsWidgetState
                   title: Text(suggestions[index]),
                   trailing: const Icon(Icons.history),
                   onTap: () {
+                    searchViewModel.setSearchPlaceHolder(suggestions[index]);
                     searchViewModel.onSearchSubmit(query: suggestions[index]);
                   },
                 ),

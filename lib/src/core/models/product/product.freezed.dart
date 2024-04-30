@@ -20,10 +20,6 @@ Product _$ProductFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Product {
-  String get title => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
   int get availableQuantity => throw _privateConstructorUsedError;
   double? get itemCost => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
@@ -38,14 +34,7 @@ abstract class $ProductCopyWith<$Res> {
   factory $ProductCopyWith(Product value, $Res Function(Product) then) =
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
-  $Res call(
-      {String title,
-      String description,
-      double price,
-      String imageUrl,
-      int availableQuantity,
-      double? itemCost,
-      String status});
+  $Res call({int availableQuantity, double? itemCost, String status});
 }
 
 /// @nodoc
@@ -61,31 +50,11 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? description = null,
-    Object? price = null,
-    Object? imageUrl = null,
     Object? availableQuantity = null,
     Object? itemCost = freezed,
     Object? status = null,
   }) {
     return _then(_value.copyWith(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
       availableQuantity: null == availableQuantity
           ? _value.availableQuantity
           : availableQuantity // ignore: cast_nullable_to_non_nullable
@@ -109,14 +78,7 @@ abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
       __$$ProductImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String title,
-      String description,
-      double price,
-      String imageUrl,
-      int availableQuantity,
-      double? itemCost,
-      String status});
+  $Res call({int availableQuantity, double? itemCost, String status});
 }
 
 /// @nodoc
@@ -130,31 +92,11 @@ class __$$ProductImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? description = null,
-    Object? price = null,
-    Object? imageUrl = null,
     Object? availableQuantity = null,
     Object? itemCost = freezed,
     Object? status = null,
   }) {
     return _then(_$ProductImpl(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      price: null == price
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as double,
-      imageUrl: null == imageUrl
-          ? _value.imageUrl
-          : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
       availableQuantity: null == availableQuantity
           ? _value.availableQuantity
           : availableQuantity // ignore: cast_nullable_to_non_nullable
@@ -175,25 +117,13 @@ class __$$ProductImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ProductImpl implements _Product {
   _$ProductImpl(
-      {required this.title,
-      required this.description,
-      required this.price,
-      required this.imageUrl,
-      required this.availableQuantity,
+      {required this.availableQuantity,
       required this.itemCost,
       required this.status});
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
 
-  @override
-  final String title;
-  @override
-  final String description;
-  @override
-  final double price;
-  @override
-  final String imageUrl;
   @override
   final int availableQuantity;
   @override
@@ -203,7 +133,7 @@ class _$ProductImpl implements _Product {
 
   @override
   String toString() {
-    return 'Product(title: $title, description: $description, price: $price, imageUrl: $imageUrl, availableQuantity: $availableQuantity, itemCost: $itemCost, status: $status)';
+    return 'Product(availableQuantity: $availableQuantity, itemCost: $itemCost, status: $status)';
   }
 
   @override
@@ -211,12 +141,6 @@ class _$ProductImpl implements _Product {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProductImpl &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
-            (identical(other.price, price) || other.price == price) &&
-            (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl) &&
             (identical(other.availableQuantity, availableQuantity) ||
                 other.availableQuantity == availableQuantity) &&
             (identical(other.itemCost, itemCost) ||
@@ -226,8 +150,8 @@ class _$ProductImpl implements _Product {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, price,
-      imageUrl, availableQuantity, itemCost, status);
+  int get hashCode =>
+      Object.hash(runtimeType, availableQuantity, itemCost, status);
 
   @JsonKey(ignore: true)
   @override
@@ -245,24 +169,12 @@ class _$ProductImpl implements _Product {
 
 abstract class _Product implements Product {
   factory _Product(
-      {required final String title,
-      required final String description,
-      required final double price,
-      required final String imageUrl,
-      required final int availableQuantity,
+      {required final int availableQuantity,
       required final double? itemCost,
       required final String status}) = _$ProductImpl;
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
 
-  @override
-  String get title;
-  @override
-  String get description;
-  @override
-  double get price;
-  @override
-  String get imageUrl;
   @override
   int get availableQuantity;
   @override

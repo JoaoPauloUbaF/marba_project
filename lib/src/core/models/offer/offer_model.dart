@@ -13,6 +13,12 @@ class OfferModel with _$OfferModel {
 
   factory OfferModel({
     required String id,
+    required String title,
+    required List<String> titleWords,
+    required String description,
+    required List<String> descriptionWords,
+    required double price,
+    required String imageUrl,
     required String businessId,
     required Set<String> category,
     required DateTime createdAt,
@@ -27,12 +33,10 @@ class OfferModel with _$OfferModel {
     Service? service,
   }) = _OfferModel;
 
-  String get title =>
-      product?.title ?? service?.title ?? 'Titulo não informado';
-  String get description =>
-      product?.description ?? service?.description ?? 'Descrição não informada';
-  double get price => product?.price ?? service?.price ?? 0.0;
-  String get imageUrl => product?.imageUrl ?? service?.imageUrl ?? '';
+  String get getTitle => title;
+  String get getDescription => description;
+  double get getPrice => price;
+  String get getImageUrl => imageUrl;
   int? get availableQuantity => product?.availableQuantity;
   double? get itemCost => product?.itemCost;
   Set<String> get categories => category;
@@ -41,7 +45,7 @@ class OfferModel with _$OfferModel {
   Service? get serviceOffer => service;
   double get discountValue => discount ?? 0.0;
   double get ratingValue => rating ?? 0.0;
-  double get priceWithDiscount => price - (price * discountValue / 100);
+  double get priceWithDiscount => getPrice - (getPrice * discountValue / 100);
   int get totalRatings => reviews?.length ?? 0;
 
   factory OfferModel.fromJson(Map<String, dynamic> json) =>

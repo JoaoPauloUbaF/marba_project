@@ -40,7 +40,7 @@ class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
             ),
             child: !isEditing
                 ? Text(
-                    widget.offer.title,
+                    widget.offer.getTitle,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.w500,
                         ),
@@ -65,7 +65,7 @@ class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
                         },
                       ),
                     ),
-                    initialValue: widget.offer.title,
+                    initialValue: widget.offer.getTitle,
                     onChanged: (value) {
                       setState(() {
                         newTitle = value;

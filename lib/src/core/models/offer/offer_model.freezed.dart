@@ -21,6 +21,12 @@ OfferModel _$OfferModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$OfferModel {
   String get id => throw _privateConstructorUsedError;
+  String get title => throw _privateConstructorUsedError;
+  List<String> get titleWords => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  List<String> get descriptionWords => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
   String get businessId => throw _privateConstructorUsedError;
   Set<String> get category => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -48,6 +54,12 @@ abstract class $OfferModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
+      String title,
+      List<String> titleWords,
+      String description,
+      List<String> descriptionWords,
+      double price,
+      String imageUrl,
       String businessId,
       Set<String> category,
       DateTime createdAt,
@@ -79,6 +91,12 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
   @override
   $Res call({
     Object? id = null,
+    Object? title = null,
+    Object? titleWords = null,
+    Object? description = null,
+    Object? descriptionWords = null,
+    Object? price = null,
+    Object? imageUrl = null,
     Object? businessId = null,
     Object? category = null,
     Object? createdAt = null,
@@ -96,6 +114,30 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      titleWords: null == titleWords
+          ? _value.titleWords
+          : titleWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      descriptionWords: null == descriptionWords
+          ? _value.descriptionWords
+          : descriptionWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       businessId: null == businessId
           ? _value.businessId
@@ -183,6 +225,12 @@ abstract class _$$OfferModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
+      String title,
+      List<String> titleWords,
+      String description,
+      List<String> descriptionWords,
+      double price,
+      String imageUrl,
       String businessId,
       Set<String> category,
       DateTime createdAt,
@@ -214,6 +262,12 @@ class __$$OfferModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? title = null,
+    Object? titleWords = null,
+    Object? description = null,
+    Object? descriptionWords = null,
+    Object? price = null,
+    Object? imageUrl = null,
     Object? businessId = null,
     Object? category = null,
     Object? createdAt = null,
@@ -231,6 +285,30 @@ class __$$OfferModelImplCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      titleWords: null == titleWords
+          ? _value._titleWords
+          : titleWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      descriptionWords: null == descriptionWords
+          ? _value._descriptionWords
+          : descriptionWords // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      imageUrl: null == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
               as String,
       businessId: null == businessId
           ? _value.businessId
@@ -289,6 +367,12 @@ class __$$OfferModelImplCopyWithImpl<$Res>
 class _$OfferModelImpl extends _OfferModel {
   _$OfferModelImpl(
       {required this.id,
+      required this.title,
+      required final List<String> titleWords,
+      required this.description,
+      required final List<String> descriptionWords,
+      required this.price,
+      required this.imageUrl,
       required this.businessId,
       required final Set<String> category,
       required this.createdAt,
@@ -301,7 +385,9 @@ class _$OfferModelImpl extends _OfferModel {
       final Set<String>? offerImagesUrls,
       this.product,
       this.service})
-      : _category = category,
+      : _titleWords = titleWords,
+        _descriptionWords = descriptionWords,
+        _category = category,
         _reviews = reviews,
         _offerImagesUrls = offerImagesUrls,
         super._();
@@ -311,6 +397,31 @@ class _$OfferModelImpl extends _OfferModel {
 
   @override
   final String id;
+  @override
+  final String title;
+  final List<String> _titleWords;
+  @override
+  List<String> get titleWords {
+    if (_titleWords is EqualUnmodifiableListView) return _titleWords;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_titleWords);
+  }
+
+  @override
+  final String description;
+  final List<String> _descriptionWords;
+  @override
+  List<String> get descriptionWords {
+    if (_descriptionWords is EqualUnmodifiableListView)
+      return _descriptionWords;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_descriptionWords);
+  }
+
+  @override
+  final double price;
+  @override
+  final String imageUrl;
   @override
   final String businessId;
   final Set<String> _category;
@@ -360,7 +471,7 @@ class _$OfferModelImpl extends _OfferModel {
 
   @override
   String toString() {
-    return 'OfferModel(id: $id, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, reviews: $reviews, rating: $rating, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
+    return 'OfferModel(id: $id, title: $title, titleWords: $titleWords, description: $description, descriptionWords: $descriptionWords, price: $price, imageUrl: $imageUrl, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, reviews: $reviews, rating: $rating, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
   }
 
   @override
@@ -369,6 +480,16 @@ class _$OfferModelImpl extends _OfferModel {
         (other.runtimeType == runtimeType &&
             other is _$OfferModelImpl &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.title, title) || other.title == title) &&
+            const DeepCollectionEquality()
+                .equals(other._titleWords, _titleWords) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            const DeepCollectionEquality()
+                .equals(other._descriptionWords, _descriptionWords) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.businessId, businessId) ||
                 other.businessId == businessId) &&
             const DeepCollectionEquality().equals(other._category, _category) &&
@@ -390,21 +511,28 @@ class _$OfferModelImpl extends _OfferModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      businessId,
-      const DeepCollectionEquality().hash(_category),
-      createdAt,
-      updatedAt,
-      status,
-      type,
-      const DeepCollectionEquality().hash(_reviews),
-      rating,
-      discount,
-      const DeepCollectionEquality().hash(_offerImagesUrls),
-      product,
-      service);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        title,
+        const DeepCollectionEquality().hash(_titleWords),
+        description,
+        const DeepCollectionEquality().hash(_descriptionWords),
+        price,
+        imageUrl,
+        businessId,
+        const DeepCollectionEquality().hash(_category),
+        createdAt,
+        updatedAt,
+        status,
+        type,
+        const DeepCollectionEquality().hash(_reviews),
+        rating,
+        discount,
+        const DeepCollectionEquality().hash(_offerImagesUrls),
+        product,
+        service
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -423,6 +551,12 @@ class _$OfferModelImpl extends _OfferModel {
 abstract class _OfferModel extends OfferModel {
   factory _OfferModel(
       {required final String id,
+      required final String title,
+      required final List<String> titleWords,
+      required final String description,
+      required final List<String> descriptionWords,
+      required final double price,
+      required final String imageUrl,
       required final String businessId,
       required final Set<String> category,
       required final DateTime createdAt,
@@ -442,6 +576,18 @@ abstract class _OfferModel extends OfferModel {
 
   @override
   String get id;
+  @override
+  String get title;
+  @override
+  List<String> get titleWords;
+  @override
+  String get description;
+  @override
+  List<String> get descriptionWords;
+  @override
+  double get price;
+  @override
+  String get imageUrl;
   @override
   String get businessId;
   @override

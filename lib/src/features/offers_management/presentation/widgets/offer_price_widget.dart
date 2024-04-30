@@ -13,7 +13,7 @@ class OfferPriceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double offerPrice = offer.price;
+    final double offerPrice = offer.getPrice;
     final double offerDiscount = offer.discountValue;
     final double offerPriceWithDiscount =
         offerPrice - (offerPrice * offerDiscount / 100);

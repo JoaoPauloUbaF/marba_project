@@ -22,4 +22,10 @@ abstract class OffersDataRepository {
     List<File?> offerMedia,
     String offerId,
   );
+  Future<List<OfferModel>>? queryOffers({required String queryStr});
+  Future<List<OfferModel>>? queryOffersByTitle(String queryStr);
+  Future<List<OfferModel>>? queryOffersByCategory(String queryStr);
+  Future<List<OfferModel>>? queryOffersByBusinessName(String queryStr);
+  Future<List<OfferModel>>? queryOffersByBusinessCategory(String queryStr);
+  Future<List<OfferModel>>? queryOffersByDescription(String queryStr);
 }
