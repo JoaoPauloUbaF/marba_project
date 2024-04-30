@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/utils/translations_provider.dart';
 import 'package:project_marba/src/features/image_picker/application/image_field_controller.dart';
 import 'package:project_marba/src/features/business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
@@ -16,7 +17,7 @@ import '../../data/business_profile_data/business_profile_provider.dart';
 part 'business_creation_controller.g.dart';
 
 @riverpod
-class BusinessCreationController extends _$BusinessCreationController {
+class BusinessCreationViewModel extends _$BusinessCreationViewModel {
   @override
   BusinessModel? build() {
     return null;
@@ -109,11 +110,20 @@ class BusinessCreationController extends _$BusinessCreationController {
     required Set<BusinessCategory> selectedCategories,
     required String deliveryFee,
   }) async {
+    final categoriesWords = selectedCategories
+        .map((category) => ref
+            .read(translationsProvider.notifier)
+            .getBusinessCategoryTranslation(category)
+            .toLowerCase())
+        .toSet();
+    final nameWords = name.toLowerCase().split(' ');
     final businessProfileRepository = ref.read(businessProfileDataProvider);
     final profileImage = ref.read(imageFieldControllerProvider);
+
     final business = BusinessModel(
       id: const Uuid().v4().toString(),
       name: name,
+      nameWords: nameWords,
       email: email,
       phoneNumber: phoneNumber,
       address: Address(
@@ -125,10 +135,12 @@ class BusinessCreationController extends _$BusinessCreationController {
         zipCode: zipCode,
       ),
       categories: selectedCategories.toSet(),
+      categoriesWords: categoriesWords,
       status: BusinessStatus.pending,
       offersIds: {},
       deliveryFee: 0.0,
     );
+
     await businessProfileRepository
         .createBusinessProfile(business: business)
         .then(

@@ -17,8 +17,10 @@ class BusinessModel with _$BusinessModel {
     required BusinessStatus status,
     required Set<BusinessCategory> categories,
     required Set<String> offersIds,
-    double? rating,
     required double deliveryFee,
+    Set<String>? categoriesWords,
+    double? rating,
+    List<String>? nameWords,
     String? imageUrl,
   }) = _BusinessModel;
 

@@ -19,8 +19,14 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
           .toSet(),
       offersIds:
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
-      rating: (json['rating'] as num?)?.toDouble(),
       deliveryFee: (json['deliveryFee'] as num).toDouble(),
+      categoriesWords: (json['categoriesWords'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toSet(),
+      rating: (json['rating'] as num?)?.toDouble(),
+      nameWords: (json['nameWords'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       imageUrl: json['imageUrl'] as String?,
     );
 
@@ -35,6 +41,7 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
     'categories':
         instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
     'offersIds': instance.offersIds.toList(),
+    'deliveryFee': instance.deliveryFee,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -43,8 +50,9 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
     }
   }
 
+  writeNotNull('categoriesWords', instance.categoriesWords?.toList());
   writeNotNull('rating', instance.rating);
-  val['deliveryFee'] = instance.deliveryFee;
+  writeNotNull('nameWords', instance.nameWords);
   writeNotNull('imageUrl', instance.imageUrl);
   return val;
 }

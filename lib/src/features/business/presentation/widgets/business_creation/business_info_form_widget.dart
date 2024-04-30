@@ -15,7 +15,7 @@ class BusinessInfoFormWidget extends StatelessWidget {
 
   final List<GlobalKey<FormState>> formKeys;
   final TextEditingController nameController;
-  final BusinessCreationController businessCreationController;
+  final BusinessCreationViewModel businessCreationController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
   final void Function() onChanged;
