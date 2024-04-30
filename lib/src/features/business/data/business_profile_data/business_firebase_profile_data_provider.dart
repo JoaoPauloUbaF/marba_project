@@ -22,7 +22,7 @@ class BusinessFirebaseProfileDataProvider
 
   @override
   Future<DocumentSnapshot?> createBusinessProfile({
-    required Business business,
+    required BusinessModel business,
   }) async {
     await _businessCollection.doc(business.id).set({
       'businessName': business.name,
@@ -61,7 +61,7 @@ class BusinessFirebaseProfileDataProvider
           .toSet()
           .cast<String>();
 
-      return Business(
+      return BusinessModel(
         id: doc.id,
         name: data['businessName'],
         email: data['businessEmail'],
@@ -145,7 +145,7 @@ class BusinessFirebaseProfileDataProvider
   }
 
   @override
-  Future<Business?> getBusinessProfileData({required String uid}) async {
+  Future<BusinessModel?> getBusinessProfileData({required String uid}) async {
     DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
 
     if (docSnapshot.exists) {
@@ -166,7 +166,7 @@ class BusinessFirebaseProfileDataProvider
           .toSet()
           .cast<String>();
 
-      return Business(
+      return BusinessModel(
         id: uid,
         name: data['businessName'],
         email: data['businessEmail'],

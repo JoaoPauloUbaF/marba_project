@@ -20,7 +20,7 @@ class BusinessTileWidget extends ConsumerWidget {
       future: ref
           .read(businessProfileDataProvider)
           .getBusinessProfileData(uid: businessId),
-      builder: (BuildContext context, AsyncSnapshot<Business?> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<BusinessModel?> snapshot) {
         if (snapshot.hasData) {
           return InkWell(
             onTap: () {

@@ -226,9 +226,8 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
   @override
   Future<List<OfferModel>>? queryOffersByDescription(String queryStr) async {
-    Query query = _firestore
-        .collection('offers')
-        .where('description', isEqualTo: queryStr);
+    Query query = _firestore.collection('offers').where('descriptionWords',
+        arrayContainsAny: queryStr.toLowerCase().split(' '));
 
     final offerList = await query.get();
     return offerList.docs

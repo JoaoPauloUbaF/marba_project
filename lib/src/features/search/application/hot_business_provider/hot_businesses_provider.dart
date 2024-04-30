@@ -7,7 +7,7 @@ part 'hot_businesses_provider.g.dart';
 @riverpod
 class HotBusinesses extends _$HotBusinesses {
   @override
-  Future<List<Business>?> build() {
+  Future<List<BusinessModel>?> build() {
     return Future.value([]);
   }
 

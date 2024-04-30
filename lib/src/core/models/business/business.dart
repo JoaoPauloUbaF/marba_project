@@ -7,8 +7,8 @@ part 'business.freezed.dart';
 part 'business.g.dart';
 
 @freezed
-class Business with _$Business {
-  factory Business({
+class BusinessModel with _$BusinessModel {
+  factory BusinessModel({
     required String id,
     required String name,
     required String email,
@@ -20,10 +20,10 @@ class Business with _$Business {
     double? rating,
     required double deliveryFee,
     String? imageUrl,
-  }) = _Business;
+  }) = _BusinessModel;
 
-  factory Business.fromJson(Map<String, dynamic> json) =>
-      _$BusinessFromJson(json);
+  factory BusinessModel.fromJson(Map<String, dynamic> json) =>
+      _$BusinessModelFromJson(json);
 }
 
 enum BusinessStatus {

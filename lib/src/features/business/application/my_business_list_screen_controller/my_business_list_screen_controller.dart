@@ -13,18 +13,18 @@ part 'my_business_list_screen_controller.g.dart';
 
 @riverpod
 class MyBusinessListScreenController extends _$MyBusinessListScreenController {
-  late Future<List<Business?>> listOfOwnedBusiness;
-  late Business selectedBusiness;
+  late Future<List<BusinessModel?>> listOfOwnedBusiness;
+  late BusinessModel selectedBusiness;
 
   @override
-  FutureOr<List<Business?>> build() async {
+  FutureOr<List<BusinessModel?>> build() async {
     return getUserBusinessList();
   }
 
-  Future<List<Business>> getBusinessList(
+  Future<List<BusinessModel>> getBusinessList(
       {required List<String> ownedBusinessIds}) async {
     final businessProfileRepository = ref.read(businessProfileDataProvider);
-    List<Business> businessList = [];
+    List<BusinessModel> businessList = [];
     for (String id in ownedBusinessIds) {
       final business =
           await businessProfileRepository.getBusinessProfileData(uid: id);
@@ -76,7 +76,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     state = AsyncValue.data(businessList);
   }
 
-  Future<List<Business?>> getUserBusinessList() async {
+  Future<List<BusinessModel?>> getUserBusinessList() async {
     final userProfileRepository = ref.read(userProfileDataProvider);
     final authRepository = ref.read(authRepositoryProvider);
     final userOwnedBusinessIdsList = await userProfileRepository
@@ -163,7 +163,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
   }
 
   void onTapBusiness(
-      {required Business business, required BuildContext context}) {
+      {required BusinessModel business, required BuildContext context}) {
     ref
         .read(businessProfileViewModelProvider.notifier)
         .setSelectedBusiness(business);
