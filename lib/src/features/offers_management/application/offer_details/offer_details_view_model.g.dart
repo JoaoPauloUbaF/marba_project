@@ -160,7 +160,7 @@ class _OtherBusinessOffersProviderElement
 }
 
 String _$offerDetailsViewModelHash() =>
-    r'0c825c1df6c954942077efee88869a25aab3939d';
+    r'df1be31f1799ee2f2bfd9b4e69865b65897d6d29';
 
 /// See also [OfferDetailsViewModel].
 @ProviderFor(OfferDetailsViewModel)

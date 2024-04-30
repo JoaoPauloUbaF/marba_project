@@ -44,17 +44,17 @@ class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
     final offerEditionController = ref.read(offerEditionControllerProvider);
     super.initState();
     _titleController.text =
-        offerEditionController?.title ?? 'Houve um problema';
+        offerEditionController?.getTitle ?? 'Houve um problema';
     _descriptionController.text =
-        offerEditionController?.description ?? 'Houve um problema';
-    _priceController.text = offerEditionController?.price.toString() ?? '';
+        offerEditionController?.getDescription ?? 'Houve um problema';
+    _priceController.text = offerEditionController?.getPrice.toString() ?? '';
     _availableQuantityController.text =
         offerEditionController?.availableQuantity.toString() ?? '';
     _itemCostController.text =
         offerEditionController?.itemCost?.toString() ?? '0,00';
     _offerCategory.addAll(offerEditionController?.category ?? {});
     _status = offerEditionController?.status ?? OfferStatus.active;
-    _imageURl = offerEditionController?.imageUrl;
+    _imageURl = offerEditionController?.getImageUrl;
   }
 
   @override

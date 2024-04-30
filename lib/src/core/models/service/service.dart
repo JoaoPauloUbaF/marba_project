@@ -8,10 +8,6 @@ part 'service.g.dart';
 @freezed
 class Service with _$Service {
   factory Service({
-    required String title,
-    required String description,
-    required double price,
-    required String imageUrl,
     required String status,
     required ServicePricingType pricingType,
   }) = _Service;

@@ -58,7 +58,7 @@ class SearchAppBarWidgetState extends State<SearchAppBarWidget>
                 controller: widget.searchController,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(8),
-                  hintText: "Eletricista, Barbeiro, Martelo, Vaso...",
+                  hintText: widget.searchViewModel.getSearchPlaceHolder(),
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.search),

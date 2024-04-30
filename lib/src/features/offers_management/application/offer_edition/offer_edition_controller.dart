@@ -32,23 +32,14 @@ class OfferEditionController extends _$OfferEditionController {
   }) {
     if (type == OfferType.product) {
       final updatedProduct = state!.product!.copyWith(
-        title: title,
-        description: description,
-        price: RegistrationUtils().currencyStringToDouble(price),
         availableQuantity: int.parse(availableQuantity),
         itemCost: RegistrationUtils().currencyStringToDouble(itemCost),
-        imageUrl: image != null ? image.path : state!.imageUrl,
       );
       final offer = state!.copyWith(
           product: updatedProduct, category: category, status: status);
       return updateOffer(offer);
     } else {
-      final updatedService = state!.service!.copyWith(
-        title: title,
-        description: description,
-        price: RegistrationUtils().currencyStringToDouble(price),
-        imageUrl: image != null ? image.path : state!.imageUrl,
-      );
+      final updatedService = state!.service!.copyWith();
       final offer = state!.copyWith(
           service: updatedService, category: category, status: status);
       return updateOffer(offer);

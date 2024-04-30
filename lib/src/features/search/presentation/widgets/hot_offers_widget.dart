@@ -24,7 +24,7 @@ class HotOffersWidget extends ConsumerWidget {
                     child: Stack(
                       children: [
                         Image.network(
-                          offer.imageUrl,
+                          offer.getImageUrl,
                           fit: BoxFit.fill,
                           width: MediaQuery.of(context).size.width,
                           loadingBuilder: (context, child, loadingProgress) =>
@@ -48,7 +48,7 @@ class HotOffersWidget extends ConsumerWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    offer.title,
+                                    offer.getTitle,
                                     overflow: TextOverflow.ellipsis,
                                     style: Theme.of(context)
                                         .textTheme
@@ -59,7 +59,7 @@ class HotOffersWidget extends ConsumerWidget {
                                   ),
                                   Text(
                                     RegistrationUtils()
-                                        .doubleAsCurrency(offer.price),
+                                        .doubleAsCurrency(offer.getPrice),
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleLarge

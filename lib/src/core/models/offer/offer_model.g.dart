@@ -9,6 +9,16 @@ part of 'offer_model.dart';
 _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
     _$OfferModelImpl(
       id: json['id'] as String,
+      title: json['title'] as String,
+      titleWords: (json['titleWords'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      description: json['description'] as String,
+      descriptionWords: (json['descriptionWords'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      price: (json['price'] as num).toDouble(),
+      imageUrl: json['imageUrl'] as String,
       businessId: json['businessId'] as String,
       category:
           (json['category'] as List<dynamic>).map((e) => e as String).toSet(),
@@ -35,6 +45,12 @@ _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'title': instance.title,
+    'titleWords': instance.titleWords,
+    'description': instance.description,
+    'descriptionWords': instance.descriptionWords,
+    'price': instance.price,
+    'imageUrl': instance.imageUrl,
     'businessId': instance.businessId,
     'category': instance.category.toList(),
     'createdAt': instance.createdAt.toIso8601String(),

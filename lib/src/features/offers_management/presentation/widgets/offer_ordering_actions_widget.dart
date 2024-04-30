@@ -35,9 +35,9 @@ class OrderingActionsWidget extends ConsumerWidget {
                           onPressed: () {
                             cartViewModel.createNewItem(
                               offer.id,
-                              offer.title,
+                              offer.getTitle,
                               offer.priceWithDiscount,
-                              offer.imageUrl,
+                              offer.getImageUrl,
                               offer.businessId,
                               offer.offerType,
                             );
@@ -146,9 +146,9 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
         onPressed: () {
           cartViewModel.createNewItem(
             widget.offer.id,
-            widget.offer.title,
+            widget.offer.getTitle,
             widget.offer.priceWithDiscount,
-            widget.offer.imageUrl,
+            widget.offer.getImageUrl,
             widget.offer.businessId,
             widget.offer.offerType,
           );

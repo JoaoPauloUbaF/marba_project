@@ -19,7 +19,7 @@ class OfferDetailsViewModel extends _$OfferDetailsViewModel {
 
   Set<String> getOfferMedia() {
     Set<String> media = {};
-    media.add(state?.imageUrl ?? '');
+    media.add(state?.getImageUrl ?? '');
     media = {...media, ...state?.offerImagesUrls ?? {}};
     return media;
   }
@@ -40,11 +40,9 @@ class OfferDetailsViewModel extends _$OfferDetailsViewModel {
       {required String offerId, required String newTitle}) async {
     OfferModel? newOffer;
     if (state?.type == OfferType.product) {
-      newOffer =
-          state?.copyWith(product: state?.product!.copyWith(title: newTitle));
+      newOffer = state?.copyWith(title: newTitle);
     } else {
-      newOffer =
-          state?.copyWith(service: state?.service!.copyWith(title: newTitle));
+      newOffer = state?.copyWith(title: newTitle);
     }
     if (newOffer != null) {
       ref.read(offersDataRepositoryProvider).updateOffer(newOffer).then(
