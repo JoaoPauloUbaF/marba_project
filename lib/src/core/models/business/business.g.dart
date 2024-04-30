@@ -6,8 +6,8 @@ part of 'business.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
-    _$BusinessImpl(
+_$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
+    _$BusinessModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
@@ -24,7 +24,7 @@ _$BusinessImpl _$$BusinessImplFromJson(Map<String, dynamic> json) =>
       imageUrl: json['imageUrl'] as String?,
     );
 
-Map<String, dynamic> _$$BusinessImplToJson(_$BusinessImpl instance) {
+Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'name': instance.name,

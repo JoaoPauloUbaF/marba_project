@@ -19,11 +19,11 @@ part 'business_profile_screen_controller.g.dart';
 @Riverpod(keepAlive: true)
 class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   @override
-  Business? build() {
+  BusinessModel? build() {
     return null;
   }
 
-  void setSelectedBusiness(Business business) {
+  void setSelectedBusiness(BusinessModel business) {
     state = business;
     fetchBusinessProfile();
   }

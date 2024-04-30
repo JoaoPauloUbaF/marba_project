@@ -40,7 +40,7 @@ class SearchViewModel extends _$SearchViewModel {
     return offers;
   }
 
-  Future<List<Business>> fetchHotBusinesses() async {
+  Future<List<BusinessModel>> fetchHotBusinesses() async {
     final businesses = await ref
         .read(businessProfileDataProvider)
         .getBusinessesAt(city: 'Lavras');

@@ -45,7 +45,7 @@ class BusinessPhoneAndEmail extends ConsumerStatefulWidget {
     required this.business,
   });
 
-  final Business? business;
+  final BusinessModel? business;
 
   @override
   ConsumerState<BusinessPhoneAndEmail> createState() =>

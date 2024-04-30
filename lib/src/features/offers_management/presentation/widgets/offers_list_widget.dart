@@ -112,6 +112,15 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
               child: CircularProgressIndicator(),
             ),
           ),
+          newPageErrorIndicatorBuilder: (context) => const Center(
+            child: Text('Erro ao carregar novas ofertas'),
+          ),
+          firstPageErrorIndicatorBuilder: (context) => const Center(
+            child: Text('Erro ao carregar ofertas'),
+          ),
+          noItemsFoundIndicatorBuilder: (context) => const Center(
+            child: Text('Nenhuma oferta encontrada'),
+          ),
           itemBuilder: (context, item, index) => OfferCardWidget(
             offer: item,
           ),

@@ -18,7 +18,7 @@ part 'business_creation_controller.g.dart';
 @riverpod
 class BusinessCreationController extends _$BusinessCreationController {
   @override
-  Business? build() {
+  BusinessModel? build() {
     return null;
   }
 
@@ -111,7 +111,7 @@ class BusinessCreationController extends _$BusinessCreationController {
   }) async {
     final businessProfileRepository = ref.read(businessProfileDataProvider);
     final profileImage = ref.read(imageFieldControllerProvider);
-    final business = Business(
+    final business = BusinessModel(
       id: const Uuid().v4().toString(),
       name: name,
       email: email,

@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Business _$BusinessFromJson(Map<String, dynamic> json) {
-  return _Business.fromJson(json);
+BusinessModel _$BusinessModelFromJson(Map<String, dynamic> json) {
+  return _BusinessModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Business {
+mixin _$BusinessModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
@@ -34,14 +34,15 @@ mixin _$Business {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BusinessCopyWith<Business> get copyWith =>
+  $BusinessModelCopyWith<BusinessModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $BusinessCopyWith<$Res> {
-  factory $BusinessCopyWith(Business value, $Res Function(Business) then) =
-      _$BusinessCopyWithImpl<$Res, Business>;
+abstract class $BusinessModelCopyWith<$Res> {
+  factory $BusinessModelCopyWith(
+          BusinessModel value, $Res Function(BusinessModel) then) =
+      _$BusinessModelCopyWithImpl<$Res, BusinessModel>;
   @useResult
   $Res call(
       {String id,
@@ -60,9 +61,9 @@ abstract class $BusinessCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$BusinessCopyWithImpl<$Res, $Val extends Business>
-    implements $BusinessCopyWith<$Res> {
-  _$BusinessCopyWithImpl(this._value, this._then);
+class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
+    implements $BusinessModelCopyWith<$Res> {
+  _$BusinessModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -142,11 +143,11 @@ class _$BusinessCopyWithImpl<$Res, $Val extends Business>
 }
 
 /// @nodoc
-abstract class _$$BusinessImplCopyWith<$Res>
-    implements $BusinessCopyWith<$Res> {
-  factory _$$BusinessImplCopyWith(
-          _$BusinessImpl value, $Res Function(_$BusinessImpl) then) =
-      __$$BusinessImplCopyWithImpl<$Res>;
+abstract class _$$BusinessModelImplCopyWith<$Res>
+    implements $BusinessModelCopyWith<$Res> {
+  factory _$$BusinessModelImplCopyWith(
+          _$BusinessModelImpl value, $Res Function(_$BusinessModelImpl) then) =
+      __$$BusinessModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -167,11 +168,11 @@ abstract class _$$BusinessImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$BusinessImplCopyWithImpl<$Res>
-    extends _$BusinessCopyWithImpl<$Res, _$BusinessImpl>
-    implements _$$BusinessImplCopyWith<$Res> {
-  __$$BusinessImplCopyWithImpl(
-      _$BusinessImpl _value, $Res Function(_$BusinessImpl) _then)
+class __$$BusinessModelImplCopyWithImpl<$Res>
+    extends _$BusinessModelCopyWithImpl<$Res, _$BusinessModelImpl>
+    implements _$$BusinessModelImplCopyWith<$Res> {
+  __$$BusinessModelImplCopyWithImpl(
+      _$BusinessModelImpl _value, $Res Function(_$BusinessModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -189,7 +190,7 @@ class __$$BusinessImplCopyWithImpl<$Res>
     Object? deliveryFee = null,
     Object? imageUrl = freezed,
   }) {
-    return _then(_$BusinessImpl(
+    return _then(_$BusinessModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -240,8 +241,8 @@ class __$$BusinessImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$BusinessImpl implements _Business {
-  _$BusinessImpl(
+class _$BusinessModelImpl implements _BusinessModel {
+  _$BusinessModelImpl(
       {required this.id,
       required this.name,
       required this.email,
@@ -256,8 +257,8 @@ class _$BusinessImpl implements _Business {
       : _categories = categories,
         _offersIds = offersIds;
 
-  factory _$BusinessImpl.fromJson(Map<String, dynamic> json) =>
-      _$$BusinessImplFromJson(json);
+  factory _$BusinessModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$BusinessModelImplFromJson(json);
 
   @override
   final String id;
@@ -296,14 +297,14 @@ class _$BusinessImpl implements _Business {
 
   @override
   String toString() {
-    return 'Business(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds, rating: $rating, deliveryFee: $deliveryFee, imageUrl: $imageUrl)';
+    return 'BusinessModel(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds, rating: $rating, deliveryFee: $deliveryFee, imageUrl: $imageUrl)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$BusinessImpl &&
+            other is _$BusinessModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
@@ -341,19 +342,19 @@ class _$BusinessImpl implements _Business {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$BusinessImplCopyWith<_$BusinessImpl> get copyWith =>
-      __$$BusinessImplCopyWithImpl<_$BusinessImpl>(this, _$identity);
+  _$$BusinessModelImplCopyWith<_$BusinessModelImpl> get copyWith =>
+      __$$BusinessModelImplCopyWithImpl<_$BusinessModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BusinessImplToJson(
+    return _$$BusinessModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _Business implements Business {
-  factory _Business(
+abstract class _BusinessModel implements BusinessModel {
+  factory _BusinessModel(
       {required final String id,
       required final String name,
       required final String email,
@@ -364,10 +365,10 @@ abstract class _Business implements Business {
       required final Set<String> offersIds,
       final double? rating,
       required final double deliveryFee,
-      final String? imageUrl}) = _$BusinessImpl;
+      final String? imageUrl}) = _$BusinessModelImpl;
 
-  factory _Business.fromJson(Map<String, dynamic> json) =
-      _$BusinessImpl.fromJson;
+  factory _BusinessModel.fromJson(Map<String, dynamic> json) =
+      _$BusinessModelImpl.fromJson;
 
   @override
   String get id;
@@ -393,6 +394,6 @@ abstract class _Business implements Business {
   String? get imageUrl;
   @override
   @JsonKey(ignore: true)
-  _$$BusinessImplCopyWith<_$BusinessImpl> get copyWith =>
+  _$$BusinessModelImplCopyWith<_$BusinessModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
