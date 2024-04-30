@@ -1,5 +1,7 @@
 // ignore_for_file: implementation_imports
 
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +35,13 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseUIAuth.configureProviders([email_auth.EmailAuthProvider()]);
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) =>
+          const ProviderScope(child: MainApp()), // Wrap your app
+    ),
+  );
 }
 
 class MainApp extends ConsumerWidget {
@@ -42,6 +50,8 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       themeAnimationCurve: Curves.easeInOut,
       themeAnimationDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
