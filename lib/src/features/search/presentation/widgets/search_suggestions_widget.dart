@@ -30,6 +30,7 @@ class _SearchingSuggestionsWidgetState
               'Error: ${snapshot.error}'); // show error if something went wrong
         } else {
           List<String> suggestions = snapshot.data ?? [];
+          suggestions = suggestions.reversed.toList();
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -50,17 +51,20 @@ class _SearchingSuggestionsWidgetState
                   ),
                 ],
               ),
-              ListView.separated(
-                shrinkWrap: true,
-                itemCount: suggestions.length,
-                separatorBuilder: (context, index) => const Divider(),
-                itemBuilder: (context, index) => ListTile(
-                  title: Text(suggestions[index]),
-                  trailing: const Icon(Icons.history),
-                  onTap: () {
-                    searchViewModel.setSearchPlaceHolder(suggestions[index]);
-                    searchViewModel.onSearchSubmit(query: suggestions[index]);
-                  },
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  itemCount: suggestions.length,
+                  separatorBuilder: (context, index) => const Divider(),
+                  itemBuilder: (context, index) => ListTile(
+                    title: Text(suggestions[index]),
+                    trailing: const Icon(Icons.history),
+                    onTap: () {
+                      searchViewModel.setSearchPlaceHolder(suggestions[index]);
+                      searchViewModel.onSearchSubmit(query: suggestions[index]);
+                    },
+                  ),
                 ),
               ),
             ],
