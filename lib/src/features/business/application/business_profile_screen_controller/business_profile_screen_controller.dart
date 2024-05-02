@@ -4,10 +4,13 @@ import 'dart:io';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/src/consumer.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project_marba/src/core/models/business/enums.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/edit_business_categories_dialog_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
@@ -263,6 +266,30 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
           address: address,
         )
         .then((value) => fetchBusinessProfile());
+  }
+
+  Future<void> updateBusinessCategories(
+      {required Set<BusinessCategory> categories}) async {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessCategory(
+          uid: state?.id ?? '',
+          businessCategory: categories.toList(),
+        )
+        .then((value) => fetchBusinessProfile());
+  }
+
+  Future<dynamic> showUpdateCategoriesDialog(
+    BuildContext context,
+  ) {
+    final businessCategories = state?.categories;
+
+    return showDialog(
+      context: context,
+      builder: (context) => EditBusinessCategoriesDialogWidget(
+        businessCategories: businessCategories,
+      ),
+    );
   }
 }
 
