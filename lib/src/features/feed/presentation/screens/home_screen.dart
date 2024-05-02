@@ -88,8 +88,10 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
             ),
             child: BottomNavigationBar(
               backgroundColor: Theme.of(context).colorScheme.primary,
-              showSelectedLabels: false,
+              showSelectedLabels: null,
               showUnselectedLabels: false,
+              selectedLabelStyle: const TextStyle(
+                  overflow: TextOverflow.ellipsis, fontSize: 10),
               items: <BottomNavigationBarItem>[
                 const BottomNavigationBarItem(
                   icon: Icon(Icons.search_outlined, size: 30),

@@ -1,5 +1,6 @@
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
+import 'package:project_marba/src/features/search/application/query_business_result_provider/query_business_result_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -60,9 +61,12 @@ class SearchViewModel extends _$SearchViewModel {
     }
     ref.read(userProfileDataProvider).addQueryToSearchHistory(
         query: query, uid: ref.read(currentUserProvider)?.id ?? '');
+    await ref.read(queryOffersResultProvider.notifier).queryOffers(
+        queryStr:
+            query); //Todo: offers must have an address too, at least the city
     await ref
-        .read(queryOffersResultProvider.notifier)
-        .queryOffers(queryStr: query);
+        .read(queryBusinessResultProvider.notifier)
+        .queryBusinessesAt(queryStr: query);
     state = SearchViewState.result;
   }
 

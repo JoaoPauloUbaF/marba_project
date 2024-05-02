@@ -39,49 +39,6 @@ class BusinessFirebaseProfileDataProvider
   }
 
   @override
-  getBusinessesAt({required String city}) async {
-    QuerySnapshot querySnapshot =
-        await _businessCollection.where('address.city', isEqualTo: city).get();
-    if (querySnapshot.docs.isEmpty) {
-      return null;
-    }
-    final businesses = querySnapshot.docs.map((doc) {
-      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-      final categories = (data['businessCategory'] as List<dynamic>)
-          .map((e) {
-            return BusinessCategory.values.firstWhere(
-              (element) => element.toString().split('.').last == e,
-              orElse: () => BusinessCategory
-                  .other, // Handle case when enum value is not found
-            );
-          })
-          .where((element) => true)
-          .toSet();
-
-      final offersIds = (data['offersIds'] as Map<String, dynamic>)
-          .values
-          .toSet()
-          .cast<String>();
-
-      return BusinessModel(
-        id: doc.id,
-        name: data['businessName'],
-        email: data['businessEmail'],
-        phoneNumber: data['businessPhoneNumber'],
-        address: Address.fromJson(data['address']),
-        status: BusinessStatus.values.firstWhere(
-          (e) => e.toString().split('.').last == data['status'],
-        ),
-        categories: categories.toSet(),
-        offersIds: offersIds,
-        imageUrl: data['profileImageUrl'],
-        deliveryFee: data['deliveryFee'] ?? 5.0,
-      );
-    }).toList();
-    return businesses;
-  }
-
-  @override
   Future<void> updateBusinessName({
     required String uid,
     required String businessName,
@@ -137,10 +94,10 @@ class BusinessFirebaseProfileDataProvider
   @override
   Future<void> updateBusinessCategory({
     required String uid,
-    required Map<String, dynamic> businessCategory,
+    required List<BusinessCategory> businessCategory,
   }) async {
     await _businessCollection.doc(uid).update({
-      'businessCategory': businessCategory,
+      'businessCategory': businessCategory.map((e) => e.name).toList(),
     });
   }
 
@@ -248,5 +205,101 @@ class BusinessFirebaseProfileDataProvider
     return _businessCollection.doc(uid).update({
       'deliveryFee': deliveryFee,
     });
+  }
+
+  @override
+  Future<List<BusinessModel>?> queryBusinessAt(
+      {required String queryStr, required String city}) async {
+    List<BusinessModel> businesses = [];
+
+    final businessByName =
+        await queryBusinessesByName(city: city, queryStr: queryStr);
+    if (businessByName != null) {
+      businesses.addAll(businessByName);
+    }
+    final String categoryStr = //Todo: figure better way to handle this, algolia
+        businessCategoryTranslations.containsValue(queryStr)
+            ? businessCategoryTranslations.entries
+                .firstWhere((element) => element.value == queryStr)
+                .key
+                .name
+            : queryStr;
+    final businessByCategory =
+        await queryBusinessesByCategory(city: city, queryStr: categoryStr);
+    if (businessByCategory != null) {
+      businesses.addAll(businessByCategory);
+    }
+
+    return businesses;
+  }
+
+  @override
+  Future<List<BusinessModel>?> queryBusinessesByCategory(
+      {required String city, required String queryStr}) {
+    Query query = _businessCollection.where('businessCategory',
+        arrayContainsAny: [queryStr]).where('address.city', isEqualTo: city);
+
+    return getBusinesses(query: query);
+  }
+
+  @override
+  Future<List<BusinessModel>?> getBusinesses({required Query query}) {
+    return query.get().then((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        return null;
+      }
+      final businesses = querySnapshot.docs.map((doc) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        final categories = (data['businessCategory'] as List<dynamic>)
+            .map((e) {
+              return BusinessCategory.values.firstWhere(
+                (element) => element.toString().split('.').last == e,
+                orElse: () => BusinessCategory
+                    .other, // Handle case when enum value is not found
+              );
+            })
+            .where((element) => true)
+            .toSet();
+
+        final offersIds = (data['offersIds'] as Map<String, dynamic>)
+            .values
+            .toSet()
+            .cast<String>();
+
+        return BusinessModel(
+          id: doc.id,
+          name: data['businessName'],
+          email: data['businessEmail'],
+          phoneNumber: data['businessPhoneNumber'],
+          address: Address.fromJson(data['address']),
+          status: BusinessStatus.values.firstWhere(
+            (e) => e.toString().split('.').last == data['status'],
+          ),
+          categories: categories.toSet(),
+          offersIds: offersIds,
+          imageUrl: data['profileImageUrl'],
+          deliveryFee: data['deliveryFee'] ?? 5.0,
+        );
+      }).toList();
+      return businesses;
+    });
+  }
+
+  @override
+  getBusinessesAt({required String city}) async {
+    Query query = _businessCollection.where('address.city', isEqualTo: city);
+
+    return await getBusinesses(query: query);
+  }
+
+  @override
+  Future<List<BusinessModel>?> queryBusinessesByName(
+      {required String city, required String queryStr}) {
+    Query query = _businessCollection
+        .where('businessNameWords',
+            arrayContainsAny: queryStr.toLowerCase().split(" "))
+        .where('address.city', isEqualTo: city);
+
+    return getBusinesses(query: query);
   }
 }
