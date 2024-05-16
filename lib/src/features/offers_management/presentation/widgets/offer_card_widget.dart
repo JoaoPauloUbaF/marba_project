@@ -33,12 +33,11 @@ class OfferCardWidget extends ConsumerWidget {
             borderRadius: BorderRadius.circular(3),
           ),
           clipBehavior: Clip.antiAlias,
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.tertiaryContainer,
           shadowColor: Theme.of(context).colorScheme.onSurface,
           child: LayoutBuilder(
             builder: (context, constraints) {
               double cardWidth = constraints.maxWidth;
-
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
