@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'business_profile_screen_controller.dart';
+part of 'query_business_result_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessProfileViewModelHash() =>
-    r'3a67f80f8b77ae7bfd24dbfcec74b8d2acda08b9';
+String _$queryBusinessResultHash() =>
+    r'3ad7615be5b0d2ac405d45fca8a688d37a80a83f';
 
-/// See also [BusinessProfileViewModel].
-@ProviderFor(BusinessProfileViewModel)
-final businessProfileViewModelProvider =
-    NotifierProvider<BusinessProfileViewModel, BusinessModel?>.internal(
-  BusinessProfileViewModel.new,
-  name: r'businessProfileViewModelProvider',
+/// See also [QueryBusinessResult].
+@ProviderFor(QueryBusinessResult)
+final queryBusinessResultProvider =
+    AsyncNotifierProvider<QueryBusinessResult, List<BusinessModel>>.internal(
+  QueryBusinessResult.new,
+  name: r'queryBusinessResultProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$businessProfileViewModelHash,
+      : _$queryBusinessResultHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$BusinessProfileViewModel = Notifier<BusinessModel?>;
+typedef _$QueryBusinessResult = AsyncNotifier<List<BusinessModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 
+import '../../../../core/models/business/enums.dart';
+
 abstract class BusinessProfileDataRepository {
   Future<DocumentSnapshot?> createBusinessProfile(
       {required BusinessModel business});
@@ -19,7 +21,7 @@ abstract class BusinessProfileDataRepository {
   Future<void> updateBusinessStatus(
       {required String uid, required BusinessStatus status});
   Future<void> updateBusinessCategory(
-      {required String uid, required Map<String, dynamic> businessCategory});
+      {required String uid, required List<BusinessCategory> businessCategory});
   Future<void> updateBusinessProfileImage(
       {required String uid, required File imageFile});
   Future<void> updateBusinessOffers(
@@ -29,4 +31,13 @@ abstract class BusinessProfileDataRepository {
 
   Future<void> updateBusinessDelivery(
       {required String uid, required double deliveryFee});
+
+  Future<List<BusinessModel>?> getBusinesses({required Query query});
+
+  Future<List<BusinessModel>?> queryBusinessAt(
+      {required String city, required String queryStr});
+  Future<List<BusinessModel>?> queryBusinessesByCategory(
+      {required String city, required String queryStr});
+  Future<List<BusinessModel>?> queryBusinessesByName(
+      {required String city, required String queryStr});
 }

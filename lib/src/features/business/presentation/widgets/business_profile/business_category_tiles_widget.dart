@@ -12,10 +12,15 @@ class BusinessCategoryTilesWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(businessProfileViewModelProvider);
+    final businessProfileViewModel =
+        ref.watch(businessProfileViewModelProvider.notifier);
+
     final businessCategories =
         ref.watch(businessProfileViewModelProvider)?.categories;
 
     return InkWell(
+      onTap: () => businessProfileViewModel.showUpdateCategoriesDialog(context),
       child: Wrap(
         children: businessCategories != null
             ? businessCategories.map((category) {
