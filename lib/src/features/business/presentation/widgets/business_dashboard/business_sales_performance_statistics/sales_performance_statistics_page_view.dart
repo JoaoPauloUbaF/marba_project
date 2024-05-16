@@ -106,7 +106,7 @@ class _SalesPerformanceStatisticsPageViewState
                     ),
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: 10,
                       itemBuilder: (context, index) {
                         return Card(
@@ -126,7 +126,7 @@ class _SalesPerformanceStatisticsPageViewState
                                   ),
                                   TextSpan(
                                     text:
-                                        '${RegistrationUtils().doubleAsCurrency(50.00)}',
+                                        RegistrationUtils().doubleAsCurrency(50.00),
                                     style: DefaultTextStyle.of(context).style,
                                   ),
                                 ],

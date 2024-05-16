@@ -41,10 +41,8 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   void refreshState() {
     state = List.from(state);
     String? userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
-    if (userId != null) {
-      shoppingCartRepository.updateCart(userId: userId, items: state);
+    shoppingCartRepository.updateCart(userId: userId!, items: state);
     }
-  }
 
   void createNewItem(String id, String name, double price, String imageUrl,
       String businessId, OfferType offerType) {
@@ -184,11 +182,6 @@ class CartItemListViewModel extends _$CartItemListViewModel {
       String? customerId =
           ref.read(authRepositoryProvider).getCurrentUser()?.uid;
 
-      if (customerId == null) {
-        Navigator.of(context).pushNamed('/sign-in');
-        return;
-      }
-
       ref.read(deliveryAddressProvider).whenData(
         (value) {
           Address? address = value;
@@ -209,7 +202,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
                 createdAt: DateTime.now(),
                 updatedAt: DateTime.now(),
                 canceledAt: null,
-                customerId: customerId,
+                customerId: customerId!,
               )
               .then(
             (value) {

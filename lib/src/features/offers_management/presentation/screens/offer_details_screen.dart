@@ -44,7 +44,7 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
           padding: const EdgeInsets.all(4),
           child: BackButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
+              backgroundColor: WidgetStateProperty.all(
                 Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
               ),
             ),
@@ -105,7 +105,7 @@ class OfferBodyWidget extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Theme.of(context).colorScheme.secondaryContainer,
-                Theme.of(context).colorScheme.background,
+                Theme.of(context).colorScheme.surface,
               ],
             ),
           ),

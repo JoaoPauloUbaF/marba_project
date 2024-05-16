@@ -44,15 +44,13 @@ class OfferDetailsViewModel extends _$OfferDetailsViewModel {
     } else {
       newOffer = state?.copyWith(title: newTitle);
     }
-    if (newOffer != null) {
-      ref.read(offersDataRepositoryProvider).updateOffer(newOffer).then(
-            (value) => ref
-                .read(offersDataRepositoryProvider)
-                .getOffer(offerId)
-                .then((value) => state = value),
-          );
+    ref.read(offersDataRepositoryProvider).updateOffer(newOffer!).then(
+          (value) => ref
+              .read(offersDataRepositoryProvider)
+              .getOffer(offerId)
+              .then((value) => state = value),
+        );
     }
-  }
 }
 
 @riverpod

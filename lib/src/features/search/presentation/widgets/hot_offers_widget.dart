@@ -40,7 +40,7 @@ class HotOffersWidget extends ConsumerWidget {
                             Container(
                               color: Theme.of(context)
                                   .colorScheme
-                                  .background
+                                  .surface
                                   .withOpacity(0.7),
                               padding: const EdgeInsets.all(8),
                               width: MediaQuery.of(context).size.width,

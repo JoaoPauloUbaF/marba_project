@@ -186,7 +186,7 @@ class _AddressFormModalWidgetState
                 const VerticalSpaceMediumWidget(),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
+                    backgroundColor: WidgetStateProperty.all(
                       Theme.of(context).colorScheme.onSecondary,
                     ),
                   ),

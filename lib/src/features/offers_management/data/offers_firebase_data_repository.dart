@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:project_marba/src/core/utils/registration_utils.dart';
 
 import '../../../core/models/offer/offer_model.dart';
 import 'offers_data_repository.dart';
