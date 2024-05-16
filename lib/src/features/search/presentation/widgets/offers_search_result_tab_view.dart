@@ -63,19 +63,5 @@ class _OffersSearchResultTabViewState
         );
       },
     );
-    return GridView.builder(
-      controller: _scrollController,
-      itemCount: 20,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: Center(
-            child: Text('Item $index'),
-          ),
-        );
-      },
-    );
   }
 }
