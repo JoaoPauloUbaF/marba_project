@@ -46,8 +46,16 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return Scaffold(
       extendBody: true,
       appBar: AppBar(
+        titleSpacing: 0,
+        backgroundColor: isWideScreen
+            ? Theme.of(context).colorScheme.primaryContainer
+            : null,
         automaticallyImplyLeading: false,
-        title: const Text('Onktem'),
+        title: Image.asset(
+          'assets/images/logo.png',
+          fit: BoxFit.cover,
+          scale: 3,
+        ),
         leading: isWideScreen
             ? Builder(builder: (context) {
                 return IconButton(
@@ -93,15 +101,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     height: 100,
                     child: DrawerHeader(
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.primaryContainer,
                       ),
-                      child: Text(
-                        'Onktem',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.onPrimary),
+                      child: Image.asset(
+                        'assets/images/logo.png',
+                        fit: BoxFit.cover,
+                        scale: 3,
                       ),
                     ),
                   ),
