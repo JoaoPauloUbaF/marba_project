@@ -16,30 +16,27 @@ class OfferInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            OfferHeaderWidget(offer: offer),
-            OfferPriceWidget(offer: offer),
-            Row(
-              children: [
-                OfferRatingWidget(
-                  rating: offer.ratingValue,
-                  totalRatings: offer.totalRatings,
-                ),
-                const Spacer(),
-                const OfferActionsWidget(),
-              ],
-            ),
-            Divider(
-              color: Theme.of(context).colorScheme.onSecondary,
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          OfferHeaderWidget(offer: offer),
+          OfferPriceWidget(offer: offer),
+          Row(
+            children: [
+              OfferRatingWidget(
+                rating: offer.ratingValue,
+                totalRatings: offer.totalRatings,
+              ),
+              const Spacer(),
+              const OfferActionsWidget(),
+            ],
+          ),
+          Divider(
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+        ],
       ),
     );
   }

@@ -65,6 +65,11 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
             ?.map<Address>((address) => Address.fromJson(address))
             .toList(),
         isBusinessOwner: false,
+        ownedBusinessIds:
+            data['ownedBusinessIds']?.cast<String>()?.toSet() ?? [],
+        favoriteOfferIds:
+            data['favoriteOfferIds']?.cast<String>()?.toSet() ?? [],
+        searchHistory: data['searchHistory']?.cast<String>(),
       );
     } else {
       return null;
@@ -161,5 +166,32 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     return await _usersCollection.doc(uid).update({
       'searchHistory': FieldValue.delete(),
     });
+  }
+
+  @override
+  Future<void> addFavoriteOfferId(
+      {required String uid, required String offerId}) {
+    return _usersCollection.doc(uid).update({
+      'favoriteOfferIds': FieldValue.arrayUnion([offerId]),
+    });
+  }
+
+  @override
+  Future<void> removeFavoriteOfferId(
+      {required String uid, required String offerId}) {
+    return _usersCollection.doc(uid).update({
+      'favoriteOfferIds': FieldValue.arrayRemove([offerId]),
+    });
+  }
+
+  @override
+  Future<Set<String>> getFavoriteOfferIds({required String uid}) async {
+    DocumentSnapshot doc = await _usersCollection.doc(uid).get();
+    if (doc.exists) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return data['favoriteOfferIds']?.cast<String>()?.toSet() ?? {};
+    } else {
+      return {};
+    }
   }
 }

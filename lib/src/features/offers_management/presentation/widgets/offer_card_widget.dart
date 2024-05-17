@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
@@ -27,7 +28,8 @@ class OfferCardWidget extends ConsumerWidget {
               '/offer-details',
             ),
           ),
-      child: SizedBox(
+      child: Hero(
+        tag: 'offerImage',
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),
@@ -35,147 +37,144 @@ class OfferCardWidget extends ConsumerWidget {
           clipBehavior: Clip.antiAlias,
           color: Theme.of(context).colorScheme.surface,
           shadowColor: Theme.of(context).colorScheme.onSurface,
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              double cardWidth = constraints.maxWidth;
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(children: [
-                    Image.network(
-                      offer.getImageUrl,
-                      fit: BoxFit.fill,
-                      width: cardWidth,
-                      height: cardWidth / 1.2,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        if (loadingProgress == null) {
-                          return child;
-                        }
-                        return SizedBox(
-                          width: cardWidth,
-                          height: cardWidth / 1.2,
-                          child: const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      },
-                      errorBuilder: (context, error, stackTrace) {
-                        log('$error');
-                        return Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(50.0),
-                            child: Icon(
-                              Icons.error,
-                              color: Theme.of(context).colorScheme.error,
-                              size: 30,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    Positioned(
-                      right: 4,
-                      top: 4,
-                      child: FutureBuilder(
-                        future: cardController
-                            .shouldShowOfferActions(offer.businessId),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<dynamic> snapshot) {
-                          if (snapshot.hasData) {
-                            return snapshot.data
-                                ? OfferQuickManageWidget(offer: offer)
-                                : const SizedBox.shrink();
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                  ]),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 4.0, horizontal: 8.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        offer.getTitle,
-                        style: textTheme.titleSmall,
-                        maxLines: 2,
-                        overflow:
-                            TextOverflow.ellipsis, // Adjust number of lines
-                      ),
-                    ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(children: [
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * .25,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 8.0, vertical: 2.0),
-                    child: Row(
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Visibility(
-                              visible: offer.discount != null &&
-                                  offer.discount != 0.0,
-                              child: Text(
-                                RegistrationUtils()
-                                    .doubleAsCurrency(offer.getPrice),
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: Theme.of(context).colorScheme.error,
-                                  decoration: TextDecoration.lineThrough,
-                                  fontSize: 10,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Text(
-                              RegistrationUtils().doubleAsCurrency(
-                                  offer.getPrice -
-                                      ((offer.discount ?? 0) /
-                                          100 *
-                                          offer.getPrice)),
-                              style: textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w800,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onPrimaryContainer,
+                  child: Image.network(
+                    offer.getImageUrl,
+                    fit: BoxFit.fill,
+                    width: double.infinity,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      }
+                      return const SizedBox(
+                        width: double.infinity,
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      log('$error');
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(50.0),
+                          child: Icon(
+                            Icons.error,
+                            color: Theme.of(context).colorScheme.error,
+                            size: 30,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                Positioned(
+                  right: 4,
+                  top: 4,
+                  child: FutureBuilder(
+                    future:
+                        cardController.shouldShowOfferActions(offer.businessId),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData) {
+                        return snapshot.data
+                            ? OfferQuickManageWidget(offer: offer)
+                            : const SizedBox.shrink();
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ),
+                ),
+              ]),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    offer.getTitle,
+                    style: textTheme.titleSmall,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis, // Adjust number of lines
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+                child: Row(
+                  children: [
+                    Flexible(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Visibility(
+                            visible:
+                                offer.discount != null && offer.discount != 0.0,
+                            child: Text(
+                              RegistrationUtils()
+                                  .doubleAsCurrency(offer.getPrice),
+                              style: textTheme.bodySmall?.copyWith(
+                                color: Theme.of(context).colorScheme.error,
+                                decoration: TextDecoration.lineThrough,
+                                fontSize: 10,
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),
-                          ],
-                        ),
-                        Visibility(
-                          visible:
-                              offer.discount != null && offer.discount != 0.0,
-                          child: Text(
-                            "-${offer.discountValue.toStringAsFixed(0)}% ",
-                            style: textTheme.labelSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 10,
-                              color: Colors.lightGreen,
+                          ),
+                          Text(
+                            RegistrationUtils().doubleAsCurrency(offer
+                                    .getPrice -
+                                ((offer.discount ?? 0) / 100 * offer.getPrice)),
+                            style: textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.w800,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  Visibility(
-                    visible: offer.availableQuantity != null,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 2.0),
+                    Visibility(
+                      visible: offer.discount != null && offer.discount != 0.0,
                       child: Text(
-                        "${offer.availableQuantity} disponíveis",
-                        style: textTheme.labelSmall,
+                        "-${offer.discountValue.toStringAsFixed(0)}% ",
+                        style: textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10,
+                          color: Colors.lightGreen,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Visibility(
+                visible: offer.availableQuantity != null,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 8.0, vertical: 2.0),
+                  child: Text(
+                    "${offer.availableQuantity} disponíveis",
+                    style: textTheme.labelSmall,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ],
-              );
-            },
+                ),
+              ),
+            ],
           ),
         ),
       ),

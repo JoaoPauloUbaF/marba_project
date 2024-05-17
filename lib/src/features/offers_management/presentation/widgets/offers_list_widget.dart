@@ -127,6 +127,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         ),
         crossAxisCount: 2,
         physics: const BouncingScrollPhysics(),
+        shrinkWrap: true,
       ),
     );
   }

@@ -16,89 +16,86 @@ class OrderingActionsWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cartViewModel = ref.watch(cartItemListViewModelProvider.notifier);
-    return Container(
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                offer.offerType == OfferType.product
-                    ? Expanded(
-                        child: TextButton.icon(
-                          style: TextButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.onPrimary,
-                          ),
-                          onPressed: () {
-                            cartViewModel.createNewItem(
-                              offer.id,
-                              offer.getTitle,
-                              offer.priceWithDiscount,
-                              offer.getImageUrl,
-                              offer.businessId,
-                              offer.offerType,
-                            );
-                            Navigator.pushNamed(context, '/shopping-cart');
-                          },
-                          icon: Icon(
-                            Icons.shopping_cart_sharp,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          label: Text(
-                            "Comprar\nagora",
-                            maxLines: 2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                          ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              offer.offerType == OfferType.product
+                  ? Expanded(
+                      child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
                         ),
-                      )
-                    : Expanded(
-                        child: TextButton.icon(
-                          style: TextButton.styleFrom(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.onPrimary,
-                          ),
-                          onPressed: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return const CalendarModalWidget();
-                                });
-                          },
-                          icon: Icon(
-                            Icons.calendar_month_sharp,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          label: Text(
-                            "Agendar\n horário",
-                            maxLines: 2,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary,
-                                ),
-                          ),
+                        onPressed: () {
+                          cartViewModel.createNewItem(
+                            offer.id,
+                            offer.getTitle,
+                            offer.priceWithDiscount,
+                            offer.getImageUrl,
+                            offer.businessId,
+                            offer.offerType,
+                          );
+                          Navigator.pushNamed(context, '/shopping-cart');
+                        },
+                        icon: Icon(
+                          Icons.shopping_cart_sharp,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                        label: Text(
+                          "Comprar\nagora",
+                          maxLines: 2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
                         ),
                       ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: AddToCartButtonWidget(offer: offer),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-          ],
-        ),
+                    )
+                  : Expanded(
+                      child: TextButton.icon(
+                        style: TextButton.styleFrom(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                        ),
+                        onPressed: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) {
+                                return const CalendarModalWidget();
+                              });
+                        },
+                        icon: Icon(
+                          Icons.calendar_month_sharp,
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
+                        label: Text(
+                          "Agendar\n horário",
+                          maxLines: 2,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
+                        ),
+                      ),
+                    ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: AddToCartButtonWidget(offer: offer),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+        ],
       ),
     );
   }
@@ -134,13 +131,13 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
   Widget build(BuildContext context) {
     final cartViewModel = ref.watch(cartItemListViewModelProvider.notifier);
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 700),
       curve: Curves.easeInOut,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
         color: _isAdded
-            ? Colors.lightGreen
-            : Theme.of(context).colorScheme.secondary,
+            ? Colors.lightGreen[700]
+            : Theme.of(context).colorScheme.primary,
       ),
       child: TextButton.icon(
         onPressed: () {

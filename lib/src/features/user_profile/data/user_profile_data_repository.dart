@@ -42,4 +42,12 @@ abstract class ProfileDataRepository {
   Future<List<String>> getSearchHistory({required String uid});
 
   Future<void> clearSearchHistory({required String uid});
+
+  Future<void> addFavoriteOfferId(
+      {required String uid, required String offerId});
+
+  Future<void> removeFavoriteOfferId(
+      {required String uid, required String offerId});
+
+  Future<Set<String>> getFavoriteOfferIds({required String uid});
 }

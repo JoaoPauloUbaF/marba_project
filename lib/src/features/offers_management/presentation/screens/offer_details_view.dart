@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
@@ -14,14 +15,14 @@ import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart
 import '../../application/offer_details/offer_details_view_model.dart';
 import '../widgets/offer_media_widget.dart';
 
-class OfferDetailsScreen extends ConsumerStatefulWidget {
-  const OfferDetailsScreen({super.key});
+class OfferDetailsView extends ConsumerStatefulWidget {
+  const OfferDetailsView({super.key});
 
   @override
-  ConsumerState<OfferDetailsScreen> createState() => OfferDetailsScreenState();
+  ConsumerState<OfferDetailsView> createState() => OfferDetailsScreenState();
 }
 
-class OfferDetailsScreenState extends ConsumerState<OfferDetailsScreen> {
+class OfferDetailsScreenState extends ConsumerState<OfferDetailsView> {
   @override
   Widget build(BuildContext context) {
     final offer = ref.watch(offerDetailsViewModelProvider);
@@ -85,11 +86,14 @@ class OfferBodyWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          color: Theme.of(context).colorScheme.secondaryContainer,
+          color: Theme.of(context).colorScheme.tertiaryContainer,
           child: Column(
             children: [
-              OfferMediaWidget(
-                items: mediaItems,
+              Hero(
+                tag: 'offerImage',
+                child: OfferMediaWidget(
+                  items: mediaItems,
+                ),
               ),
               OfferInfoWidget(offer: offer),
               OrderingActionsWidget(offer: offer),
@@ -104,7 +108,7 @@ class OfferBodyWidget extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Theme.of(context).colorScheme.secondaryContainer,
+                Theme.of(context).colorScheme.tertiaryContainer,
                 Theme.of(context).colorScheme.background,
               ],
             ),
@@ -112,6 +116,8 @@ class OfferBodyWidget extends StatelessWidget {
         ),
         OfferDescriptionWidget(offerDescription: offer.getDescription),
         Divider(
+          indent: 8,
+          endIndent: 8,
           color: Theme.of(context).colorScheme.onSecondaryContainer,
         ),
         Padding(
