@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_view_model.dart';
 
 class OfferActionsWidget extends ConsumerStatefulWidget {
-  //TODO: favorite offers feature
   //TODO: share feature
   //TODO: chat feature
   const OfferActionsWidget({

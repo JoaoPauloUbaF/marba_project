@@ -10,8 +10,8 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import '../../../../core/models/offer/offer_model.dart';
 import '../widgets/offer_category_selection_field_widget.dart'; // Import your offer model
 
-class EditOfferScreen extends ConsumerStatefulWidget {
-  const EditOfferScreen({
+class EditOfferView extends ConsumerStatefulWidget {
+  const EditOfferView({
     super.key,
   });
 
@@ -19,7 +19,7 @@ class EditOfferScreen extends ConsumerStatefulWidget {
   EditOfferScreenState createState() => EditOfferScreenState();
 }
 
-class EditOfferScreenState extends ConsumerState<EditOfferScreen> {
+class EditOfferScreenState extends ConsumerState<EditOfferView> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _availableQuantityController =

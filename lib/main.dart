@@ -7,12 +7,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:project_marba/src/features/feed/presentation/screens/home_screen.dart';
+import 'package:project_marba/src/features/home/presentation/views/home_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_home_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
-import 'package:project_marba/src/features/offers_management/presentation/screens/edit_offer_screen.dart';
+import 'package:project_marba/src/features/offers_management/presentation/views/edit_offer_view.dart';
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
-import 'package:project_marba/src/features/offers_management/presentation/screens/offer_details_view.dart';
+import 'package:project_marba/src/features/offers_management/presentation/views/offer_details_view.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
@@ -51,7 +51,7 @@ class MainApp extends ConsumerWidget {
       themeMode: ref.watch(darkModeProvider),
       initialRoute: '/home',
       routes: {
-        '/home': (context) => const HomeScreen(),
+        '/home': (context) => const HomeView(),
         '/sign-in': (context) => const SignIn(),
         '/profile': (context) => const AppProfileScreen(),
         '/profile-form': (context) => const ProfileFormScreen(),
@@ -59,7 +59,7 @@ class MainApp extends ConsumerWidget {
         '/business-list': (context) => const MyBusinessListScreen(),
         '/business-home': (context) => const MyBusinessHomeScreen(),
         '/business-profile': (context) => const BusinessProfileScreen(),
-        '/edit-offer': (context) => const EditOfferScreen(),
+        '/edit-offer': (context) => const EditOfferView(),
         '/offer-details': (context) => const OfferDetailsView(),
         '/shopping-cart': (context) => const ShoppingCartScreen(),
         '/checkout': (context) => const CheckoutView(),

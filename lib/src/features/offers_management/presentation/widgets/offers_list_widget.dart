@@ -125,7 +125,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
             offer: item,
           ),
         ),
-        crossAxisCount: 2,
+        crossAxisCount: MediaQuery.sizeOf(context).width > 600 ? 4 : 2,
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
       ),
