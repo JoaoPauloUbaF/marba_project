@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
@@ -14,59 +15,43 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
   FutureOr<void> build() {}
 
   String? validateName(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your name';
-    }
-    return null;
+    return ref.read(inputValidationProvider.notifier).validateName(value);
   }
 
   String? validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty || value.length < 11) {
-      return 'Please enter your phone number';
-    }
-    return null;
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validatePhoneNumber(value);
   }
 
   String? validateAddressStreet(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your address street';
-    }
-    return null;
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validateAddressStreet(value);
   }
 
   String? validateAddressNumber(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your address number';
-    }
-    return null;
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validateAddressNumber(value);
   }
 
   String? validateCity(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your city';
-    }
-    return null;
+    return ref.read(inputValidationProvider.notifier).validateCity(value);
   }
 
   String? validateState(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your state';
-    }
-    return null;
+    return ref.read(inputValidationProvider.notifier).validateState(value);
   }
 
   String? validateZipCode(String? value) {
-    if (value == null || value.isEmpty || value.length < 8) {
-      return 'Please enter your zip code';
-    }
-    return null;
+    return ref.read(inputValidationProvider.notifier).validateZipCode(value);
   }
 
   String? validateNeighborhood(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Please enter your neighborhood';
-    }
-    return null;
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validateNeighborhood(value);
   }
 
   Future<void> validateAndSubmitForm({
@@ -138,42 +123,5 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
 
   void onSubmit(BuildContext context) {
     Navigator.pushReplacementNamed(context, '/home');
-  }
-
-  List<DropdownMenuItem<String>> getStatesList() {
-    return <String>[
-      'AC',
-      'AL',
-      'AP',
-      'AM',
-      'BA',
-      'CE',
-      'DF',
-      'ES',
-      'GO',
-      'MA',
-      'MT',
-      'MS',
-      'MG',
-      'PA',
-      'PB',
-      'PR',
-      'PE',
-      'PI',
-      'RJ',
-      'RN',
-      'RS',
-      'RO',
-      'RR',
-      'SC',
-      'SP',
-      'SE',
-      'TO'
-    ].map<DropdownMenuItem<String>>((String value) {
-      return DropdownMenuItem<String>(
-        value: value,
-        child: Text(value),
-      );
-    }).toList();
   }
 }

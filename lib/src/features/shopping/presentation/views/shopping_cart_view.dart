@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
@@ -33,16 +34,24 @@ class ShoppingCartScreen extends ConsumerWidget {
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(16.0),
                               topRight: Radius.circular(16.0)),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const VerticalSpaceMediumWidget(),
-                              const ModalCenterTopLineWidget(),
-                              SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * .7,
-                                  child: const SearchView()),
-                            ],
+                          child: Container(
+                            color: Theme.of(context).colorScheme.surface,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const VerticalSpaceMediumWidget(),
+                                const ModalCenterTopLineWidget(),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child: SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .7,
+                                      child: const SearchView()),
+                                ),
+                              ],
+                            ),
                           ));
                     });
               },

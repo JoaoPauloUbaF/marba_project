@@ -25,7 +25,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     SearchView(),
     OffersFeedView(),
     UserOrdersView(),
-    SettingsScreen(shouldRenderAppBar: false),
+    SettingsScreen(),
     MyBusinessListScreen(),
   ];
 
@@ -51,10 +51,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
             ? Theme.of(context).colorScheme.primaryContainer
             : null,
         automaticallyImplyLeading: false,
-        title: Image.asset(
-          'assets/images/logo.png',
-          fit: BoxFit.cover,
-          scale: 3,
+        title: InkWell(
+          onTap: () {
+            _onItemTapped(1);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset(
+              'assets/images/logo.png',
+              fit: BoxFit.cover,
+              scale: 3,
+            ),
+          ),
         ),
         leading: isWideScreen
             ? Builder(builder: (context) {

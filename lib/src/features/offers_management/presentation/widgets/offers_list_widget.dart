@@ -101,33 +101,36 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
       onRefresh: () => Future.sync(
         () => _pagingController.refresh(),
       ),
-      child: PagedMasonryGridView.count(
-        pagingController: _pagingController,
-        builderDelegate: PagedChildBuilderDelegate<OfferModel>(
-          animateTransitions: true,
-          transitionDuration: const Duration(milliseconds: 1),
-          newPageProgressIndicatorBuilder: (context) => const Center(
-            child: Padding(
-              padding: EdgeInsets.all(40.0),
-              child: CircularProgressIndicator(),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: PagedMasonryGridView.count(
+          pagingController: _pagingController,
+          builderDelegate: PagedChildBuilderDelegate<OfferModel>(
+            animateTransitions: true,
+            transitionDuration: const Duration(milliseconds: 1),
+            newPageProgressIndicatorBuilder: (context) => const Center(
+              child: Padding(
+                padding: EdgeInsets.all(40.0),
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            newPageErrorIndicatorBuilder: (context) => const Center(
+              child: Text('Erro ao carregar novas ofertas'),
+            ),
+            firstPageErrorIndicatorBuilder: (context) => const Center(
+              child: Text('Erro ao carregar ofertas'),
+            ),
+            noItemsFoundIndicatorBuilder: (context) => const Center(
+              child: Text('Nenhuma oferta encontrada'),
+            ),
+            itemBuilder: (context, item, index) => OfferCardWidget(
+              offer: item,
             ),
           ),
-          newPageErrorIndicatorBuilder: (context) => const Center(
-            child: Text('Erro ao carregar novas ofertas'),
-          ),
-          firstPageErrorIndicatorBuilder: (context) => const Center(
-            child: Text('Erro ao carregar ofertas'),
-          ),
-          noItemsFoundIndicatorBuilder: (context) => const Center(
-            child: Text('Nenhuma oferta encontrada'),
-          ),
-          itemBuilder: (context, item, index) => OfferCardWidget(
-            offer: item,
-          ),
+          crossAxisCount: MediaQuery.sizeOf(context).width > 600 ? 4 : 2,
+          physics: const BouncingScrollPhysics(),
+          shrinkWrap: true,
         ),
-        crossAxisCount: MediaQuery.sizeOf(context).width > 600 ? 4 : 2,
-        physics: const BouncingScrollPhysics(),
-        shrinkWrap: true,
       ),
     );
   }

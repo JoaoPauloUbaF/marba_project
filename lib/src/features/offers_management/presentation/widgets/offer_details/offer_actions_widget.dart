@@ -4,7 +4,6 @@ import 'package:project_marba/src/features/offers_management/application/offer_d
 
 class OfferActionsWidget extends ConsumerStatefulWidget {
   //TODO: share feature
-  //TODO: chat feature
   const OfferActionsWidget({
     super.key,
   });
@@ -48,16 +47,7 @@ class _OfferActionsWidgetState extends ConsumerState<OfferActionsWidget> {
           visualDensity: VisualDensity.compact,
           icon: Icon(
             Icons.share_outlined,
-            color: Theme.of(context).colorScheme.error,
-            size: 20,
-          ),
-          onPressed: () {},
-        ),
-        IconButton(
-          visualDensity: VisualDensity.compact,
-          icon: Icon(
-            Icons.chat_outlined,
-            color: Theme.of(context).colorScheme.error,
+            color: Theme.of(context).colorScheme.onPrimaryContainer,
             size: 20,
           ),
           onPressed: () {},

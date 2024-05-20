@@ -46,7 +46,7 @@ class MainApp extends ConsumerWidget {
       themeAnimationDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       title: 'Onktem', //Onktem
-      theme: MaterialTheme(GoogleFonts.robotoSlabTextTheme()).light(),
+      theme: MaterialTheme(GoogleFonts.robotoCondensedTextTheme()).light(),
       darkTheme: MaterialTheme(GoogleFonts.robotoCondensedTextTheme()).dark(),
       themeMode: ref.watch(darkModeProvider),
       initialRoute: '/home',

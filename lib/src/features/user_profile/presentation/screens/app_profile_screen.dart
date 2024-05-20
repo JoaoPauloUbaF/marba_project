@@ -47,6 +47,9 @@ class AppProfileScreen extends ConsumerWidget {
               return const Text(
                   'Parece que houve um erro, tente novamente mais tarde.');
             } else {
+              if (snapshot.data == null) {
+                return const Text('Nenhum endereço encontrado.');
+              }
               return AddressDisplayWidget(
                   address: snapshot.data!,
                   isBusinessAddress: false,
