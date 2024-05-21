@@ -14,10 +14,14 @@ class HomeScreenController extends _$HomeScreenController {
   }
 
   Future<bool?> hasBusiness() async {
+    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    if (user == null) {
+      return false;
+    }
+
     final hasBusiness = await ref
         .read(userProfileDataProvider)
-        .getOwnedBusinessIds(
-            uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid);
+        .getOwnedBusinessIds(uid: user.uid);
     return hasBusiness.isNotEmpty;
   }
 

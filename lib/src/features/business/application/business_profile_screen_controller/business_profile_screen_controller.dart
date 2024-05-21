@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -110,24 +109,6 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
           child: state?.imageUrl != null
               ? Image(
                   width: width,
-                  frameBuilder: (BuildContext context, Widget child, int? frame,
-                      bool wasSynchronouslyLoaded) {
-                    if (wasSynchronouslyLoaded) {
-                      return child;
-                    }
-                    return AnimatedOpacity(
-                      opacity: frame == null ? 0 : 1,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.easeOut,
-                      child: child,
-                    );
-                  },
-                  errorBuilder: (BuildContext context, Object error,
-                      StackTrace? stackTrace) {
-                    return const UserAvatar(
-                      size: 200,
-                    );
-                  },
                   loadingBuilder: (context, child, loadingProgress) =>
                       loadingProgress == null
                           ? child

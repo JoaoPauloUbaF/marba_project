@@ -78,6 +78,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
       final businessIds = data['ownedBusinessIds'];
+      if (businessIds == null) {
+        return [];
+      }
       return businessIds.cast<String>();
     } else {
       return [];
