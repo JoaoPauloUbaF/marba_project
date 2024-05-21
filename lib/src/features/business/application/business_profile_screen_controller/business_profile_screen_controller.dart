@@ -16,6 +16,8 @@ import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../presentation/widgets/business_modal_body/business_modal_body_widget.dart';
+
 part 'business_profile_screen_controller.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -288,6 +290,22 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
       builder: (context) => EditBusinessCategoriesDialogWidget(
         businessCategories: businessCategories,
       ),
+    );
+  }
+
+  onBusinessDetailsTap(
+    BuildContext context,
+    BusinessModel business,
+  ) {
+    setSelectedBusiness(business);
+    showModalBottomSheet(
+      scrollControlDisabledMaxHeightRatio: .9,
+      context: context,
+      builder: (BuildContext context) {
+        return BusinessDetailsModalBodyWidget(
+          businessName: business.name,
+        );
+      },
     );
   }
 }

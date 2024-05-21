@@ -30,7 +30,8 @@ class BusinessProfileImageWidget extends ConsumerWidget {
                 height: MediaQuery.of(context).size.height,
               ),
               builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
                   return snapshot.data!;
                 } else {
                   return const LoadingWidget();

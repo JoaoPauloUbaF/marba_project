@@ -72,8 +72,7 @@ class MainApp extends ConsumerWidget {
         FirebaseUILocalizations.delegate,
       ],
       supportedLocales: const [
-        Locale('pt', 'BR'), // Português Brasil
-        // Adicione outros idiomas que você deseja suportar
+        Locale('pt', 'BR'),
       ],
     );
   }

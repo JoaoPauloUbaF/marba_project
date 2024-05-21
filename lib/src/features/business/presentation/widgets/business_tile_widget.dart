@@ -16,38 +16,19 @@ class BusinessTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final businessProfileViewModel =
+        ref.read(businessProfileViewModelProvider.notifier);
     return FutureBuilder(
       future: ref
           .read(businessProfileDataProvider)
           .getBusinessProfileData(uid: businessId),
       builder: (BuildContext context, AsyncSnapshot<BusinessModel?> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data != null) {
           return InkWell(
             onTap: () {
-              ref
-                  .read(businessProfileViewModelProvider.notifier)
-                  .setSelectedBusiness(snapshot.data!);
-              showModalBottomSheet(
-                scrollControlDisabledMaxHeightRatio: .9,
-                context: context,
-                builder: (BuildContext context) {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.9,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      child: Scaffold(
-                        body: const BusinessProfileScreen(),
-                        appBar: AppBar(
-                          title: Text(snapshot.data?.name ?? ''),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              if (snapshot.data == null) return;
+              businessProfileViewModel.onBusinessDetailsTap(
+                  context, snapshot.data!);
             },
             child: Card(
               child: Padding(

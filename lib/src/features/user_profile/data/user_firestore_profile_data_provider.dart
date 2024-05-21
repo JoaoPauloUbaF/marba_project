@@ -65,11 +65,6 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
             ?.map<Address>((address) => Address.fromJson(address))
             .toList(),
         isBusinessOwner: false,
-        ownedBusinessIds:
-            data['ownedBusinessIds']?.cast<String>()?.toSet() ?? [],
-        favoriteOfferIds:
-            data['favoriteOfferIds']?.cast<String>()?.toSet() ?? [],
-        searchHistory: data['searchHistory']?.cast<String>(),
       );
     } else {
       return null;

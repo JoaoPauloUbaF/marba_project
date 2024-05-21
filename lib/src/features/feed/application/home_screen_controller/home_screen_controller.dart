@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -18,5 +19,17 @@ class HomeScreenController extends _$HomeScreenController {
         .getOwnedBusinessIds(
             uid: ref.read(authRepositoryProvider).getCurrentUser()!.uid);
     return hasBusiness.isNotEmpty;
+  }
+
+  void isUserRegistrationComplete(BuildContext context) async {
+    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    if (user == null) {
+      return null;
+    }
+    await ref.read(authRepositoryProvider).checkUserRegistration(user.uid).then(
+        (value) => value
+            ? null
+            : Navigator.pushNamedAndRemoveUntil(
+                context, '/profile-form', (route) => false));
   }
 }

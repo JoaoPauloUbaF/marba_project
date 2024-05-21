@@ -40,6 +40,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     final controller = ref.read(homeScreenControllerProvider.notifier);
     final _ = ref.watch(authStateChangeProvider);
     ref.watch(currentUserProvider);
+    controller.isUserRegistrationComplete(context);
 
     final isWideScreen = MediaQuery.of(context).size.width > 600;
 

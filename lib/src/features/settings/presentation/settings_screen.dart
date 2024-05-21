@@ -30,6 +30,11 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () {},
           ),
           ListTile(
+            leading: const Icon(Icons.business_center),
+            title: const Text('Quero criar um Negócio'),
+            onTap: () {},
+          ),
+          ListTile(
             leading: const Icon(Icons.info),
             title: const Text('Sobre'),
             onTap: () {},
