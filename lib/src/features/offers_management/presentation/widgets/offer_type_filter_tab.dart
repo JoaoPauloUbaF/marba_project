@@ -26,8 +26,8 @@ class OfferTypeFilterTab extends StatelessWidget {
           icon: Icon(
             icon,
             color: isSelected
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.primary.withAlpha(100),
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).colorScheme.secondary.withAlpha(100),
           ),
           text: text,
         ),

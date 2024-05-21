@@ -31,6 +31,7 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsView> {
 
     final selectedBusiness = ref.watch(businessProfileViewModelProvider);
     final businessName = selectedBusiness?.name ?? '';
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -85,7 +86,7 @@ class OfferBodyWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          color: Theme.of(context).colorScheme.tertiaryContainer,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           child: Column(
             children: [
               Hero(
@@ -107,7 +108,7 @@ class OfferBodyWidget extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Theme.of(context).colorScheme.tertiaryContainer,
+                Theme.of(context).colorScheme.secondaryContainer,
                 Theme.of(context).colorScheme.background,
               ],
             ),

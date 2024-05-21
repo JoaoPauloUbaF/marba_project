@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_title_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_price_widget.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
 import '../../../../core/utils/registration_utils.dart';
@@ -23,7 +25,7 @@ class HotOffersWidget extends ConsumerWidget {
           autoPlay: true,
           autoPlayAnimationDuration: const Duration(seconds: 2),
           autoPlayInterval: const Duration(seconds: 3),
-          aspectRatio: 2.0,
+          height: MediaQuery.of(context).size.height * 0.3,
         ),
       ),
       loading: () => const LoadingWidget(),
@@ -51,7 +53,6 @@ class HotOfferCardWidget extends ConsumerWidget {
             ),
           ),
       child: Card(
-        // make it better looking
         color: Theme.of(context).colorScheme.tertiary,
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Center(
@@ -72,34 +73,14 @@ class HotOfferCardWidget extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    color: Theme.of(context)
-                        .colorScheme
-                        .background
-                        .withOpacity(0.7),
-                    padding: const EdgeInsets.all(8),
+                    color:
+                        Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          offer.getTitle,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                fontWeight: FontWeight.w600,
-                              ),
-                        ),
-                        Text(
-                          RegistrationUtils().doubleAsCurrency(offer.getPrice),
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleLarge
-                              ?.copyWith(
-                                  color: Theme.of(context).colorScheme.primary,
-                                  fontWeight: FontWeight.bold),
-                        ),
+                        OfferTitleWidget(offer: offer, fontSize: 18),
+                        OfferPriceWidget(offer: offer, fontSize: 14),
                       ],
                     ),
                   ),

@@ -61,7 +61,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
             child: Image.asset(
               'assets/images/logo.png',
               fit: BoxFit.cover,
-              scale: 3,
+              scale: 4,
             ),
           ),
         ),
@@ -82,16 +82,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
             onPressed: () {
               Navigator.pushNamed(context, '/shopping-cart');
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.shopping_cart_sharp,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           IconButton(
             padding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.chat_sharp,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
           const ThemeSwitchWidget(),

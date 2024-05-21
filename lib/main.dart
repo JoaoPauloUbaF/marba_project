@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -41,13 +40,16 @@ class MainApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    TextTheme textTheme =
+        createTextTheme(context, "Roboto", "Roboto Condensed");
+
     return MaterialApp(
       themeAnimationCurve: Curves.easeInOut,
       themeAnimationDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       title: 'Onktem', //Onktem
-      theme: MaterialTheme(GoogleFonts.robotoCondensedTextTheme()).light(),
-      darkTheme: MaterialTheme(GoogleFonts.robotoCondensedTextTheme()).dark(),
+      theme: MaterialTheme(textTheme).light(),
+      darkTheme: MaterialTheme(textTheme).dark(),
       themeMode: ref.watch(darkModeProvider),
       initialRoute: '/home',
       routes: {

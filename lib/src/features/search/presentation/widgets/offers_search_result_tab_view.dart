@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_card_widget.dart';
 
 import '../../application/query_offers_result_provider/query_offers_result_provider.dart';
 

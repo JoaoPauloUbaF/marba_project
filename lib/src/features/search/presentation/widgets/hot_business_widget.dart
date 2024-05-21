@@ -83,7 +83,7 @@ class HotBusinessCardWidget extends ConsumerWidget {
                 left: 0,
                 child: Container(
                   color:
-                      Theme.of(context).colorScheme.background.withOpacity(0.7),
+                      Theme.of(context).colorScheme.secondary.withOpacity(0.7),
                   padding: const EdgeInsets.all(4.0),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
@@ -91,11 +91,16 @@ class HotBusinessCardWidget extends ConsumerWidget {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
-                        child: Text(
-                          business.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
+                        child: Text(business.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onSecondary,
+                                  fontWeight: FontWeight.bold,
+                                )),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.75,
@@ -106,7 +111,13 @@ class HotBusinessCardWidget extends ConsumerWidget {
                                   .getBusinessCategoryTranslation(category))
                               .join(', '),
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                color:
+                                    Theme.of(context).colorScheme.onSecondary,
+                              ),
                         ),
                       ),
                     ],

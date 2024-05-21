@@ -26,7 +26,7 @@ class ShoppingCartScreen extends ConsumerWidget {
               icon: const Icon(Icons.search_sharp),
               onPressed: () {
                 showModalBottomSheet(
-                    scrollControlDisabledMaxHeightRatio: .8,
+                    scrollControlDisabledMaxHeightRatio: .9,
                     context: context,
                     builder: (context) {
                       return ClipRRect(
@@ -46,7 +46,7 @@ class ShoppingCartScreen extends ConsumerWidget {
                                   child: SizedBox(
                                       height:
                                           MediaQuery.of(context).size.height *
-                                              .7,
+                                              .8,
                                       child: const SearchView()),
                                 ),
                               ],

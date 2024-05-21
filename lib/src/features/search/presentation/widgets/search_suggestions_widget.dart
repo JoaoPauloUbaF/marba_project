@@ -52,7 +52,7 @@ class _SearchingSuggestionsWidgetState
                 ],
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: suggestions.length,
