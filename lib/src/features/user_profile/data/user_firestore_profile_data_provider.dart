@@ -139,9 +139,14 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     return _usersCollection.doc(uid).snapshots().map((doc) {
       if (doc.exists) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return data['deliveryAddresses']
+        final deliveryAddresses = data['deliveryAddresses']
             ?.map<Address>((address) => Address.fromJson(address))
             .toList();
+        if (deliveryAddresses != null) {
+          return deliveryAddresses;
+        } else {
+          return [];
+        }
       } else {
         return [];
       }
