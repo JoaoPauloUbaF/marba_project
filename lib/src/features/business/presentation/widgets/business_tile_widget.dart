@@ -4,8 +4,6 @@ import 'package:project_marba/src/features/business/application/business_profile
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 
-import '../screens/business_profile_screen.dart';
-
 class BusinessTileWidget extends ConsumerWidget {
   const BusinessTileWidget({
     super.key,
@@ -16,38 +14,20 @@ class BusinessTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final businessProfileViewModel =
+        ref.read(businessProfileViewModelProvider.notifier);
     return FutureBuilder(
       future: ref
           .read(businessProfileDataProvider)
           .getBusinessProfileData(uid: businessId),
       builder: (BuildContext context, AsyncSnapshot<BusinessModel?> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData && snapshot.data != null) {
+          final business = snapshot.data;
+          if (business == null) return const SizedBox.shrink();
           return InkWell(
             onTap: () {
-              ref
-                  .read(businessProfileViewModelProvider.notifier)
-                  .setSelectedBusiness(snapshot.data!);
-              showModalBottomSheet(
-                scrollControlDisabledMaxHeightRatio: .9,
-                context: context,
-                builder: (BuildContext context) {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.9,
-                    child: ClipRRect(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      child: Scaffold(
-                        body: const BusinessProfileScreen(),
-                        appBar: AppBar(
-                          title: Text(snapshot.data?.name ?? ''),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              );
+              if (snapshot.data == null) return;
+              businessProfileViewModel.onBusinessDetailsTap(context, business);
             },
             child: Card(
               child: Padding(
@@ -56,14 +36,15 @@ class BusinessTileWidget extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(snapshot.data!.imageUrl!),
+                      backgroundImage: NetworkImage(business.imageUrl ??
+                          'https://via.placeholder.com/150'),
                     ),
                     const SizedBox(width: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          snapshot.data!.name,
+                          business.name,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         Row(
@@ -73,7 +54,7 @@ class BusinessTileWidget extends ConsumerWidget {
                               size: 12,
                             ),
                             Text(
-                              '${snapshot.data!.address.city}, ${snapshot.data!.address.state}',
+                              '${business.address.city}, ${business.address.state}',
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],
@@ -85,7 +66,7 @@ class BusinessTileWidget extends ConsumerWidget {
                               size: 12,
                             ),
                             Text(
-                              snapshot.data!.phoneNumber,
+                              business.phoneNumber,
                               style: Theme.of(context).textTheme.bodySmall,
                             ),
                           ],

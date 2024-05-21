@@ -7,7 +7,7 @@ part of 'user_orders_view_model.dart';
 // **************************************************************************
 
 String _$userOrdersViewModelHash() =>
-    r'b7b031b6e54f333247fa38f803da4e020afcd331';
+    r'd95fb39ab24da726b66926f17fadbdc19457b590';
 
 /// See also [UserOrdersViewModel].
 @ProviderFor(UserOrdersViewModel)

@@ -7,6 +7,8 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:intl/intl.dart';
 import 'package:project_marba/src/core/models/order/order_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
+import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/orders/application/user_orders_view_model/user_orders_view_model.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
 
@@ -34,7 +36,7 @@ class _UserOrdersViewState extends ConsumerState<UserOrdersView> {
   Future<void> _fetchPage(int pageKey) async {
     try {
       final newItems =
-          await ref.read(userOrdersViewModelProvider.notifier).fetchNewOffers(
+          await ref.read(userOrdersViewModelProvider.notifier).fetchUserOrders(
                 lastOrderId: _pagingController.itemList?.last.id ?? '',
               );
 
@@ -60,37 +62,54 @@ class _UserOrdersViewState extends ConsumerState<UserOrdersView> {
   @override
   Widget build(BuildContext context) {
     final userOrders = ref.watch(userOrdersViewModelProvider);
+    final currentUser = ref.read(authRepositoryProvider).getCurrentUser();
     userOrders.whenData(
       (value) => _pagingController.refresh(),
     );
-    return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () => Future.sync(
-          () => _pagingController.refresh(),
-        ),
-        child: PagedListView(
-          pagingController: _pagingController,
-          builderDelegate: PagedChildBuilderDelegate<OrderModel>(
-            firstPageErrorIndicatorBuilder: (context) => const Center(
-              child: Text(
-                  'Houve um erro ao carregar os pedidos. Tente novamente.'),
+    return Container(
+      child: currentUser == null
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Acesse sua conta para ver seus pedidos.',
+                      style: Theme.of(context).textTheme.titleMedium),
+                  const VerticalSpaceMediumWidget(),
+                  ElevatedButton(
+                      onPressed: () =>
+                          Navigator.of(context).pushNamed('/sign-in'),
+                      child: const Text('Login')),
+                ],
+              ),
+            )
+          : RefreshIndicator(
+              onRefresh: () => Future.sync(
+                () => _pagingController.refresh(),
+              ),
+              child: PagedListView(
+                pagingController: _pagingController,
+                builderDelegate: PagedChildBuilderDelegate<OrderModel>(
+                  firstPageErrorIndicatorBuilder: (context) => const Center(
+                    child: Text(
+                        'Houve um erro ao carregar os pedidos. Tente novamente.'),
+                  ),
+                  noItemsFoundIndicatorBuilder: (context) => const Center(
+                    child: Text('Nenhum pedido encontrado.'),
+                  ),
+                  newPageErrorIndicatorBuilder: (context) => const Center(
+                    child: Text(
+                        'Houve um erro ao carregar mais pedidos. Tente novamente.'),
+                  ),
+                  itemBuilder: (context, order, index) {
+                    return UserOrderItemWidget(
+                      ref: ref,
+                      order: order,
+                    );
+                  },
+                ),
+              ),
             ),
-            noItemsFoundIndicatorBuilder: (context) => const Center(
-              child: Text('Nenhum pedido encontrado.'),
-            ),
-            newPageErrorIndicatorBuilder: (context) => const Center(
-              child: Text(
-                  'Houve um erro ao carregar mais pedidos. Tente novamente.'),
-            ),
-            itemBuilder: (context, order, index) {
-              return UserOrderItemWidget(
-                ref: ref,
-                order: order,
-              );
-            },
-          ),
-        ),
-      ),
     );
   }
 }

@@ -1,4 +1,6 @@
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
+import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
@@ -52,6 +54,42 @@ class OfferDetailsViewModel extends _$OfferDetailsViewModel {
                 .then((value) => state = value),
           );
     }
+  }
+
+  Future<void> addOfferToUserFavorites() async {
+    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    if (user == null || state == null) return;
+    ref.read(userProfileDataProvider).addFavoriteOfferId(
+          uid: user.uid,
+          offerId: state?.id ?? '',
+        );
+  }
+
+  Future<void> removeOfferFromUserFavorites() async {
+    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    if (user == null || state == null) return;
+    ref.read(userProfileDataProvider).removeFavoriteOfferId(
+          uid: user.uid,
+          offerId: state?.id ?? '',
+        );
+  }
+
+  Future<void> onFavoriteOfferPressed() async {
+    final isFavorite = await isFavoriteOffer();
+    if (isFavorite) {
+      await removeOfferFromUserFavorites();
+    } else {
+      await addOfferToUserFavorites();
+    }
+  }
+
+  Future<bool> isFavoriteOffer() async {
+    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    if (user == null || state == null) return false;
+    final favoriteOfferIds = await ref
+        .read(userProfileDataProvider)
+        .getFavoriteOfferIds(uid: user.uid);
+    return favoriteOfferIds.contains(state?.id);
   }
 }
 

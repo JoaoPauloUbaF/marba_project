@@ -96,8 +96,9 @@ class CartItemListViewModel extends _$CartItemListViewModel {
         state[state.indexOf(item)] = updatedItem;
         refreshState();
       } else {
+        if (context == null) return;
         showDialog(
-          context: context!,
+          context: context,
           builder: (context) => AlertDialog(
             title: Center(
               child: Text('Quantidade indisponível',

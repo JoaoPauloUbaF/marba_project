@@ -78,6 +78,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
       final businessIds = data['ownedBusinessIds'];
+      if (businessIds == null) {
+        return [];
+      }
       return businessIds.cast<String>();
     } else {
       return [];
@@ -136,9 +139,14 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     return _usersCollection.doc(uid).snapshots().map((doc) {
       if (doc.exists) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        return data['deliveryAddresses']
+        final deliveryAddresses = data['deliveryAddresses']
             ?.map<Address>((address) => Address.fromJson(address))
             .toList();
+        if (deliveryAddresses != null) {
+          return deliveryAddresses;
+        } else {
+          return [];
+        }
       } else {
         return [];
       }
@@ -161,5 +169,32 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     return await _usersCollection.doc(uid).update({
       'searchHistory': FieldValue.delete(),
     });
+  }
+
+  @override
+  Future<void> addFavoriteOfferId(
+      {required String uid, required String offerId}) {
+    return _usersCollection.doc(uid).update({
+      'favoriteOfferIds': FieldValue.arrayUnion([offerId]),
+    });
+  }
+
+  @override
+  Future<void> removeFavoriteOfferId(
+      {required String uid, required String offerId}) {
+    return _usersCollection.doc(uid).update({
+      'favoriteOfferIds': FieldValue.arrayRemove([offerId]),
+    });
+  }
+
+  @override
+  Future<Set<String>> getFavoriteOfferIds({required String uid}) async {
+    DocumentSnapshot doc = await _usersCollection.doc(uid).get();
+    if (doc.exists) {
+      Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+      return data['favoriteOfferIds']?.cast<String>()?.toSet() ?? {};
+    } else {
+      return {};
+    }
   }
 }

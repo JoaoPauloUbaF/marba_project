@@ -14,7 +14,8 @@ class UserOrdersViewModel extends _$UserOrdersViewModel {
         .getUserOrders(lastOrderId: null);
   }
 
-  Future<List<OrderModel>> fetchNewOffers({required String lastOrderId}) async {
+  Future<List<OrderModel>> fetchUserOrders(
+      {required String lastOrderId}) async {
     final newOrders = ref
         .read(userOrdersRepositoryProvider)
         .getUserOrders(lastOrderId: lastOrderId);

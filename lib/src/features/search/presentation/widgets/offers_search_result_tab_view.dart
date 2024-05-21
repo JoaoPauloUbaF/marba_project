@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_card_widget.dart';
 
 import '../../application/query_offers_result_provider/query_offers_result_provider.dart';
 
@@ -60,20 +60,6 @@ class _OffersSearchResultTabViewState
       error: (error, stackTrace) {
         return Center(
           child: Text('Error: $error'),
-        );
-      },
-    );
-    return GridView.builder(
-      controller: _scrollController,
-      itemCount: 20,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: Center(
-            child: Text('Item $index'),
-          ),
         );
       },
     );

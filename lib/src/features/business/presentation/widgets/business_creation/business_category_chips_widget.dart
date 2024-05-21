@@ -42,8 +42,13 @@ class BusinessCategoryChipsWidgetState
                 labelPadding: EdgeInsets.zero,
                 label: Text(
                   translatedCategory,
-                  style: const TextStyle(fontSize: 10),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: 10,
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.onTertiary
+                          : Theme.of(context).colorScheme.tertiary),
                 ),
+                checkmarkColor: Theme.of(context).colorScheme.onTertiary,
                 selected: isSelected,
                 onSelected: (bool selected) {
                   setState(
@@ -57,7 +62,7 @@ class BusinessCategoryChipsWidgetState
                     },
                   );
                 },
-                selectedColor: Theme.of(context).colorScheme.tertiaryContainer,
+                selectedColor: Theme.of(context).colorScheme.tertiary,
               );
             },
           ).toList(),
@@ -76,15 +81,20 @@ class BusinessCategoryChipsWidgetState
             (category) {
               bool isSelected = widget.selectedCategories.contains(category);
               String categoryName = category.toString().split('.').last;
-              // Traduzir e capitalizar a categoria
               String translatedCategory =
                   translations[category] ?? categoryName;
               return ChoiceChip(
                 labelPadding: EdgeInsets.zero,
                 label: Text(
                   translatedCategory,
-                  style: const TextStyle(fontSize: 10),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontSize: 10,
+                        color: isSelected
+                            ? Theme.of(context).colorScheme.onTertiary
+                            : Theme.of(context).colorScheme.tertiary,
+                      ),
                 ),
+                checkmarkColor: Theme.of(context).colorScheme.onTertiary,
                 selected: isSelected,
                 onSelected: (bool selected) {
                   setState(
@@ -98,7 +108,7 @@ class BusinessCategoryChipsWidgetState
                     },
                   );
                 },
-                selectedColor: Theme.of(context).colorScheme.onPrimary,
+                selectedColor: Theme.of(context).colorScheme.tertiary,
               );
             },
           ).toList(),

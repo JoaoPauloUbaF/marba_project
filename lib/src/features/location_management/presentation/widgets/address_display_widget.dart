@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 import '../../../../core/models/address/address.dart';
 import '../../application/address_view_model/address_view_model.dart';
@@ -40,7 +41,8 @@ class AddressDisplayWidget extends ConsumerWidget {
         trailing: IconButton(
           padding: EdgeInsets.zero,
           onPressed: () => {
-            //TODO: Implementar ação de abrir o mapa
+            MapsLauncher.launchQuery(
+                '${address.street}, ${address.number}, ${address.city}')
           },
           icon: const Icon(Icons.directions_sharp, size: 30.0),
         ),

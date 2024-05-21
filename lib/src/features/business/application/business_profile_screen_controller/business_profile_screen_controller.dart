@@ -1,18 +1,21 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project_marba/src/core/models/business/enums.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/edit_business_categories_dialog_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../presentation/widgets/business_modal_body/business_modal_body_widget.dart';
 
 part 'business_profile_screen_controller.g.dart';
 
@@ -106,24 +109,6 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
           child: state?.imageUrl != null
               ? Image(
                   width: width,
-                  frameBuilder: (BuildContext context, Widget child, int? frame,
-                      bool wasSynchronouslyLoaded) {
-                    if (wasSynchronouslyLoaded) {
-                      return child;
-                    }
-                    return AnimatedOpacity(
-                      opacity: frame == null ? 0 : 1,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.easeOut,
-                      child: child,
-                    );
-                  },
-                  errorBuilder: (BuildContext context, Object error,
-                      StackTrace? stackTrace) {
-                    return const UserAvatar(
-                      size: 200,
-                    );
-                  },
                   loadingBuilder: (context, child, loadingProgress) =>
                       loadingProgress == null
                           ? child
@@ -263,6 +248,46 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
           address: address,
         )
         .then((value) => fetchBusinessProfile());
+  }
+
+  Future<void> updateBusinessCategories(
+      {required Set<BusinessCategory> categories}) async {
+    ref
+        .read(businessProfileDataProvider)
+        .updateBusinessCategory(
+          uid: state?.id ?? '',
+          businessCategory: categories.toList(),
+        )
+        .then((value) => fetchBusinessProfile());
+  }
+
+  Future<dynamic> showUpdateCategoriesDialog(
+    BuildContext context,
+  ) {
+    final businessCategories = state?.categories;
+
+    return showDialog(
+      context: context,
+      builder: (context) => EditBusinessCategoriesDialogWidget(
+        businessCategories: businessCategories,
+      ),
+    );
+  }
+
+  onBusinessDetailsTap(
+    BuildContext context,
+    BusinessModel business,
+  ) {
+    setSelectedBusiness(business);
+    showModalBottomSheet(
+      scrollControlDisabledMaxHeightRatio: .9,
+      context: context,
+      builder: (BuildContext context) {
+        return BusinessDetailsModalBodyWidget(
+          businessName: business.name,
+        );
+      },
+    );
   }
 }
 
