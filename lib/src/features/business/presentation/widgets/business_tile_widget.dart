@@ -4,8 +4,6 @@ import 'package:project_marba/src/features/business/application/business_profile
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 
-import '../screens/business_profile_screen.dart';
-
 class BusinessTileWidget extends ConsumerWidget {
   const BusinessTileWidget({
     super.key,

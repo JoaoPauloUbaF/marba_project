@@ -11,7 +11,6 @@ import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/orders/application/user_orders_view_model/user_orders_view_model.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
-import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 
 import '../../application/order_view_model/order_view_model.dart';
 
