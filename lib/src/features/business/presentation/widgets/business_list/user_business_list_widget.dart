@@ -23,44 +23,50 @@ class UserBusinessListWidget extends ConsumerWidget {
       },
       child: businessListProvider.when(
         data: (businessList) {
-          return ListView.separated(
+          return GridView.builder(
             itemCount: businessList.length,
             itemBuilder: (context, index) {
               final business = businessList[index];
               return Padding(
                 padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
-                child: ListTile(
-                  title: Text(business?.name ?? ''),
-                  onTap: () => myBusinessListController.onTapBusiness(
-                    business: business!,
-                    context: context,
-                  ),
-                  subtitle: Text(
-                      "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
-                  trailing: IconButton(
-                    icon: Icon(
-                      Icons.delete,
-                      color: Theme.of(context).colorScheme.secondary,
+                child: Card(
+                  child: ListTile(
+                    title: Text(business?.name ?? ''),
+                    onTap: () => myBusinessListController.onTapBusiness(
+                      business: business!,
+                      context: context,
                     ),
-                    onPressed: () => {
-                      myBusinessListController
-                          .showDeleteBusinessConfirmationDialog(
-                        context,
-                        businessId: business?.id ?? '',
+                    subtitle: Text(
+                        "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).colorScheme.error,
                       ),
-                    },
+                      onPressed: () => {
+                        myBusinessListController
+                            .showDeleteBusinessConfirmationDialog(
+                          context,
+                          businessId: business?.id ?? '',
+                        ),
+                      },
+                    ),
                   ),
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Divider(
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                ),
-              );
-            },
+            // separatorBuilder: (BuildContext context, int index) {
+            //   return Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            //     child: Divider(
+            //       color: Theme.of(context).colorScheme.tertiary,
+            //     ),
+            //   );
+            // },
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
+              childAspectRatio: 4,
+            ),
           );
         },
         loading: () => const Center(
