@@ -18,7 +18,9 @@ class OfferAvailableQuantityWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
         child: Text(
           "${offer.availableQuantity} disponíveis",
-          style: textTheme.labelSmall,
+          style: textTheme.labelSmall?.copyWith(
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
           overflow: TextOverflow.ellipsis,
         ),
       ),

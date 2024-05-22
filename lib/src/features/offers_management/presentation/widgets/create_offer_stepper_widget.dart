@@ -219,7 +219,7 @@ class CreateOfferStepperWidgetState
                   (value) {
                     setState(
                       () {
-                        _offerMedia = value;
+                        _offerMedia.addAll(value);
                       },
                     );
                   },

@@ -230,42 +230,38 @@ class OfferCreationController extends _$OfferCreationController {
     showDialog(
       context: context,
       builder: (context) {
-        return Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width, // Set the width
-            height: MediaQuery.of(context).size.height * 0.6,
-            child: AlertDialog(
-              title: Center(
-                child: Text('Oferta',
-                    style: Theme.of(context).textTheme.titleSmall),
-              ),
-              content: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      value,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(height: 8), // Reduced size
-                    Icon(Icons.check_circle,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 24), // Reduced size
-                    const SizedBox(height: 8), // Reduced size
-                    const Text('Criada com sucesso!'),
-                  ],
+        return SizedBox(
+          width: MediaQuery.of(context).size.width, // Set the width
+          child: AlertDialog(
+            title: Center(
+              child:
+                  Text('Oferta', style: Theme.of(context).textTheme.titleSmall),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  value,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Ok'),
-                ),
+                const SizedBox(height: 8), // Reduced size
+                Icon(Icons.check_circle,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 24), // Reduced size
+                const SizedBox(height: 8), // Reduced size
+                const Text('Criada com sucesso!'),
               ],
             ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Ok'),
+              ),
+            ],
           ),
         );
       },

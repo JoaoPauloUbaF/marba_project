@@ -27,13 +27,20 @@ class OfferCategorySelectionFieldWidget extends ConsumerWidget {
             in offerCreationController.getOfferAvailableCategories(offerType))
           ChoiceChip(
             labelPadding: EdgeInsets.zero,
-            labelStyle: Theme.of(context).textTheme.bodyMedium,
+            labelStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: offerCategory.contains(category.toString())
+                      ? Theme.of(context).colorScheme.onTertiary
+                      : Theme.of(context).colorScheme.onSurface,
+                ),
+            checkmarkColor: offerCategory.contains(category.toString())
+                ? Theme.of(context).colorScheme.onTertiary
+                : Theme.of(context).colorScheme.onSurface,
             label: Text(
               offerCreationController.getCategoryTranslation(
                   category, offerType),
             ),
             selected: offerCategory.contains(category.toString()),
-            selectedColor: Theme.of(context).colorScheme.tertiaryContainer,
+            selectedColor: Theme.of(context).colorScheme.tertiary,
             onSelected: (value) {
               onCategorySelected(category.toString(), value);
             },

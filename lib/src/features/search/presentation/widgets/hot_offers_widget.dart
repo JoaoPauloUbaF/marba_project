@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_title_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_price_widget.dart';
@@ -76,11 +77,17 @@ class HotOfferCardWidget extends ConsumerWidget {
                     color:
                         Theme.of(context).colorScheme.tertiary.withOpacity(0.7),
                     width: MediaQuery.of(context).size.width,
+                    height: 75,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        OfferTitleWidget(offer: offer, fontSize: 18),
-                        OfferPriceWidget(offer: offer, fontSize: 14),
+                        Flexible(
+                            child:
+                                OfferTitleWidget(offer: offer, fontSize: 18)),
+                        Flexible(
+                            child:
+                                OfferPriceWidget(offer: offer, fontSize: 14)),
                       ],
                     ),
                   ),

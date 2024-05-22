@@ -10,12 +10,13 @@ class BusinessOffers extends _$BusinessOffers {
   @override
   Stream<List<OfferModel>> build() {
     final business = ref.read(businessProfileViewModelProvider);
-    if (business?.id == null) {
+    if (business?.id == null || business == null) {
       return const Stream.empty();
     }
-    final offers = ref.read(offersDataRepositoryProvider).getOffersByBusinessId(
-          ref.read(businessProfileViewModelProvider)!.id,
-        );
+    final offers =
+        ref.watch(offersDataRepositoryProvider).getOffersByBusinessId(
+              business.id,
+            );
     return offers;
   }
 

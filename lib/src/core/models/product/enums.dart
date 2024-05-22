@@ -26,7 +26,7 @@ final Map<ProductCategory, String> productCategoryTranslations = {
   ProductCategory.appliances: 'Eletrodomésticos',
   ProductCategory.artSupplies: 'Materiais de Arte',
   ProductCategory.automotive: 'Automotivo',
-  ProductCategory.beauty: 'Beleza',
+  ProductCategory.beauty: 'Cosméticos',
   ProductCategory.books: 'Livros',
   ProductCategory.clothing: 'Vestuário',
   ProductCategory.construction: 'Construção',
