@@ -13,29 +13,53 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final business = ref.watch(businessProfileViewModelProvider);
+    final isWideScreen = MediaQuery.of(context).size.width > 600;
 
-    return Card(
-      margin: EdgeInsets.zero,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(20),
-          bottomRight: Radius.circular(20),
-        ),
-      ),
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 8),
-            BusinessPhoneAndEmail(business: business),
-            const SizedBox(height: 8),
-            BusinessCategoryTilesWidget(),
-            const SizedBox(height: 8),
-          ],
-        ),
-      ),
-    );
+    return !isWideScreen
+        ? Card(
+            margin: EdgeInsets.zero,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 8),
+                  BusinessPhoneAndEmail(business: business),
+                  const SizedBox(height: 8),
+                  BusinessCategoryTilesWidget(),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            ),
+          )
+        : Card(
+            margin: EdgeInsets.zero,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20),
+                bottomRight: Radius.circular(20),
+              ),
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 8),
+                  BusinessPhoneAndEmail(business: business),
+                  const SizedBox(height: 8),
+                  BusinessCategoryTilesWidget(),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            ),
+          );
   }
 }
 

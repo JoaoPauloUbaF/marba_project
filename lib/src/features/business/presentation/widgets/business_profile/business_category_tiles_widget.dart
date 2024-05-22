@@ -29,13 +29,16 @@ class BusinessCategoryTilesWidget extends ConsumerWidget {
 
                 return SizedBox(
                   child: Card(
-                    color: Theme.of(context).colorScheme.primaryContainer,
+                    color: Theme.of(context).colorScheme.tertiary,
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
-                      child: Text(
-                        translatedCategory,
-                        style: const TextStyle(fontSize: 12),
-                      ),
+                      child: Text(translatedCategory,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.onTertiary,
+                              )),
                     ),
                   ),
                 );

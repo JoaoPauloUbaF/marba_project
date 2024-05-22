@@ -101,35 +101,31 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     return null;
   }
 
-  Future<Widget> getBusinessProfileImage(
-      {required double width, required double height}) async {
+  Future<Widget> getBusinessProfileImage({required double width}) async {
     return Stack(
       children: [
-        SizedBox(
-          width: width,
-          height: width * 3 / 4,
-          child: state?.imageUrl != null
-              ? Image(
-                  width: width,
-                  loadingBuilder: (context, child, loadingProgress) =>
-                      loadingProgress == null
-                          ? child
-                          : const Center(
-                              child: CircularProgressIndicator(),
-                            ),
-                  fit: BoxFit.fill,
-                  image: NetworkImage(
-                    state?.imageUrl ?? '',
-                  ),
-                )
-              : InkWell(
-                  onTap: () => updateBusinessProfileImage(),
-                  child: SizedBox(
-                    width: width,
-                    child: const Icon(Icons.add_a_photo_sharp, size: 100),
-                  ),
+        state?.imageUrl != null
+            ? Image(
+                width: width,
+                height: width * (3 / 4),
+                loadingBuilder: (context, child, loadingProgress) =>
+                    loadingProgress == null
+                        ? child
+                        : const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                fit: BoxFit.fill,
+                image: NetworkImage(
+                  state?.imageUrl ?? '',
                 ),
-        ),
+              )
+            : InkWell(
+                onTap: () => updateBusinessProfileImage(),
+                child: SizedBox(
+                  width: width,
+                  child: const Icon(Icons.add_a_photo_sharp, size: 100),
+                ),
+              ),
         if (await isBusinessOwner() && state?.imageUrl != null)
           Positioned(
             bottom: 20,

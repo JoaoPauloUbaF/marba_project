@@ -16,7 +16,10 @@ class BusinessProfileImageWidget extends ConsumerWidget {
     final imageUploadingStatus = ref.watch(imageUploadingStatusProvider);
     final businessController =
         ref.read(businessProfileViewModelProvider.notifier);
-
+    final isWideScreen = MediaQuery.of(context).size.width > 600;
+    final width = isWideScreen
+        ? MediaQuery.of(context).size.width * 0.25
+        : MediaQuery.of(context).size.width;
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -26,8 +29,7 @@ class BusinessProfileImageWidget extends ConsumerWidget {
           ? const LoadingWidget()
           : FutureBuilder(
               future: businessController.getBusinessProfileImage(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
+                width: width,
               ),
               builder: (BuildContext context, AsyncSnapshot<Widget> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
