@@ -21,7 +21,8 @@ abstract class BusinessProfileDataRepository {
   Future<void> updateBusinessStatus(
       {required String uid, required BusinessStatus status});
   Future<void> updateBusinessCategory(
-      {required String uid, required List<BusinessCategory> businessCategory});
+      {required String uid,
+      required List<BusinessCategory> businessCategories});
   Future<void> updateBusinessProfileImage(
       {required String uid, required File imageFile});
   Future<void> updateBusinessOffers(
@@ -37,7 +38,7 @@ abstract class BusinessProfileDataRepository {
   Future<List<BusinessModel>?> queryBusinessAt(
       {required String city, required String queryStr});
   Future<List<BusinessModel>?> queryBusinessesByCategory(
-      {required String city, required String queryStr});
+      {required String city, required List<String> categories});
   Future<List<BusinessModel>?> queryBusinessesByName(
       {required String city, required String queryStr});
 }

@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
-import 'package:project_marba/src/core/utils/translations_provider.dart';
+import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
 import '../../../../core/widgets/loading_widget.dart';
@@ -16,14 +16,12 @@ class HotBusinessesWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final hotBusinesses = ref.watch(hotBusinessesProvider);
-    final translations = ref.read(translationsProvider.notifier);
     return hotBusinesses.when(
       data: (businesses) => businesses == null
           ? const SizedBox.shrink()
           : CarouselSlider(
               items: businesses
-                  .map((business) => HotBusinessCardWidget(
-                      translations: translations, business: business))
+                  .map((business) => HotBusinessCardWidget(business: business))
                   .toList(),
               options: CarouselOptions(
                 autoPlay: true,
@@ -50,11 +48,9 @@ class HotBusinessesWidget extends ConsumerWidget {
 class HotBusinessCardWidget extends ConsumerWidget {
   const HotBusinessCardWidget({
     super.key,
-    required this.translations,
     required this.business,
   });
 
-  final Translations translations;
   final BusinessModel business;
 
   @override
@@ -107,8 +103,8 @@ class HotBusinessCardWidget extends ConsumerWidget {
                         child: Text(
                           business.categories
                               .take(3)
-                              .map((category) => translations
-                                  .getBusinessCategoryTranslation(category))
+                              .map((category) =>
+                                  getBusinessCategoryTranslation(category))
                               .join(', '),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)

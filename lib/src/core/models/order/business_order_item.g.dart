@@ -14,7 +14,7 @@ _$BusinessOrderItemImpl _$$BusinessOrderItemImplFromJson(
       name: json['name'] as String,
       imageUrl: json['imageUrl'] as String,
       price: (json['price'] as num).toDouble(),
-      quantity: json['quantity'] as int,
+      quantity: (json['quantity'] as num).toInt(),
       deliveredAt: json['deliveredAt'] == null
           ? null
           : DateTime.parse(json['deliveredAt'] as String),

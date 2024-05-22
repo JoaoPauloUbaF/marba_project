@@ -21,6 +21,8 @@ part 'business_profile_screen_controller.g.dart';
 
 @Riverpod(keepAlive: true)
 class BusinessProfileViewModel extends _$BusinessProfileViewModel {
+  bool isOwner = false;
+
   @override
   BusinessModel? build() {
     return null;
@@ -149,22 +151,8 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     );
   }
 
-  Future<void> requestPermissions() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.camera,
-      Permission.storage, // Permissão para acessar a galeria
-    ].request();
-
-    if (statuses[Permission.camera]!.isDenied) {
-      // A permissão da câmera foi negada
-    }
-
-    if (statuses[Permission.storage]!.isDenied) {
-      // A permissão para acessar a galeria foi negada
-    }
-  }
-
   Future<bool> isBusinessOwner({String? businessId}) async {
+    //TODO: refactor usages
     businessId ??= state?.id;
     final userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
     if (userId == null) {
@@ -173,6 +161,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     final userBusinessIds = await ref
         .read(userProfileDataProvider)
         .getOwnedBusinessIds(uid: userId);
+    isOwner = userBusinessIds.contains(businessId);
     return userBusinessIds.contains(businessId);
   }
 
@@ -256,7 +245,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
         .read(businessProfileDataProvider)
         .updateBusinessCategory(
           uid: state?.id ?? '',
-          businessCategory: categories.toList(),
+          businessCategories: categories.toList(),
         )
         .then((value) => fetchBusinessProfile());
   }
@@ -265,6 +254,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     BuildContext context,
   ) {
     final businessCategories = state?.categories;
+    if (!isOwner) return Future.value();
 
     return showDialog(
       context: context,

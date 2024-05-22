@@ -6,6 +6,7 @@ part 'user_address_list_provider.g.dart';
 
 @riverpod
 Stream<List<Address>> userAddressList(UserAddressListRef ref) {
+  ref.watch(authStateChangeProvider);
   final user = ref.watch(authRepositoryProvider).getCurrentUser();
   if (user != null) {
     return ref

@@ -2,8 +2,10 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diacritic/diacritic.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
+import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../../../core/models/address/address.dart';
@@ -94,10 +96,17 @@ class BusinessFirebaseProfileDataProvider
   @override
   Future<void> updateBusinessCategory({
     required String uid,
-    required List<BusinessCategory> businessCategory,
+    required List<BusinessCategory> businessCategories,
   }) async {
     await _businessCollection.doc(uid).update({
-      'businessCategory': businessCategory.map((e) => e.name).toList(),
+      'businessCategory': businessCategories.map((e) => e.name).toList(),
+    });
+    final businessCategoriesWords = businessCategories
+        .map((e) =>
+            removeDiacritics(getBusinessCategoryTranslation(e).toLowerCase()))
+        .toSet();
+    await _businessCollection.doc(uid).update({
+      'businessCategoriesWords': businessCategoriesWords,
     });
   }
 
@@ -217,15 +226,15 @@ class BusinessFirebaseProfileDataProvider
     if (businessByName != null) {
       businesses.addAll(businessByName);
     }
-    final String categoryStr = //Todo: figure better way to handle this, algolia
-        businessCategoryTranslations.containsValue(queryStr)
-            ? businessCategoryTranslations.entries
-                .firstWhere((element) => element.value == queryStr)
-                .key
-                .name
-            : queryStr;
-    final businessByCategory =
-        await queryBusinessesByCategory(city: city, queryStr: categoryStr);
+    queryStr = normalizeString(str: queryStr);
+    final List<String> categoriesMatches = businessCategoryTranslations.entries
+        .where(
+            (element) => normalizeString(str: element.value).contains(queryStr))
+        .map((e) => e.key.name)
+        .toList();
+
+    final businessByCategory = await queryBusinessesByCategory(
+        city: city, categories: categoriesMatches);
     if (businessByCategory != null) {
       businesses.addAll(businessByCategory);
     }
@@ -235,9 +244,13 @@ class BusinessFirebaseProfileDataProvider
 
   @override
   Future<List<BusinessModel>?> queryBusinessesByCategory(
-      {required String city, required String queryStr}) {
-    Query query = _businessCollection.where('businessCategory',
-        arrayContainsAny: [queryStr]).where('address.city', isEqualTo: city);
+      {required String city, required List<String> categories}) {
+    if (categories.isEmpty) {
+      return Future(() => null);
+    }
+    Query query = _businessCollection
+        .where('businessCategory', arrayContainsAny: categories)
+        .where('address.city', isEqualTo: city);
 
     return getBusinesses(query: query);
   }

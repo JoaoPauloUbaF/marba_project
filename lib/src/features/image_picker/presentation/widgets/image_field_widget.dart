@@ -42,8 +42,7 @@ class ImageFieldWidget extends ConsumerWidget {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          imageFieldController
-                              .pickNewOfferImage(ImageSource.camera);
+                          imageFieldController.pickImage(ImageSource.camera);
                         },
                       ),
                       ListTile(
@@ -56,8 +55,7 @@ class ImageFieldWidget extends ConsumerWidget {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          imageFieldController
-                              .pickNewOfferImage(ImageSource.gallery);
+                          imageFieldController.pickImage(ImageSource.gallery);
                         },
                       ),
                     ],

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/core/utils/translations_provider.dart';
+import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:project_marba/src/features/image_picker/application/image_field_controller.dart';
 import 'package:project_marba/src/features/business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
@@ -111,10 +111,8 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
     required String deliveryFee,
   }) async {
     final categoriesWords = selectedCategories
-        .map((category) => ref
-            .read(translationsProvider.notifier)
-            .getBusinessCategoryTranslation(category)
-            .toLowerCase())
+        .map((category) =>
+            getBusinessCategoryTranslation(category).toLowerCase())
         .toSet();
     final nameWords = name.toLowerCase().split(' ');
     final businessProfileRepository = ref.read(businessProfileDataProvider);

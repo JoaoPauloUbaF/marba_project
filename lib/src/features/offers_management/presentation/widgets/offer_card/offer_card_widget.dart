@@ -21,7 +21,7 @@ class OfferCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cardController = ref.read(offerCardControllerProvider.notifier);
-
+    log(offer.toJson().toString());
     return InkWell(
       onTap: () => cardController.onCardTap(offer, context).then(
             (value) => Navigator.of(context).pushNamed(
@@ -42,40 +42,36 @@ class OfferCardWidget extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Stack(children: [
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxHeight: MediaQuery.of(context).size.height * .25,
-                  ),
-                  child: Image.network(
-                    offer.getImageUrl,
-                    fit: BoxFit.fill,
-                    width: double.infinity,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
-                      if (loadingProgress == null) {
-                        return child;
-                      }
-                      return const SizedBox(
-                        width: double.infinity,
-                        child: Center(
-                          child: CircularProgressIndicator(),
+                Image.network(
+                  offer.getImageUrl,
+                  fit: BoxFit.fill,
+                  width: double.infinity,
+                  height: 150,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return const SizedBox(
+                      width: double.infinity,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  },
+                  errorBuilder: (context, error, stackTrace) {
+                    log('$error');
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(50.0),
+                        child: Icon(
+                          Icons.error,
+                          color: Theme.of(context).colorScheme.error,
+                          size: 30,
                         ),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      log('$error');
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(50.0),
-                          child: Icon(
-                            Icons.error,
-                            color: Theme.of(context).colorScheme.error,
-                            size: 30,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
                 Positioned(
                   right: 4,
