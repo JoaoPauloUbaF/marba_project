@@ -31,6 +31,9 @@ class UserBusinessListWidget extends ConsumerWidget {
                 padding: const EdgeInsets.only(top: 4.0, left: 8.0, right: 8.0),
                 child: Card(
                   child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(business?.imageUrl ?? ''),
+                    ),
                     title: Text(business?.name ?? ''),
                     onTap: () => myBusinessListController.onTapBusiness(
                       business: business!,
@@ -55,18 +58,11 @@ class UserBusinessListWidget extends ConsumerWidget {
                 ),
               );
             },
-            // separatorBuilder: (BuildContext context, int index) {
-            //   return Padding(
-            //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            //     child: Divider(
-            //       color: Theme.of(context).colorScheme.tertiary,
-            //     ),
-            //   );
-            // },
+            shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
-              childAspectRatio: 4,
-            ),
+                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                mainAxisExtent:
+                    MediaQuery.of(context).size.width > 600 ? 120 : 100),
           );
         },
         loading: () => const Center(
