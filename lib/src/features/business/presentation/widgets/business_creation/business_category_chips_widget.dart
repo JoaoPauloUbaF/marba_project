@@ -35,7 +35,7 @@ class BusinessCategoryChipsWidgetState
             (category) {
               bool isSelected = widget.selectedCategories.contains(category);
               String categoryName = category.toString().split('.').last;
-              // Traduzir e capitalizar a categoria
+
               String translatedCategory =
                   translations[category] ?? categoryName;
               return ChoiceChip(

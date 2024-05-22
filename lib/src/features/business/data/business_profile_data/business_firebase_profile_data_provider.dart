@@ -226,6 +226,7 @@ class BusinessFirebaseProfileDataProvider
     if (businessByName != null) {
       businesses.addAll(businessByName);
     }
+
     queryStr = normalizeString(str: queryStr);
     final List<String> categoriesMatches = businessCategoryTranslations.entries
         .where(

@@ -4,6 +4,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:project_marba/src/core/models/product/enums.dart';
+import 'package:project_marba/src/core/models/service/enums.dart';
+import 'package:project_marba/src/core/utils/translations_utils.dart';
 
 import '../../../core/models/offer/offer_model.dart';
 import 'offers_data_repository.dart';
@@ -214,8 +217,27 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
   @override
   Future<List<OfferModel>>? queryOffersByCategory(String queryStr) async {
-    Query query =
-        _firestore.collection('offers').where('category', isEqualTo: queryStr);
+    //TODO: offers must have address too
+    queryStr = normalizeString(str: queryStr).toLowerCase();
+    final List<String> productCategoriesMatches = productCategoryTranslations
+        .entries
+        .where(
+            (element) => normalizeString(str: element.value).contains(queryStr))
+        .map((e) => e.key.toString())
+        .toList();
+
+    final List<String> servicesCategoriesMatches = serviceCategoryTranslations
+        .entries
+        .where(
+            (element) => normalizeString(str: element.value).contains(queryStr))
+        .map((e) => e.key.toString())
+        .toList();
+    final matches = [...productCategoriesMatches, ...servicesCategoriesMatches];
+    if (matches.isEmpty) return Future(() => <OfferModel>[]);
+
+    Query query = _firestore
+        .collection('offers')
+        .where('category', arrayContainsAny: matches);
 
     final offerList = await query.get();
     return offerList.docs

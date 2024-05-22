@@ -15,46 +15,49 @@ class BusinessStatusWidget extends ConsumerWidget {
       'suspended': 'Suspenso',
       'deleted': 'Deletado',
     };
-
+    final businessProfileViewModel =
+        ref.read(businessProfileViewModelProvider.notifier);
     final business = ref.watch(businessProfileViewModelProvider);
+
     final String businessStatus =
         business?.status.toString().split('.').last ?? '';
 
     final String businessStatusTranslated =
         statusTranslations[businessStatus] ?? businessStatus;
 
-    final Color businessStatusColor = ref
-        .watch(businessProfileViewModelProvider.notifier)
-        .getBusinessStatusColor();
+    final Color businessStatusColor =
+        businessProfileViewModel.getBusinessStatusColor();
 
     return InkWell(
-      onTap: () => showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Status do Negócio'),
-          content: DropdownButton<String>(
-            value: businessStatusTranslated,
-            borderRadius: BorderRadius.circular(20),
-            items: statusTranslations.values
-                .map((status) => DropdownMenuItem(
-                      value: status,
-                      child: Text(status),
-                    ))
-                .toList(),
-            onChanged: (value) {
-              ref
-                  .read(businessProfileViewModelProvider.notifier)
-                  .changeBusinessStatus(status: value!);
-            },
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Fechar'),
-            ),
-          ],
-        ),
-      ),
+      onTap: () => businessProfileViewModel.isOwner
+          ? showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Status do Negócio'),
+                content: DropdownButton<String>(
+                  value: businessStatusTranslated,
+                  borderRadius: BorderRadius.circular(20),
+                  items: statusTranslations.values
+                      .map((status) => DropdownMenuItem(
+                            value: status,
+                            child: Text(status),
+                          ))
+                      .toList(),
+                  onChanged: (value) {
+                    ref
+                        .read(businessProfileViewModelProvider.notifier)
+                        .changeBusinessStatus(status: value!);
+                  },
+                ),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: const Text('Fechar'),
+                  ),
+                ],
+              ),
+            )
+          : null,
       child: Container(
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor.withAlpha(100),

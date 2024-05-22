@@ -42,14 +42,13 @@ class BusinessProfileScreen extends ConsumerWidget {
                     ],
                   ),
                   const BusinessContactInfoCardWidget(),
-                  Visibility(
-                    visible: business?.address != null,
-                    child: AddressDisplayWidget(
-                      address: business!.address,
-                      isEditable: true,
-                      isBusinessAddress: true,
-                    ),
-                  ),
+                  business?.address == null
+                      ? const SizedBox.shrink()
+                      : AddressDisplayWidget(
+                          address: business!.address,
+                          isEditable: true,
+                          isBusinessAddress: true,
+                        ),
                 ],
               ),
             ),

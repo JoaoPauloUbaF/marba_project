@@ -21,24 +21,26 @@ enum BusinessCategory {
   toysAndGames, // Brinquedos e Jogos
 
   // Serviços
-  automotiveServices, // Serviços Automotivos
-  beautyServices, // Serviços de Beleza
-  construction, // Construção
-  educationServices, // Serviços Educacionais
-  entertainmentServices, // Serviços de Entretenimento
-  eventPlanning, // Planejamento de Eventos
-  eventServices, // Serviços para Eventos
-  financialServices, // Serviços Financeiros
-  healthServices, // Serviços de Saúde
-  homeServices, // Serviços Residenciais
-  hospitalityServices, // Serviços de Hospitalidade
-  legalServices, // Serviços Jurídicos
-  petServices, // Serviços para Animais de Estimação
-  photography, // Fotografia
-  professionalServices, // Serviços Profissionais
-  repairAndMaintenance, // Reparo e Manutenção
-  technologyServices, // Serviços de Tecnologia
-  transportationServices, // Serviços de Transporte
+  mechanicServices, // Mecânico
+  barberServices, // Barbeiro
+  hairdresserServices, // Cabeleireira
+  cleanerServices, // Faxineira
+  painterServices, // Pintor
+  electricianServices, // Eletricista
+  plumberServices, // Encanador
+  gardenerServices, // Jardineiro
+  bricklayerServices, // Pedreiro
+  driverServices, // Motorista
+  cookServices, // Cozinheiro
+  waiterServices, // Garçom
+  itTechnicianServices, // Técnico de Informática
+  personalTrainerServices, // Personal Trainer
+  nutritionistServices, // Nutricionista
+  dentistServices, // Dentista
+  doctorServices, // Médico
+  lawyerServices, // Advogado
+  accountantServices, // Contador
+  therapistServices, // Terapeuta
 }
 
 final Map<BusinessCategory, String> businessCategoryTranslations = {
@@ -61,22 +63,24 @@ final Map<BusinessCategory, String> businessCategoryTranslations = {
   BusinessCategory.retail: 'Varejo',
   BusinessCategory.sportsAndOutdoors: 'Esportes e Ar Livre',
   BusinessCategory.toysAndGames: 'Brinquedos e Jogos',
-  BusinessCategory.automotiveServices: 'Automotivos',
-  BusinessCategory.beautyServices: 'Beleza',
-  BusinessCategory.construction: 'Construção',
-  BusinessCategory.educationServices: 'Educacionais',
-  BusinessCategory.entertainmentServices: 'Entretenimento',
-  BusinessCategory.eventPlanning: 'Planejamento de Eventos',
-  BusinessCategory.eventServices: 'Eventos',
-  BusinessCategory.financialServices: 'Financeiros',
-  BusinessCategory.healthServices: 'Saúde',
-  BusinessCategory.homeServices: 'Residenciais',
-  BusinessCategory.hospitalityServices: 'Hospitalidade',
-  BusinessCategory.legalServices: 'Jurídicos',
-  BusinessCategory.petServices: 'Animais de Estimação',
-  BusinessCategory.photography: 'Fotografia',
-  BusinessCategory.professionalServices: 'Serviços Profissionais',
-  BusinessCategory.repairAndMaintenance: 'Reparo e Manutenção',
-  BusinessCategory.technologyServices: 'Tecnologia',
-  BusinessCategory.transportationServices: 'Transporte',
+  BusinessCategory.mechanicServices: 'Mecânico',
+  BusinessCategory.barberServices: 'Barbeiro',
+  BusinessCategory.hairdresserServices: 'Cabeleireira',
+  BusinessCategory.cleanerServices: 'Faxineira',
+  BusinessCategory.painterServices: 'Pintor',
+  BusinessCategory.electricianServices: 'Eletricista',
+  BusinessCategory.plumberServices: 'Encanador',
+  BusinessCategory.gardenerServices: 'Jardineiro',
+  BusinessCategory.bricklayerServices: 'Pedreiro',
+  BusinessCategory.driverServices: 'Motorista',
+  BusinessCategory.cookServices: 'Cozinheiro',
+  BusinessCategory.waiterServices: 'Garçom',
+  BusinessCategory.itTechnicianServices: 'Técnico de Informática',
+  BusinessCategory.personalTrainerServices: 'Personal Trainer',
+  BusinessCategory.nutritionistServices: 'Nutricionista',
+  BusinessCategory.dentistServices: 'Dentista',
+  BusinessCategory.doctorServices: 'Médico',
+  BusinessCategory.lawyerServices: 'Advogado',
+  BusinessCategory.accountantServices: 'Contador',
+  BusinessCategory.therapistServices: 'Terapeuta',
 };
