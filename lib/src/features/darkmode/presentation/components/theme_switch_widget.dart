@@ -13,6 +13,7 @@ class ThemeSwitchWidget extends ConsumerWidget {
       onChanged: (val) {
         ref.read(darkModeProvider.notifier).toggle();
       },
+      activeColor: Theme.of(context).colorScheme.onPrimary,
       thumbIcon:
           MaterialStateProperty.resolveWith<Icon?>((Set<MaterialState> states) {
         if (states.contains(MaterialState.selected)) {

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../application/settings_screen_controller.dart';
 
-class SettingsScreen extends ConsumerWidget {
-  const SettingsScreen({super.key});
+class ProfileSettingsScreen extends ConsumerWidget {
+  const ProfileSettingsScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewController = ref.watch(settingsScreenControllerProvider.notifier);

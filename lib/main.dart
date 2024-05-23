@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:project_marba/src/features/home/presentation/views/home_screen.dart';
+import 'package:project_marba/src/features/home/presentation/views/home_view.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_home_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
 import 'package:project_marba/src/features/offers_management/presentation/views/edit_offer_view.dart';
@@ -57,7 +57,7 @@ class MainApp extends ConsumerWidget {
         '/sign-in': (context) => const SignIn(),
         '/profile': (context) => const AppProfileScreen(),
         '/profile-form': (context) => const ProfileFormScreen(),
-        '/settings': (context) => const SettingsScreen(),
+        '/settings': (context) => const ProfileSettingsScreen(),
         '/business-list': (context) => const MyBusinessListScreen(),
         '/business-home': (context) => const MyBusinessHomeScreen(),
         '/business-profile': (context) => const BusinessProfileScreen(),
