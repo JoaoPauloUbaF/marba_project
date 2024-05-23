@@ -1,12 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_title_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_price_widget.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
-import '../../../../core/utils/registration_utils.dart';
+import '../../../../core/utils/view_utils.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../../../offers_management/application/offer_card/offer_card.controller.dart';
 import '../../application/hot_offers_provider/hot_offers_provider.dart';
@@ -26,7 +25,8 @@ class HotOffersWidget extends ConsumerWidget {
           autoPlay: true,
           autoPlayAnimationDuration: const Duration(seconds: 2),
           autoPlayInterval: const Duration(seconds: 3),
-          height: MediaQuery.of(context).size.height * 0.3,
+          height: 200,
+          viewportFraction: isWideScreen(context) ? 0.3 : 0.9,
         ),
       ),
       loading: () => const LoadingWidget(),
@@ -63,6 +63,7 @@ class HotOfferCardWidget extends ConsumerWidget {
                 offer.getImageUrl,
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
+                height: 200,
                 loadingBuilder: (context, child, loadingProgress) =>
                     loadingProgress == null
                         ? child

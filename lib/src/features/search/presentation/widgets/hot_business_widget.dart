@@ -5,6 +5,7 @@ import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 
+import '../../../../core/utils/view_utils.dart';
 import '../../../../core/widgets/loading_widget.dart';
 import '../../application/hot_business_provider/hot_businesses_provider.dart';
 
@@ -16,6 +17,7 @@ class HotBusinessesWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final hotBusinesses = ref.watch(hotBusinessesProvider);
+
     return hotBusinesses.when(
       data: (businesses) => businesses == null
           ? const SizedBox.shrink()
@@ -27,7 +29,8 @@ class HotBusinessesWidget extends ConsumerWidget {
                 autoPlay: true,
                 autoPlayAnimationDuration: const Duration(seconds: 2),
                 autoPlayInterval: const Duration(seconds: 2),
-                aspectRatio: 2.0,
+                height: 200,
+                viewportFraction: isWideScreen(context) ? 0.3 : 0.9,
               ),
             ),
       loading: () => const LoadingWidget(),

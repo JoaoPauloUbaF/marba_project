@@ -3,8 +3,8 @@ import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/core/models/service/enums.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 
-class OfferPriceWidget extends StatelessWidget {
-  const OfferPriceWidget({
+class OfferDetailsPriceWidget extends StatelessWidget {
+  const OfferDetailsPriceWidget({
     super.key,
     required this.offer,
   });
@@ -45,6 +45,9 @@ class OfferPriceWidget extends StatelessWidget {
                         .doubleAsCurrency(offerPriceWithDiscount),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer,
                         ),
                   ),
                   isHourly
@@ -65,12 +68,14 @@ class OfferPriceWidget extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.tertiaryContainer,
+                color: Theme.of(context).colorScheme.tertiary,
                 borderRadius: BorderRadius.circular(2),
               ),
               child: Text(
                 '${offerDiscount.toStringAsFixed(0)}% OFF',
-                style: Theme.of(context).textTheme.bodySmall,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onTertiary,
+                    ),
               ),
             ),
           ),

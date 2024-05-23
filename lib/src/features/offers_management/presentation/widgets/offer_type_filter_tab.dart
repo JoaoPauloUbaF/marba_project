@@ -19,18 +19,17 @@ class OfferTypeFilterTab extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
-      child: SizedBox(
-        width: 70,
-        height: 70,
-        child: Tab(
-          icon: Icon(
-            icon,
-            color: isSelected
-                ? Theme.of(context).colorScheme.secondary
-                : Theme.of(context).colorScheme.secondary.withAlpha(100),
-          ),
-          text: text,
+      child: Tab(
+        height: 40,
+        iconMargin: EdgeInsets.zero,
+        icon: Icon(
+          icon,
+          size: 20,
+          color: isSelected
+              ? Theme.of(context).colorScheme.secondary
+              : Theme.of(context).colorScheme.secondary.withAlpha(100),
         ),
+        text: text,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_view_model.dart';
 import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/top_ten/presentation/widgets/top_ten_badge_widget.dart';
@@ -20,6 +21,7 @@ class OfferHeaderWidget extends ConsumerStatefulWidget {
 class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
   bool isEditing = false;
   String newTitle = '';
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,10 @@ class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
               () {
                 offerDetailsViewModel
                     .isOfferOwner(widget.offer.businessId)
-                    .then((value) => isEditing = value);
+                    .then((value) => setState(() {
+                          isEditing = value;
+                          newTitle = widget.offer.getTitle;
+                        }));
               },
             ),
             child: !isEditing
@@ -47,30 +52,38 @@ class _OfferHeaderWidgetState extends ConsumerState<OfferHeaderWidget> {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                   )
-                : TextFormField(
-                    decoration: InputDecoration(
-                      border: const OutlineInputBorder(),
-                      contentPadding:
-                          const EdgeInsets.symmetric(horizontal: 8.0),
-                      suffixIcon: InkWell(
-                        child: const Icon(Icons.check),
-                        onTap: () {
-                          setState(() {
-                            offerDetailsViewModel.updateOfferTitle(
-                              offerId: widget.offer.id,
-                              newTitle: newTitle,
-                            );
-                            isEditing = false;
-                          });
-                        },
+                : Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 8.0),
+                        suffixIcon: InkWell(
+                          child: const Icon(Icons.check),
+                          onTap: () {
+                            if (_formKey.currentState?.validate() ?? false) {
+                              setState(() {
+                                offerDetailsViewModel.updateOfferTitle(
+                                  offerId: widget.offer.id,
+                                  newTitle: newTitle,
+                                );
+                                isEditing = false;
+                              });
+                            }
+                          },
+                        ),
                       ),
+                      validator: (value) => ref
+                          .read(inputValidationProvider.notifier)
+                          .validateOfferName(value),
+                      initialValue: widget.offer.getTitle,
+                      onChanged: (value) {
+                        setState(() {
+                          newTitle = value;
+                        });
+                      },
                     ),
-                    initialValue: widget.offer.getTitle,
-                    onChanged: (value) {
-                      setState(() {
-                        newTitle = value;
-                      });
-                    },
                   ),
           ),
         ),

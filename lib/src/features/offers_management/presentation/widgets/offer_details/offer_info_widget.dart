@@ -22,7 +22,7 @@ class OfferInfoWidget extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           OfferHeaderWidget(offer: offer),
-          OfferPriceWidget(offer: offer),
+          OfferDetailsPriceWidget(offer: offer),
           Row(
             children: [
               OfferRatingWidget(

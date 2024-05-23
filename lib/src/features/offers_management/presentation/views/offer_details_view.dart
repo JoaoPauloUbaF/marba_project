@@ -90,7 +90,7 @@ class OfferBodyWidget extends StatelessWidget {
           child: Column(
             children: [
               Hero(
-                tag: 'offerImage',
+                tag: offer.id,
                 child: OfferMediaWidget(
                   items: mediaItems,
                 ),
@@ -118,7 +118,7 @@ class OfferBodyWidget extends StatelessWidget {
         Divider(
           indent: 8,
           endIndent: 8,
-          color: Theme.of(context).colorScheme.onSecondaryContainer,
+          color: Theme.of(context).colorScheme.onBackground,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
@@ -143,8 +143,8 @@ class OfferBodyWidget extends StatelessWidget {
           ),
         ),
         const VerticalSpaceMediumWidget(),
-        OtherBusinessOffersWidget(
-            offerId: offer.id, businessId: offer.businessId),
+        // OtherBusinessOffersWidget(
+        //     offerId: offer.id, businessId: offer.businessId),
       ],
     );
   }

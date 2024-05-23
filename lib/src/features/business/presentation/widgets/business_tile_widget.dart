@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
@@ -36,8 +37,9 @@ class BusinessTileWidget extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(business.imageUrl ??
-                          'https://via.placeholder.com/150'),
+                      backgroundImage: NetworkImage(
+                        business.imageUrl ?? 'https://via.placeholder.com/150',
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Column(
@@ -45,13 +47,20 @@ class BusinessTileWidget extends ConsumerWidget {
                       children: [
                         Text(
                           business.name,
-                          style: Theme.of(context).textTheme.titleMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                         ),
                         Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.location_on,
                               size: 12,
+                              color: Theme.of(context).colorScheme.secondary,
                             ),
                             Text(
                               '${business.address.city}, ${business.address.state}',
@@ -61,9 +70,10 @@ class BusinessTileWidget extends ConsumerWidget {
                         ),
                         Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.phone,
                               size: 12,
+                              color: Theme.of(context).colorScheme.tertiary,
                             ),
                             Text(
                               business.phoneNumber,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
@@ -76,6 +77,33 @@ class _HomeViewState extends ConsumerState<HomeView> {
               })
             : null,
         actions: [
+          isWideScreen
+              ? SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: TextField(
+                    // Add TextField
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(4),
+                      hintText: 'Pesquisar',
+                      hintStyle: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      prefixIcon: const Icon(Icons.search_sharp),
+                      border: const OutlineInputBorder(),
+                    ),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                    cursorColor: Theme.of(context).colorScheme.onPrimary,
+                    onChanged: (value) {
+                      if (value.isNotEmpty) {
+                        Navigator.pushNamed(context, '/search',
+                            arguments: value);
+                      }
+                    },
+                  ),
+                )
+              : const SizedBox.shrink(),
           IconButton(
             padding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,
@@ -132,7 +160,7 @@ class WideScreenDrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.search),
+            leading: const Icon(Icons.search_sharp),
             title: const Text('Buscar'),
             onTap: () {
               Navigator.pop(context);
@@ -140,7 +168,7 @@ class WideScreenDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.shopping_bag),
+            leading: const Icon(Icons.shopping_bag_sharp),
             title: const Text('Ofertas'),
             onTap: () {
               Navigator.pop(context);
@@ -148,7 +176,7 @@ class WideScreenDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.receipt),
+            leading: const Icon(Icons.receipt_sharp),
             title: const Text('Pedidos'),
             onTap: () {
               Navigator.pop(context);
@@ -156,7 +184,7 @@ class WideScreenDrawerWidget extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.settings),
+            leading: const Icon(Icons.person_sharp),
             title: const Text('Configurações'),
             onTap: () {
               Navigator.pop(context);
@@ -168,7 +196,7 @@ class WideScreenDrawerWidget extends StatelessWidget {
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 return snapshot.data != null && snapshot.data
                     ? ListTile(
-                        leading: const Icon(Icons.business),
+                        leading: const Icon(Icons.monetization_on_sharp),
                         title: const Text('Negócios'),
                         onTap: () {
                           Navigator.pop(context);

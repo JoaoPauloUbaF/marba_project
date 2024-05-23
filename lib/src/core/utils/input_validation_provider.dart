@@ -103,4 +103,11 @@ class InputValidation extends _$InputValidation {
     }
     return null;
   }
+
+  String? validateOfferName(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'A oferta precisa de um nome!';
+    }
+    return null;
+  }
 }

@@ -21,7 +21,6 @@ class OfferCardWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cardController = ref.read(offerCardControllerProvider.notifier);
-    log(offer.toJson().toString());
     return InkWell(
       onTap: () => cardController.onCardTap(offer, context).then(
             (value) => Navigator.of(context).pushNamed(
@@ -29,7 +28,7 @@ class OfferCardWidget extends ConsumerWidget {
             ),
           ),
       child: Hero(
-        tag: 'offerImage',
+        tag: offer.id,
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(3),

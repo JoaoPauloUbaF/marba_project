@@ -6,7 +6,7 @@ part of 'input_validation_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$inputValidationHash() => r'5f4103fa285d712e6fc8dcf7d348a257df12c9c7';
+String _$inputValidationHash() => r'2b1bb82d98d8246cf8432b636acdda7f5e442dcf';
 
 /// See also [InputValidation].
 @ProviderFor(InputValidation)
