@@ -6,10 +6,10 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../business/data/business_profile_data/business_profile_provider.dart';
 
-part 'offer_card.controller.g.dart';
+part 'offer_card_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
-class OfferCardController extends _$OfferCardController {
+class OfferCardViewModel extends _$OfferCardViewModel {
   @override
   void build() {}
 

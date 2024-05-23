@@ -7,7 +7,7 @@ import 'package:project_marba/src/features/location_management/presentation/widg
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_info_card_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_profile_image_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_status_widget.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offers_list_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_list/offers_list_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
 
 class BusinessProfileScreen extends ConsumerWidget {

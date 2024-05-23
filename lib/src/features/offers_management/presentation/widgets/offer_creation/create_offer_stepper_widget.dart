@@ -5,12 +5,12 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_category_selection_field_widget.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_type_selection_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_creation/offer_category_selection_field_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_creation/offer_image_selection_field.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_creation/offer_type_selection_widget.dart';
 
-import '../../../../core/models/offer/offer_model.dart';
-import '../../../../core/models/service/enums.dart';
+import '../../../../../core/models/offer/offer_model.dart';
+import '../../../../../core/models/service/enums.dart';
 
 final formKey = GlobalKey<FormState>();
 

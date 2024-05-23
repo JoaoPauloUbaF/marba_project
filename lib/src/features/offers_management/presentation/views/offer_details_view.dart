@@ -2,12 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_tile_widget.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/all_business_offers_button.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/all_business_offers_button.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_description_widget.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_error_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_error_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_info_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_ordering_actions_widget.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/other_business_offers_widget.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/other_business_offers_widget.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 

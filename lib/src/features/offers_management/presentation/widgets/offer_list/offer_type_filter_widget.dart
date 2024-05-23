@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../core/models/offer/offer_model.dart';
-import '../../../../core/models/product/enums.dart';
-import '../../../../core/models/service/enums.dart';
-import '../../application/offer_list/feed_offers_type_filter_provider.dart';
-import '../../application/offer_list/offer_product_category_filter_provider.dart';
-import '../../application/offer_list/offer_service_category_filter_provider.dart';
+import '../../../../../core/models/offer/offer_model.dart';
+import '../../../../../core/models/product/enums.dart';
+import '../../../../../core/models/service/enums.dart';
+import '../../../application/offer_list/feed_offers_type_filter_provider.dart';
+import '../../../application/offer_list/offer_product_category_filter_provider.dart';
+import '../../../application/offer_list/offer_service_category_filter_provider.dart';
 import 'item_category_filter_widget.dart';
 import 'offer_type_filter_tab.dart';
 

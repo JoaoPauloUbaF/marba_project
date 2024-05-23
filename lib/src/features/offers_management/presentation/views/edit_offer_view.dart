@@ -5,10 +5,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_edition/offer_edition_controller.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_image_selection_field.dart';
+import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_creation/offer_image_selection_field.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
-import '../widgets/offer_category_selection_field_widget.dart'; // Import your offer model
+import '../widgets/offer_creation/offer_category_selection_field_widget.dart'; // Import your offer model
 
 class EditOfferView extends ConsumerStatefulWidget {
   const EditOfferView({

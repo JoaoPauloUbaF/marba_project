@@ -7,8 +7,8 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_title_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_price_widget.dart';
 
-import '../../../application/offer_card/offer_card.controller.dart';
-import '../offer_quick_manage_widget.dart';
+import '../../../application/offer_card/offer_card_view_model.dart';
+import 'offer_quick_manage_widget.dart';
 
 class OfferCardWidget extends ConsumerWidget {
   final OfferModel offer;
@@ -20,7 +20,7 @@ class OfferCardWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cardController = ref.read(offerCardControllerProvider.notifier);
+    final cardController = ref.read(offerCardViewModelProvider.notifier);
     return InkWell(
       onTap: () => cardController.onCardTap(offer, context).then(
             (value) => Navigator.of(context).pushNamed(
