@@ -7,7 +7,7 @@ part of 'offer_product_category_filter_provider.dart';
 // **************************************************************************
 
 String _$productCategoryFilterHash() =>
-    r'9970c450bf06913962297fdc7f841c1a9a380947';
+    r'3e10579b6be8282dd3331eb45d71ceb9b0404951';
 
 /// See also [ProductCategoryFilter].
 @ProviderFor(ProductCategoryFilter)

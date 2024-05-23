@@ -7,7 +7,7 @@ part of 'offer_service_category_filter_provider.dart';
 // **************************************************************************
 
 String _$serviceCategoryFilterHash() =>
-    r'82d0d0c7ec360f318a783ca74e9e76d65e5aefc9';
+    r'c04f4d9233bdc69e3f0ed84e44a6bdf77e048155';
 
 /// See also [ServiceCategoryFilter].
 @ProviderFor(ServiceCategoryFilter)
