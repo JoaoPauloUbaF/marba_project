@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
@@ -69,18 +71,33 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
               selected: false,
               selectedColor: Theme.of(context).colorScheme.onPrimary,
               onSelected: (value) {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) {
-                      return AllFiltersModalWidget(
-                        categories: categories,
-                        offerCreationController: offerCreationController,
-                        offerType: offerType,
-                        categoryFilterProvider: categoryFilterProvider,
-                        categoryFilterProviderNotifier:
-                            categoryFilterProviderNotifier,
-                      );
-                    });
+                isWideScreen(context)
+                    ? showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Dialog.fullscreen(
+                            child: AllFiltersModalWidget(
+                              categories: categories,
+                              offerCreationController: offerCreationController,
+                              offerType: offerType,
+                              categoryFilterProvider: categoryFilterProvider,
+                              categoryFilterProviderNotifier:
+                                  categoryFilterProviderNotifier,
+                            ),
+                          );
+                        })
+                    : showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return AllFiltersModalWidget(
+                            categories: categories,
+                            offerCreationController: offerCreationController,
+                            offerType: offerType,
+                            categoryFilterProvider: categoryFilterProvider,
+                            categoryFilterProviderNotifier:
+                                categoryFilterProviderNotifier,
+                          );
+                        });
               },
             ),
           ],
@@ -119,6 +136,7 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
   void initState() {
     super.initState();
     filteredCategories = widget.categories;
+    selectedCategories.addAll(widget.categoryFilterProvider);
     searchController.addListener(() {
       filterCategories();
     });
@@ -145,7 +163,6 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return SizedBox(
@@ -155,18 +172,36 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const ModalCenterTopLineWidget(),
+            isWideScreen(context)
+                ? const SizedBox.shrink()
+                : const ModalCenterTopLineWidget(),
             const SizedBox(height: 16.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: TextField(
-                controller: searchController,
-                decoration: const InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  labelText: 'Buscar filtro',
-                  border: OutlineInputBorder(),
-                ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: searchController,
+                      decoration: const InputDecoration(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        labelText: 'Buscar filtro',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ),
+                  if (isWideScreen(context))
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                      ),
+                    ),
+                ],
               ),
             ),
             const SizedBox(height: 16.0),
@@ -218,17 +253,38 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
               ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                for (var category in selectedCategories) {
-                  if (!widget.categoryFilterProvider.contains(category)) {
-                    widget.categoryFilterProviderNotifier
-                        .addCategoryFilter(category);
-                  }
-                }
-                Navigator.pop(context);
-              },
-              child: const Text('Aplicar filtros'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    for (var category in selectedCategories) {
+                      if (!widget.categoryFilterProvider.contains(category)) {
+                        widget.categoryFilterProviderNotifier
+                            .addCategoryFilter(category);
+                      }
+                    }
+                    for (var category in widget.categoryFilterProvider) {
+                      if (!selectedCategories.contains(category)) {
+                        widget.categoryFilterProviderNotifier
+                            .removeCategoryFilter(category);
+                      }
+                    }
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Aplicar filtros'),
+                ),
+                const SizedBox(width: 8.0),
+                ElevatedButton(
+                  onPressed: () {
+                    widget.categoryFilterProviderNotifier.clearFilters();
+                    setState(() {
+                      selectedCategories.clear();
+                    });
+                  },
+                  child: const Text('Limpar filtros'),
+                ),
+              ],
             ),
             const SizedBox(height: 16.0),
           ],

@@ -27,6 +27,10 @@ class ServiceCategoryFilter extends _$ServiceCategoryFilter {
     state = newState;
   }
 
+  void clearFilters() {
+    state = {};
+  }
+
   void _getRandomCategories() {
     final random = Random();
     for (var i = 0; i < 3; i++) {
