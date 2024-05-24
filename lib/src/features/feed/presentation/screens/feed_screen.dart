@@ -1,12 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/location_management/presentation/widgets/current_location_address_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_list/offer_type_filter_widget.dart';
 
 import '../../../offers_management/presentation/widgets/offer_list/offers_list_widget.dart';
 import '../../../offers_management/application/offer_list/feed_offers_list_provider.dart';
 
-class OffersFeedView extends ConsumerWidget {
-  const OffersFeedView({super.key});
+class FeedOffersView extends ConsumerWidget {
+  const FeedOffersView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,6 +22,17 @@ class OffersFeedView extends ConsumerWidget {
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
+            const SliverToBoxAdapter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CurrentLocationAddressWidget(),
+                ],
+              ),
+            ),
+            const SliverToBoxAdapter(
+              child: SizedBox(height: 8),
+            ),
             const SliverToBoxAdapter(
               child: OfferTypeFilterWidget(),
             ),

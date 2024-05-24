@@ -23,7 +23,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
 
   static const List<Widget> _widgetOptions = <Widget>[
     SearchView(),
-    OffersFeedView(),
+    FeedOffersView(),
     UserOrdersView(),
     ProfileSettingsScreen(),
     MyBusinessListScreen(),
