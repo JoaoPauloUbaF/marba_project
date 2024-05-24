@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/order_address_modal_widget.dart';
 
 import '../../application/current_location_provider/current_location_provider.dart';
@@ -22,6 +21,7 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
                   return const Text('No location');
                 }
                 return OrderAddressModalWidget(
+                  //TODO: Make a modal to add the current location as a user address
                   currentSelectedAddress: address,
                 );
               }, loading: () {
@@ -43,7 +43,7 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
               ),
               child: const Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.location_on_sharp, size: 16),
+                child: Icon(Icons.location_on_sharp, size: 12),
               ),
             ),
             const SizedBox(width: 8),
@@ -62,9 +62,9 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
                             color: Theme.of(context).colorScheme.primary,
                           ),
                     ),
-                    TextSpan(
-                      text: '\n${location.neighborhood}, ${location.city}',
-                    )
+                    // TextSpan(
+                    //   text: '\n${location.neighborhood}, ${location.city}',
+                    // )
                   ],
                 ),
               );
