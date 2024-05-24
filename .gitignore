@@ -39,6 +39,8 @@
 .dart_tool/
 .packages
 .flutter-plugins-dependencies
+.lib/firebase_options.dart
+.env
 
 # macOS
 .DS_Store
