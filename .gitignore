@@ -39,8 +39,8 @@
 .dart_tool/
 .packages
 .flutter-plugins-dependencies
-.lib/firebase_options.dart
 .env
+lib/firebase_options.dart
 
 # macOS
 .DS_Store
@@ -59,3 +59,6 @@
 /build/
 .packages
 .pub/
+firebase.json
+ios/Runner/GoogleService-Info.plist
+ios/Runner/GoogleService-Info.plist
