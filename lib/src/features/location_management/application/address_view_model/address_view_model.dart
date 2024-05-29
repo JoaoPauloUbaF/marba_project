@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
@@ -14,81 +16,78 @@ part 'address_view_model.g.dart';
 
 @riverpod
 class AddressViewModel extends _$AddressViewModel {
+  final FlutterGooglePlacesSdk _places =
+      FlutterGooglePlacesSdk(dotenv.env['GOOGLE_API_KEY'] ?? '');
+
   @override
   FutureOr<void> build() {}
 
   void saveOrUpdateAddress({
     required BuildContext context,
-    required GlobalKey<FormState> formKey,
-    required String street,
-    required String number,
-    required String zipCode,
-    required String neighborhood,
-    required String city,
-    required String state,
+    required Address address,
     String? businessId,
     Address? currentAddress,
   }) {
-    if (formKey.currentState!.validate()) {
-      if (businessId != null) {
-        ref
-            .read(businessProfileViewModelProvider.notifier)
-            .updateBusinessAddress(
-          businessId: businessId,
-          address: {
-            'street': street,
-            'number': number,
-            'zipCode': zipCode,
-            'neighborhood': neighborhood,
-            'city': city,
-            'state': state,
-          },
-        ).then((value) => showSuccessDialog(context,
-                message: 'Endereço atualizado com sucesso'));
-        return;
-      }
-
-      var user = ref.watch(currentUserProvider);
-
-      if (user == null) {
-        return;
-      }
-
-      if (currentAddress != null) {
-        final addresses = ref.read(userAddressListProvider);
-        addresses.when(
-          data: (addresses) {
-            addresses.contains(currentAddress)
-                ? ref.read(userProfileDataProvider).updateProfile(
-                    uid: user.id,
-                    address: {
-                      'street': street,
-                      'number': number,
-                      'zipCode': zipCode,
-                      'neighborhood': neighborhood,
-                      'city': city,
-                      'state': state,
-                    },
-                  ).then((value) => showSuccessDialog(context,
-                    message: 'Endereço atualizado com sucesso'))
-                : ref
-                    .read(userProfileDataProvider)
-                    .addDeliveryAddress(uid: user.id, address: {
-                    'street': street,
-                    'number': number,
-                    'zipCode': zipCode,
-                    'neighborhood': neighborhood,
-                    'city': city,
-                    'state': state,
-                  }).then((value) => showSuccessDialog(context));
-          },
-          loading: () => null,
-          error: (error, stackTrace) {
-            throw Exception('Error : $error');
-          },
-        );
-      }
+    if (businessId != null) {
+      ref.read(businessProfileViewModelProvider.notifier).updateBusinessAddress(
+        businessId: businessId,
+        address: {
+          'street': address.street,
+          'number': address.number,
+          'zipCode': address.zipCode,
+          'neighborhood': address.neighborhood,
+          'city': address.city,
+          'state': address.state,
+        },
+      ).then((value) => showSuccessDialog(context,
+          message: 'Endereço atualizado com sucesso'));
+      return;
     }
+
+    var user = ref.watch(currentUserProvider);
+
+    if (user == null) {
+      return;
+    }
+
+    final addresses = ref.read(userAddressListProvider);
+    addresses.when(
+      data: (addresses) {
+        if (addresses.contains(address) && user.address == address) {
+          ref.read(userProfileDataProvider).updateProfile(
+            uid: user.id,
+            address: {
+              'street': address.street,
+              'number': address.number,
+              'zipCode': address.zipCode,
+              'neighborhood': address.neighborhood,
+              'city': address.city,
+              'state': address.state,
+            },
+          ).then((value) => showSuccessDialog(context,
+              message: 'Endereço atualizado com sucesso'));
+        } else {
+          String message = addresses.contains(address)
+              ? 'Endereço atualizado'
+              : 'Endereço salvo com sucesso';
+          ref.read(userProfileDataProvider).addOrUpdateDeliveryAddress(
+            uid: user.id,
+            address: {
+              'street': address.street,
+              'number': address.number,
+              'zipCode': address.zipCode,
+              'neighborhood': address.neighborhood,
+              'city': address.city,
+              'state': address.state,
+            },
+          ).then((value) => showSuccessDialog(context, message: message));
+        }
+      },
+      loading: () => null,
+      error: (error, stackTrace) {
+        throw Exception('Error : $error');
+      },
+    );
   }
 
   void onAddressTileTap(
@@ -145,7 +144,8 @@ class AddressViewModel extends _$AddressViewModel {
           ),
         ],
       ),
-    ).then((value) => Navigator.of(context).pop());
+    ).then(
+        (value) => {Navigator.of(context).pop(), Navigator.of(context).pop()});
   }
 
   get validator {
@@ -162,5 +162,153 @@ class AddressViewModel extends _$AddressViewModel {
 
   void selectDeliveryAddress(Address address) {
     ref.read(deliveryAddressProvider.notifier).setDeliveryAddress(address);
+  }
+
+  FutureOr<void> onPredictionSelected(
+      {required AutocompletePrediction prediction,
+      required BuildContext context}) {
+    getPredictionAddress(prediction: prediction).then((address) {
+      showConfirmAddressDialog(address, context);
+    }).catchError((error) {
+      String errorMessage;
+      if (error is Exception) {
+        errorMessage = error.toString().replaceFirst('Exception: ', '');
+      } else {
+        errorMessage = 'Erro inesperado';
+      }
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Center(child: Text('Erro')),
+            content: Text(errorMessage),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
+
+  Future<Address> getPredictionAddress(
+      {required AutocompletePrediction prediction}) async {
+    final placeDetails = await _places.fetchPlace(
+      prediction.placeId,
+      fields: [PlaceField.AddressComponents],
+    );
+    final place = placeDetails.place;
+
+    if (place == null || place.addressComponents == null) {
+      return Future(() => throw Exception('Este endereço não é válido'));
+    }
+
+    String street = '';
+    String number = '';
+    String neighborhood = '';
+    String city = '';
+    String state = '';
+    String zipCode = '';
+
+    for (var component in place.addressComponents!) {
+      if (component.types.contains('street_number')) {
+        number = component.name;
+      } else if (component.types.contains('route')) {
+        street = component.name;
+      } else if (component.types.contains('sublocality') ||
+          component.types.contains('sublocality_level_1')) {
+        neighborhood = component.name;
+      } else if (component.types.contains('locality') ||
+          component.types.contains('administrative_area_level_2')) {
+        city = component.name;
+      } else if (component.types.contains('administrative_area_level_1')) {
+        state = component.shortName; // Use shortName for state abbreviations
+      } else if (component.types.contains('postal_code')) {
+        zipCode = component.name;
+      }
+    }
+
+    // Verifique se todos os campos necessários estão preenchidos
+    if (street.isEmpty ||
+        number.isEmpty ||
+        neighborhood.isEmpty ||
+        city.isEmpty ||
+        state.isEmpty ||
+        zipCode.isEmpty) {
+      List<String> missingFields = [];
+      if (street.isEmpty) missingFields.add('Rua');
+      if (number.isEmpty) missingFields.add('Número');
+      if (neighborhood.isEmpty) missingFields.add('Bairro');
+      if (city.isEmpty) missingFields.add('Cidade');
+      if (state.isEmpty) missingFields.add('Estado');
+      if (zipCode.isEmpty) missingFields.add('CEP');
+
+      throw Exception(
+          'Ops! Faltam essas informações no seu endereço: \n${missingFields.join(', ')}');
+    }
+
+    return Address(
+      street: street,
+      number: number,
+      neighborhood: neighborhood,
+      city: city,
+      state: state,
+      zipCode: zipCode,
+    );
+  }
+
+  void showConfirmAddressDialog(Address address, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirme o endereço'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Rua: ${address.street}'),
+              Text('Número: ${address.number}'),
+              Text('Bairro: ${address.neighborhood}'),
+              Text('Cidade: ${address.city}'),
+              Text('Estado: ${address.state}'),
+              Text('CEP: ${address.zipCode}'),
+              const TextField(
+                decoration: InputDecoration(
+                  //TODO:  add complement do address
+                  labelText: 'Complemento',
+                  hintText: 'Ex: Apto 101, Bloco A, etc.',
+                ),
+              ),
+              const TextField(
+                decoration: InputDecoration(
+                  labelText: 'Apelido',
+                  hintText: 'Ex: Casa, Trabalho, etc.',
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                saveOrUpdateAddress(context: context, address: address);
+              },
+              child: const Text('Confirmar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

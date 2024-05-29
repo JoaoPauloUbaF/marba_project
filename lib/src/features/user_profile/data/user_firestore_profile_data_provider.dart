@@ -106,7 +106,7 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  Future<void> addDeliveryAddress(
+  Future<void> addOrUpdateDeliveryAddress(
       {required String uid, required Map<String, dynamic> address}) {
     return _usersCollection.doc(uid).update({
       'deliveryAddresses': FieldValue.arrayUnion([address]),

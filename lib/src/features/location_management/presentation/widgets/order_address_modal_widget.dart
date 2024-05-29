@@ -41,7 +41,7 @@ class _OrderAddressModalWidgetState
             data: (currentLocation) {
               return ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
+                  backgroundColor: WidgetStateProperty.all(
                     Theme.of(context).colorScheme.secondary,
                   ),
                 ),
@@ -81,24 +81,29 @@ class _OrderAddressModalWidgetState
           ),
           const VerticalSpaceMediumWidget(),
           Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.secondary.withAlpha(100),
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: userAddresses.when(
-                data: (userAddresses) {
-                  return ref.watch(deliveryAddressProvider).when(
-                        data: (currentSelectedAddress) => Scrollbar(
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            itemCount: userAddresses.length,
-                            itemBuilder: (context, index) {
-                              final address = userAddresses[index];
-                              return ListTile(
+            child: userAddresses.when(
+              data: (userAddresses) {
+                return ref.watch(deliveryAddressProvider).when(
+                      data: (currentSelectedAddress) => Scrollbar(
+                        child: ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          itemCount: userAddresses.length,
+                          itemBuilder: (context, index) {
+                            final address = userAddresses[index];
+                            return Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: ListTile(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                tileColor: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceVariant,
+                                selectedTileColor: Theme.of(context)
+                                    .colorScheme
+                                    .surfaceVariant
+                                    .withAlpha(100),
                                 leading: const Icon(Icons.location_on_sharp,
                                     size: 30),
                                 title: Text(
@@ -118,24 +123,24 @@ class _OrderAddressModalWidgetState
                                         .selectDeliveryAddress(address);
                                   },
                                 ),
-                              );
-                            },
-                          ),
+                              ),
+                            );
+                          },
                         ),
-                        loading: () => const LoadingWidget(),
-                        error: (error, stackTrace) => const Center(
-                          child: Text(
-                              'Houve um erro ao buscar seus endereços, tente novamente mais tarde',
-                              textAlign: TextAlign.center),
-                        ),
-                      );
-                },
-                loading: () => const LoadingWidget(),
-                error: (error, stackTrace) => const Center(
-                  child: Text(
-                      'Houve um erro ao buscar seus endereços, tente novamente mais tarde',
-                      textAlign: TextAlign.center),
-                ),
+                      ),
+                      loading: () => const LoadingWidget(),
+                      error: (error, stackTrace) => const Center(
+                        child: Text(
+                            'Houve um erro ao buscar seus endereços, tente novamente mais tarde',
+                            textAlign: TextAlign.center),
+                      ),
+                    );
+              },
+              loading: () => const LoadingWidget(),
+              error: (error, stackTrace) => const Center(
+                child: Text(
+                    'Houve um erro ao buscar seus endereços, tente novamente mais tarde',
+                    textAlign: TextAlign.center),
               ),
             ),
           ),

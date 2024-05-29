@@ -41,6 +41,7 @@
 .flutter-plugins-dependencies
 .env
 lib/firebase_options.dart
+ios/Runner/AppDelegate.swift
 
 # macOS
 .DS_Store
@@ -54,6 +55,7 @@ lib/firebase_options.dart
 # iOS
 *.ipa
 *.xcarchive/
+
 
 # Flutter package build
 /build/
