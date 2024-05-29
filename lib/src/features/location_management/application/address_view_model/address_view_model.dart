@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
+import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import '../../../shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import '../../../user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import '../../../user_profile/data/user_profile_provider.dart';
 import '../../presentation/widgets/address_form_widget.dart';
+import '../current_location_provider/current_location_provider.dart';
 part 'address_view_model.g.dart';
 
 @riverpod
@@ -51,29 +54,40 @@ class AddressViewModel extends _$AddressViewModel {
         return;
       }
 
-      currentAddress != null
-          ? ref.read(userProfileDataProvider).updateProfile(
-              uid: user.id,
-              address: {
-                'street': street,
-                'number': number,
-                'zipCode': zipCode,
-                'neighborhood': neighborhood,
-                'city': city,
-                'state': state,
-              },
-            ).then((value) => showSuccessDialog(context,
-              message: 'Endereço atualizado com sucesso'))
-          : ref
-              .read(userProfileDataProvider)
-              .addDeliveryAddress(uid: user.id, address: {
-              'street': street,
-              'number': number,
-              'zipCode': zipCode,
-              'neighborhood': neighborhood,
-              'city': city,
-              'state': state,
-            }).then((value) => showSuccessDialog(context));
+      if (currentAddress != null) {
+        final addresses = ref.read(userAddressListProvider);
+        addresses.when(
+          data: (addresses) {
+            addresses.contains(currentAddress)
+                ? ref.read(userProfileDataProvider).updateProfile(
+                    uid: user.id,
+                    address: {
+                      'street': street,
+                      'number': number,
+                      'zipCode': zipCode,
+                      'neighborhood': neighborhood,
+                      'city': city,
+                      'state': state,
+                    },
+                  ).then((value) => showSuccessDialog(context,
+                    message: 'Endereço atualizado com sucesso'))
+                : ref
+                    .read(userProfileDataProvider)
+                    .addDeliveryAddress(uid: user.id, address: {
+                    'street': street,
+                    'number': number,
+                    'zipCode': zipCode,
+                    'neighborhood': neighborhood,
+                    'city': city,
+                    'state': state,
+                  }).then((value) => showSuccessDialog(context));
+          },
+          loading: () => null,
+          error: (error, stackTrace) {
+            throw Exception('Error : $error');
+          },
+        );
+      }
     }
   }
 
@@ -136,5 +150,17 @@ class AddressViewModel extends _$AddressViewModel {
 
   get validator {
     return ref.read(inputValidationProvider.notifier);
+  }
+
+  AsyncValue<List<Address>> getUserAddresses() {
+    return ref.watch(userAddressListProvider);
+  }
+
+  AsyncValue getCurrentLocationAddress() {
+    return ref.watch(currentLocationProvider);
+  }
+
+  void selectDeliveryAddress(Address address) {
+    ref.read(deliveryAddressProvider.notifier).setDeliveryAddress(address);
   }
 }

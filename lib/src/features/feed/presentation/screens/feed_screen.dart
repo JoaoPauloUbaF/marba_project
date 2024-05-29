@@ -22,8 +22,9 @@ class FeedOffersView extends ConsumerWidget {
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            const SliverToBoxAdapter(
-              child: Row(
+            const SliverAppBar(
+              floating: true,
+              title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CurrentLocationAddressWidget(),

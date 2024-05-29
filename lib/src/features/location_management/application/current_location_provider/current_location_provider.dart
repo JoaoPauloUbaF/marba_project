@@ -1,17 +1,21 @@
 import 'package:geocoding/geocoding.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:geolocator/geolocator.dart';
 
 part 'current_location_provider.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod()
 class CurrentLocation extends _$CurrentLocation {
   @override
   Future<Address?> build() async {
     final position = await _getCurrentLocation();
-
     return getAddressFromPosition(position);
+  }
+
+  void setCurrentLocationAddress(Address address) {
+    state = AsyncValue.data(address);
   }
 
   Future<void> _handleLocationPermission() async {
@@ -52,6 +56,14 @@ class CurrentLocation extends _$CurrentLocation {
       );
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
+        ref.read(deliveryAddressProvider.notifier).setDeliveryAddress(Address(
+              street: placemark.thoroughfare.toString(),
+              number: placemark.subThoroughfare.toString(),
+              neighborhood: placemark.subLocality.toString(),
+              city: placemark.locality.toString(),
+              state: placemark.administrativeArea.toString(),
+              zipCode: placemark.postalCode.toString(),
+            ));
         return Address(
           street: placemark.thoroughfare.toString(),
           number: placemark.subThoroughfare.toString(),

@@ -1,9 +1,10 @@
+import 'package:project_marba/src/features/location_management/application/current_location_provider/current_location_provider.dart';
 import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'delivery_address_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class DeliveryAddress extends _$DeliveryAddress {
   @override
   Future<Address?> build() {
@@ -17,6 +18,9 @@ class DeliveryAddress extends _$DeliveryAddress {
 
   setDeliveryAddress(Address userAddress) {
     state = AsyncValue.data(userAddress);
+    ref
+        .read(currentLocationProvider.notifier)
+        .setCurrentLocationAddress(userAddress);
   }
 
   fetchDeliveryAddress() {

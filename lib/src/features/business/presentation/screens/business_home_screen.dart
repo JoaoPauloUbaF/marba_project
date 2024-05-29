@@ -14,7 +14,7 @@ class MyBusinessHomeScreen extends ConsumerStatefulWidget {
 }
 
 class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 0; //TODO: search on business products
 
   static final List<Widget> _widgetOptions = <Widget>[
     const BusinessProfileScreen(),

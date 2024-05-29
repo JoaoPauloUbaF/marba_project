@@ -204,11 +204,7 @@ class _AddressFormModalWidgetState
                       businessId: widget.businessId,
                     );
                   },
-                  child: Text(
-                    widget.currentAddress != null
-                        ? 'Atualizar endereço'
-                        : 'Adicionar endereço',
-                  ),
+                  child: Text(widget.title),
                 ),
                 const VerticalSpaceMediumWidget(),
                 const VerticalSpaceMediumWidget(),

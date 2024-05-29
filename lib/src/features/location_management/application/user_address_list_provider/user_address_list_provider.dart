@@ -9,6 +9,7 @@ Stream<List<Address>> userAddressList(UserAddressListRef ref) {
   ref.watch(authStateChangeProvider);
   final user = ref.watch(authRepositoryProvider).getCurrentUser();
   if (user != null) {
+    Future.delayed(const Duration(milliseconds: 1000));
     return ref
         .watch(userProfileDataProvider)
         .getDeliveryAddresses(uid: user.uid);

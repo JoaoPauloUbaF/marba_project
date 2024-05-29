@@ -20,7 +20,7 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
-import 'src/features/settings/presentation/settings_screen.dart';
+import 'src/features/settings/presentation/profile_settings_screen.dart';
 import 'src/features/shopping/presentation/views/shopping_cart_view.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 import 'theme.dart';
