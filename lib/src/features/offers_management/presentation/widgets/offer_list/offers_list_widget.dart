@@ -102,7 +102,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         () => _pagingController.refresh(),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(4.0),
         child: PagedMasonryGridView.count(
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<OfferModel>(

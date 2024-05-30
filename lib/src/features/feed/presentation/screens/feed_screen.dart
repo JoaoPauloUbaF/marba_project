@@ -32,7 +32,9 @@ class FeedOffersView extends ConsumerWidget {
               ),
             ),
             const SliverToBoxAdapter(
-              child: SizedBox(height: 8),
+              child: Divider(
+                thickness: 4,
+              ),
             ),
             const SliverToBoxAdapter(
               child: OfferTypeFilterWidget(),

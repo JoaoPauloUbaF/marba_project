@@ -20,17 +20,22 @@ class OfferTypeFilterTab extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
       child: Tab(
-        height: 40,
-        iconMargin: EdgeInsets.zero,
-        icon: Icon(
-          icon,
-          size: 20,
-          color: isSelected
-              ? Theme.of(context).colorScheme.secondary
-              : Theme.of(context).colorScheme.secondary.withAlpha(100),
-        ),
-        text: text,
-      ),
+          height: 40,
+          iconMargin: EdgeInsets.zero,
+          icon: Icon(
+            icon,
+            color: isSelected
+                ? Theme.of(context).colorScheme.secondary
+                : Theme.of(context).colorScheme.secondary.withAlpha(100),
+          ),
+          child: Text(
+            text,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: isSelected
+                      ? Theme.of(context).colorScheme.secondary
+                      : Theme.of(context).colorScheme.secondary.withAlpha(100),
+                ),
+          )),
     );
   }
 }

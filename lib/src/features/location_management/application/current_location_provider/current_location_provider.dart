@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
-import 'package:project_marba/src/features/shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart' as http;
 
 part 'current_location_provider.g.dart';
 
@@ -49,6 +53,45 @@ class CurrentLocation extends _$CurrentLocation {
   }
 
   Future<Address?> getAddressFromPosition(Position position) async {
+    if (kIsWeb) {
+      return await _getAddressFromCoordinatesWeb(position);
+    } else {
+      return await _getAddressFromCoordinatesMobile(position);
+    }
+  }
+
+  Future<Address?> _getAddressFromCoordinatesWeb(Position position) async {
+    try {
+      double latitude = position.latitude;
+      double longitude = position.longitude;
+
+      final apiKey = dotenv.env['GOOGLE_API_KEY'] ?? '';
+
+      Uri uri = Uri.https("maps.googleapis.com", "/maps/api/geocode/json", {
+        "latlng": "$latitude,$longitude",
+        "key": apiKey,
+      });
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        try {
+          var data = jsonDecode(response.body);
+
+          if (data['results'] != null && data['results'].isNotEmpty) {
+            return _parseAddressComponents(
+                data['results'][0]['address_components']);
+          }
+        } catch (e) {
+          throw Exception(e);
+        }
+      }
+      throw Exception('Failed to fetch address from coordinates');
+    } catch (e) {
+      throw Exception('Error fetching address from location $e');
+    }
+  }
+
+  Future<Address?> _getAddressFromCoordinatesMobile(Position position) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
@@ -56,14 +99,6 @@ class CurrentLocation extends _$CurrentLocation {
       );
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
-        ref.read(deliveryAddressProvider.notifier).setDeliveryAddress(Address(
-              street: placemark.thoroughfare.toString(),
-              number: placemark.subThoroughfare.toString(),
-              neighborhood: placemark.subLocality.toString(),
-              city: placemark.locality.toString(),
-              state: placemark.administrativeArea.toString(),
-              zipCode: placemark.postalCode.toString(),
-            ));
         return Address(
           street: placemark.thoroughfare.toString(),
           number: placemark.subThoroughfare.toString(),
@@ -75,7 +110,43 @@ class CurrentLocation extends _$CurrentLocation {
       }
       return null;
     } catch (e) {
-      throw Exception('Error fetching address from location');
+      throw Exception('Error fetching address from location $e');
     }
+  }
+
+  Address _parseAddressComponents(List<dynamic> components) {
+    String street = '';
+    String number = '';
+    String neighborhood = '';
+    String city = '';
+    String state = '';
+    String zipCode = '';
+
+    for (var component in components) {
+      var types = component['types'];
+      if (types.contains('route')) {
+        street = component['long_name'];
+      } else if (types.contains('street_number')) {
+        number = component['long_name'];
+      } else if (types.contains('sublocality') ||
+          types.contains('neighborhood')) {
+        neighborhood = component['long_name'];
+      } else if (types.contains('locality')) {
+        city = component['long_name'];
+      } else if (types.contains('administrative_area_level_1')) {
+        state = component['long_name'];
+      } else if (types.contains('postal_code')) {
+        zipCode = component['long_name'];
+      }
+    }
+
+    return Address(
+      street: street,
+      number: number,
+      neighborhood: neighborhood,
+      city: city,
+      state: state,
+      zipCode: zipCode,
+    );
   }
 }

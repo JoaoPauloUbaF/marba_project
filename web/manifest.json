@@ -1,6 +1,6 @@
 {
-    "name": "project_marba",
-    "short_name": "project_marba",
+    "name": "marba_project",
+    "short_name": "marba_project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

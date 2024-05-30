@@ -52,18 +52,54 @@ class _HomeViewState extends ConsumerState<HomeView> {
             ? Theme.of(context).colorScheme.primaryContainer
             : Theme.of(context).colorScheme.primary,
         automaticallyImplyLeading: false,
-        title: InkWell(
-          onTap: () {
-            _onItemTapped(1);
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              'assets/images/logo.png',
-              fit: BoxFit.cover,
-              scale: 4,
+        title: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  _onItemTapped(1);
+                },
+                child: SizedBox(
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    fit: BoxFit.cover,
+                    scale: 3,
+                  ),
+                ),
+              ),
             ),
-          ),
+            const Spacer(),
+            isWideScreen
+                ? SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: TextField(
+                      // Add TextField
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.all(4),
+                        hintText: 'Pesquisar',
+                        hintStyle: TextStyle(
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
+                        prefixIcon: const Icon(Icons.search_sharp),
+                        border: const OutlineInputBorder(),
+                      ),
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                      cursorColor: Theme.of(context).colorScheme.onPrimary,
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          Navigator.pushNamed(context, '/search',
+                              arguments: value);
+                        }
+                      },
+                    ),
+                  )
+                : const SizedBox.shrink(),
+            const Spacer(),
+          ],
         ),
         leading: isWideScreen
             ? Builder(builder: (context) {
@@ -76,33 +112,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
               })
             : null,
         actions: [
-          isWideScreen
-              ? SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: TextField(
-                    // Add TextField
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.all(4),
-                      hintText: 'Pesquisar',
-                      hintStyle: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
-                      prefixIcon: const Icon(Icons.search_sharp),
-                      border: const OutlineInputBorder(),
-                    ),
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.onPrimary,
-                    ),
-                    cursorColor: Theme.of(context).colorScheme.onPrimary,
-                    onChanged: (value) {
-                      if (value.isNotEmpty) {
-                        Navigator.pushNamed(context, '/search',
-                            arguments: value);
-                      }
-                    },
-                  ),
-                )
-              : const SizedBox.shrink(),
           IconButton(
             padding: EdgeInsets.zero,
             visualDensity: VisualDensity.compact,

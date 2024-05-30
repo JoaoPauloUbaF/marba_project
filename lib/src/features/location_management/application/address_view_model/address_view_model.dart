@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';

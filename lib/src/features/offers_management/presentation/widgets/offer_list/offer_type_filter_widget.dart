@@ -21,14 +21,14 @@ class OfferTypeFilterWidget extends ConsumerWidget {
         ref.read(feedOffersTypeFilterProvider.notifier);
     final feedOffersTypeFilter = ref.watch(feedOffersTypeFilterProvider);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+    return Center(
       child: Column(
         children: [
-          Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 OfferTypeFilterTab(
                   onTap: () =>
@@ -37,6 +37,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                   text: 'Todos',
                   isSelected: feedOffersTypeFilter == null,
                 ),
+                SizedBox(width: 16),
                 OfferTypeFilterTab(
                   onTap: () => feedOffersTypeFilterNotifier
                       .setOfferTypeFilter(OfferType.product),
@@ -44,6 +45,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                   text: 'Produtos',
                   isSelected: feedOffersTypeFilter == OfferType.product,
                 ),
+                SizedBox(width: 16),
                 OfferTypeFilterTab(
                   onTap: () => feedOffersTypeFilterNotifier
                       .setOfferTypeFilter(OfferType.service),

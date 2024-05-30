@@ -42,6 +42,7 @@
 .env
 lib/firebase_options.dart
 ios/Runner/AppDelegate.swift
+web/index.html
 
 # macOS
 .DS_Store
