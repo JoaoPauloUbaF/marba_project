@@ -24,7 +24,7 @@ class OfferModel with _$OfferModel {
     required DateTime createdAt,
     required DateTime updatedAt,
     required OfferStatus status,
-    required OfferType type,
+    required OfferType type, //TODO: add the city
     List<ReviewModel>? reviews,
     double? rating,
     double? discount,

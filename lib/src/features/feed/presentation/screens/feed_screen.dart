@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/current_location_address_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_list/offer_type_filter_widget.dart';
 
@@ -22,22 +23,31 @@ class FeedOffersView extends ConsumerWidget {
         ),
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            const SliverAppBar(
+            SliverAppBar(
+              toolbarHeight:
+                  isWideScreen(context) ? kToolbarHeight * 2 : kToolbarHeight,
               floating: true,
               title: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: isWideScreen(context)
+                    ? MainAxisAlignment.start
+                    : MainAxisAlignment.center,
                 children: [
-                  CurrentLocationAddressWidget(),
+                  const CurrentLocationAddressWidget(),
+                  isWideScreen(context)
+                      ? const OfferTypeFilterWidget()
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),
             const SliverToBoxAdapter(
               child: Divider(
-                thickness: 4,
+                thickness: 2,
               ),
             ),
-            const SliverToBoxAdapter(
-              child: OfferTypeFilterWidget(),
+            SliverToBoxAdapter(
+              child: isWideScreen(context)
+                  ? const SizedBox.shrink()
+                  : const OfferTypeFilterWidget(),
             ),
           ];
         },

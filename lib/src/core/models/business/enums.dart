@@ -41,6 +41,7 @@ enum BusinessCategory {
   lawyerServices, // Advogado
   accountantServices, // Contador
   therapistServices, // Terapeuta
+  barberShopServices, // Barbearia
 }
 
 final Map<BusinessCategory, String> businessCategoryTranslations = {
@@ -83,4 +84,5 @@ final Map<BusinessCategory, String> businessCategoryTranslations = {
   BusinessCategory.lawyerServices: 'Advogado',
   BusinessCategory.accountantServices: 'Contador',
   BusinessCategory.therapistServices: 'Terapeuta',
+  BusinessCategory.barberShopServices: 'Barbearia',
 };

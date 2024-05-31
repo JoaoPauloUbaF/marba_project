@@ -290,4 +290,28 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
     return uniqueOffers;
   }
+
+  @override
+  Future<List<OfferModel>> getOffersAt(
+      {OfferModel? lastOffer, required String city}) async {
+    Query query = _firestore
+        .collection('offers')
+        .orderBy(
+          //TODO: add the city
+          'createdAt',
+          descending: true,
+        )
+        // Assuming there's a field 'createdAt' to order by
+        .limit(10);
+
+    if (lastOffer != null) {
+      query = query.startAfterDocument(
+          await _firestore.collection('offers').doc(lastOffer.id).get());
+    }
+
+    final offerList = await query.get();
+    return offerList.docs
+        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
 }

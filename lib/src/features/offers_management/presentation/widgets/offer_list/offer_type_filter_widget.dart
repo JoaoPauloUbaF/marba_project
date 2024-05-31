@@ -21,56 +21,60 @@ class OfferTypeFilterWidget extends ConsumerWidget {
         ref.read(feedOffersTypeFilterProvider.notifier);
     final feedOffersTypeFilter = ref.watch(feedOffersTypeFilterProvider);
 
-    return Center(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                OfferTypeFilterTab(
-                  onTap: () =>
-                      feedOffersTypeFilterNotifier.setOfferTypeFilter(null),
-                  icon: Icons.local_offer_sharp,
-                  text: 'Todos',
-                  isSelected: feedOffersTypeFilter == null,
-                ),
-                SizedBox(width: 16),
-                OfferTypeFilterTab(
-                  onTap: () => feedOffersTypeFilterNotifier
-                      .setOfferTypeFilter(OfferType.product),
-                  icon: Icons.shopping_cart_sharp,
-                  text: 'Produtos',
-                  isSelected: feedOffersTypeFilter == OfferType.product,
-                ),
-                SizedBox(width: 16),
-                OfferTypeFilterTab(
-                  onTap: () => feedOffersTypeFilterNotifier
-                      .setOfferTypeFilter(OfferType.service),
-                  icon: Icons.build_sharp,
-                  text: 'Serviços',
-                  isSelected: feedOffersTypeFilter == OfferType.service,
-                ),
-              ],
+    return SizedBox(
+      child: Center(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  OfferTypeFilterTab(
+                    onTap: () =>
+                        feedOffersTypeFilterNotifier.setOfferTypeFilter(null),
+                    icon: Icons.local_offer_sharp,
+                    text: 'Todos',
+                    isSelected: feedOffersTypeFilter == null,
+                  ),
+                  SizedBox(width: 16),
+                  OfferTypeFilterTab(
+                    onTap: () => feedOffersTypeFilterNotifier
+                        .setOfferTypeFilter(OfferType.product),
+                    icon: Icons.shopping_cart_sharp,
+                    text: 'Produtos',
+                    isSelected: feedOffersTypeFilter == OfferType.product,
+                  ),
+                  SizedBox(width: 16),
+                  OfferTypeFilterTab(
+                    onTap: () => feedOffersTypeFilterNotifier
+                        .setOfferTypeFilter(OfferType.service),
+                    icon: Icons.build_sharp,
+                    text: 'Serviços',
+                    isSelected: feedOffersTypeFilter == OfferType.service,
+                  ),
+                ],
+              ),
             ),
-          ),
-          if (feedOffersTypeFilter == OfferType.product)
-            ItemCategoryFilterWidget(
-              categories: ProductCategory.values,
-              categoryFilterProvider: ref.watch(productCategoryFilterProvider),
-              categoryFilterProviderNotifier:
-                  ref.read(productCategoryFilterProvider.notifier),
-            ),
-          if (feedOffersTypeFilter == OfferType.service)
-            ItemCategoryFilterWidget(
-              categories: ServiceCategory.values,
-              categoryFilterProvider: ref.watch(serviceCategoryFilterProvider),
-              categoryFilterProviderNotifier:
-                  ref.read(serviceCategoryFilterProvider.notifier),
-            ),
-        ],
+            if (feedOffersTypeFilter == OfferType.product)
+              ItemCategoryFilterWidget(
+                categories: ProductCategory.values,
+                categoryFilterProvider:
+                    ref.watch(productCategoryFilterProvider),
+                categoryFilterProviderNotifier:
+                    ref.read(productCategoryFilterProvider.notifier),
+              ),
+            if (feedOffersTypeFilter == OfferType.service)
+              ItemCategoryFilterWidget(
+                categories: ServiceCategory.values,
+                categoryFilterProvider:
+                    ref.watch(serviceCategoryFilterProvider),
+                categoryFilterProviderNotifier:
+                    ref.read(serviceCategoryFilterProvider.notifier),
+              ),
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/order_address_modal_widget.dart';
 import '../../application/current_location_provider/current_location_provider.dart';
 
@@ -14,10 +16,38 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
     final locationAsyncValue = ref.watch(currentLocationProvider);
 
     void showAddressModal(BuildContext context, Address address) {
+      final user = ref.read(authRepositoryProvider).getCurrentUser();
       showModalBottomSheet(
         context: context,
         builder: (context) {
-          return OrderAddressModalWidget(
+          if (user == null) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                      'Para mudar o endereço, faça login ou cadastre-se!'),
+                  const Gap(16),
+                  ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: WidgetStateProperty.all(
+                      Theme.of(context).colorScheme.tertiary,
+                    )),
+                    onPressed: () {
+                      Navigator.of(context).pushNamed('/sign-in');
+                    },
+                    child: Text(
+                      'Fazer login',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.onTertiary,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+          return AddressesModalWidget(
             currentSelectedAddress: address,
           );
         },

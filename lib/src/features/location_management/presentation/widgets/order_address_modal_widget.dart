@@ -10,21 +10,21 @@ import '../../application/address_view_model/address_view_model.dart';
 import '../../application/user_address_list_provider/user_address_list_provider.dart';
 import 'address_form_widget.dart';
 
-class OrderAddressModalWidget extends ConsumerStatefulWidget {
+class AddressesModalWidget extends ConsumerStatefulWidget {
   final Address currentSelectedAddress;
 
-  const OrderAddressModalWidget({
+  const AddressesModalWidget({
     super.key,
     required this.currentSelectedAddress,
   });
 
   @override
-  ConsumerState<OrderAddressModalWidget> createState() =>
+  ConsumerState<AddressesModalWidget> createState() =>
       _OrderAddressModalWidgetState();
 }
 
 class _OrderAddressModalWidgetState
-    extends ConsumerState<OrderAddressModalWidget> {
+    extends ConsumerState<AddressesModalWidget> {
   @override
   Widget build(BuildContext context) {
     final addressViewModel = ref.watch(addressViewModelProvider.notifier);
@@ -46,16 +46,8 @@ class _OrderAddressModalWidgetState
                   ),
                 ),
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    scrollControlDisabledMaxHeightRatio: 0.7,
-                    builder: (context) {
-                      return AddressFormModalWidget(
-                        title: 'Adicionar novo endereço',
-                        currentAddress: currentLocation,
-                      );
-                    },
-                  );
+                  addressViewModel.showConfirmAddressDialog(
+                      currentLocation, context);
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_search_widget.dart';
 
 import '../../../../core/models/address/address.dart';
 import '../../../../core/widgets/medium_vertical_space_widget.dart';
-import '../../application/address_view_model/address_view_model.dart';
 
 class AddressFormModalWidget extends ConsumerStatefulWidget {
   final String title;
