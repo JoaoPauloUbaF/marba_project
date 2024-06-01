@@ -15,7 +15,8 @@ class CurrentLocation extends _$CurrentLocation {
   @override
   Future<Address?> build() async {
     final position = await _getCurrentLocation();
-    return getAddressFromPosition(position);
+    final address = await getAddressFromPosition(position);
+    return address;
   }
 
   void setCurrentLocationAddress(Address address) {

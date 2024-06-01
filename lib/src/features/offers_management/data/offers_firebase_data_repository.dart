@@ -296,6 +296,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       {OfferModel? lastOffer, required String city}) async {
     Query query = _firestore
         .collection('offers')
+        .where('city', isEqualTo: city)
         .orderBy(
           //TODO: add the city
           'createdAt',

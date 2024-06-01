@@ -26,6 +26,7 @@ _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       status: $enumDecode(_$OfferStatusEnumMap, json['status']),
       type: $enumDecode(_$OfferTypeEnumMap, json['type']),
+      city: json['city'] as String,
       reviews: (json['reviews'] as List<dynamic>?)
           ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -57,6 +58,7 @@ Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) {
     'updatedAt': instance.updatedAt.toIso8601String(),
     'status': _$OfferStatusEnumMap[instance.status]!,
     'type': _$OfferTypeEnumMap[instance.type]!,
+    'city': instance.city,
   };
 
   void writeNotNull(String key, dynamic value) {

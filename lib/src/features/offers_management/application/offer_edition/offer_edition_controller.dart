@@ -48,7 +48,7 @@ class OfferEditionController extends _$OfferEditionController {
 
   Future<String> updateOffer(OfferModel offer) async {
     try {
-      ref.read(offersDataRepositoryProvider).updateOffer(offer);
+      await ref.read(offersDataRepositoryProvider).updateOffer(offer);
       return 'Oferta atualizada com sucesso';
     } catch (e) {
       return 'Erro ao atualizar oferta';

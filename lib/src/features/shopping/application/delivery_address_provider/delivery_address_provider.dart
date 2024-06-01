@@ -10,7 +10,7 @@ class DeliveryAddress extends _$DeliveryAddress {
   Future<Address?> build() {
     Address? address;
     ref
-        .watch(userAddressListProvider)
+        .read(userAddressListProvider)
         .whenData((value) => address = value.first);
 
     return Future.value(address);
@@ -24,7 +24,7 @@ class DeliveryAddress extends _$DeliveryAddress {
   }
 
   fetchDeliveryAddress() {
-    ref.watch(userAddressListProvider).whenData((value) {
+    ref.read(userAddressListProvider).whenData((value) {
       state = AsyncValue.data(value.first);
     });
   }

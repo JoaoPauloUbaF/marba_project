@@ -85,6 +85,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         _pagingController.appendPage(newItems, nextPageKey);
       }
     } catch (error) {
+      print(error);
       _pagingController.error = error;
     }
   }

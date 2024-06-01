@@ -196,6 +196,7 @@ class OfferCreationController extends _$OfferCreationController {
       status: offerStatus ?? OfferStatus.active,
       type: offerType,
       offerImagesUrls: offerMediaUrls,
+      city: business.address.city,
     );
     ref.read(offersDataRepositoryProvider).createOffer(offer);
     return offer.getTitle;
@@ -243,7 +244,9 @@ class OfferCreationController extends _$OfferCreationController {
               children: [
                 Text(
                   value,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
                 const SizedBox(height: 8), // Reduced size
                 Icon(Icons.check_circle,

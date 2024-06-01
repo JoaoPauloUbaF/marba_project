@@ -33,6 +33,7 @@ mixin _$OfferModel {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   OfferStatus get status => throw _privateConstructorUsedError;
   OfferType get type => throw _privateConstructorUsedError;
+  String get city => throw _privateConstructorUsedError;
   List<ReviewModel>? get reviews => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
   double? get discount => throw _privateConstructorUsedError;
@@ -66,6 +67,7 @@ abstract class $OfferModelCopyWith<$Res> {
       DateTime updatedAt,
       OfferStatus status,
       OfferType type,
+      String city,
       List<ReviewModel>? reviews,
       double? rating,
       double? discount,
@@ -103,6 +105,7 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     Object? updatedAt = null,
     Object? status = null,
     Object? type = null,
+    Object? city = null,
     Object? reviews = freezed,
     Object? rating = freezed,
     Object? discount = freezed,
@@ -163,6 +166,10 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as OfferType,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
       reviews: freezed == reviews
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -237,6 +244,7 @@ abstract class _$$OfferModelImplCopyWith<$Res>
       DateTime updatedAt,
       OfferStatus status,
       OfferType type,
+      String city,
       List<ReviewModel>? reviews,
       double? rating,
       double? discount,
@@ -274,6 +282,7 @@ class __$$OfferModelImplCopyWithImpl<$Res>
     Object? updatedAt = null,
     Object? status = null,
     Object? type = null,
+    Object? city = null,
     Object? reviews = freezed,
     Object? rating = freezed,
     Object? discount = freezed,
@@ -334,6 +343,10 @@ class __$$OfferModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as OfferType,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as String,
       reviews: freezed == reviews
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
@@ -379,6 +392,7 @@ class _$OfferModelImpl extends _OfferModel {
       required this.updatedAt,
       required this.status,
       required this.type,
+      required this.city,
       final List<ReviewModel>? reviews,
       this.rating,
       this.discount,
@@ -440,6 +454,8 @@ class _$OfferModelImpl extends _OfferModel {
   final OfferStatus status;
   @override
   final OfferType type;
+  @override
+  final String city;
   final List<ReviewModel>? _reviews;
   @override
   List<ReviewModel>? get reviews {
@@ -471,7 +487,7 @@ class _$OfferModelImpl extends _OfferModel {
 
   @override
   String toString() {
-    return 'OfferModel(id: $id, title: $title, titleWords: $titleWords, description: $description, descriptionWords: $descriptionWords, price: $price, imageUrl: $imageUrl, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, reviews: $reviews, rating: $rating, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
+    return 'OfferModel(id: $id, title: $title, titleWords: $titleWords, description: $description, descriptionWords: $descriptionWords, price: $price, imageUrl: $imageUrl, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, city: $city, reviews: $reviews, rating: $rating, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
   }
 
   @override
@@ -499,6 +515,7 @@ class _$OfferModelImpl extends _OfferModel {
                 other.updatedAt == updatedAt) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.city, city) || other.city == city) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.discount, discount) ||
@@ -526,6 +543,7 @@ class _$OfferModelImpl extends _OfferModel {
         updatedAt,
         status,
         type,
+        city,
         const DeepCollectionEquality().hash(_reviews),
         rating,
         discount,
@@ -563,6 +581,7 @@ abstract class _OfferModel extends OfferModel {
       required final DateTime updatedAt,
       required final OfferStatus status,
       required final OfferType type,
+      required final String city,
       final List<ReviewModel>? reviews,
       final double? rating,
       final double? discount,
@@ -600,6 +619,8 @@ abstract class _OfferModel extends OfferModel {
   OfferStatus get status;
   @override
   OfferType get type;
+  @override
+  String get city;
   @override
   List<ReviewModel>? get reviews;
   @override

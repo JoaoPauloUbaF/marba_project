@@ -1,5 +1,7 @@
 // ignore_for_file: implementation_imports
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,10 +12,15 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_marba/src/features/home/presentation/views/home_view.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_home_screen.dart';
 import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
+import 'package:project_marba/src/features/location_management/application/current_location_provider/current_location_provider.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_list_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/views/edit_offer_view.dart';
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/offers_management/presentation/views/offer_details_view.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
+import 'package:project_marba/src/features/search/application/hot_business_provider/hot_businesses_provider.dart';
+import 'package:project_marba/src/features/search/application/hot_offers_provider/hot_offers_provider.dart';
+import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -46,39 +53,58 @@ class MainApp extends ConsumerWidget {
     TextTheme textTheme =
         createTextTheme(context, "Roboto", "Roboto Condensed");
 
-    return MaterialApp(
-      themeAnimationCurve: Curves.easeInOut,
-      themeAnimationDuration: const Duration(milliseconds: 500),
-      debugShowCheckedModeBanner: false,
-      title: 'Onktem', //Onktem
-      theme: MaterialTheme(textTheme).light(),
-      darkTheme: MaterialTheme(textTheme).dark(),
-      themeMode: ref.watch(darkModeProvider),
-      initialRoute: '/home',
-      routes: {
-        '/home': (context) => const HomeView(),
-        '/sign-in': (context) => const SignIn(),
-        '/profile': (context) => const AppProfileScreen(),
-        '/profile-form': (context) => const ProfileFormScreen(),
-        '/settings': (context) => const ProfileSettingsScreen(),
-        '/business-list': (context) => const MyBusinessListScreen(),
-        '/business-home': (context) => const MyBusinessHomeScreen(),
-        '/business-profile': (context) => const BusinessProfileScreen(),
-        '/edit-offer': (context) => const EditOfferView(),
-        '/offer-details': (context) => const OfferDetailsView(),
-        '/shopping-cart': (context) => const ShoppingCartScreen(),
-        '/checkout': (context) => const CheckoutView(),
-        '/user-order-details': (context) => const UserOrderDetailsView(),
-      },
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        FirebaseUILocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('pt', 'BR'),
-      ],
+    return _EagerInitialization(
+      child: MaterialApp(
+        themeAnimationCurve: Curves.easeInOut,
+        themeAnimationDuration: const Duration(milliseconds: 500),
+        debugShowCheckedModeBanner: false,
+        title: 'Onktem', //Onktem
+        theme: MaterialTheme(textTheme).light(),
+        darkTheme: MaterialTheme(textTheme).dark(),
+        themeMode: ref.watch(darkModeProvider),
+        initialRoute: '/home',
+        routes: {
+          '/home': (context) => const HomeView(),
+          '/sign-in': (context) => const SignIn(),
+          '/profile': (context) => const AppProfileScreen(),
+          '/profile-form': (context) => const ProfileFormScreen(),
+          '/settings': (context) => const ProfileSettingsScreen(),
+          '/business-list': (context) => const MyBusinessListScreen(),
+          '/business-home': (context) => const MyBusinessHomeScreen(),
+          '/business-profile': (context) => const BusinessProfileScreen(),
+          '/edit-offer': (context) => const EditOfferView(),
+          '/offer-details': (context) => const OfferDetailsView(),
+          '/shopping-cart': (context) => const ShoppingCartScreen(),
+          '/checkout': (context) => const CheckoutView(),
+          '/user-order-details': (context) => const UserOrderDetailsView(),
+        },
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          FirebaseUILocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale('pt', 'BR'),
+        ],
+      ),
     );
+  }
+}
+
+class _EagerInitialization extends ConsumerWidget {
+  final Widget child;
+
+  const _EagerInitialization({required this.child});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(currentLocationProvider);
+    ref.watch(feedOffersProvider);
+    ref.watch(hotBusinessesProvider);
+    ref.watch(darkModeProvider);
+    ref.watch(hotOffersProvider);
+    ref.watch(currentUserProvider);
+    return child;
   }
 }

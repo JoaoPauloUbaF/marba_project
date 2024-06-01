@@ -106,4 +106,5 @@ const _$BusinessCategoryEnumMap = {
   BusinessCategory.lawyerServices: 'lawyerServices',
   BusinessCategory.accountantServices: 'accountantServices',
   BusinessCategory.therapistServices: 'therapistServices',
+  BusinessCategory.barberShopServices: 'barberShopServices',
 };

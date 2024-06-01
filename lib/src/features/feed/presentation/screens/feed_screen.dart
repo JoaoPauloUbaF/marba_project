@@ -24,6 +24,7 @@ class FeedOffersView extends ConsumerWidget {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              automaticallyImplyLeading: false,
               toolbarHeight:
                   isWideScreen(context) ? kToolbarHeight * 2 : kToolbarHeight,
               floating: true,
