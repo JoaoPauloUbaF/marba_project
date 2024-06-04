@@ -22,6 +22,7 @@ class HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<HomeView> {
   int _selectedIndex = 0;
+  final TextEditingController _searchController = TextEditingController();
 
   static const List<Widget> _widgetOptions = <Widget>[
     SearchView(),
@@ -31,7 +32,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     MyBusinessListScreen(),
   ];
 
-  void _onItemTapped(int index) {
+  void _itemNavigation(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -83,7 +84,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                      _onItemTapped(1);
+                      _itemNavigation(1);
                     },
                     child: SizedBox(
                       child: Image.asset(
@@ -99,7 +100,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width * 0.45,
                         child: TextField(
-                          // Add TextField
+                          controller: _searchController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(4),
                             hintText: 'Pesquisar',
@@ -109,14 +110,22 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                   .onPrimaryContainer,
                             ),
                             prefixIcon: const Icon(Icons.search_sharp),
+                            suffixIcon: IconButton(
+                              icon: const Icon(Icons.done_sharp),
+                              onPressed: () {
+                                homeScreenViewModel.onSearch(
+                                    query: _searchController.text,
+                                    onItemTap: _itemNavigation);
+                              },
+                            ),
                             border: const OutlineInputBorder(),
                           ),
                           style: TextStyle(
-                            color: Theme.of(context).colorScheme.onPrimary,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                           ),
                           cursorColor: Theme.of(context).colorScheme.onPrimary,
-                          onChanged: (value) => homeScreenViewModel
-                              .onSearchChanged(query: value, context: context),
                         ),
                       )
                     : const SizedBox.shrink(),
@@ -153,11 +162,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
           ),
           drawer: !isWideScreen(context)
               ? null
-              : WideScreenDrawerWidget(onItemTapped: _onItemTapped),
+              : WideScreenDrawerWidget(onItemTapped: _itemNavigation),
           bottomNavigationBar: isWideScreen(context)
               ? null
               : MobileScreenBottomNavBarWidget(
-                  onItemTapped: _onItemTapped, selectedIndex: _selectedIndex),
+                  onItemTapped: _itemNavigation, selectedIndex: _selectedIndex),
         );
 
       default:

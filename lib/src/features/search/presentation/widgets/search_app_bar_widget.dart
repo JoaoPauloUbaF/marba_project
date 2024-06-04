@@ -44,6 +44,7 @@ class SearchAppBarWidgetState extends State<SearchAppBarWidget>
 
   @override
   Widget build(BuildContext context) {
+    widget.searchController.text = widget.searchViewModel.getSearchFieldText();
     return SliverAppBar(
       toolbarHeight: kToolbarHeight * 1.2,
       pinned: true,
@@ -58,8 +59,8 @@ class SearchAppBarWidgetState extends State<SearchAppBarWidget>
                 controller: widget.searchController,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(8),
-                  hintText: widget.searchViewModel.getSearchPlaceHolder(),
                   border: const OutlineInputBorder(),
+                  hintText: "Pesquise por Serviços, Negócios e Produtos!",
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.search),
                     onPressed: () => widget.searchViewModel

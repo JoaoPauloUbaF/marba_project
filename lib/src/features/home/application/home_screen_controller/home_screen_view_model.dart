@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/search/application/search_view_model/search_view_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
@@ -19,7 +20,7 @@ class HomeScreenViewModel extends _$HomeScreenViewModel {
   }
 
   Future<void> mockLoading() async {
-    await Future.delayed(const Duration(seconds: 5), () {
+    await Future.delayed(const Duration(seconds: 1), () {
       state = HomeScreenState.loaded;
     });
   }
@@ -48,7 +49,17 @@ class HomeScreenViewModel extends _$HomeScreenViewModel {
                 context, '/profile-form', (route) => false));
   }
 
-  onSearchChanged({required String query, required BuildContext context}) {}
+  void onSearch(
+      {required String query, required void Function(int index) onItemTap}) {
+    if (query.isEmpty || query.length < 3) {
+      return;
+    }
+    onItemTap(0);
+    Future.delayed(const Duration(milliseconds: 100), () {
+      ref.read(searchViewModelProvider.notifier).setSearchFieldText(query);
+      ref.read(searchViewModelProvider.notifier).onSearchSubmit(query: query);
+    });
+  }
 }
 
 enum HomeScreenState { loading, loaded, error }

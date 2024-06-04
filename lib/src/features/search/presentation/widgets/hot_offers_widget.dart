@@ -67,8 +67,14 @@ class HotOfferCardWidget extends ConsumerWidget {
                 loadingBuilder: (context, child, loadingProgress) =>
                     loadingProgress == null
                         ? child
-                        : const Center(
-                            child: CircularProgressIndicator(),
+                        : Center(
+                            child: CircularProgressIndicator(
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                              color: Theme.of(context).colorScheme.onTertiary,
+                            ),
                           ),
               ),
               Column(

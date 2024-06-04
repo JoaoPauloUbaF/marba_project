@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/search/application/query_offers_result_provider/query_offers_result_provider.dart';
 
 import 'business_search_result_tab_view.dart';
 import 'offers_search_result_tab_view.dart';
@@ -18,6 +20,7 @@ class SearchResultWidgetState extends State<SearchResultWidget>
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(length: 2, vsync: this);
     _scrollController = ScrollController();
   }
@@ -37,12 +40,16 @@ class SearchResultWidgetState extends State<SearchResultWidget>
         headerSliverBuilder: (context, innerBoxIsScrolled) => <Widget>[
           SliverAppBar(
             automaticallyImplyLeading: false,
-            title: TabBar(
-              controller: _tabController,
-              tabs: const [
-                Tab(text: 'Ofertas'),
-                Tab(text: 'Negócios'),
-              ],
+            title: Consumer(
+              builder: (_, WidgetRef ref, __) {
+                return TabBar(
+                  controller: _tabController,
+                  tabs: const [
+                    Tab(text: 'Ofertas'),
+                    Tab(text: 'Negócios'),
+                  ],
+                );
+              },
             ),
           ),
         ],

@@ -14,7 +14,7 @@ part 'search_view_model.g.dart';
 
 @riverpod
 class SearchViewModel extends _$SearchViewModel {
-  String searchPlaceHolder = 'Pesquise por Serviços e Produtos!';
+  String searchText = '';
 
   @override
   SearchViewState build() {
@@ -71,7 +71,7 @@ class SearchViewModel extends _$SearchViewModel {
 
   void onSearchCancel() {
     state = SearchViewState.display;
-    searchPlaceHolder = 'Pesquise por Serviços e Produtos!';
+    searchText = '';
   }
 
   Future<List<String>>? getSuggestions() async {
@@ -84,13 +84,13 @@ class SearchViewModel extends _$SearchViewModel {
         .getSearchHistory(uid: userId);
   }
 
-  String getSearchPlaceHolder() {
-    return searchPlaceHolder;
+  String getSearchFieldText() {
+    return searchText;
   }
 
-  String setSearchPlaceHolder(String newPlaceHolder) {
-    searchPlaceHolder = newPlaceHolder;
-    return searchPlaceHolder;
+  String setSearchFieldText(String newPlaceHolder) {
+    searchText = newPlaceHolder;
+    return searchText;
   }
 
   Future<void> clearSearchHistory() async {
