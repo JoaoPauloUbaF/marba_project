@@ -5,10 +5,10 @@ import '../../../../core/models/business/enums.dart';
 import '../../../../core/models/product/enums.dart';
 import '../../../../core/models/service/enums.dart';
 
-part 'feed_screen_controller.g.dart';
+part 'feed_view_model.g.dart';
 
 @riverpod
-class FeedScreenController extends _$FeedScreenController {
+class FeedViewModel extends _$FeedViewModel {
   @override
   FutureOr<void> build() {}
 

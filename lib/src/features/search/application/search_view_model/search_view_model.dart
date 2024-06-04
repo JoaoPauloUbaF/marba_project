@@ -23,8 +23,7 @@ class SearchViewModel extends _$SearchViewModel {
   }
 
   Future<void> setUpView() async {
-    await Future.delayed(const Duration(seconds: 1));
-
+    await Future.delayed(const Duration(milliseconds: 1));
     await ref.watch(hotOffersProvider.notifier).fetchHotOffers();
     await ref.watch(hotBusinessesProvider.notifier).fetchHotBusinesses();
     if (state == SearchViewState.loading) {

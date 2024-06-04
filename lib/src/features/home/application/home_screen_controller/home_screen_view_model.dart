@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import '../../../user_profile/data/user_profile_provider.dart';
 
-part 'home_screen_controller.g.dart';
+part 'home_screen_view_model.g.dart';
 
 @riverpod
-class HomeScreenController extends _$HomeScreenController {
+class HomeScreenViewModel extends _$HomeScreenViewModel {
   @override
-  int build() {
-    return 0;
+  HomeScreenState build() {
+    ref.watch(authStateChangeProvider);
+    ref.watch(currentUserProvider);
+    mockLoading();
+    return (HomeScreenState.loading);
+  }
+
+  Future<void> mockLoading() async {
+    await Future.delayed(const Duration(seconds: 5), () {
+      state = HomeScreenState.loaded;
+    });
   }
 
   Future<bool?> hasBusiness() async {
@@ -36,4 +47,8 @@ class HomeScreenController extends _$HomeScreenController {
             : Navigator.pushNamedAndRemoveUntil(
                 context, '/profile-form', (route) => false));
   }
+
+  onSearchChanged({required String query, required BuildContext context}) {}
 }
+
+enum HomeScreenState { loading, loaded, error }

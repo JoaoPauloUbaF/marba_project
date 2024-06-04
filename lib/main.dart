@@ -1,7 +1,4 @@
 // ignore_for_file: implementation_imports
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -18,8 +15,6 @@ import 'package:project_marba/src/features/offers_management/presentation/views/
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/offers_management/presentation/views/offer_details_view.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
-import 'package:project_marba/src/features/search/application/hot_business_provider/hot_businesses_provider.dart';
-import 'package:project_marba/src/features/search/application/hot_offers_provider/hot_offers_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
@@ -101,9 +96,7 @@ class _EagerInitialization extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(currentLocationProvider);
     ref.watch(feedOffersProvider);
-    ref.watch(hotBusinessesProvider);
     ref.watch(darkModeProvider);
-    ref.watch(hotOffersProvider);
     ref.watch(currentUserProvider);
     return child;
   }
