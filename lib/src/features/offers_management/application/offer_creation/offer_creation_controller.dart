@@ -168,14 +168,13 @@ class OfferCreationController extends _$OfferCreationController {
       offerProduct = Product(
         availableQuantity: int.parse(offerAvailableQuantity),
         itemCost: currencyStringToDouble(offerItemCost),
-        status: offerStatus.toString(),
       );
     }
 
     if (offerType == OfferType.service) {
       offerService = Service(
-        status: offerStatus.toString(),
         pricingType: servicePricingType ?? ServicePricingType.fixed,
+        type: ServiceType.atSite,
       );
     }
 

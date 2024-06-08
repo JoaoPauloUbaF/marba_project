@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_creation/offer_creation_controller.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_creation/offer_category_selection_field_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_creation/offer_image_selection_field.dart';
@@ -200,19 +201,20 @@ class CreateOfferStepperWidgetState
         title: const Text('Dados da oferta'),
         content: Column(
           children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Imagem principal da oferta',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ),
             OfferImageField(
               onImageSelected: (value) => setState(() {
                 _offerImage = value;
               }),
               offerCreationController: offerCreationController,
             ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                'Imagem principal da oferta',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+            ),
+            const Gap(8.0),
             TextButton.icon(
               onPressed: () {
                 offerCreationController.pickMoreOfferMedia().then(

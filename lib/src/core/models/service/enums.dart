@@ -128,3 +128,5 @@ final Map<ServicePricingType, String> servicePricingTypeTranslations = {
   ServicePricingType.weekly: 'Semanal',
   ServicePricingType.monthly: 'Mensal',
 };
+
+enum ServiceType { atSite, atHome, online, atSiteAndAtHome }

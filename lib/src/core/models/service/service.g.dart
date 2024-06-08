@@ -8,15 +8,15 @@ part of 'service.dart';
 
 _$ServiceImpl _$$ServiceImplFromJson(Map<String, dynamic> json) =>
     _$ServiceImpl(
-      status: json['status'] as String,
       pricingType:
           $enumDecode(_$ServicePricingTypeEnumMap, json['pricingType']),
+      type: $enumDecode(_$ServiceTypeEnumMap, json['type']),
     );
 
 Map<String, dynamic> _$$ServiceImplToJson(_$ServiceImpl instance) =>
     <String, dynamic>{
-      'status': instance.status,
       'pricingType': _$ServicePricingTypeEnumMap[instance.pricingType]!,
+      'type': _$ServiceTypeEnumMap[instance.type]!,
     };
 
 const _$ServicePricingTypeEnumMap = {
@@ -26,4 +26,11 @@ const _$ServicePricingTypeEnumMap = {
   ServicePricingType.weekly: 'weekly',
   ServicePricingType.monthly: 'monthly',
   ServicePricingType.yearly: 'yearly',
+};
+
+const _$ServiceTypeEnumMap = {
+  ServiceType.atSite: 'atSite',
+  ServiceType.atHome: 'atHome',
+  ServiceType.online: 'online',
+  ServiceType.atSiteAndAtHome: 'atSiteAndAtHome',
 };

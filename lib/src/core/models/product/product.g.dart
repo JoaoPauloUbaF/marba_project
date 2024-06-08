@@ -10,7 +10,6 @@ _$ProductImpl _$$ProductImplFromJson(Map<String, dynamic> json) =>
     _$ProductImpl(
       availableQuantity: (json['availableQuantity'] as num).toInt(),
       itemCost: (json['itemCost'] as num?)?.toDouble(),
-      status: json['status'] as String,
     );
 
 Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) {
@@ -25,6 +24,5 @@ Map<String, dynamic> _$$ProductImplToJson(_$ProductImpl instance) {
   }
 
   writeNotNull('itemCost', instance.itemCost);
-  val['status'] = instance.status;
   return val;
 }

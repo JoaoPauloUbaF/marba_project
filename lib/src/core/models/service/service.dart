@@ -8,8 +8,8 @@ part 'service.g.dart';
 @freezed
 class Service with _$Service {
   factory Service({
-    required String status,
     required ServicePricingType pricingType,
+    required ServiceType type,
   }) = _Service;
 
   factory Service.fromJson(Map<String, dynamic> json) =>

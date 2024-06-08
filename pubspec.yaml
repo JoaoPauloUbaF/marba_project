@@ -23,6 +23,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_google_places_sdk: ^0.3.9
   flutter_hooks: ^0.20.3
+  flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
   flutter_masked_text2: ^0.9.1
