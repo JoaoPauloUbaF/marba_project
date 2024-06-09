@@ -13,6 +13,7 @@ class MockUtils {
   // Método para obter um OrderModel a partir do JSON fornecido
   OfferModel getMockedOfferModel() {
     const json = {
+      "title": "Título",
       "id": "00000000-0000-0000-0000-000000000000",
       "businessId": "00000000-0000-0000-0000-000000000000",
       "category": ["ServiceCategory.home"],
@@ -26,7 +27,8 @@ class MockUtils {
             "Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.Esta é uma descrição de exemplo.",
         "price": 0.0,
         "imageUrl": "https://via.placeholder.com/300",
-        "status": "OfferStatus.onDemand"
+        "status": "OfferStatus.onDemand",
+        "city": "Cidade",
       }
     };
 

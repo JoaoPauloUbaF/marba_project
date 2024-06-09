@@ -38,7 +38,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                     text: 'Todos',
                     isSelected: feedOffersTypeFilter == null,
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   OfferTypeFilterTab(
                     onTap: () => feedOffersTypeFilterNotifier
                         .setOfferTypeFilter(OfferType.product),
@@ -46,7 +46,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                     text: 'Produtos',
                     isSelected: feedOffersTypeFilter == OfferType.product,
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   OfferTypeFilterTab(
                     onTap: () => feedOffersTypeFilterNotifier
                         .setOfferTypeFilter(OfferType.service),

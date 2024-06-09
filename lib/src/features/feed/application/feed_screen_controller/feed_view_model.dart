@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../../core/models/business/enums.dart';
 import '../../../../core/models/product/enums.dart';
 import '../../../../core/models/service/enums.dart';
+import '../../../offers_management/application/offer_list/feed_offers_list_provider.dart';
 
 part 'feed_view_model.g.dart';
 
@@ -25,4 +26,6 @@ class FeedViewModel extends _$FeedViewModel {
   List<ServiceCategory> getServiceCategories() {
     return [];
   }
+
+  FutureOr<void> filterOffers(String value) {}
 }

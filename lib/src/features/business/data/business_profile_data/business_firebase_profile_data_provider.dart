@@ -235,7 +235,7 @@ class BusinessFirebaseProfileDataProvider
         .toList();
 
     final businessByCategory = await queryBusinessesByCategory(
-        city: city, categories: categoriesMatches);
+        city: city, categories: categoriesMatches.take(30).toList());
     if (businessByCategory != null) {
       businesses.addAll(businessByCategory);
     }

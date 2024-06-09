@@ -59,74 +59,68 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
         data: (address) =>
             address != null ? () => showAddressModal(context, address) : null,
       ),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.9,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.secondaryContainer,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(Icons.location_on_sharp, size: 16),
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondaryContainer,
+              borderRadius: BorderRadius.circular(8),
             ),
-            const SizedBox(width: 8),
-            Flexible(
-              child: locationAsyncValue.when(
-                  data: (location) {
-                    if (location == null) {
-                      return Text(
-                        'Localização indisponível',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        overflow: TextOverflow.ellipsis,
-                      );
-                    }
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '${location.street}, ${location.number}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Text(
-                          '${location.neighborhood}, ${location.city}',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    );
-                  },
-                  loading: () => const CircularProgressIndicator(),
-                  error: (error, stackTrace) {
-                    log('Error: $error');
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.location_on_sharp, size: 16),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: locationAsyncValue.when(
+                data: (location) {
+                  if (location == null) {
                     return Text(
-                      textAlign: TextAlign.center,
-                      'Houve um erro\nao buscar sua localização',
+                      'Localização indisponível',
                       style: Theme.of(context).textTheme.bodyMedium,
                       overflow: TextOverflow.ellipsis,
                     );
-                  }),
-            ),
-            const SizedBox(width: 8),
-            Icon(
-              Icons.arrow_drop_down_outlined,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-          ],
-        ),
+                  }
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${location.street}, ${location.number}',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        '${location.neighborhood}, ${location.city}',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  );
+                },
+                loading: () => const CircularProgressIndicator(),
+                error: (error, stackTrace) {
+                  log('Error: $error');
+                  return Text(
+                    textAlign: TextAlign.center,
+                    'Houve um erro\nao buscar sua localização',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    overflow: TextOverflow.ellipsis,
+                  );
+                }),
+          ),
+          const SizedBox(width: 8),
+          Icon(
+            Icons.arrow_drop_down_outlined,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ],
       ),
     );
   }

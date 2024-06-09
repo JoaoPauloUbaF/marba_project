@@ -13,9 +13,12 @@ import 'offer_quick_manage_widget.dart';
 class OfferCardWidget extends ConsumerWidget {
   final OfferModel offer;
 
+  final double size;
+
   const OfferCardWidget({
     super.key,
     required this.offer,
+    this.size = 1.0,
   });
 
   @override
@@ -45,7 +48,7 @@ class OfferCardWidget extends ConsumerWidget {
                   offer.getImageUrl,
                   fit: BoxFit.fill,
                   width: double.infinity,
-                  height: 150,
+                  height: 150 * size,
                   loadingBuilder: (BuildContext context, Widget child,
                       ImageChunkEvent? loadingProgress) {
                     if (loadingProgress == null) {
@@ -66,7 +69,7 @@ class OfferCardWidget extends ConsumerWidget {
                         child: Icon(
                           Icons.error,
                           color: Theme.of(context).colorScheme.error,
-                          size: 30,
+                          size: 30 * size,
                         ),
                       ),
                     );
@@ -90,8 +93,8 @@ class OfferCardWidget extends ConsumerWidget {
                   ),
                 ),
               ]),
-              OfferTitleWidget(offer: offer, fontSize: 16),
-              OfferPriceWidget(offer: offer, fontSize: 14),
+              OfferTitleWidget(offer: offer, fontSize: 16 * size),
+              OfferPriceWidget(offer: offer, fontSize: 14 * size),
               OfferAvailableQuantityWidget(offer: offer),
             ],
           ),

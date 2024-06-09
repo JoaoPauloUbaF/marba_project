@@ -6,7 +6,7 @@ part of 'feed_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$feedViewModelHash() => r'de66f211e9dacbecf8f4ef8bff0e1f26f37dd707';
+String _$feedViewModelHash() => r'5820b0a9d7802a92b1cf46a9351eb3af61e9b309';
 
 /// See also [FeedViewModel].
 @ProviderFor(FeedViewModel)

@@ -12,7 +12,6 @@ abstract class OffersDataRepository {
       {OfferModel? lastOffer});
   Future<OfferModel> getOffer(String id);
   Future<DocumentSnapshot?> createOffer(OfferModel offer);
-  Future<void> addOffer(OfferModel offer);
   Future<void> updateOffer(OfferModel offer);
   Future<void> updateOfferAvailableQuantity(
       {required String offerId, required int newQuantity});

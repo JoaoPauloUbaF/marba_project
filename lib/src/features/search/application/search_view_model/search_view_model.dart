@@ -1,12 +1,8 @@
-import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
-import 'package:project_marba/src/features/offers_management/data/offer_data_repository_provider.dart';
 import 'package:project_marba/src/features/search/application/query_business_result_provider/query_business_result_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../core/models/business/business.dart';
-import '../../../../core/models/offer/offer_model.dart';
 import '../hot_business_provider/hot_businesses_provider.dart';
 import '../hot_offers_provider/hot_offers_provider.dart';
 import '../query_offers_result_provider/query_offers_result_provider.dart';
@@ -29,25 +25,6 @@ class SearchViewModel extends _$SearchViewModel {
     if (state == SearchViewState.loading) {
       state = SearchViewState.display;
     }
-  }
-
-  Future<List<OfferModel>> fetchHotOffers() async {
-    final offers =
-        await ref.read(offersDataRepositoryProvider).getOffers().take(5).first;
-    if (offers.isEmpty) {
-      return [];
-    }
-    return offers;
-  }
-
-  Future<List<BusinessModel>> fetchHotBusinesses() async {
-    final businesses = await ref
-        .read(businessProfileDataProvider)
-        .getBusinessesAt(city: 'Lavras');
-    if (businesses == null) {
-      return [];
-    }
-    return businesses.take(5).toList();
   }
 
   void onSearchTap() {

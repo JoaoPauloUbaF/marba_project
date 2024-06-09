@@ -6,7 +6,7 @@ part of 'hot_offers_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$hotOffersHash() => r'024b27209014308c7190010d6f79f9aa48aab381';
+String _$hotOffersHash() => r'f1befe09bcaa46656899e62ee286ccfcc6b12032';
 
 /// See also [HotOffers].
 @ProviderFor(HotOffers)

@@ -4,11 +4,13 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/product/enums.dart';
 import 'package:project_marba/src/core/models/service/enums.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 
 import '../../../core/models/offer/offer_model.dart';
+import '../../location_management/application/current_location_provider/current_location_provider.dart';
 import 'offers_data_repository.dart';
 
 class OffersFirebaseDataRepository implements OffersDataRepository {
@@ -161,6 +163,14 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
       for (var doc in querySnapshot.docs) {
         doc.reference.delete();
       }
+      final storageRef = FirebaseStorage.instance.ref().child('offer_images');
+      return storageRef.listAll().then((value) {
+        for (var item in value.items) {
+          if (item.name.contains(businessId)) {
+            item.delete();
+          }
+        }
+      });
     });
   }
 
@@ -219,6 +229,9 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   Future<List<OfferModel>>? queryOffersByCategory(String queryStr) async {
     //TODO: offers must have address too
     queryStr = normalizeString(str: queryStr).toLowerCase();
+    ProviderContainer container = ProviderContainer();
+    final currentAddressCity =
+        container.read(currentLocationProvider).requireValue?.city;
     final List<String> productCategoriesMatches = productCategoryTranslations
         .entries
         .where(
@@ -237,7 +250,8 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
     Query query = _firestore
         .collection('offers')
-        .where('category', arrayContainsAny: matches);
+        .where('city', isEqualTo: currentAddressCity)
+        .where('category', arrayContainsAny: matches.take(30));
 
     final offerList = await query.get();
     return offerList.docs
@@ -258,7 +272,6 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
 
   @override
   Future<List<OfferModel>>? queryOffers({required String queryStr}) async {
-    // Call all the query methods
     var offersByTitle = await queryOffersByTitle(queryStr);
     var offersByBusinessCategory =
         await queryOffersByBusinessCategory(queryStr);
@@ -266,7 +279,6 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     var offersByCategory = await queryOffersByCategory(queryStr);
     var offersByDescription = await queryOffersByDescription(queryStr);
 
-    // Combine all the results into one list
     var allOffers = <OfferModel>[];
     if (offersByTitle != null && offersByTitle.isNotEmpty) {
       allOffers.addAll(offersByTitle);

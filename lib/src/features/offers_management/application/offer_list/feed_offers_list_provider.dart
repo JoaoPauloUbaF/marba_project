@@ -10,8 +10,7 @@ part 'feed_offers_list_provider.g.dart';
 class FeedOffers extends _$FeedOffers {
   @override
   Stream<List<OfferModel>> build() {
-    final offers = ref.read(offersDataRepositoryProvider).getOffers();
-    return offers;
+    return const Stream.empty();
   }
 
   Future<List<OfferModel>> fetchNewOffers({OfferModel? lastOffer}) async {

@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'search_view_model.dart';
+part of 'offer_list_text_filter_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$searchViewModelHash() => r'99901ef2b6597af75218c085de167e70fc0d793d';
+String _$offerListTextFilterHash() =>
+    r'3e8dd4e9fbda5cb0bbe921bd210bfc5104c81c49';
 
-/// See also [SearchViewModel].
-@ProviderFor(SearchViewModel)
-final searchViewModelProvider =
-    AutoDisposeNotifierProvider<SearchViewModel, SearchViewState>.internal(
-  SearchViewModel.new,
-  name: r'searchViewModelProvider',
+/// See also [OfferListTextFilter].
+@ProviderFor(OfferListTextFilter)
+final offerListTextFilterProvider =
+    AutoDisposeNotifierProvider<OfferListTextFilter, String?>.internal(
+  OfferListTextFilter.new,
+  name: r'offerListTextFilterProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$searchViewModelHash,
+      : _$offerListTextFilterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$SearchViewModel = AutoDisposeNotifier<SearchViewState>;
+typedef _$OfferListTextFilter = AutoDisposeNotifier<String?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
