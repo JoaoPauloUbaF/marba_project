@@ -34,7 +34,7 @@ class ProfileSettingsScreen extends ConsumerWidget {
           ListTile(
             title: const Text('Endereços'),
             onTap: () {
-              // Navigator.pushNamed(context, viewController.onAddressesTaped());
+              Navigator.pushNamed(context, viewController.onAddressTaped());
             },
             leading: Icon(Icons.location_on, color: colorScheme.tertiary),
           ),

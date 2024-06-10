@@ -25,8 +25,6 @@ class AddressFormModalWidget extends ConsumerStatefulWidget {
 
 class _AddressFormModalWidgetState
     extends ConsumerState<AddressFormModalWidget> {
-  final googlePlacesController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -41,16 +39,6 @@ class _AddressFormModalWidgetState
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.secondary,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                height: 4,
-                width: MediaQuery.of(context).size.width * 0.5,
-              ),
-              const VerticalSpaceMediumWidget(),
-              const VerticalSpaceMediumWidget(),
               Text(
                 widget.title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -61,7 +49,8 @@ class _AddressFormModalWidgetState
               const VerticalSpaceMediumWidget(),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.5,
-                child: const AddressSearchWidget(),
+                child:
+                    AddressSearchWidget(currentAddress: widget.currentAddress),
               ),
               const VerticalSpaceMediumWidget(),
             ],

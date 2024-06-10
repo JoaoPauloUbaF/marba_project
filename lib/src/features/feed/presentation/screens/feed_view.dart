@@ -72,7 +72,6 @@ class FeedView extends ConsumerWidget {
             const SliverToBoxAdapter(
               child: OfferRowWidget(
                 title: 'Recomendados',
-                alignment: Alignment.centerRight,
               ),
             ),
             const SliverToBoxAdapter(

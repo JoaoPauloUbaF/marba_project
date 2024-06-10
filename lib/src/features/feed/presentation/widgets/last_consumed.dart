@@ -19,34 +19,43 @@ class PopularServicesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Serviços Populares',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        const Gap(8),
-        SizedBox(
-          height: 100,
-          child: GridView.builder(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceVariant,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            scrollDirection: Axis.horizontal,
-            itemCount: popularServices.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              mainAxisSpacing: 8.0,
-              mainAxisExtent: 150.0,
+            child: Text(
+              'Serviços Populares',
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            itemBuilder: (BuildContext context, int index) {
-              return PopularServiceTile(
-                icon: popularServices[index]['icon'],
-                text: popularServices[index]['text'],
-              );
-            },
           ),
-        ),
-      ],
+          const Gap(8),
+          SizedBox(
+            height: 100,
+            child: GridView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              scrollDirection: Axis.horizontal,
+              itemCount: popularServices.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                mainAxisSpacing: 8.0,
+                mainAxisExtent: 150.0,
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return PopularServiceTile(
+                  icon: popularServices[index]['icon'],
+                  text: popularServices[index]['text'],
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -56,43 +65,55 @@ class PopularServiceTile extends StatelessWidget {
   final String text;
 
   const PopularServiceTile({
-    Key? key,
+    super.key,
     required this.icon,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon),
-          const SizedBox(height: 4),
-          Text(
-            text,
-            textAlign: TextAlign.center,
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        width: 80,
+        margin: const EdgeInsets.symmetric(horizontal: 2.0),
+        padding: const EdgeInsets.all(2.0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.tertiary,
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(
+            color: Theme.of(context).colorScheme.secondary.withAlpha(100),
           ),
-        ],
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 40,
+              color: Theme.of(context).colorScheme.onTertiary,
+            ),
+            const Gap(8),
+            Text(
+              text,
+              overflow: TextOverflow.fade,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onTertiary,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ],
+        ),
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
-      appBar: AppBar(
-        title: const Text('Popular Services'),
-      ),
-      body: const Center(
-        child: PopularServicesWidget(),
-      ),
-    ),
-  ));
 }

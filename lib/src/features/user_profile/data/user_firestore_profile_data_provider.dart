@@ -197,4 +197,11 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
       return {};
     }
   }
+
+  @override
+  void deleteDeliveryAddress({required String uid, required Address address}) {
+    _usersCollection.doc(uid).update({
+      'deliveryAddresses': FieldValue.arrayRemove([address.toJson()]),
+    });
+  }
 }

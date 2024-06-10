@@ -50,4 +50,6 @@ abstract class ProfileDataRepository {
       {required String uid, required String offerId});
 
   Future<Set<String>> getFavoriteOfferIds({required String uid});
+
+  void deleteDeliveryAddress({required String uid, required Address address}) {}
 }

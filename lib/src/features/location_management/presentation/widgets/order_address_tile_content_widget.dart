@@ -37,7 +37,7 @@ class OrderAddressTileContentWidget extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return AddressesModalWidget(currentSelectedAddress: address);
+              return const AddressesManagementWidget();
             },
           );
         },

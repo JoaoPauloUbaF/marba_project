@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
+import 'package:gap/gap.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
+import 'package:project_marba/src/core/widgets/base_modal_body_widget.dart';
 import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -304,6 +306,55 @@ class AddressViewModel extends _$AddressViewModel {
             TextButton(
               onPressed: () {
                 saveOrUpdateAddress(context: context, address: address);
+              },
+              child: const Text('Confirmar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void showEdit(Address address, BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return BaseModalBodyWidget(
+          child: AddressFormModalWidget(
+            currentAddress: address,
+            title: 'Editar Endereço',
+          ),
+        );
+      },
+    );
+  }
+
+  void confirmDeleteAddress(Address address, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Confirme a exclusão'),
+          content: const Text('Deseja realmente excluir este endereço?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                ref.read(userProfileDataProvider).deleteDeliveryAddress(
+                      uid: ref.read(currentUserProvider)!.id,
+                      address: address,
+                    );
+                if (ref.read(deliveryAddressProvider).requireValue == address) {
+                  ref.invalidate(currentLocationProvider);
+                  ref.invalidate(deliveryAddressProvider);
+                }
+
+                Navigator.of(context).pop();
               },
               child: const Text('Confirmar'),
             ),

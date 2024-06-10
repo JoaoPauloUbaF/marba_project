@@ -16,4 +16,12 @@ class SettingsScreenController extends _$SettingsScreenController {
     String result = userIsLoggedIn ? '/profile' : '/sign-in';
     return result;
   }
+
+  String onAddressTaped() {
+    bool userIsLoggedIn =
+        ref.read(authRepositoryProvider).getCurrentUser() != null;
+    ref.read(signInScreenControllerProvider.notifier).setGoToRoute('/settings');
+    String result = userIsLoggedIn ? '/addresses' : '/sign-in';
+    return result;
+  }
 }

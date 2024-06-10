@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_google_places_sdk/flutter_google_places_sdk.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 import '../../application/address_view_model/address_view_model.dart';
 
 class AddressSearchWidget extends ConsumerStatefulWidget {
-  const AddressSearchWidget({super.key});
+  final Address? currentAddress;
+  const AddressSearchWidget({super.key, required this.currentAddress});
 
   @override
   AddressSearchWidgetState createState() => AddressSearchWidgetState();
@@ -30,6 +32,16 @@ class AddressSearchWidgetState extends ConsumerState<AddressSearchWidget> {
         _predictions = [];
       });
     }
+  }
+
+  @override
+  void initState() {
+    if (widget.currentAddress != null) {
+      _textEditingController.text =
+          '${widget.currentAddress?.street}, ${widget.currentAddress?.number}, ${widget.currentAddress?.city}, ${widget.currentAddress?.neighborhood}';
+      _onChanged(_textEditingController.text);
+    }
+    super.initState();
   }
 
   @override

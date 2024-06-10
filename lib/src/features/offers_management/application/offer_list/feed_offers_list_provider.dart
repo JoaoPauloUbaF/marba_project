@@ -8,9 +8,11 @@ part 'feed_offers_list_provider.g.dart';
 
 @riverpod
 class FeedOffers extends _$FeedOffers {
+  //TODO: refactor offer fetch
   @override
   Stream<List<OfferModel>> build() {
-    return const Stream.empty();
+    final offers = ref.read(offersDataRepositoryProvider).getOffers();
+    return offers;
   }
 
   Future<List<OfferModel>> fetchNewOffers({OfferModel? lastOffer}) async {
@@ -21,7 +23,7 @@ class FeedOffers extends _$FeedOffers {
       }
 
       return ref
-          .read(offersDataRepositoryProvider)
+          .watch(offersDataRepositoryProvider)
           .getOffersAt(lastOffer: lastOffer, city: address.city);
     }, loading: () {
       state = const AsyncValue.loading();

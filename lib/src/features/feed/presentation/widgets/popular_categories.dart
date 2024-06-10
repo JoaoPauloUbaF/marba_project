@@ -9,8 +9,6 @@ class PopularCategories extends StatefulWidget {
 }
 
 class PopularCategoriesState extends State<PopularCategories> {
-  int _selectedCategoryIndex = 0;
-
   final List<Map<String, dynamic>> _categories = [
     {'icon': Icons.kitchen, 'label': 'Eletros'},
     {'icon': Icons.brush, 'label': 'Artesanato'},
@@ -28,7 +26,7 @@ class PopularCategoriesState extends State<PopularCategories> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12.0),
+        color: Theme.of(context).colorScheme.surfaceVariant,
       ),
       height: 100,
       child: GridView.builder(
@@ -40,11 +38,7 @@ class PopularCategoriesState extends State<PopularCategories> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: InkWell(
-              onTap: () {
-                setState(() {
-                  _selectedCategoryIndex = index;
-                });
-              },
+              onTap: () {},
               child: Container(
                 width: 80,
                 margin: const EdgeInsets.symmetric(horizontal: 2.0),
