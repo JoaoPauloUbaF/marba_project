@@ -37,21 +37,27 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
   }
 
   String? validateCity(String? value) {
-    return ref.read(inputValidationProvider.notifier).validateCity(value);
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validateAddressCity(value);
   }
 
   String? validateState(String? value) {
-    return ref.read(inputValidationProvider.notifier).validateState(value);
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validateAddressState(value);
   }
 
   String? validateZipCode(String? value) {
-    return ref.read(inputValidationProvider.notifier).validateZipCode(value);
+    return ref
+        .read(inputValidationProvider.notifier)
+        .validateAddressZipCode(value);
   }
 
   String? validateNeighborhood(String? value) {
     return ref
         .read(inputValidationProvider.notifier)
-        .validateNeighborhood(value);
+        .validateAddressNeighborhood(value);
   }
 
   Future<void> validateAndSubmitForm({
@@ -68,7 +74,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
     required BuildContext context,
   }) async {
     if (formKey.currentState?.validate() ?? false) {
-      Address address = Address(
+      AddressModel address = AddressModel(
         street: street,
         number: number,
         neighborhood: neighborhood,
@@ -93,7 +99,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
     required String uid,
     required String displayName,
     required String phoneNumber,
-    required Address address,
+    required AddressModel address,
   }) async {
     final userRepository = ref.read(userProfileDataProvider);
     state = const AsyncValue.loading();

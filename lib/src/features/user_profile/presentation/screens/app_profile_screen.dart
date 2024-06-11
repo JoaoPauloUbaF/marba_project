@@ -27,7 +27,7 @@ class AppProfileScreen extends ConsumerWidget {
         // AuthStateChangeAction<SignedIn>((context, state) { }) to-do
       ],
       children: [
-        FutureBuilder<Address?>(
+        FutureBuilder<AddressModel?>(
           future: ref
               .read(profileScreenControllerProvider.notifier)
               .getUserAddress(),

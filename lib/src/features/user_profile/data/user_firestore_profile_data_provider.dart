@@ -35,7 +35,7 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
     required String uid,
     String? displayName,
     String? phoneNumber,
-    required Map<String, dynamic> address,
+    required Map<String, dynamic> address, //TODO: change to address model
   }) async {
     await _usersCollection.doc(uid).update({
       if (displayName != null) 'displayName': displayName,
@@ -60,9 +60,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
         email: data['email'],
         displayName: data['displayName'],
         phoneNumber: data['phoneNumber'],
-        address: Address.fromJson(data['address']),
+        address: AddressModel.fromJson(data['address']),
         deliveryAddresses: data['deliveryAddresses']
-            ?.map<Address>((address) => Address.fromJson(address))
+            ?.map<AddressModel>((address) => AddressModel.fromJson(address))
             .toList(),
         isBusinessOwner: false,
       );
@@ -107,7 +107,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
 
   @override
   Future<void> addOrUpdateDeliveryAddress(
-      {required String uid, required Map<String, dynamic> address}) {
+      //TODO: break into two methods
+      {required String uid,
+      required Map<String, dynamic> address}) {
     return _usersCollection.doc(uid).update({
       'deliveryAddresses': FieldValue.arrayUnion([address]),
     });
@@ -135,12 +137,12 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  Stream<List<Address>> getDeliveryAddresses({required String uid}) {
+  Stream<List<AddressModel>> getDeliveryAddresses({required String uid}) {
     return _usersCollection.doc(uid).snapshots().map((doc) {
       if (doc.exists) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         final deliveryAddresses = data['deliveryAddresses']
-            ?.map<Address>((address) => Address.fromJson(address))
+            ?.map<AddressModel>((address) => AddressModel.fromJson(address))
             .toList();
         if (deliveryAddresses != null) {
           return deliveryAddresses;
@@ -199,7 +201,8 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  void deleteDeliveryAddress({required String uid, required Address address}) {
+  void deleteDeliveryAddress(
+      {required String uid, required AddressModel address}) {
     _usersCollection.doc(uid).update({
       'deliveryAddresses': FieldValue.arrayRemove([address.toJson()]),
     });

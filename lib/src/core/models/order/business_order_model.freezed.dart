@@ -23,7 +23,7 @@ mixin _$BusinessOrder {
   String get id => throw _privateConstructorUsedError;
   String get businessId => throw _privateConstructorUsedError;
   String get userNickname => throw _privateConstructorUsedError;
-  Address get address => throw _privateConstructorUsedError;
+  AddressModel get address => throw _privateConstructorUsedError;
   Set<BusinessOrderItem> get items => throw _privateConstructorUsedError;
   BusinessOrderStatus get status => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
@@ -46,14 +46,14 @@ abstract class $BusinessOrderCopyWith<$Res> {
       {String id,
       String businessId,
       String userNickname,
-      Address address,
+      AddressModel address,
       Set<BusinessOrderItem> items,
       BusinessOrderStatus status,
       DateTime createdAt,
       DateTime updatedAt,
       DateTime? canceledAt});
 
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -95,7 +95,7 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -121,8 +121,8 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res> get address {
-    return $AddressCopyWith<$Res>(_value.address, (value) {
+  $AddressModelCopyWith<$Res> get address {
+    return $AddressModelCopyWith<$Res>(_value.address, (value) {
       return _then(_value.copyWith(address: value) as $Val);
     });
   }
@@ -140,7 +140,7 @@ abstract class _$$BusinessOrderImplCopyWith<$Res>
       {String id,
       String businessId,
       String userNickname,
-      Address address,
+      AddressModel address,
       Set<BusinessOrderItem> items,
       BusinessOrderStatus status,
       DateTime createdAt,
@@ -148,7 +148,7 @@ abstract class _$$BusinessOrderImplCopyWith<$Res>
       DateTime? canceledAt});
 
   @override
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -188,7 +188,7 @@ class __$$BusinessOrderImplCopyWithImpl<$Res>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -238,7 +238,7 @@ class _$BusinessOrderImpl implements _BusinessOrder {
   @override
   final String userNickname;
   @override
-  final Address address;
+  final AddressModel address;
   final Set<BusinessOrderItem> _items;
   @override
   Set<BusinessOrderItem> get items {
@@ -315,7 +315,7 @@ abstract class _BusinessOrder implements BusinessOrder {
       {required final String id,
       required final String businessId,
       required final String userNickname,
-      required final Address address,
+      required final AddressModel address,
       required final Set<BusinessOrderItem> items,
       required final BusinessOrderStatus status,
       required final DateTime createdAt,
@@ -332,7 +332,7 @@ abstract class _BusinessOrder implements BusinessOrder {
   @override
   String get userNickname;
   @override
-  Address get address;
+  AddressModel get address;
   @override
   Set<BusinessOrderItem> get items;
   @override

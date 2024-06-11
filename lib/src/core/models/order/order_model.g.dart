@@ -16,7 +16,7 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
       total: (json['total'] as num).toDouble(),
       totalDeliveryFee: (json['totalDeliveryFee'] as num).toDouble(),
       discount: (json['discount'] as num).toDouble(),
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['createdAt'] as String),
       updatedAt: DateTime.parse(json['updatedAt'] as String),
       paymentMethod: $enumDecode(_$PaymentMethodEnumMap, json['paymentMethod']),

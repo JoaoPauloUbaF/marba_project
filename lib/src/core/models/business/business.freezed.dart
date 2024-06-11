@@ -24,7 +24,7 @@ mixin _$BusinessModel {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  Address get address => throw _privateConstructorUsedError;
+  AddressModel get address => throw _privateConstructorUsedError;
   BusinessStatus get status => throw _privateConstructorUsedError;
   Set<BusinessCategory> get categories => throw _privateConstructorUsedError;
   Set<String> get offersIds => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $BusinessModelCopyWith<$Res> {
       String name,
       String email,
       String phoneNumber,
-      Address address,
+      AddressModel address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
       Set<String> offersIds,
@@ -61,7 +61,7 @@ abstract class $BusinessModelCopyWith<$Res> {
       List<String>? nameWords,
       String? imageUrl});
 
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -149,8 +149,8 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res> get address {
-    return $AddressCopyWith<$Res>(_value.address, (value) {
+  $AddressModelCopyWith<$Res> get address {
+    return $AddressModelCopyWith<$Res>(_value.address, (value) {
       return _then(_value.copyWith(address: value) as $Val);
     });
   }
@@ -169,7 +169,7 @@ abstract class _$$BusinessModelImplCopyWith<$Res>
       String name,
       String email,
       String phoneNumber,
-      Address address,
+      AddressModel address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
       Set<String> offersIds,
@@ -180,7 +180,7 @@ abstract class _$$BusinessModelImplCopyWith<$Res>
       String? imageUrl});
 
   @override
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -228,7 +228,7 @@ class __$$BusinessModelImplCopyWithImpl<$Res>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -299,7 +299,7 @@ class _$BusinessModelImpl implements _BusinessModel {
   @override
   final String phoneNumber;
   @override
-  final Address address;
+  final AddressModel address;
   @override
   final BusinessStatus status;
   final Set<BusinessCategory> _categories;
@@ -415,7 +415,7 @@ abstract class _BusinessModel implements BusinessModel {
       required final String name,
       required final String email,
       required final String phoneNumber,
-      required final Address address,
+      required final AddressModel address,
       required final BusinessStatus status,
       required final Set<BusinessCategory> categories,
       required final Set<String> offersIds,
@@ -437,7 +437,7 @@ abstract class _BusinessModel implements BusinessModel {
   @override
   String get phoneNumber;
   @override
-  Address get address;
+  AddressModel get address;
   @override
   BusinessStatus get status;
   @override

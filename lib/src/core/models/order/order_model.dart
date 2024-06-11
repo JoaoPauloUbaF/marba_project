@@ -14,7 +14,7 @@ class OrderModel with _$OrderModel {
     required double total,
     required double totalDeliveryFee,
     required double discount,
-    required Address address,
+    required AddressModel address,
     required DateTime createdAt,
     required DateTime updatedAt,
     required PaymentMethod paymentMethod,

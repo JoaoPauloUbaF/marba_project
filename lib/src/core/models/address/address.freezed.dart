@@ -14,42 +14,48 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Address _$AddressFromJson(Map<String, dynamic> json) {
+AddressModel _$AddressModelFromJson(Map<String, dynamic> json) {
   return _Address.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Address {
+mixin _$AddressModel {
   String get street => throw _privateConstructorUsedError;
-  String get number => throw _privateConstructorUsedError;
+  String? get number => throw _privateConstructorUsedError;
   String get neighborhood => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
   String get zipCode => throw _privateConstructorUsedError;
+  String? get complement => throw _privateConstructorUsedError;
+  String? get nickname => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $AddressCopyWith<Address> get copyWith => throw _privateConstructorUsedError;
+  $AddressModelCopyWith<AddressModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AddressCopyWith<$Res> {
-  factory $AddressCopyWith(Address value, $Res Function(Address) then) =
-      _$AddressCopyWithImpl<$Res, Address>;
+abstract class $AddressModelCopyWith<$Res> {
+  factory $AddressModelCopyWith(
+          AddressModel value, $Res Function(AddressModel) then) =
+      _$AddressModelCopyWithImpl<$Res, AddressModel>;
   @useResult
   $Res call(
       {String street,
-      String number,
+      String? number,
       String neighborhood,
       String city,
       String state,
-      String zipCode});
+      String zipCode,
+      String? complement,
+      String? nickname});
 }
 
 /// @nodoc
-class _$AddressCopyWithImpl<$Res, $Val extends Address>
-    implements $AddressCopyWith<$Res> {
-  _$AddressCopyWithImpl(this._value, this._then);
+class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
+    implements $AddressModelCopyWith<$Res> {
+  _$AddressModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -60,21 +66,23 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   @override
   $Res call({
     Object? street = null,
-    Object? number = null,
+    Object? number = freezed,
     Object? neighborhood = null,
     Object? city = null,
     Object? state = null,
     Object? zipCode = null,
+    Object? complement = freezed,
+    Object? nickname = freezed,
   }) {
     return _then(_value.copyWith(
       street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String,
-      number: null == number
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       neighborhood: null == neighborhood
           ? _value.neighborhood
           : neighborhood // ignore: cast_nullable_to_non_nullable
@@ -91,12 +99,21 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
           ? _value.zipCode
           : zipCode // ignore: cast_nullable_to_non_nullable
               as String,
+      complement: freezed == complement
+          ? _value.complement
+          : complement // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nickname: freezed == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
+abstract class _$$AddressImplCopyWith<$Res>
+    implements $AddressModelCopyWith<$Res> {
   factory _$$AddressImplCopyWith(
           _$AddressImpl value, $Res Function(_$AddressImpl) then) =
       __$$AddressImplCopyWithImpl<$Res>;
@@ -104,16 +121,18 @@ abstract class _$$AddressImplCopyWith<$Res> implements $AddressCopyWith<$Res> {
   @useResult
   $Res call(
       {String street,
-      String number,
+      String? number,
       String neighborhood,
       String city,
       String state,
-      String zipCode});
+      String zipCode,
+      String? complement,
+      String? nickname});
 }
 
 /// @nodoc
 class __$$AddressImplCopyWithImpl<$Res>
-    extends _$AddressCopyWithImpl<$Res, _$AddressImpl>
+    extends _$AddressModelCopyWithImpl<$Res, _$AddressImpl>
     implements _$$AddressImplCopyWith<$Res> {
   __$$AddressImplCopyWithImpl(
       _$AddressImpl _value, $Res Function(_$AddressImpl) _then)
@@ -123,21 +142,23 @@ class __$$AddressImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? street = null,
-    Object? number = null,
+    Object? number = freezed,
     Object? neighborhood = null,
     Object? city = null,
     Object? state = null,
     Object? zipCode = null,
+    Object? complement = freezed,
+    Object? nickname = freezed,
   }) {
     return _then(_$AddressImpl(
       street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String,
-      number: null == number
+      number: freezed == number
           ? _value.number
           : number // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       neighborhood: null == neighborhood
           ? _value.neighborhood
           : neighborhood // ignore: cast_nullable_to_non_nullable
@@ -154,6 +175,14 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.zipCode
           : zipCode // ignore: cast_nullable_to_non_nullable
               as String,
+      complement: freezed == complement
+          ? _value.complement
+          : complement // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nickname: freezed == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -163,11 +192,13 @@ class __$$AddressImplCopyWithImpl<$Res>
 class _$AddressImpl implements _Address {
   _$AddressImpl(
       {required this.street,
-      required this.number,
+      this.number,
       required this.neighborhood,
       required this.city,
       required this.state,
-      required this.zipCode});
+      required this.zipCode,
+      this.complement,
+      this.nickname});
 
   factory _$AddressImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressImplFromJson(json);
@@ -175,7 +206,7 @@ class _$AddressImpl implements _Address {
   @override
   final String street;
   @override
-  final String number;
+  final String? number;
   @override
   final String neighborhood;
   @override
@@ -184,10 +215,14 @@ class _$AddressImpl implements _Address {
   final String state;
   @override
   final String zipCode;
+  @override
+  final String? complement;
+  @override
+  final String? nickname;
 
   @override
   String toString() {
-    return 'Address(street: $street, number: $number, neighborhood: $neighborhood, city: $city, state: $state, zipCode: $zipCode)';
+    return 'AddressModel(street: $street, number: $number, neighborhood: $neighborhood, city: $city, state: $state, zipCode: $zipCode, complement: $complement, nickname: $nickname)';
   }
 
   @override
@@ -201,13 +236,17 @@ class _$AddressImpl implements _Address {
                 other.neighborhood == neighborhood) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.state, state) || other.state == state) &&
-            (identical(other.zipCode, zipCode) || other.zipCode == zipCode));
+            (identical(other.zipCode, zipCode) || other.zipCode == zipCode) &&
+            (identical(other.complement, complement) ||
+                other.complement == complement) &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, street, number, neighborhood, city, state, zipCode);
+  int get hashCode => Object.hash(runtimeType, street, number, neighborhood,
+      city, state, zipCode, complement, nickname);
 
   @JsonKey(ignore: true)
   @override
@@ -223,21 +262,23 @@ class _$AddressImpl implements _Address {
   }
 }
 
-abstract class _Address implements Address {
+abstract class _Address implements AddressModel {
   factory _Address(
       {required final String street,
-      required final String number,
+      final String? number,
       required final String neighborhood,
       required final String city,
       required final String state,
-      required final String zipCode}) = _$AddressImpl;
+      required final String zipCode,
+      final String? complement,
+      final String? nickname}) = _$AddressImpl;
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
 
   @override
   String get street;
   @override
-  String get number;
+  String? get number;
   @override
   String get neighborhood;
   @override
@@ -246,6 +287,10 @@ abstract class _Address implements Address {
   String get state;
   @override
   String get zipCode;
+  @override
+  String? get complement;
+  @override
+  String? get nickname;
   @override
   @JsonKey(ignore: true)
   _$$AddressImplCopyWith<_$AddressImpl> get copyWith =>

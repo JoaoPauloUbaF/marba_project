@@ -34,28 +34,28 @@ class InputValidation extends _$InputValidation {
     return null;
   }
 
-  String? validateCity(String? value) {
+  String? validateAddressCity(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, insira a cidade';
     }
     return null;
   }
 
-  String? validateState(String? value) {
+  String? validateAddressState(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, insira o estado';
     }
     return null;
   }
 
-  String? validateZipCode(String? value) {
+  String? validateAddressZipCode(String? value) {
     if (value == null || value.isEmpty || value.length < 8) {
       return 'Por favor, insira o CEP';
     }
     return null;
   }
 
-  String? validateNeighborhood(String? value) {
+  String? validateAddressNeighborhood(String? value) {
     if (value == null || value.isEmpty) {
       return 'Por favor, insira o bairro';
     }
@@ -107,6 +107,15 @@ class InputValidation extends _$InputValidation {
   String? validateOfferName(String? value) {
     if (value == null || value.isEmpty) {
       return 'A oferta precisa de um nome!';
+    }
+    return null;
+  }
+
+  String? validateAddressComplement(String? value, bool includeNumber) {
+    if (!includeNumber) {
+      if (value == null || value.isEmpty) {
+        return 'Não é possível cadastrar um endereço sem número e sem complemento';
+      }
     }
     return null;
   }

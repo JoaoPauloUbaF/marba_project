@@ -142,7 +142,7 @@ class BusinessFirebaseProfileDataProvider
         name: data['businessName'],
         email: data['businessEmail'],
         phoneNumber: data['businessPhoneNumber'],
-        address: Address.fromJson(data['address']),
+        address: AddressModel.fromJson(data['address']),
         status: BusinessStatus.values.firstWhere(
           (e) => e.toString().split('.').last == data['status'],
         ),
@@ -285,7 +285,7 @@ class BusinessFirebaseProfileDataProvider
           name: data['businessName'],
           email: data['businessEmail'],
           phoneNumber: data['businessPhoneNumber'],
-          address: Address.fromJson(data['address']),
+          address: AddressModel.fromJson(data['address']),
           status: BusinessStatus.values.firstWhere(
             (e) => e.toString().split('.').last == data['status'],
           ),

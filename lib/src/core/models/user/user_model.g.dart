@@ -12,9 +12,9 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       displayName: json['displayName'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       deliveryAddresses: (json['deliveryAddresses'] as List<dynamic>?)
-          ?.map((e) => Address.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => AddressModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       isBusinessOwner: json['isBusinessOwner'] as bool,
       ownedBusinessIds: (json['ownedBusinessIds'] as List<dynamic>?)

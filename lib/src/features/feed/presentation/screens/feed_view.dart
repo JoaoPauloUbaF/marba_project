@@ -55,11 +55,11 @@ class FeedView extends ConsumerWidget {
             const SliverToBoxAdapter(
               child: Gap(8),
             ),
-            const SliverToBoxAdapter(
-              child: OfferRowWidget(
-                title: 'Promoções',
-              ),
-            ),
+            // const SliverToBoxAdapter(
+            //   child: OfferRowWidget(
+            //     title: 'Promoções',
+            //   ),
+            // ),
             const SliverToBoxAdapter(
               child: Gap(8),
             ),
@@ -69,11 +69,11 @@ class FeedView extends ConsumerWidget {
             const SliverToBoxAdapter(
               child: Gap(8),
             ),
-            const SliverToBoxAdapter(
-              child: OfferRowWidget(
-                title: 'Recomendados',
-              ),
-            ),
+            // const SliverToBoxAdapter(
+            //   child: OfferRowWidget(
+            //     title: 'Recomendados',
+            //   ),
+            // ),
             const SliverToBoxAdapter(
               child: Divider(
                 thickness: 2,

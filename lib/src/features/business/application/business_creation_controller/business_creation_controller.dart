@@ -124,7 +124,7 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
       nameWords: nameWords,
       email: email,
       phoneNumber: phoneNumber,
-      address: Address(
+      address: AddressModel(
         street: street,
         number: number,
         neighborhood: neighborhood,

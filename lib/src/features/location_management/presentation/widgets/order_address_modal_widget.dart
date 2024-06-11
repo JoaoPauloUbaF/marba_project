@@ -51,13 +51,8 @@ class AddNewAddressButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: ElevatedButton(
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-            Theme.of(context).colorScheme.primary,
-          ),
-        ),
+      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      child: TextButton(
         onPressed: () {
           showModalBottomSheet(
             context: context,
@@ -73,17 +68,18 @@ class AddNewAddressButton extends StatelessWidget {
         },
         child: Text(
           'Adicionar novo endereço',
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: Theme.of(context).colorScheme.tertiary,
+                decoration: TextDecoration.underline,
+                decorationStyle: TextDecorationStyle.solid,
+              ),
         ),
       ),
     );
   }
 }
 
-class AddressList extends StatelessWidget {
+class AddressList extends StatefulWidget {
   const AddressList({
     super.key,
     required this.userAddresses,
@@ -91,16 +87,21 @@ class AddressList extends StatelessWidget {
     required this.addressViewModel,
   });
 
-  final AsyncValue<List<Address>> userAddresses;
+  final AsyncValue<List<AddressModel>> userAddresses;
   final WidgetRef ref;
   final AddressViewModel addressViewModel;
 
   @override
+  State<AddressList> createState() => _AddressListState();
+}
+
+class _AddressListState extends State<AddressList> {
+  @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: userAddresses.when(
+      child: widget.userAddresses.when(
         data: (userAddresses) {
-          return ref.watch(deliveryAddressProvider).when(
+          return widget.ref.watch(deliveryAddressProvider).when(
                 data: (currentSelectedAddress) => Scrollbar(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -131,8 +132,12 @@ class AddressList extends StatelessWidget {
     );
   }
 
-  Widget buildAddressTile(BuildContext context, Address address,
-      Address? currentSelectedAddress, int index, List<Address> userAddresses) {
+  Widget buildAddressTile(
+      BuildContext context,
+      AddressModel address,
+      AddressModel? currentSelectedAddress,
+      int index,
+      List<AddressModel> userAddresses) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: Slidable(
@@ -141,14 +146,19 @@ class AddressList extends StatelessWidget {
           extentRatio: 0.3,
           motion: const StretchMotion(),
           dismissible: DismissiblePane(
-              // confirmDismiss: () => addressViewModel.confirmDeleteAddress(address, context),
-              onDismissed: () {
-            addressViewModel.confirmDeleteAddress(address, context);
-          }),
+              closeOnCancel: true,
+              confirmDismiss: () => widget.addressViewModel
+                  .confirmDeleteAddress(address, context),
+              onDismissed: () async {
+                await widget.addressViewModel.deleteAddress(address: address);
+                setState(() {
+                  userAddresses.remove(address);
+                });
+              }),
           children: [
             SlidableAction(
               onPressed: (context) {
-                addressViewModel.confirmDeleteAddress(address, context);
+                widget.addressViewModel.confirmDeleteAddress(address, context);
               },
               borderRadius: BorderRadius.circular(8),
               backgroundColor: Theme.of(context).colorScheme.error,
@@ -159,13 +169,23 @@ class AddressList extends StatelessWidget {
           ],
         ),
         endActionPane: ActionPane(
+          dismissible: DismissiblePane(
+            confirmDismiss: () {
+              widget.addressViewModel.showEdit(address, context);
+              return Future.value(false);
+            },
+            onDismissed: () {
+              widget.addressViewModel.showEdit(address, context);
+            },
+            closeOnCancel: true,
+          ),
           extentRatio: 0.3,
           motion: const ScrollMotion(),
           children: [
             SlidableAction(
               flex: 2,
               onPressed: (context) {
-                addressViewModel.showEdit(address, context);
+                widget.addressViewModel.showEdit(address, context);
               },
               borderRadius: BorderRadius.circular(8),
               backgroundColor: Theme.of(context).colorScheme.tertiary,
@@ -185,19 +205,17 @@ class AddressList extends StatelessWidget {
                 Theme.of(context).colorScheme.surfaceVariant.withAlpha(50),
             selectedTileColor: Theme.of(context).colorScheme.surfaceVariant,
             leading: const Icon(Icons.location_on_sharp, size: 30),
-            title: Text(
-                '${address.street}, ${address.number}, ${address.neighborhood}, ${address.city}'),
-            subtitle: const Text('Casa'),
+            title: widget.addressViewModel.buildAddressTitle(address),
+            subtitle: widget.addressViewModel.buildAddressSubtitle(address),
             selected: address == currentSelectedAddress,
             onTap: () {
-              addressViewModel.selectDeliveryAddress(address);
+              widget.addressViewModel.selectDeliveryAddress(address);
             },
-            onLongPress: () => addressViewModel.showEdit(address, context),
             trailing: Radio(
               value: index,
               groupValue: userAddresses.indexOf(currentSelectedAddress!),
               onChanged: (value) {
-                addressViewModel.selectDeliveryAddress(address);
+                widget.addressViewModel.selectDeliveryAddress(address);
               },
             ),
           ),
@@ -207,7 +225,7 @@ class AddressList extends StatelessWidget {
   }
 }
 
-class AddressManagementHeaderButtons extends StatelessWidget {
+class AddressManagementHeaderButtons extends ConsumerWidget {
   const AddressManagementHeaderButtons({
     super.key,
     required this.addressViewModel,
@@ -216,7 +234,7 @@ class AddressManagementHeaderButtons extends StatelessWidget {
   final AddressViewModel addressViewModel;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return addressViewModel.getCurrentLocationAddress().when(
           data: (currentLocation) {
             return SizedBox(
@@ -227,18 +245,17 @@ class AddressManagementHeaderButtons extends StatelessWidget {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).colorScheme.secondary,
+                        Theme.of(context).colorScheme.tertiary,
                       ),
                     ),
                     onPressed: () {
-                      addressViewModel.showConfirmAddressDialog(
-                          currentLocation, context);
+                      addressViewModel.onUseCurrentAddressTap(context);
                     },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.location_on_sharp,
-                            color: Theme.of(context).colorScheme.onSecondary),
+                            color: Theme.of(context).colorScheme.onTertiary),
                         const SizedBox(width: 8), // Use SizedBox instead of Gap
                         Text(
                           'Usar minha localização atual',
@@ -246,9 +263,8 @@ class AddressManagementHeaderButtons extends StatelessWidget {
                               .textTheme
                               .titleMedium
                               ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSecondary),
+                                  color:
+                                      Theme.of(context).colorScheme.onTertiary),
                         ),
                       ],
                     ),
@@ -274,7 +290,7 @@ class AddressManagementHeaderButtons extends StatelessWidget {
                                       children: [
                                         TextSpan(
                                           text:
-                                              'Se você está em um local diferente do seu endereço cadastrado, você pode usar sua localização atual para adicionar um novo endereço. ',
+                                              'Se você está em um local diferente do seu endereço cadastrado, você pode usar sua localização atual ou pesquisar um novo endereço e adiciona-lo. ',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium
@@ -285,7 +301,7 @@ class AddressManagementHeaderButtons extends StatelessWidget {
                                         ),
                                         TextSpan(
                                           text:
-                                              '\n\nAo pressionar um endereço, ele será selecionado como endereço de entrega. Segure por alguns segundos para editar ou excluir.',
+                                              '\n\nDeslize para os lados para editar ou deletar um endereço.',
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyMedium

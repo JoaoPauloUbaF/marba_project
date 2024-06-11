@@ -13,13 +13,17 @@ part 'current_location_provider.g.dart';
 @Riverpod()
 class CurrentLocation extends _$CurrentLocation {
   @override
-  Future<Address?> build() async {
-    final position = await _getCurrentLocation();
+  Future<AddressModel?> build() async {
+    final position = await getCurrentLocationPosition();
     final address = await getAddressFromPosition(position);
     return address;
   }
 
-  void setCurrentLocationAddress(Address address) {
+  Future<AddressModel?> getCurrentLocation() async {
+    return await getAddressFromPosition(await getCurrentLocationPosition());
+  }
+
+  void setCurrentLocationAddress(AddressModel address) {
     state = AsyncValue.data(address);
   }
 
@@ -46,14 +50,14 @@ class CurrentLocation extends _$CurrentLocation {
     }
   }
 
-  Future<Position> _getCurrentLocation() async {
+  Future<Position> getCurrentLocationPosition() async {
     await _handleLocationPermission();
     return await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
     );
   }
 
-  Future<Address?> getAddressFromPosition(Position position) async {
+  Future<AddressModel?> getAddressFromPosition(Position position) async {
     if (kIsWeb) {
       return await _getAddressFromCoordinatesWeb(position);
     } else {
@@ -61,7 +65,7 @@ class CurrentLocation extends _$CurrentLocation {
     }
   }
 
-  Future<Address?> _getAddressFromCoordinatesWeb(Position position) async {
+  Future<AddressModel?> _getAddressFromCoordinatesWeb(Position position) async {
     try {
       double latitude = position.latitude;
       double longitude = position.longitude;
@@ -92,7 +96,8 @@ class CurrentLocation extends _$CurrentLocation {
     }
   }
 
-  Future<Address?> _getAddressFromCoordinatesMobile(Position position) async {
+  Future<AddressModel?> _getAddressFromCoordinatesMobile(
+      Position position) async {
     try {
       List<Placemark> placemarks = await placemarkFromCoordinates(
         position.latitude,
@@ -100,7 +105,7 @@ class CurrentLocation extends _$CurrentLocation {
       );
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
-        return Address(
+        return AddressModel(
           street: placemark.thoroughfare.toString(),
           number: placemark.subThoroughfare.toString(),
           neighborhood: placemark.subLocality.toString(),
@@ -115,7 +120,7 @@ class CurrentLocation extends _$CurrentLocation {
     }
   }
 
-  Address _parseAddressComponents(List<dynamic> components) {
+  AddressModel _parseAddressComponents(List<dynamic> components) {
     String street = '';
     String number = '';
     String neighborhood = '';
@@ -141,7 +146,7 @@ class CurrentLocation extends _$CurrentLocation {
       }
     }
 
-    return Address(
+    return AddressModel(
       street: street,
       number: number,
       neighborhood: neighborhood,

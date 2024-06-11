@@ -34,7 +34,7 @@ abstract class ProfileDataRepository {
   Future<void> addOrUpdateDeliveryAddress(
       {required String uid, required Map<String, dynamic> address});
 
-  Stream<List<Address>> getDeliveryAddresses({required String uid});
+  Stream<List<AddressModel>> getDeliveryAddresses({required String uid});
 
   Future<void> addQueryToSearchHistory(
       {required String uid, required String query});
@@ -51,5 +51,6 @@ abstract class ProfileDataRepository {
 
   Future<Set<String>> getFavoriteOfferIds({required String uid});
 
-  void deleteDeliveryAddress({required String uid, required Address address}) {}
+  void deleteDeliveryAddress(
+      {required String uid, required AddressModel address}) {}
 }

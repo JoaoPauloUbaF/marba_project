@@ -11,7 +11,7 @@ _$BusinessOrderImpl _$$BusinessOrderImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       businessId: json['businessId'] as String,
       userNickname: json['userNickname'] as String,
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       items: (json['items'] as List<dynamic>)
           .map((e) => BusinessOrderItem.fromJson(e as Map<String, dynamic>))
           .toSet(),

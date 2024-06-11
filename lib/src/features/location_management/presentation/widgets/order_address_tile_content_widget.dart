@@ -3,7 +3,7 @@ import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/order_address_modal_widget.dart';
 
 class OrderAddressTileContentWidget extends StatelessWidget {
-  final Address address;
+  final AddressModel address;
 
   const OrderAddressTileContentWidget({
     super.key,

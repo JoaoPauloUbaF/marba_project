@@ -13,7 +13,7 @@ class BusinessModel with _$BusinessModel {
     required String name,
     required String email,
     required String phoneNumber,
-    required Address address,
+    required AddressModel address,
     required BusinessStatus status,
     required Set<BusinessCategory> categories,
     required Set<String> offersIds,

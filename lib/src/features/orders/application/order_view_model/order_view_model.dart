@@ -30,7 +30,7 @@ class OrderViewModel extends _$OrderViewModel {
     required double discount,
     required DateTime createdAt,
     required DateTime updatedAt,
-    required Address address,
+    required AddressModel address,
     DateTime? canceledAt,
     required PaymentMethod paymentMethod,
   }) async {

@@ -24,8 +24,9 @@ mixin _$UserModel {
   String get displayName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  Address get address => throw _privateConstructorUsedError;
-  List<Address>? get deliveryAddresses => throw _privateConstructorUsedError;
+  AddressModel get address => throw _privateConstructorUsedError;
+  List<AddressModel>? get deliveryAddresses =>
+      throw _privateConstructorUsedError;
   bool get isBusinessOwner => throw _privateConstructorUsedError;
   Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
   Set<String>? get favoriteOfferIds => throw _privateConstructorUsedError;
@@ -48,15 +49,15 @@ abstract class $UserModelCopyWith<$Res> {
       String displayName,
       String email,
       String phoneNumber,
-      Address address,
-      List<Address>? deliveryAddresses,
+      AddressModel address,
+      List<AddressModel>? deliveryAddresses,
       bool isBusinessOwner,
       Set<String>? ownedBusinessIds,
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
       Cart? cart});
 
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
   $CartCopyWith<$Res>? get cart;
 }
 
@@ -105,11 +106,11 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       deliveryAddresses: freezed == deliveryAddresses
           ? _value.deliveryAddresses
           : deliveryAddresses // ignore: cast_nullable_to_non_nullable
-              as List<Address>?,
+              as List<AddressModel>?,
       isBusinessOwner: null == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
@@ -135,8 +136,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res> get address {
-    return $AddressCopyWith<$Res>(_value.address, (value) {
+  $AddressModelCopyWith<$Res> get address {
+    return $AddressModelCopyWith<$Res>(_value.address, (value) {
       return _then(_value.copyWith(address: value) as $Val);
     });
   }
@@ -167,8 +168,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String displayName,
       String email,
       String phoneNumber,
-      Address address,
-      List<Address>? deliveryAddresses,
+      AddressModel address,
+      List<AddressModel>? deliveryAddresses,
       bool isBusinessOwner,
       Set<String>? ownedBusinessIds,
       Set<String>? favoriteOfferIds,
@@ -176,7 +177,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       Cart? cart});
 
   @override
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
   @override
   $CartCopyWith<$Res>? get cart;
 }
@@ -224,11 +225,11 @@ class __$$UserModelImplCopyWithImpl<$Res>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       deliveryAddresses: freezed == deliveryAddresses
           ? _value._deliveryAddresses
           : deliveryAddresses // ignore: cast_nullable_to_non_nullable
-              as List<Address>?,
+              as List<AddressModel>?,
       isBusinessOwner: null == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
@@ -262,7 +263,7 @@ class _$UserModelImpl extends _UserModel {
       required this.email,
       required this.phoneNumber,
       required this.address,
-      final List<Address>? deliveryAddresses,
+      final List<AddressModel>? deliveryAddresses,
       required this.isBusinessOwner,
       final Set<String>? ownedBusinessIds,
       final Set<String>? favoriteOfferIds,
@@ -286,10 +287,10 @@ class _$UserModelImpl extends _UserModel {
   @override
   final String phoneNumber;
   @override
-  final Address address;
-  final List<Address>? _deliveryAddresses;
+  final AddressModel address;
+  final List<AddressModel>? _deliveryAddresses;
   @override
-  List<Address>? get deliveryAddresses {
+  List<AddressModel>? get deliveryAddresses {
     final value = _deliveryAddresses;
     if (value == null) return null;
     if (_deliveryAddresses is EqualUnmodifiableListView)
@@ -399,8 +400,8 @@ abstract class _UserModel extends UserModel {
       required final String displayName,
       required final String email,
       required final String phoneNumber,
-      required final Address address,
-      final List<Address>? deliveryAddresses,
+      required final AddressModel address,
+      final List<AddressModel>? deliveryAddresses,
       required final bool isBusinessOwner,
       final Set<String>? ownedBusinessIds,
       final Set<String>? favoriteOfferIds,
@@ -420,9 +421,9 @@ abstract class _UserModel extends UserModel {
   @override
   String get phoneNumber;
   @override
-  Address get address;
+  AddressModel get address;
   @override
-  List<Address>? get deliveryAddresses;
+  List<AddressModel>? get deliveryAddresses;
   @override
   bool get isBusinessOwner;
   @override

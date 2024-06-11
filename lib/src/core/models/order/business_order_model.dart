@@ -12,7 +12,7 @@ class BusinessOrder with _$BusinessOrder {
     required String id,
     required String businessId,
     required String userNickname,
-    required Address address,
+    required AddressModel address,
     required Set<BusinessOrderItem> items,
     required BusinessOrderStatus status,
     required DateTime createdAt,

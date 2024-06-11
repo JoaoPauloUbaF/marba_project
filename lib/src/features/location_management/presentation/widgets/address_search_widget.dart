@@ -8,7 +8,7 @@ import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart
 import '../../application/address_view_model/address_view_model.dart';
 
 class AddressSearchWidget extends ConsumerStatefulWidget {
-  final Address? currentAddress;
+  final AddressModel? currentAddress;
   const AddressSearchWidget({super.key, required this.currentAddress});
 
   @override

@@ -8,7 +8,7 @@ import '../../../../core/widgets/medium_vertical_space_widget.dart';
 class AddressFormModalWidget extends ConsumerStatefulWidget {
   final String title;
 
-  final Address? currentAddress;
+  final AddressModel? currentAddress;
   final String? businessId;
 
   const AddressFormModalWidget({
@@ -32,29 +32,26 @@ class _AddressFormModalWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                widget.title,
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-              ),
-              const VerticalSpaceMediumWidget(),
-              const VerticalSpaceMediumWidget(),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.5,
-                child:
-                    AddressSearchWidget(currentAddress: widget.currentAddress),
-              ),
-              const VerticalSpaceMediumWidget(),
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              widget.title,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const VerticalSpaceMediumWidget(),
+            const VerticalSpaceMediumWidget(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.5,
+              child: AddressSearchWidget(currentAddress: widget.currentAddress),
+            ),
+            const VerticalSpaceMediumWidget(),
+          ],
         ),
       ),
     );

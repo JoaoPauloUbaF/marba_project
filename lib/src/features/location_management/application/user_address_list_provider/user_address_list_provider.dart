@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'user_address_list_provider.g.dart';
 
 @riverpod
-Stream<List<Address>> userAddressList(UserAddressListRef ref) {
+Stream<List<AddressModel>> userAddressList(UserAddressListRef ref) {
   ref.watch(authStateChangeProvider);
   final user = ref.watch(authRepositoryProvider).getCurrentUser();
   if (user != null) {

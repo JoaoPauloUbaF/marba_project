@@ -14,8 +14,8 @@ class UserModel with _$UserModel {
     required String displayName,
     required String email,
     required String phoneNumber,
-    required Address address,
-    List<Address>? deliveryAddresses,
+    required AddressModel address,
+    List<AddressModel>? deliveryAddresses,
     required bool isBusinessOwner,
     Set<String>? ownedBusinessIds,
     Set<String>? favoriteOfferIds,
@@ -23,7 +23,7 @@ class UserModel with _$UserModel {
     Cart? cart,
   }) = _UserModel;
 
-  Address get userAddress => address;
+  AddressModel get userAddress => address;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

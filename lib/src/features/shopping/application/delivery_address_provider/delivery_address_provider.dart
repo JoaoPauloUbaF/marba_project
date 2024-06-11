@@ -7,8 +7,8 @@ part 'delivery_address_provider.g.dart';
 @Riverpod(keepAlive: true)
 class DeliveryAddress extends _$DeliveryAddress {
   @override
-  Future<Address?> build() {
-    Address? address;
+  Future<AddressModel?> build() {
+    AddressModel? address;
     ref
         .read(userAddressListProvider)
         .whenData((value) => address = value.first);
@@ -16,7 +16,7 @@ class DeliveryAddress extends _$DeliveryAddress {
     return Future.value(address);
   }
 
-  setDeliveryAddress(Address userAddress) {
+  setDeliveryAddress(AddressModel userAddress) {
     state = AsyncValue.data(userAddress);
     ref
         .read(currentLocationProvider.notifier)

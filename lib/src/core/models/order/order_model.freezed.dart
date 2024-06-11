@@ -26,7 +26,7 @@ mixin _$OrderModel {
   double get total => throw _privateConstructorUsedError;
   double get totalDeliveryFee => throw _privateConstructorUsedError;
   double get discount => throw _privateConstructorUsedError;
-  Address get address => throw _privateConstructorUsedError;
+  AddressModel get address => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   PaymentMethod get paymentMethod => throw _privateConstructorUsedError;
@@ -52,14 +52,14 @@ abstract class $OrderModelCopyWith<$Res> {
       double total,
       double totalDeliveryFee,
       double discount,
-      Address address,
+      AddressModel address,
       DateTime createdAt,
       DateTime updatedAt,
       PaymentMethod paymentMethod,
       DateTime? paymentConfirmedAt,
       DateTime? canceledAt});
 
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -116,7 +116,7 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -142,8 +142,8 @@ class _$OrderModelCopyWithImpl<$Res, $Val extends OrderModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $AddressCopyWith<$Res> get address {
-    return $AddressCopyWith<$Res>(_value.address, (value) {
+  $AddressModelCopyWith<$Res> get address {
+    return $AddressModelCopyWith<$Res>(_value.address, (value) {
       return _then(_value.copyWith(address: value) as $Val);
     });
   }
@@ -164,7 +164,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       double total,
       double totalDeliveryFee,
       double discount,
-      Address address,
+      AddressModel address,
       DateTime createdAt,
       DateTime updatedAt,
       PaymentMethod paymentMethod,
@@ -172,7 +172,7 @@ abstract class _$$OrderModelImplCopyWith<$Res>
       DateTime? canceledAt});
 
   @override
-  $AddressCopyWith<$Res> get address;
+  $AddressModelCopyWith<$Res> get address;
 }
 
 /// @nodoc
@@ -227,7 +227,7 @@ class __$$OrderModelImplCopyWithImpl<$Res>
       address: null == address
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
-              as Address,
+              as AddressModel,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -293,7 +293,7 @@ class _$OrderModelImpl implements _OrderModel {
   @override
   final double discount;
   @override
-  final Address address;
+  final AddressModel address;
   @override
   final DateTime createdAt;
   @override
@@ -377,7 +377,7 @@ abstract class _OrderModel implements OrderModel {
       required final double total,
       required final double totalDeliveryFee,
       required final double discount,
-      required final Address address,
+      required final AddressModel address,
       required final DateTime createdAt,
       required final DateTime updatedAt,
       required final PaymentMethod paymentMethod,
@@ -400,7 +400,7 @@ abstract class _OrderModel implements OrderModel {
   @override
   double get discount;
   @override
-  Address get address;
+  AddressModel get address;
   @override
   DateTime get createdAt;
   @override

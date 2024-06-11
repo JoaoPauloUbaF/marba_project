@@ -225,6 +225,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   Future<void> updateBusinessAddress(
       {required String businessId,
       required Map<String, String> address}) async {
+    //TODO: refactor to require address model
     ref
         .read(businessProfileDataProvider)
         .updateBusinessAddress(

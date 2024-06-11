@@ -12,7 +12,7 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      address: Address.fromJson(json['address'] as Map<String, dynamic>),
+      address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       status: $enumDecode(_$BusinessStatusEnumMap, json['status']),
       categories: (json['categories'] as List<dynamic>)
           .map((e) => $enumDecode(_$BusinessCategoryEnumMap, e))

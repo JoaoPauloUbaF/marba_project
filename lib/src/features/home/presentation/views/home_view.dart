@@ -21,7 +21,7 @@ class HomeView extends ConsumerStatefulWidget {
 }
 
 class _HomeViewState extends ConsumerState<HomeView> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
   final TextEditingController _searchController = TextEditingController();
 
   static const List<Widget> _widgetOptions = <Widget>[

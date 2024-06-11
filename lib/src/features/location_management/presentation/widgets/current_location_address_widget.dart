@@ -16,7 +16,7 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locationAsyncValue = ref.watch(currentLocationProvider);
 
-    void showAddressModal(BuildContext context, Address address) {
+    void showAddressModal(BuildContext context, AddressModel address) {
       final user = ref.read(authRepositoryProvider).getCurrentUser();
       showModalBottomSheet(
         context: context,

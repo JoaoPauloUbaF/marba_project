@@ -6,7 +6,7 @@ import '../../../../core/models/address/address.dart';
 import '../../application/address_view_model/address_view_model.dart';
 
 class AddressDisplayWidget extends ConsumerWidget {
-  final Address address;
+  final AddressModel address;
   final bool isEditable;
   final bool isBusinessAddress;
 

@@ -10,7 +10,7 @@ class ProfileScreenController extends _$ProfileScreenController {
   @override
   FutureOr<void> build() {}
 
-  Future<Address?> getUserAddress() async {
+  Future<AddressModel?> getUserAddress() async {
     final userAuthRepository = ref.read(authRepositoryProvider);
     final userData = await ref
         .read(userProfileDataProvider)

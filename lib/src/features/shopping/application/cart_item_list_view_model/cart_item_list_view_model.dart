@@ -192,7 +192,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
 
       ref.read(deliveryAddressProvider).whenData(
         (value) {
-          Address? address = value;
+          AddressModel? address = value;
           if (address == null) {
             return;
           }
