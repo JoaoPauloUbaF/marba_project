@@ -22,7 +22,7 @@ class PopularServicesWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/core/models/user/user_model.dart';
 
@@ -51,6 +53,6 @@ abstract class ProfileDataRepository {
 
   Future<Set<String>> getFavoriteOfferIds({required String uid});
 
-  void deleteDeliveryAddress(
+  FutureOr<void> deleteDeliveryAddress(
       {required String uid, required AddressModel address}) {}
 }

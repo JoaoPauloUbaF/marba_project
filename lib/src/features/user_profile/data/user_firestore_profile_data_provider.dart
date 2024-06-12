@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_data_repository.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
@@ -201,9 +203,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  void deleteDeliveryAddress(
-      {required String uid, required AddressModel address}) {
-    _usersCollection.doc(uid).update({
+  Future<FutureOr<void>> deleteDeliveryAddress(
+      {required String uid, required AddressModel address}) async {
+    await _usersCollection.doc(uid).update({
       'deliveryAddresses': FieldValue.arrayRemove([address.toJson()]),
     });
   }

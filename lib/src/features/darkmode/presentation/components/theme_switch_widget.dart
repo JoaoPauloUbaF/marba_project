@@ -15,8 +15,8 @@ class ThemeSwitchWidget extends ConsumerWidget {
       },
       activeColor: Theme.of(context).colorScheme.onPrimary,
       thumbIcon:
-          MaterialStateProperty.resolveWith<Icon?>((Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+          WidgetStateProperty.resolveWith<Icon?>((Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return const Icon(Icons.nightlight_sharp, color: Colors.white);
         }
         return const Icon(Icons.wb_sunny_sharp, color: Colors.yellow);

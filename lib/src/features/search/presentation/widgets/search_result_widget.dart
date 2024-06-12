@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/search/application/query_offers_result_provider/query_offers_result_provider.dart';
 
 import 'business_search_result_tab_view.dart';
 import 'offers_search_result_tab_view.dart';

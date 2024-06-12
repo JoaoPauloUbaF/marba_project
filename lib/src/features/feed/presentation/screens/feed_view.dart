@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/features/feed/presentation/widgets/last_consumed.dart';
-import 'package:project_marba/src/features/feed/presentation/widgets/offer_row_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/widgets/popular_categories.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/current_location_address_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';

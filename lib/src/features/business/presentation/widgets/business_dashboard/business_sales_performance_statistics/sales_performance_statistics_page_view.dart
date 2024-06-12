@@ -106,7 +106,7 @@ class _SalesPerformanceStatisticsPageViewState
                     ),
                     ListView.builder(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: 10,
                       itemBuilder: (context, index) {
                         return Card(

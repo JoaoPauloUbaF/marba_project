@@ -70,7 +70,7 @@ class AddressSearchWidgetState extends ConsumerState<AddressSearchWidget> {
               return Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: ListTile(
-                  tileColor: Theme.of(context).colorScheme.surfaceVariant,
+                  tileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

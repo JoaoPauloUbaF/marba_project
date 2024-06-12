@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -100,6 +101,7 @@ class _EagerInitialization extends ConsumerWidget {
     ref.watch(feedOffersProvider);
     ref.watch(darkModeProvider);
     ref.watch(currentUserProvider);
+    ref.watch(authStateChangeProvider);
     return child;
   }
 }

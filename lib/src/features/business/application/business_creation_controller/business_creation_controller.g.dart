@@ -7,7 +7,7 @@ part of 'business_creation_controller.dart';
 // **************************************************************************
 
 String _$businessCreationViewModelHash() =>
-    r'aa33d5930324db7320bec714951d3bc255b742cd';
+    r'245eb3a3767314e045374cf9d1ca35a9e229d7b0';
 
 /// See also [BusinessCreationViewModel].
 @ProviderFor(BusinessCreationViewModel)

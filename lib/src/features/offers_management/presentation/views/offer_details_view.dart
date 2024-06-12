@@ -45,7 +45,7 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsView> {
           padding: const EdgeInsets.all(4),
           child: BackButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
+              backgroundColor: WidgetStateProperty.all(
                 Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
               ),
             ),
@@ -109,7 +109,7 @@ class OfferBodyWidget extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: [
                 Theme.of(context).colorScheme.secondaryContainer,
-                Theme.of(context).colorScheme.background,
+                Theme.of(context).colorScheme.surface,
               ],
             ),
           ),
@@ -118,7 +118,7 @@ class OfferBodyWidget extends StatelessWidget {
         Divider(
           indent: 8,
           endIndent: 8,
-          color: Theme.of(context).colorScheme.onBackground,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),

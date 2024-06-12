@@ -74,7 +74,7 @@ class ProfileFormsScreenController extends _$ProfileFormsScreenController {
     required BuildContext context,
   }) async {
     if (formKey.currentState?.validate() ?? false) {
-      AddressModel address = AddressModel(
+      AddressModel address = AddressModel.create(
         street: street,
         number: number,
         neighborhood: neighborhood,

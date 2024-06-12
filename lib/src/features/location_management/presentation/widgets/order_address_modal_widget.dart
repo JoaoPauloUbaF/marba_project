@@ -158,7 +158,17 @@ class _AddressListState extends State<AddressList> {
           children: [
             SlidableAction(
               onPressed: (context) {
-                widget.addressViewModel.confirmDeleteAddress(address, context);
+                widget.addressViewModel
+                    .confirmDeleteAddress(address, context)
+                    .then((value) async {
+                  if (value) {
+                    await widget.addressViewModel
+                        .deleteAddress(address: address);
+                    setState(() {
+                      userAddresses.remove(address);
+                    });
+                  }
+                });
               },
               borderRadius: BorderRadius.circular(8),
               backgroundColor: Theme.of(context).colorScheme.error,
@@ -202,8 +212,8 @@ class _AddressListState extends State<AddressList> {
               borderRadius: BorderRadius.circular(8),
             ),
             tileColor:
-                Theme.of(context).colorScheme.surfaceVariant.withAlpha(50),
-            selectedTileColor: Theme.of(context).colorScheme.surfaceVariant,
+                Theme.of(context).colorScheme.surfaceContainerHighest.withAlpha(50),
+            selectedTileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
             leading: const Icon(Icons.location_on_sharp, size: 30),
             title: widget.addressViewModel.buildAddressTitle(address),
             subtitle: widget.addressViewModel.buildAddressSubtitle(address),
@@ -213,7 +223,9 @@ class _AddressListState extends State<AddressList> {
             },
             trailing: Radio(
               value: index,
-              groupValue: userAddresses.indexOf(currentSelectedAddress!),
+              groupValue: currentSelectedAddress != null
+                  ? userAddresses.indexOf(currentSelectedAddress)
+                  : null,
               onChanged: (value) {
                 widget.addressViewModel.selectDeliveryAddress(address);
               },
@@ -244,7 +256,7 @@ class AddressManagementHeaderButtons extends ConsumerWidget {
                 children: [
                   ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                         Theme.of(context).colorScheme.tertiary,
                       ),
                     ),

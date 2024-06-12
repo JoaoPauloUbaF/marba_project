@@ -26,7 +26,7 @@ class PopularCategoriesState extends State<PopularCategories> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
       ),
       height: 100,
       child: GridView.builder(

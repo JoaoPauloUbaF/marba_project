@@ -20,12 +20,13 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AddressModel {
+  String get id => throw _privateConstructorUsedError;
   String get street => throw _privateConstructorUsedError;
-  String? get number => throw _privateConstructorUsedError;
   String get neighborhood => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   String get state => throw _privateConstructorUsedError;
   String get zipCode => throw _privateConstructorUsedError;
+  String? get number => throw _privateConstructorUsedError;
   String? get complement => throw _privateConstructorUsedError;
   String? get nickname => throw _privateConstructorUsedError;
 
@@ -42,12 +43,13 @@ abstract class $AddressModelCopyWith<$Res> {
       _$AddressModelCopyWithImpl<$Res, AddressModel>;
   @useResult
   $Res call(
-      {String street,
-      String? number,
+      {String id,
+      String street,
       String neighborhood,
       String city,
       String state,
       String zipCode,
+      String? number,
       String? complement,
       String? nickname});
 }
@@ -65,24 +67,25 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? street = null,
-    Object? number = freezed,
     Object? neighborhood = null,
     Object? city = null,
     Object? state = null,
     Object? zipCode = null,
+    Object? number = freezed,
     Object? complement = freezed,
     Object? nickname = freezed,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String,
-      number: freezed == number
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
-              as String?,
       neighborhood: null == neighborhood
           ? _value.neighborhood
           : neighborhood // ignore: cast_nullable_to_non_nullable
@@ -99,6 +102,10 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
           ? _value.zipCode
           : zipCode // ignore: cast_nullable_to_non_nullable
               as String,
+      number: freezed == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
       complement: freezed == complement
           ? _value.complement
           : complement // ignore: cast_nullable_to_non_nullable
@@ -120,12 +127,13 @@ abstract class _$$AddressImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String street,
-      String? number,
+      {String id,
+      String street,
       String neighborhood,
       String city,
       String state,
       String zipCode,
+      String? number,
       String? complement,
       String? nickname});
 }
@@ -141,24 +149,25 @@ class __$$AddressImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? street = null,
-    Object? number = freezed,
     Object? neighborhood = null,
     Object? city = null,
     Object? state = null,
     Object? zipCode = null,
+    Object? number = freezed,
     Object? complement = freezed,
     Object? nickname = freezed,
   }) {
     return _then(_$AddressImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       street: null == street
           ? _value.street
           : street // ignore: cast_nullable_to_non_nullable
               as String,
-      number: freezed == number
-          ? _value.number
-          : number // ignore: cast_nullable_to_non_nullable
-              as String?,
       neighborhood: null == neighborhood
           ? _value.neighborhood
           : neighborhood // ignore: cast_nullable_to_non_nullable
@@ -175,6 +184,10 @@ class __$$AddressImplCopyWithImpl<$Res>
           ? _value.zipCode
           : zipCode // ignore: cast_nullable_to_non_nullable
               as String,
+      number: freezed == number
+          ? _value.number
+          : number // ignore: cast_nullable_to_non_nullable
+              as String?,
       complement: freezed == complement
           ? _value.complement
           : complement // ignore: cast_nullable_to_non_nullable
@@ -191,12 +204,13 @@ class __$$AddressImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$AddressImpl implements _Address {
   _$AddressImpl(
-      {required this.street,
-      this.number,
+      {required this.id,
+      required this.street,
       required this.neighborhood,
       required this.city,
       required this.state,
       required this.zipCode,
+      this.number,
       this.complement,
       this.nickname});
 
@@ -204,9 +218,9 @@ class _$AddressImpl implements _Address {
       _$$AddressImplFromJson(json);
 
   @override
-  final String street;
+  final String id;
   @override
-  final String? number;
+  final String street;
   @override
   final String neighborhood;
   @override
@@ -216,13 +230,15 @@ class _$AddressImpl implements _Address {
   @override
   final String zipCode;
   @override
+  final String? number;
+  @override
   final String? complement;
   @override
   final String? nickname;
 
   @override
   String toString() {
-    return 'AddressModel(street: $street, number: $number, neighborhood: $neighborhood, city: $city, state: $state, zipCode: $zipCode, complement: $complement, nickname: $nickname)';
+    return 'AddressModel(id: $id, street: $street, neighborhood: $neighborhood, city: $city, state: $state, zipCode: $zipCode, number: $number, complement: $complement, nickname: $nickname)';
   }
 
   @override
@@ -230,13 +246,14 @@ class _$AddressImpl implements _Address {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddressImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.street, street) || other.street == street) &&
-            (identical(other.number, number) || other.number == number) &&
             (identical(other.neighborhood, neighborhood) ||
                 other.neighborhood == neighborhood) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.state, state) || other.state == state) &&
             (identical(other.zipCode, zipCode) || other.zipCode == zipCode) &&
+            (identical(other.number, number) || other.number == number) &&
             (identical(other.complement, complement) ||
                 other.complement == complement) &&
             (identical(other.nickname, nickname) ||
@@ -245,8 +262,8 @@ class _$AddressImpl implements _Address {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, street, number, neighborhood,
-      city, state, zipCode, complement, nickname);
+  int get hashCode => Object.hash(runtimeType, id, street, neighborhood, city,
+      state, zipCode, number, complement, nickname);
 
   @JsonKey(ignore: true)
   @override
@@ -264,21 +281,22 @@ class _$AddressImpl implements _Address {
 
 abstract class _Address implements AddressModel {
   factory _Address(
-      {required final String street,
-      final String? number,
+      {required final String id,
+      required final String street,
       required final String neighborhood,
       required final String city,
       required final String state,
       required final String zipCode,
+      final String? number,
       final String? complement,
       final String? nickname}) = _$AddressImpl;
 
   factory _Address.fromJson(Map<String, dynamic> json) = _$AddressImpl.fromJson;
 
   @override
-  String get street;
+  String get id;
   @override
-  String? get number;
+  String get street;
   @override
   String get neighborhood;
   @override
@@ -287,6 +305,8 @@ abstract class _Address implements AddressModel {
   String get state;
   @override
   String get zipCode;
+  @override
+  String? get number;
   @override
   String? get complement;
   @override

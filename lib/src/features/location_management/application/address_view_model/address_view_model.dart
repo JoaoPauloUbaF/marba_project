@@ -268,7 +268,7 @@ class AddressViewModel extends _$AddressViewModel {
           'Ops! Faltam essas informações no seu endereço: \n${missingFields.join(', ')}');
     }
 
-    return AddressModel(
+    return AddressModel.create(
       street: street,
       number: number,
       neighborhood: neighborhood,
@@ -319,11 +319,21 @@ class AddressViewModel extends _$AddressViewModel {
     );
   }
 
-  FutureOr<void> deleteAddress({required AddressModel address}) {
-    ref.read(userProfileDataProvider).deleteDeliveryAddress(
-          uid: ref.read(currentUserProvider)!.id,
-          address: address,
-        );
+  Future<FutureOr<void>> deleteAddress({required AddressModel address}) async {
+    final user = ref.read(currentUserProvider);
+
+    if (user == null) {
+      return null;
+    }
+
+    try {
+      await ref.read(userProfileDataProvider).deleteDeliveryAddress(
+            uid: user.id,
+            address: address,
+          );
+    } on Exception catch (e) {
+      throw Exception('Error : $e');
+    }
     if (ref.read(deliveryAddressProvider).requireValue == address) {
       ref.invalidate(currentLocationProvider);
       ref.invalidate(deliveryAddressProvider);

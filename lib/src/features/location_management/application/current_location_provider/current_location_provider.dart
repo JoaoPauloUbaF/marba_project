@@ -105,7 +105,7 @@ class CurrentLocation extends _$CurrentLocation {
       );
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks.first;
-        return AddressModel(
+        return AddressModel.create(
           street: placemark.thoroughfare.toString(),
           number: placemark.subThoroughfare.toString(),
           neighborhood: placemark.subLocality.toString(),
@@ -146,7 +146,7 @@ class CurrentLocation extends _$CurrentLocation {
       }
     }
 
-    return AddressModel(
+    return AddressModel.create(
       street: street,
       number: number,
       neighborhood: neighborhood,

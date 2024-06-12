@@ -61,11 +61,6 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
   }
 
   @override
-  Future<void> addOffer(OfferModel offer) async {
-    await _firestore.collection('offers').doc(offer.id).set(offer.toJson());
-  }
-
-  @override
   Future<void> updateOffer(OfferModel offer) async {
     await _firestore.collection('offers').doc(offer.id).update(offer.toJson());
   }
