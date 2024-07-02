@@ -68,7 +68,7 @@ class MainApp extends ConsumerWidget {
         routes: {
           '/home': (context) => const HomeView(),
           '/sign-in': (context) => const SignIn(),
-          '/profile': (context) => const AppProfileScreen(),
+          '/profile': (context) => const ProfileView(),
           '/profile-form': (context) => const ProfileFormScreen(),
           '/settings': (context) => const ProfileSettingsView(),
           '/business-list': (context) => const MyBusinessListScreen(),
