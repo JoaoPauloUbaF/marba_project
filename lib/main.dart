@@ -20,7 +20,7 @@ import 'package:project_marba/src/features/settings/presentation/views/address_v
 import 'package:project_marba/src/features/settings/presentation/views/business_apply_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/notification_view.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
-import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
+import 'package:project_marba/src/features/user_profile/presentation/screens/profile_view.dart';
 import 'firebase_options.dart';
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
