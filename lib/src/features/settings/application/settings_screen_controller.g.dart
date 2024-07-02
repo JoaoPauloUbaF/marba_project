@@ -7,7 +7,7 @@ part of 'settings_screen_controller.dart';
 // **************************************************************************
 
 String _$settingsScreenControllerHash() =>
-    r'614bd964a29ee4fd62e4986d91a7a20510a1e97b';
+    r'282fd1dd94701e2f40b4b2be1f00dea68f24e63d';
 
 /// See also [SettingsScreenController].
 @ProviderFor(SettingsScreenController)

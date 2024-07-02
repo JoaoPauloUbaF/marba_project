@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../application/settings_screen_controller.dart';
+import '../../application/settings_screen_controller.dart';
 
-class ProfileSettingsScreen extends ConsumerWidget {
-  const ProfileSettingsScreen({super.key});
+class ProfileSettingsView extends ConsumerWidget {
+  const ProfileSettingsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,11 +24,16 @@ class ProfileSettingsScreen extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.chat_sharp, color: colorScheme.tertiary),
             title: const Text('Conversas'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, viewController.onChatTaped());
+            },
           ),
           ListTile(
             title: const Text('Notificações'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(
+                  context, viewController.onNotificationTaped());
+            },
             leading: Icon(Icons.notifications, color: colorScheme.tertiary),
           ),
           ListTile(
@@ -41,7 +46,9 @@ class ProfileSettingsScreen extends ConsumerWidget {
           ListTile(
             leading: Icon(Icons.privacy_tip, color: colorScheme.tertiary),
             title: const Text('Privacidade'),
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/privacy');
+            },
           ),
           ListTile(
             leading: Icon(Icons.business_center, color: colorScheme.tertiary),

@@ -24,4 +24,20 @@ class SettingsScreenController extends _$SettingsScreenController {
     String result = userIsLoggedIn ? '/addresses' : '/sign-in';
     return result;
   }
+
+  String onNotificationTaped() {
+    bool userIsLoggedIn =
+        ref.read(authRepositoryProvider).getCurrentUser() != null;
+    ref.read(signInScreenControllerProvider.notifier).setGoToRoute('/settings');
+    String result = userIsLoggedIn ? '/notifications' : '/sign-in';
+    return result;
+  }
+
+  String onChatTaped() {
+    bool userIsLoggedIn =
+        ref.read(authRepositoryProvider).getCurrentUser() != null;
+    ref.read(signInScreenControllerProvider.notifier).setGoToRoute('/settings');
+    String result = userIsLoggedIn ? '/chats' : '/sign-in';
+    return result;
+  }
 }

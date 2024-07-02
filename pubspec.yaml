@@ -26,6 +26,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
+  flutter_markdown: ^0.7.3
   flutter_masked_text2: ^0.9.1
   flutter_riverpod: ^2.4.9
   flutter_slidable: ^3.1.0
@@ -45,6 +46,7 @@ dependencies:
   riverpod: ^2.4.9
   riverpod_annotation:
   table_calendar: ^3.0.9
+  tuple: ^2.0.2
   uuid: ^4.2.2
 
 dev_dependencies:

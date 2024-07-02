@@ -5,7 +5,7 @@ import 'package:project_marba/src/features/feed/presentation/screens/feed_view.d
 import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
 import 'package:project_marba/src/features/home/presentation/widgets/animated_logo_loading_widget.dart';
 import 'package:project_marba/src/features/orders/presentation/views/user_orders_view.dart';
-import 'package:project_marba/src/features/settings/presentation/profile_settings_screen.dart';
+import 'package:project_marba/src/features/settings/presentation/views/profile_settings_screen.dart';
 
 import '../../../../core/utils/view_utils.dart';
 import '../../../search/presentation/views/search_view.dart';
@@ -28,7 +28,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     SearchView(),
     FeedView(),
     UserOrdersView(),
-    ProfileSettingsScreen(),
+    ProfileSettingsView(),
     MyBusinessListScreen(),
   ];
 

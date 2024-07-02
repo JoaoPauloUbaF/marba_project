@@ -17,6 +17,7 @@ import 'package:project_marba/src/features/business/presentation/screens/my_busi
 import 'package:project_marba/src/features/offers_management/presentation/views/offer_details_view.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/address_view.dart';
+import 'package:project_marba/src/features/settings/presentation/views/notification_view.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/app_profile_screen.dart';
 import 'firebase_options.dart';
@@ -25,7 +26,9 @@ import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
-import 'src/features/settings/presentation/profile_settings_screen.dart';
+import 'src/features/settings/presentation/views/chat_list_view.dart';
+import 'src/features/settings/presentation/views/privacy_view.dart';
+import 'src/features/settings/presentation/views/profile_settings_screen.dart';
 import 'src/features/shopping/presentation/views/shopping_cart_view.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 import 'theme.dart';
@@ -65,7 +68,7 @@ class MainApp extends ConsumerWidget {
           '/sign-in': (context) => const SignIn(),
           '/profile': (context) => const AppProfileScreen(),
           '/profile-form': (context) => const ProfileFormScreen(),
-          '/settings': (context) => const ProfileSettingsScreen(),
+          '/settings': (context) => const ProfileSettingsView(),
           '/business-list': (context) => const MyBusinessListScreen(),
           '/business-home': (context) => const MyBusinessHomeScreen(),
           '/business-profile': (context) => const BusinessProfileScreen(),
@@ -75,6 +78,9 @@ class MainApp extends ConsumerWidget {
           '/checkout': (context) => const CheckoutView(),
           '/user-order-details': (context) => const UserOrderDetailsView(),
           '/addresses': (context) => const AddressView(),
+          '/notifications': (context) => const NotificationsView(),
+          '/privacy': (context) => const PrivacyView(),
+          '/chats': (context) => const ChatListView(),
         },
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
