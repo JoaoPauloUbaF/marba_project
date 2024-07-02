@@ -52,8 +52,11 @@ class ProfileSettingsView extends ConsumerWidget {
           ),
           ListTile(
             leading: Icon(Icons.business_center, color: colorScheme.tertiary),
-            title: const Text('Quero criar um Negócio'),
-            onTap: () {},
+            title: const Text('Quero cadastrar meu Negócio'),
+            onTap: () {
+              Navigator.pushNamed(
+                  context, viewController.onBusinessApplyTaped());
+            },
           ),
           ListTile(
             leading: Icon(Icons.info, color: colorScheme.tertiary),

@@ -40,4 +40,12 @@ class SettingsScreenController extends _$SettingsScreenController {
     String result = userIsLoggedIn ? '/chats' : '/sign-in';
     return result;
   }
+
+  String onBusinessApplyTaped() {
+    bool userIsLoggedIn =
+        ref.read(authRepositoryProvider).getCurrentUser() != null;
+    ref.read(signInScreenControllerProvider.notifier).setGoToRoute('/settings');
+    String result = userIsLoggedIn ? '/business-apply' : '/sign-in';
+    return result;
+  }
 }
