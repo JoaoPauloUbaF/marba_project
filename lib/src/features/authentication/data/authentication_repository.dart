@@ -6,4 +6,7 @@ abstract class AuthenticationRepository {
   User? getCurrentUser();
   Stream<User?> authStateChanged();
   Future<bool> checkUserRegistration(String uid);
+
+  Future<String> changePassword(
+      {required String currentPassword, required String newPassword});
 }

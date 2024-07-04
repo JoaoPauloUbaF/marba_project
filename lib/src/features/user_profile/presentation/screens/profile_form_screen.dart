@@ -5,7 +5,7 @@ import 'package:project_marba/src/features/authentication/data/authentication_re
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:project_marba/src/features/user_profile/presentation/components/male_user_avatar_widget.dart';
+import 'package:project_marba/src/features/user_profile/presentation/widgets/male_user_avatar_widget.dart';
 
 import '../../application/profile_forms_controller/profile_forms_screen_controller.dart';
 

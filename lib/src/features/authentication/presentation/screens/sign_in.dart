@@ -62,13 +62,11 @@ class FirebaseLogin extends StatelessWidget {
             action: SnackBarAction(
               label: 'OK',
               onPressed: () {
-                // Fecha a snackbar quando o botão "OK" é pressionado
                 ScaffoldMessenger.of(context).hideCurrentSnackBar();
               },
             ),
           );
 
-          // Mostra a snackbar
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }),
       ],

@@ -7,12 +7,12 @@ part of 'profile_screen_controller.dart';
 // **************************************************************************
 
 String _$profileScreenControllerHash() =>
-    r'b5d6f9967f9fa4c8416bc1fd5b40739de2998994';
+    r'd7a6f2e2cf3ae13877dbce1ad876f1d833efc66d';
 
 /// See also [ProfileScreenController].
 @ProviderFor(ProfileScreenController)
-final profileScreenControllerProvider =
-    AutoDisposeAsyncNotifierProvider<ProfileScreenController, void>.internal(
+final profileScreenControllerProvider = AutoDisposeNotifierProvider<
+    ProfileScreenController, ProfileViewState>.internal(
   ProfileScreenController.new,
   name: r'profileScreenControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final profileScreenControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$ProfileScreenController = AutoDisposeAsyncNotifier<void>;
+typedef _$ProfileScreenController = AutoDisposeNotifier<ProfileViewState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

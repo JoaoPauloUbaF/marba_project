@@ -58,6 +58,45 @@ class FirebaseAuthProvider implements AuthenticationRepository {
       return false;
     }
   }
+
+  @override
+  Future<String> changePassword({
+    required String currentPassword,
+    required String newPassword,
+  }) async {
+    final user = _firebaseAuth.currentUser;
+    if (user == null) {
+      return 'Usuário não autenticado';
+    }
+
+    try {
+      final credential = EmailAuthProvider.credential(
+        email: user.email!,
+        password: currentPassword,
+      );
+
+      await user.reauthenticateWithCredential(credential);
+
+      await user.updatePassword(newPassword);
+      return 'Senha atualizada com sucesso';
+    } catch (error) {
+      log('Error changing password: $error');
+      if (error is FirebaseAuthException) {
+        switch (error.code) {
+          case 'wrong-password':
+            return 'Senha atual incorreta';
+          case 'weak-password':
+            return 'A nova senha é muito fraca';
+          case 'requires-recent-login':
+            return 'Reautenticação necessária. Faça login novamente e tente novamente.';
+          default:
+            return 'Erro ao atualizar senha: ${error.message}';
+        }
+      } else {
+        return 'Erro desconhecido: $error';
+      }
+    }
+  }
 }
 
 final authRepositoryProvider = Provider<AuthenticationRepository>(

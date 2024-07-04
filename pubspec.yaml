@@ -30,6 +30,7 @@ dependencies:
   flutter_masked_text2: ^0.9.1
   flutter_riverpod: ^2.4.9
   flutter_slidable: ^3.1.0
+  flutter_svg: ^2.0.10+1
   freezed_annotation: ^2.4.1
   gap: ^3.0.1
   geocoding: ^3.0.0
@@ -45,6 +46,7 @@ dependencies:
   permission_handler: ^11.3.0
   riverpod: ^2.4.9
   riverpod_annotation:
+  shared_preferences: ^2.2.3
   table_calendar: ^3.0.9
   tuple: ^2.0.2
   uuid: ^4.2.2
@@ -64,4 +66,5 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/avatars/
     - .env
