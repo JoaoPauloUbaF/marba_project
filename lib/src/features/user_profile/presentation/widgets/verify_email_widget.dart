@@ -20,7 +20,7 @@ class VerifyEmailWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.tertiary,
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -29,7 +29,7 @@ class VerifyEmailWidget extends StatelessWidget {
             'Email não verificado',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.onTertiary,
+                  color: Theme.of(context).colorScheme.onSecondary,
                 ),
           ),
           Row(
@@ -43,7 +43,7 @@ class VerifyEmailWidget extends StatelessWidget {
                 child: Text(
                   'Enviar email de verificação',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.tertiaryContainer,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                       ),
                 ),
               ),

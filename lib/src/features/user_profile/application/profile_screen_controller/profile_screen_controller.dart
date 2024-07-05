@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
@@ -85,7 +88,9 @@ class ProfileScreenController extends _$ProfileScreenController {
       {
         'icon': Icons.credit_card_sharp,
         'title': 'Pagamentos',
-        'onPressed': () {},
+        'onPressed': () {
+          Navigator.pushNamed(context, '/user-payment');
+        },
       },
       {
         'icon': Icons.discount_sharp,
@@ -120,6 +125,30 @@ class ProfileScreenController extends _$ProfileScreenController {
       currentPassword: currentPassword,
       newPassword: newPassword,
     );
+  }
+
+  Future<void> updatePhoneNumber(String value) async {
+    state = ProfileViewState.loading;
+    final userAuthRepository = ref.read(authRepositoryProvider);
+    // await userAuthRepository.updatePhoneNumber(value);
+    state = ProfileViewState.loaded;
+  }
+
+  Future<void> updateDisplayName(String value, User? user) async {
+    state = ProfileViewState.loading;
+    await user?.updateDisplayName(value);
+    state = ProfileViewState.loaded;
+  }
+
+  Future<void> updateEmail(String value, User? user) async {
+    state = ProfileViewState.loading;
+    await user?.verifyBeforeUpdateEmail(value).then((_) {
+      state = ProfileViewState.loaded;
+    }).catchError((error) {
+      log(error.toString());
+      state = ProfileViewState.error;
+    });
+    state = ProfileViewState.loaded;
   }
 }
 

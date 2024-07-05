@@ -139,7 +139,7 @@ class UserSettingsGrid extends ConsumerWidget {
           InkWell(
             onTap: item['onPressed'] as void Function()?,
             child: Card(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.tertiary,
               child: Container(
                 padding: const EdgeInsets.all(8),
                 child: Column(
@@ -147,13 +147,13 @@ class UserSettingsGrid extends ConsumerWidget {
                   children: [
                     Icon(
                       item['icon'] as IconData,
-                      color: Theme.of(context).colorScheme.secondaryContainer,
+                      color: Theme.of(context).colorScheme.tertiaryContainer,
                     ),
                     const Gap(8),
                     Text(
                       item['title'] as String,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.onSecondary,
+                            color: Theme.of(context).colorScheme.onTertiary,
                           ),
                     ),
                   ],

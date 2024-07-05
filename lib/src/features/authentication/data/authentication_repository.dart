@@ -9,4 +9,6 @@ abstract class AuthenticationRepository {
 
   Future<String> changePassword(
       {required String currentPassword, required String newPassword});
+
+  //Future<void> updatePhoneNumber(String value);
 }

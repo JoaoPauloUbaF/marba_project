@@ -26,7 +26,9 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
+import 'src/features/home/presentation/widgets/animated_logo_loading_widget.dart';
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
+import 'src/features/payment/presentation/views/user_payment_view.dart';
 import 'src/features/settings/presentation/views/business_submission_confirmation_view.dart';
 import 'src/features/settings/presentation/views/chat_list_view.dart';
 import 'src/features/settings/presentation/views/privacy_view.dart';
@@ -86,6 +88,7 @@ class MainApp extends ConsumerWidget {
           '/business-apply': (context) => const BusinessApplyView(),
           '/business-submission-confirmation': (context) =>
               const BusinessSubmissionConfirmationView(),
+          '/user-payment': (context) => const UserPaymentView(),
         },
         localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
@@ -112,7 +115,17 @@ class _EagerInitialization extends ConsumerWidget {
     ref.watch(feedOffersProvider);
     ref.watch(darkModeProvider);
     ref.watch(currentUserProvider);
-    ref.watch(authStateChangeProvider);
+    final authState = ref.watch(authStateChangeProvider);
+    authState.when(
+        data: (user) {
+          if (user == null) {
+            Navigator.of(context).pushNamed('/sign-in');
+          }
+        },
+        loading: () {
+          return const AnimatedLogoLoadingWidget();
+        },
+        error: (error, stackTrace) {});
     return child;
   }
 }

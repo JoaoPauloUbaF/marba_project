@@ -52,20 +52,29 @@ class UserInfoWidget extends ConsumerWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            UserNameWidget(user: user),
+            const UserNameWidget(),
             const SizedBox(height: 5),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
                   Icons.email,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 const Gap(8),
-                Text(
-                  user?.email ?? 'Email não disponível',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: EditableTextWidget(
+                    onSubmitted: (value) {
+                      viewModel.updateEmail(value, user);
+                    },
+                    child: Text(
+                      user?.email ?? 'Email não disponível',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -77,11 +86,19 @@ class UserInfoWidget extends ConsumerWidget {
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 const Gap(8),
-                Text(
-                  user?.phoneNumber ?? '(00) 00000-0000',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: EditableTextWidget(
+                    child: Text(
+                      user?.phoneNumber ?? '(00) 00000-0000',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                    onSubmitted: (value) {
+                      viewModel.updatePhoneNumber(value);
+                    },
+                  ),
                 ),
               ],
             ),
@@ -92,32 +109,29 @@ class UserInfoWidget extends ConsumerWidget {
   }
 }
 
-class UserNameWidget extends StatefulWidget {
+class UserNameWidget extends ConsumerWidget {
   const UserNameWidget({
     super.key,
-    required this.user,
   });
 
-  final User? user;
-
   @override
-  State<UserNameWidget> createState() => _UserNameWidgetState();
-}
-
-class _UserNameWidgetState extends State<UserNameWidget> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = FirebaseAuth.instance.currentUser;
+    final viewModel = ref.watch(profileScreenControllerProvider.notifier);
+    final viewState = ref.watch(profileScreenControllerProvider);
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.6,
-      child: EditableTextWidget(
-        child: Text(
-          widget.user?.displayName ?? 'Nome não disponível',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        onSubmitted: (value) {
-          widget.user?.updateDisplayName(value);
-        },
-      ),
+      child: viewState == ProfileViewState.loading
+          ? const LinearProgressIndicator()
+          : EditableTextWidget(
+              child: Text(
+                user?.displayName ?? 'Nome não disponível',
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+              onSubmitted: (value) async {
+                viewModel.updateDisplayName(value, user);
+              },
+            ),
     );
   }
 }

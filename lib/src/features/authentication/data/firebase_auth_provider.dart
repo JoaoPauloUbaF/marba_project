@@ -97,6 +97,14 @@ class FirebaseAuthProvider implements AuthenticationRepository {
       }
     }
   }
+
+  // @override
+  // Future<void> updatePhoneNumber(String value) {
+  //   final user = _firebaseAuth.currentUser;
+  //   if (user == null) {
+  //     return Future.error('Usuário não autenticado');
+  //   }
+  // }
 }
 
 final authRepositoryProvider = Provider<AuthenticationRepository>(

@@ -4,7 +4,6 @@ part 'payment_method_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class PaymentMethodViewModel extends _$PaymentMethodViewModel {
-  //TODO: implementar cartoes salvos
   @override
   PaymentMethod build() {
     return PaymentMethod.pix;
