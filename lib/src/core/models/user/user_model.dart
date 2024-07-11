@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/cart/cart.dart';
 
+import '../credit_card/credit_card_model.dart';
+
 part 'user_model.freezed.dart';
 part 'user_model.g.dart';
 
@@ -18,6 +20,7 @@ class UserModel with _$UserModel {
     Set<String>? favoriteOfferIds,
     List<String>? searchHistory,
     Cart? cart,
+    List<CreditCardModel>? creditCards,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

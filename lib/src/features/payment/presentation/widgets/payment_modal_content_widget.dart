@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
+import "package:flutter_masked_text2/flutter_masked_text2.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:gap/gap.dart";
 import "package:project_marba/src/core/widgets/base_modal_body_widget.dart";
 import "package:project_marba/src/core/widgets/modal_center_top_line_widget.dart";
-import "package:project_marba/src/features/payment/presentation/views/user_payment_view.dart";
+import "package:project_marba/src/features/payment/application/user_payments_view_model/user_payment_view_model.dart";
+import "package:project_marba/src/features/payment/presentation/widgets/credit_card_widget.dart";
 
 import "../../../../core/widgets/medium_vertical_space_widget.dart";
 import "../../application/payment_method_view_model/payment_method_view_model.dart";
@@ -171,13 +173,33 @@ class _PaymentModalContentWidgetState
   }
 }
 
-class AddCardModalWidget extends StatelessWidget {
+class AddCardModalWidget extends ConsumerStatefulWidget {
   const AddCardModalWidget({
     super.key,
   });
 
   @override
+  ConsumerState<AddCardModalWidget> createState() => _AddCardModalWidgetState();
+}
+
+class _AddCardModalWidgetState extends ConsumerState<AddCardModalWidget> {
+  String cardNumber = '';
+  String cardHolderName = '';
+  String expiryDate = '';
+  String cvv = '';
+
+  TextEditingController cardNumberController = MaskedTextController(
+    mask: '0000 0000 0000 0000',
+  );
+  TextEditingController cardHolderNameController = TextEditingController();
+  TextEditingController expiryDateController =
+      MaskedTextController(mask: '00/00');
+  TextEditingController cvvController = MaskedTextController(mask: '000');
+
+  @override
   Widget build(BuildContext context) {
+    final viewModel = ref.watch(userPaymentViewModelProvider.notifier);
+
     return BaseModalBodyWidget(
       child: Padding(
         padding: const EdgeInsets.only(top: 8.0, bottom: 30, left: 8, right: 8),
@@ -195,15 +217,21 @@ class AddCardModalWidget extends StatelessWidget {
             SizedBox(
               height: 200,
               width: MediaQuery.of(context).size.width * 0.8,
-              child: const CreditCardWidget(
-                  cardHolderName: 'cardHolderName',
-                  cardNumber: 'cardNumber',
-                  expiryDate: 'expiryDate',
+              child: CreditCardWidget(
+                  cardHolderName: cardHolderName,
+                  cardNumber: cardNumber,
+                  expiryDate: expiryDate,
                   cardLogoAssetPath: 'assets/payment_methods/visa.png',
                   emptyCard: false),
             ),
             const Gap(16),
             TextFormField(
+              controller: cardNumberController,
+              onChanged: (value) {
+                setState(() {
+                  cardNumber = value;
+                });
+              },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Número do Cartão',
@@ -212,6 +240,12 @@ class AddCardModalWidget extends StatelessWidget {
             ),
             const VerticalSpaceMediumWidget(),
             TextFormField(
+              controller: cardHolderNameController,
+              onChanged: (value) {
+                setState(() {
+                  cardHolderName = value;
+                });
+              },
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Nome do Titular',
@@ -223,6 +257,12 @@ class AddCardModalWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
+                    controller: expiryDateController,
+                    onChanged: (value) {
+                      setState(() {
+                        expiryDate = value;
+                      });
+                    },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Validade',
@@ -233,6 +273,12 @@ class AddCardModalWidget extends StatelessWidget {
                 const SizedBox(width: 16),
                 Expanded(
                   child: TextFormField(
+                    controller: cvvController,
+                    onChanged: (value) {
+                      setState(() {
+                        cvv = value;
+                      });
+                    },
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'CVV',
@@ -258,6 +304,12 @@ class AddCardModalWidget extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
+                    viewModel.saveCard(
+                      cardNumber: cardNumber,
+                      cardHolderName: cardHolderName,
+                      expirationDate: expiryDate,
+                      cvv: cvv,
+                    );
                     Navigator.of(context).pop();
                   },
                   child: const Text('Adicionar'),

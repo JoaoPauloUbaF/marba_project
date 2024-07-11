@@ -5,6 +5,9 @@ import 'package:project_marba/src/features/user_profile/data/user_profile_data_r
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/user/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../core/models/credit_card/credit_card_model.dart';
 
 final firestoreProfileDataProvider = Provider<ProfileDataRepository>((ref) {
   return FirestoreProfileDataRepository();
@@ -186,6 +189,25 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
       {required String uid, required AddressModel address}) async {
     await _usersCollection.doc(uid).update({
       'deliveryAddresses': FieldValue.arrayRemove([address.toJson()]),
+    });
+  }
+
+  @override
+  Stream<List<CreditCardModel>> getCreditCards({required String userId}) {
+    return _usersCollection.doc(userId).snapshots().map((doc) {
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        final creditCards = data['creditCards']
+            ?.map<CreditCardModel>((card) => CreditCardModel.fromJson(card))
+            .toList();
+        if (creditCards != null) {
+          return creditCards;
+        } else {
+          return [];
+        }
+      } else {
+        return [];
+      }
     });
   }
 }

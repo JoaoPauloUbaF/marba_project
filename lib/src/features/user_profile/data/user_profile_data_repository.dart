@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_marba/src/core/models/credit_card/credit_card_model.dart';
 import 'package:project_marba/src/core/models/user/user_model.dart';
 
 import '../../../core/models/address/address.dart';
@@ -49,4 +50,6 @@ abstract class ProfileDataRepository {
 
   FutureOr<void> deleteDeliveryAddress(
       {required String uid, required AddressModel address}) {}
+
+  Stream<List<CreditCardModel>> getCreditCards({required String userId});
 }
