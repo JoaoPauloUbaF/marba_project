@@ -5,10 +5,12 @@ class EditableTextWidget extends StatefulWidget {
     super.key,
     required this.child,
     required this.onSubmitted,
+    this.mask,
   });
 
   final Text child;
   final Function(String) onSubmitted;
+  final TextEditingController? mask;
 
   @override
   State<EditableTextWidget> createState() => _EditableTextWidgetState();
@@ -21,7 +23,7 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.child.data);
+    _controller = widget.mask ?? TextEditingController(text: widget.child.data);
   }
 
   @override
@@ -43,9 +45,10 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
                   icon: const Icon(Icons.check),
                   onPressed: () {
                     widget.onSubmitted(_controller?.text ?? '');
-                    // setState(() {
-                    //   _isEditing = false;
-                    // });
+                    setState(() {
+                      _isEditing = false;
+                      _controller?.text = widget.child.data ?? '';
+                    });
                   },
                 ),
               ),

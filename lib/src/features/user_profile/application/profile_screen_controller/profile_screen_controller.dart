@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
@@ -32,7 +31,8 @@ class ProfileScreenController extends _$ProfileScreenController {
     final userAuthRepository = ref.read(authRepositoryProvider);
     final userData = await ref
         .read(userProfileDataProvider)
-        .getProfileData(uid: userAuthRepository.getCurrentUser()!.uid);
+        .getProfileData(uid: userAuthRepository.getCurrentUser()!.uid)
+        .first;
     return userData?.address;
   }
 
@@ -40,7 +40,8 @@ class ProfileScreenController extends _$ProfileScreenController {
     final userAuthRepository = ref.read(authRepositoryProvider);
     final userData = await ref
         .read(userProfileDataProvider)
-        .getProfileData(uid: userAuthRepository.getCurrentUser()!.uid);
+        .getProfileData(uid: userAuthRepository.getCurrentUser()!.uid)
+        .first;
     return userData?.phoneNumber;
   }
 
@@ -142,9 +143,10 @@ class ProfileScreenController extends _$ProfileScreenController {
         .updateProfile(user: user.copyWith(phoneNumber: value))
         .catchError((error) {
       log(error.toString());
-      state = ProfileViewState.error;
+      state = ProfileViewState.loaded;
+    }).then((_) {
+      state = ProfileViewState.loaded;
     });
-    state = ProfileViewState.loaded;
   }
 
   Future<void> updateDisplayName(String value, User? user) async {

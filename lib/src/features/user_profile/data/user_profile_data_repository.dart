@@ -20,7 +20,7 @@ abstract class ProfileDataRepository {
 
   Future<void> deleteProfile({required String uid});
 
-  Future<UserModel?> getProfileData({required String uid});
+  Stream<UserModel?> getProfileData({required String uid});
 
   Future<List<String?>> getOwnedBusinessIds({required String uid});
 

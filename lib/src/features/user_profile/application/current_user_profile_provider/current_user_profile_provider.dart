@@ -11,6 +11,7 @@ class CurrentUser extends _$CurrentUser {
   @override
   UserModel? build() {
     ref.watch(authStateChangeProvider);
+
     final uid = ref.read(authRepositoryProvider).getCurrentUser()?.uid;
 
     if (uid == null) {
@@ -20,7 +21,16 @@ class CurrentUser extends _$CurrentUser {
     ref
         .watch(firestoreProfileDataProvider)
         .getProfileData(uid: uid)
-        .then((value) => state = value);
+        .listen((user) {
+      if (user != null) {
+        state = user;
+      }
+    });
+
     return null;
+  }
+
+  void reload() {
+    build();
   }
 }

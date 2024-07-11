@@ -45,25 +45,15 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  Future<UserModel?> getProfileData({required String uid}) async {
-    DocumentSnapshot docSnapshot = await _usersCollection.doc(uid).get();
-
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
-      return UserModel(
-        id: uid,
-        email: data['email'],
-        displayName: data['displayName'],
-        phoneNumber: data['phoneNumber'],
-        address: AddressModel.fromJson(data['address']),
-        deliveryAddresses: data['deliveryAddresses']
-            ?.map<AddressModel>((address) => AddressModel.fromJson(address))
-            .toList(),
-        isBusinessOwner: false,
-      );
-    } else {
-      return null;
-    }
+  Stream<UserModel?> getProfileData({required String uid}) {
+    return _usersCollection.doc(uid).snapshots().map((doc) {
+      if (doc.exists) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        return UserModel.fromJson(data);
+      } else {
+        return null;
+      }
+    });
   }
 
   @override

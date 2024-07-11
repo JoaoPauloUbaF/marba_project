@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:project_marba/src/core/widgets/editable_text_widget.dart';
@@ -19,7 +20,7 @@ class UserInfoWidget extends ConsumerWidget {
     ref.watch(profileScreenControllerProvider);
     ref.watch(authStateChangeProvider);
     final userAuth = ref.read(authRepositoryProvider).getCurrentUser();
-    final userProfile = ref.read(currentUserProvider);
+    final userProfile = ref.watch(currentUserProvider);
     final avatars = viewModel.avatars;
 
     return Row(
@@ -96,6 +97,10 @@ class UserInfoWidget extends ConsumerWidget {
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: EditableTextWidget(
+                    mask: MaskedTextController(
+                      mask: '(00) 00000-0000',
+                      text: userProfile?.phoneNumber ?? '',
+                    ),
                     child: Text(
                       userProfile?.phoneNumber ?? '(00) 00000-0000',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
