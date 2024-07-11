@@ -30,6 +30,13 @@ class _TwoFactorAuthWidgetState extends State<TwoFactorAuthWidget> {
             ),
             const Gap(20),
             Text(
+              'EM BREVE!',
+              style: theme.textTheme.headlineMedium?.copyWith(
+                color: theme.colorScheme.onSurface,
+              ),
+            ),
+            const Gap(10),
+            Text(
               '  A autenticação de dois fatores é uma camada adicional de segurança para sua conta. \n  Quando ativada, você precisará de um código de verificação para fazer login.',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurface,

@@ -24,27 +24,9 @@ class SignInScreenController extends _$SignInScreenController {
         );
   }
 
-  void showSuccessAndNavigate(BuildContext context) {
-    // Cria a snackbar
-    final snackBar = SnackBar(
-      content: const Text('Criação foi um sucesso!'),
-      action: SnackBarAction(
-        label: 'OK',
-        onPressed: () {
-          // Fecha a snackbar quando o botão "OK" é pressionado
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        },
-      ),
-    );
-
-    // Mostra a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(snackBar).closed.then(
-      (reason) {
-        // Navega para a tela de sign-in após a snackbar ser fechada
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/profile-form', (route) => false);
-      },
-    );
+  void goToUserForm(BuildContext context) {
+    Navigator.pushNamedAndRemoveUntil(
+        context, '/profile-form', (route) => false);
   }
 
   void setGoToRoute(String route) {

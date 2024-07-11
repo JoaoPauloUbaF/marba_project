@@ -8,10 +8,7 @@ import '../../../core/models/address/address.dart';
 abstract class ProfileDataRepository {
   Future<DocumentSnapshot?> createProfile({
     required String uid,
-    required String displayName,
     required String phoneNumber,
-    required Map<String, dynamic> address,
-    required String email,
   });
 
   Future<void> updateProfile({

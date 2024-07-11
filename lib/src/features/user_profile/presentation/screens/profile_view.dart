@@ -104,30 +104,13 @@ class _ProfileViewState extends ConsumerState<ProfileViewBody> {
               ),
             ),
             ElevatedButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Excluir conta'),
-                    content: const Text(
-                        'Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.'),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text('Cancelar'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          user?.delete();
-                          Navigator.pushReplacementNamed(context, '/sign-in');
-                        },
-                        child: const Text('Excluir'),
-                      ),
-                    ],
-                  ),
-                );
+              onPressed: () async {
+                await ref
+                    .read(profileScreenControllerProvider.notifier)
+                    .deleteUser(
+                      context,
+                      user: user,
+                    );
               },
               icon: const Icon(Icons.delete),
               label: const Text('Excluir conta'),

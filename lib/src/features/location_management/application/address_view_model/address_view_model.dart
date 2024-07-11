@@ -58,41 +58,26 @@ class AddressViewModel extends _$AddressViewModel {
     final addresses = ref.read(userAddressListProvider);
     addresses.when(
       data: (addresses) {
-        if (addresses.contains(address) && user.address == address) {
-          try {
-            ref
-                .read(userProfileDataProvider)
-                .updateProfile(
-                  user: user.copyWith(address: address),
-                )
-                .then((value) => showSuccessDialog(context,
-                    message: 'Endereço atualizado com sucesso'));
-          } on Exception catch (e) {
-            showFailureDialog(context);
-            throw Exception('Error : $e');
-          }
-        } else {
-          String message = addresses.contains(address)
-              ? 'Endereço atualizado'
-              : 'Endereço salvo com sucesso';
-          try {
-            ref.read(userProfileDataProvider).addOrUpdateDeliveryAddress(
-              uid: user.id,
-              address: {
-                'street': address.street,
-                'number': address.number,
-                'zipCode': address.zipCode,
-                'neighborhood': address.neighborhood,
-                'city': address.city,
-                'state': address.state,
-                'complement': address.complement,
-                'nickname': address.nickname,
-              },
-            ).then((value) => showSuccessDialog(context, message: message));
-          } on Exception catch (e) {
-            showFailureDialog(context);
-            throw Exception('Error : $e');
-          }
+        String message = addresses.contains(address)
+            ? 'Endereço atualizado'
+            : 'Endereço salvo com sucesso';
+        try {
+          ref.read(userProfileDataProvider).addOrUpdateDeliveryAddress(
+            uid: user.id,
+            address: {
+              'street': address.street,
+              'number': address.number,
+              'zipCode': address.zipCode,
+              'neighborhood': address.neighborhood,
+              'city': address.city,
+              'state': address.state,
+              'complement': address.complement,
+              'nickname': address.nickname,
+            },
+          ).then((value) => showSuccessDialog(context, message: message));
+        } on Exception catch (e) {
+          showFailureDialog(context);
+          throw Exception('Error : $e');
         }
       },
       loading: () => null,

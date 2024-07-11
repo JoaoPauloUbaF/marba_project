@@ -27,15 +27,6 @@ class ProfileScreenController extends _$ProfileScreenController {
     return ProfileViewState.initial;
   }
 
-  Future<AddressModel?> getUserAddress() async {
-    final userAuthRepository = ref.read(authRepositoryProvider);
-    final userData = await ref
-        .read(userProfileDataProvider)
-        .getProfileData(uid: userAuthRepository.getCurrentUser()!.uid)
-        .first;
-    return userData?.address;
-  }
-
   Future<String?> getUserPhoneNumber() async {
     final userAuthRepository = ref.read(authRepositoryProvider);
     final userData = await ref
@@ -277,6 +268,46 @@ class ProfileScreenController extends _$ProfileScreenController {
         log(error.toString());
       });
     });
+  }
+
+  Future<void> deleteUser(BuildContext context, {required User? user}) async {
+    if (user == null) {
+      return;
+    }
+    final deleteConfirmation = await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Excluir conta'),
+            content: const Text(
+                'Para excluir sua conta, é necessário que logue novamente. Deseja continuar?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(true);
+                },
+                child: const Text('Cancelar'),
+              ),
+              TextButton(
+                onPressed: () async {
+                  Navigator.of(context)
+                      .pushNamed(
+                    '/sign-in',
+                  )
+                      .then((_) {
+                    Navigator.of(context).pop(true);
+                  });
+                },
+                child: const Text('Excluir'),
+              ),
+            ],
+          );
+        });
+    if (deleteConfirmation == false) {
+      return;
+    }
+    await user.delete();
+    await ref.read(userProfileDataProvider).deleteProfile(uid: user.uid);
   }
 }
 

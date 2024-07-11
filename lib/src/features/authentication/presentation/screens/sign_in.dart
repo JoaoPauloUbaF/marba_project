@@ -53,7 +53,7 @@ class FirebaseLogin extends StatelessWidget {
         AuthStateChangeAction<UserCreated>((context, state) {
           ref
               .read(signInScreenControllerProvider.notifier)
-              .showSuccessAndNavigate(context);
+              .goToUserForm(context);
         }),
         AuthStateChangeAction<AuthFailed>((context, state) {
           // Cria a snackbar

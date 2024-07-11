@@ -9,14 +9,11 @@ part of 'user_model.dart';
 _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
     _$UserModelImpl(
       id: json['id'] as String,
-      displayName: json['displayName'] as String,
-      email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
-      address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       deliveryAddresses: (json['deliveryAddresses'] as List<dynamic>?)
           ?.map((e) => AddressModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      isBusinessOwner: json['isBusinessOwner'] as bool,
+      isBusinessOwner: json['isBusinessOwner'] as bool?,
       ownedBusinessIds: (json['ownedBusinessIds'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
@@ -34,10 +31,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'displayName': instance.displayName,
-    'email': instance.email,
     'phoneNumber': instance.phoneNumber,
-    'address': instance.address.toJson(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -48,7 +42,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
 
   writeNotNull('deliveryAddresses',
       instance.deliveryAddresses?.map((e) => e.toJson()).toList());
-  val['isBusinessOwner'] = instance.isBusinessOwner;
+  writeNotNull('isBusinessOwner', instance.isBusinessOwner);
   writeNotNull('ownedBusinessIds', instance.ownedBusinessIds?.toList());
   writeNotNull('favoriteOfferIds', instance.favoriteOfferIds?.toList());
   writeNotNull('searchHistory', instance.searchHistory);

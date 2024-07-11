@@ -17,18 +17,10 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   @override
   Future<DocumentSnapshot?> createProfile({
     required String uid,
-    required String displayName,
     required String phoneNumber,
-    required Map<String, dynamic> address,
-    required String? email,
   }) async {
-    await _usersCollection.doc(uid).set({
-      'displayName': displayName,
-      'phoneNumber': phoneNumber,
-      'address': address,
-      'deliveryAddresses': [address],
-      'email': email,
-    });
+    final user = UserModel(id: uid, phoneNumber: phoneNumber);
+    await _usersCollection.doc(uid).set(user.toJson());
     return await _usersCollection.doc(uid).get();
   }
 
@@ -41,7 +33,11 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
 
   @override
   Future<void> deleteProfile({required String uid}) async {
-    await _usersCollection.doc(uid).delete();
+    await _usersCollection.doc(uid).delete().then((value) {
+      print('User with id $uid deleted');
+    }).catchError((error) {
+      print('Failed to delete user with id $uid: $error');
+    });
   }
 
   @override

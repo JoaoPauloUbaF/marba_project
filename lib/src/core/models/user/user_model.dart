@@ -11,19 +11,14 @@ class UserModel with _$UserModel {
 
   const factory UserModel({
     required String id,
-    required String displayName,
-    required String email,
     required String phoneNumber,
-    required AddressModel address,
     List<AddressModel>? deliveryAddresses,
-    required bool isBusinessOwner,
+    bool? isBusinessOwner,
     Set<String>? ownedBusinessIds,
     Set<String>? favoriteOfferIds,
     List<String>? searchHistory,
     Cart? cart,
   }) = _UserModel;
-
-  AddressModel get userAddress => address;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

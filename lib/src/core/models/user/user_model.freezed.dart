@@ -21,13 +21,10 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   String get id => throw _privateConstructorUsedError;
-  String get displayName => throw _privateConstructorUsedError;
-  String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
-  AddressModel get address => throw _privateConstructorUsedError;
   List<AddressModel>? get deliveryAddresses =>
       throw _privateConstructorUsedError;
-  bool get isBusinessOwner => throw _privateConstructorUsedError;
+  bool? get isBusinessOwner => throw _privateConstructorUsedError;
   Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
   Set<String>? get favoriteOfferIds => throw _privateConstructorUsedError;
   List<String>? get searchHistory => throw _privateConstructorUsedError;
@@ -46,18 +43,14 @@ abstract class $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String displayName,
-      String email,
       String phoneNumber,
-      AddressModel address,
       List<AddressModel>? deliveryAddresses,
-      bool isBusinessOwner,
+      bool? isBusinessOwner,
       Set<String>? ownedBusinessIds,
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
       Cart? cart});
 
-  $AddressModelCopyWith<$Res> get address;
   $CartCopyWith<$Res>? get cart;
 }
 
@@ -75,12 +68,9 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? id = null,
-    Object? displayName = null,
-    Object? email = null,
     Object? phoneNumber = null,
-    Object? address = null,
     Object? deliveryAddresses = freezed,
-    Object? isBusinessOwner = null,
+    Object? isBusinessOwner = freezed,
     Object? ownedBusinessIds = freezed,
     Object? favoriteOfferIds = freezed,
     Object? searchHistory = freezed,
@@ -91,30 +81,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: null == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      address: null == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as AddressModel,
       deliveryAddresses: freezed == deliveryAddresses
           ? _value.deliveryAddresses
           : deliveryAddresses // ignore: cast_nullable_to_non_nullable
               as List<AddressModel>?,
-      isBusinessOwner: null == isBusinessOwner
+      isBusinessOwner: freezed == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       ownedBusinessIds: freezed == ownedBusinessIds
           ? _value.ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
@@ -132,14 +110,6 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           : cart // ignore: cast_nullable_to_non_nullable
               as Cart?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $AddressModelCopyWith<$Res> get address {
-    return $AddressModelCopyWith<$Res>(_value.address, (value) {
-      return _then(_value.copyWith(address: value) as $Val);
-    });
   }
 
   @override
@@ -165,19 +135,14 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String displayName,
-      String email,
       String phoneNumber,
-      AddressModel address,
       List<AddressModel>? deliveryAddresses,
-      bool isBusinessOwner,
+      bool? isBusinessOwner,
       Set<String>? ownedBusinessIds,
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
       Cart? cart});
 
-  @override
-  $AddressModelCopyWith<$Res> get address;
   @override
   $CartCopyWith<$Res>? get cart;
 }
@@ -194,12 +159,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? displayName = null,
-    Object? email = null,
     Object? phoneNumber = null,
-    Object? address = null,
     Object? deliveryAddresses = freezed,
-    Object? isBusinessOwner = null,
+    Object? isBusinessOwner = freezed,
     Object? ownedBusinessIds = freezed,
     Object? favoriteOfferIds = freezed,
     Object? searchHistory = freezed,
@@ -210,30 +172,18 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      displayName: null == displayName
-          ? _value.displayName
-          : displayName // ignore: cast_nullable_to_non_nullable
-              as String,
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
       phoneNumber: null == phoneNumber
           ? _value.phoneNumber
           : phoneNumber // ignore: cast_nullable_to_non_nullable
               as String,
-      address: null == address
-          ? _value.address
-          : address // ignore: cast_nullable_to_non_nullable
-              as AddressModel,
       deliveryAddresses: freezed == deliveryAddresses
           ? _value._deliveryAddresses
           : deliveryAddresses // ignore: cast_nullable_to_non_nullable
               as List<AddressModel>?,
-      isBusinessOwner: null == isBusinessOwner
+      isBusinessOwner: freezed == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       ownedBusinessIds: freezed == ownedBusinessIds
           ? _value._ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
@@ -259,12 +209,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
 class _$UserModelImpl extends _UserModel {
   const _$UserModelImpl(
       {required this.id,
-      required this.displayName,
-      required this.email,
       required this.phoneNumber,
-      required this.address,
       final List<AddressModel>? deliveryAddresses,
-      required this.isBusinessOwner,
+      this.isBusinessOwner,
       final Set<String>? ownedBusinessIds,
       final Set<String>? favoriteOfferIds,
       final List<String>? searchHistory,
@@ -281,13 +228,7 @@ class _$UserModelImpl extends _UserModel {
   @override
   final String id;
   @override
-  final String displayName;
-  @override
-  final String email;
-  @override
   final String phoneNumber;
-  @override
-  final AddressModel address;
   final List<AddressModel>? _deliveryAddresses;
   @override
   List<AddressModel>? get deliveryAddresses {
@@ -300,7 +241,7 @@ class _$UserModelImpl extends _UserModel {
   }
 
   @override
-  final bool isBusinessOwner;
+  final bool? isBusinessOwner;
   final Set<String>? _ownedBusinessIds;
   @override
   Set<String>? get ownedBusinessIds {
@@ -336,7 +277,7 @@ class _$UserModelImpl extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, address: $address, deliveryAddresses: $deliveryAddresses, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, favoriteOfferIds: $favoriteOfferIds, searchHistory: $searchHistory, cart: $cart)';
+    return 'UserModel(id: $id, phoneNumber: $phoneNumber, deliveryAddresses: $deliveryAddresses, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, favoriteOfferIds: $favoriteOfferIds, searchHistory: $searchHistory, cart: $cart)';
   }
 
   @override
@@ -345,12 +286,8 @@ class _$UserModelImpl extends _UserModel {
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.displayName, displayName) ||
-                other.displayName == displayName) &&
-            (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
-            (identical(other.address, address) || other.address == address) &&
             const DeepCollectionEquality()
                 .equals(other._deliveryAddresses, _deliveryAddresses) &&
             (identical(other.isBusinessOwner, isBusinessOwner) ||
@@ -369,10 +306,7 @@ class _$UserModelImpl extends _UserModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      displayName,
-      email,
       phoneNumber,
-      address,
       const DeepCollectionEquality().hash(_deliveryAddresses),
       isBusinessOwner,
       const DeepCollectionEquality().hash(_ownedBusinessIds),
@@ -397,12 +331,9 @@ class _$UserModelImpl extends _UserModel {
 abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {required final String id,
-      required final String displayName,
-      required final String email,
       required final String phoneNumber,
-      required final AddressModel address,
       final List<AddressModel>? deliveryAddresses,
-      required final bool isBusinessOwner,
+      final bool? isBusinessOwner,
       final Set<String>? ownedBusinessIds,
       final Set<String>? favoriteOfferIds,
       final List<String>? searchHistory,
@@ -415,17 +346,11 @@ abstract class _UserModel extends UserModel {
   @override
   String get id;
   @override
-  String get displayName;
-  @override
-  String get email;
-  @override
   String get phoneNumber;
-  @override
-  AddressModel get address;
   @override
   List<AddressModel>? get deliveryAddresses;
   @override
-  bool get isBusinessOwner;
+  bool? get isBusinessOwner;
   @override
   Set<String>? get ownedBusinessIds;
   @override
