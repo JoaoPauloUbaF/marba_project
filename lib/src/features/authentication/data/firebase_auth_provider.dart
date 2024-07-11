@@ -98,13 +98,19 @@ class FirebaseAuthProvider implements AuthenticationRepository {
     }
   }
 
-  // @override
-  // Future<void> updatePhoneNumber(String value) {
-  //   final user = _firebaseAuth.currentUser;
-  //   if (user == null) {
-  //     return Future.error('Usuário não autenticado');
-  //   }
-  // }
+  @override
+  Future<void> changeEmail({required String newEmail}) async {
+    final user = _firebaseAuth.currentUser;
+
+    return await user?.verifyBeforeUpdateEmail(newEmail).then((_) {
+      log('Email sent: $newEmail');
+    });
+  }
+
+  @override
+  Stream<User?> userStateChanged() {
+    return _firebaseAuth.userChanges();
+  }
 }
 
 final authRepositoryProvider = Provider<AuthenticationRepository>(

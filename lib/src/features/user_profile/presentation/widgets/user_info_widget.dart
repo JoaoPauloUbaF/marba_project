@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:project_marba/src/core/widgets/editable_text_widget.dart';
+import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
+import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 
 import '../../application/profile_screen_controller/profile_screen_controller.dart';
 
@@ -15,7 +17,9 @@ class UserInfoWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(profileScreenControllerProvider.notifier);
     ref.watch(profileScreenControllerProvider);
-    final user = FirebaseAuth.instance.currentUser;
+    ref.watch(authStateChangeProvider);
+    final userAuth = ref.read(authRepositoryProvider).getCurrentUser();
+    final userProfile = ref.read(currentUserProvider);
     final avatars = viewModel.avatars;
 
     return Row(
@@ -41,11 +45,14 @@ class UserInfoWidget extends ConsumerWidget {
           ),
           onTap: () {
             showDialog(
-                context: context,
-                builder: (context) {
-                  return AvatarSelectionDialog(
-                      viewModel: viewModel, avatars: avatars);
-                });
+              context: context,
+              builder: (context) {
+                return AvatarSelectionDialog(
+                  viewModel: viewModel,
+                  avatars: avatars,
+                );
+              },
+            );
           },
         ),
         const Gap(20),
@@ -66,10 +73,10 @@ class UserInfoWidget extends ConsumerWidget {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: EditableTextWidget(
                     onSubmitted: (value) {
-                      viewModel.updateEmail(value, user);
+                      viewModel.updateEmail(value, context);
                     },
                     child: Text(
-                      user?.email ?? 'Email não disponível',
+                      userAuth?.email ?? 'Email não disponível',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
@@ -90,7 +97,7 @@ class UserInfoWidget extends ConsumerWidget {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: EditableTextWidget(
                     child: Text(
-                      user?.phoneNumber ?? '(00) 00000-0000',
+                      userProfile?.phoneNumber ?? '(00) 00000-0000',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: Theme.of(context).colorScheme.secondary,
                           ),
@@ -183,7 +190,7 @@ class _AvatarSelectionDialogState extends State<AvatarSelectionDialog> {
                         },
                         child: Opacity(
                           opacity:
-                              snapshot.data == widget.avatars[index] ? 1 : 0.5,
+                              snapshot.data == widget.avatars[index] ? 1 : 0.3,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(40),
                             child: Image(

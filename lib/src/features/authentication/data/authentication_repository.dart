@@ -5,10 +5,13 @@ abstract class AuthenticationRepository {
   Future<void> signOut();
   User? getCurrentUser();
   Stream<User?> authStateChanged();
+  Stream<User?> userStateChanged();
   Future<bool> checkUserRegistration(String uid);
 
   Future<String> changePassword(
       {required String currentPassword, required String newPassword});
+
+  Future<void> changeEmail({required String newEmail});
 
   //Future<void> updatePhoneNumber(String value);
 }

@@ -43,9 +43,9 @@ class _EditableTextWidgetState extends State<EditableTextWidget> {
                   icon: const Icon(Icons.check),
                   onPressed: () {
                     widget.onSubmitted(_controller?.text ?? '');
-                    setState(() {
-                      _isEditing = false;
-                    });
+                    // setState(() {
+                    //   _isEditing = false;
+                    // });
                   },
                 ),
               ),

@@ -2,20 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/user_profile/presentation/widgets/verify_email_widget.dart';
 
+import '../../../authentication/data/firebase_auth_provider.dart';
 import '../../../darkmode/presentation/components/theme_switch_widget.dart';
+import '../../../home/presentation/widgets/animated_logo_loading_widget.dart';
 import '../../application/profile_screen_controller/profile_screen_controller.dart';
 import '../widgets/user_info_widget.dart';
 
-class ProfileView extends ConsumerStatefulWidget {
+class ProfileView extends ConsumerWidget {
   const ProfileView({super.key});
 
   @override
-  ConsumerState<ProfileView> createState() => _ProfileViewState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authState = ref.watch(authStateChangeProvider);
+    return authState.when(data: (user) {
+      if (user == null) {
+        return const SignIn();
+      }
+      return const ProfileViewBody();
+    }, loading: () {
+      return const AnimatedLogoLoadingWidget();
+    }, error: (error, stackTrace) {
+      return const SignIn();
+    });
+  }
 }
 
-class _ProfileViewState extends ConsumerState<ProfileView> {
+class ProfileViewBody extends ConsumerStatefulWidget {
+  const ProfileViewBody({super.key});
+
+  @override
+  ConsumerState<ProfileViewBody> createState() => _ProfileViewState();
+}
+
+class _ProfileViewState extends ConsumerState<ProfileViewBody> {
   bool shouldShowEmailAlert = false;
   final user = FirebaseAuth.instance.currentUser;
   final List<AssetImage> avatars = List.generate(
@@ -35,11 +57,35 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    ref.watch(authStateChangeProvider);
     return Scaffold(
       appBar: AppBar(
         actions: const [
           ThemeSwitchWidget(),
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const UserInfoWidget(),
+              const Gap(16),
+              if (shouldShowEmailAlert)
+                VerifyEmailWidget(
+                  user: user,
+                  onDismiss: () {
+                    setState(() {
+                      shouldShowEmailAlert = false;
+                    });
+                  },
+                ),
+              const Gap(16),
+              const UserSettingsGrid(),
+            ],
+          ),
+        ),
       ),
       persistentFooterButtons: [
         ButtonBar(
@@ -48,7 +94,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
             ElevatedButton.icon(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushReplacementNamed(context, '/sign-in');
+                // Navigator.pushReplacementNamed(context, '/sign-in');
               },
               icon: const Icon(Icons.logout),
               label: const Text('Sair'),
@@ -93,29 +139,6 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
           ],
         )
       ],
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const UserInfoWidget(),
-              const Gap(16),
-              if (shouldShowEmailAlert)
-                VerifyEmailWidget(
-                  user: user,
-                  onDismiss: () {
-                    setState(() {
-                      shouldShowEmailAlert = false;
-                    });
-                  },
-                ),
-              const Gap(16),
-              const UserSettingsGrid(),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

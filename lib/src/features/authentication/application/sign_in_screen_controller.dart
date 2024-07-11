@@ -19,8 +19,7 @@ class SignInScreenController extends _$SignInScreenController {
         .checkUserRegistration(state.user?.uid ?? '')
         .then(
           (value) => value
-              ? Navigator.pushNamedAndRemoveUntil(
-                  context, '/home', (route) => false)
+              ? Navigator.pop(context)
               : Navigator.pushReplacementNamed(context, '/profile-form'),
         );
   }

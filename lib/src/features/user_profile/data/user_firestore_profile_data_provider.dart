@@ -34,16 +34,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
 
   @override
   Future<void> updateProfile({
-    required String uid,
-    String? displayName,
-    String? phoneNumber,
-    required Map<String, dynamic> address, //TODO: change to address model
+    required UserModel user,
   }) async {
-    await _usersCollection.doc(uid).update({
-      if (displayName != null) 'displayName': displayName,
-      if (phoneNumber != null) 'phoneNumber': phoneNumber,
-      'address': address,
-    });
+    await _usersCollection.doc(user.id).update(user.toJson());
   }
 
   @override

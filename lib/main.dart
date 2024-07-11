@@ -115,17 +115,7 @@ class _EagerInitialization extends ConsumerWidget {
     ref.watch(feedOffersProvider);
     ref.watch(darkModeProvider);
     ref.watch(currentUserProvider);
-    final authState = ref.watch(authStateChangeProvider);
-    authState.when(
-        data: (user) {
-          if (user == null) {
-            Navigator.of(context).pushNamed('/sign-in');
-          }
-        },
-        loading: () {
-          return const AnimatedLogoLoadingWidget();
-        },
-        error: (error, stackTrace) {});
+    ref.watch(authStateChangeProvider);
     return child;
   }
 }

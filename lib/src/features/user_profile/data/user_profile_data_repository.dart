@@ -15,10 +15,7 @@ abstract class ProfileDataRepository {
   });
 
   Future<void> updateProfile({
-    required String uid,
-    String? displayName,
-    String? phoneNumber,
-    required Map<String, dynamic> address,
+    required UserModel user,
   });
 
   Future<void> deleteProfile({required String uid});
