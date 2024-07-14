@@ -6,7 +6,7 @@ class CreditCardWidget extends ConsumerWidget {
   final String cardHolderName;
   final String cardNumber;
   final String expiryDate;
-  final String cardLogoAssetPath;
+  final String? cardLogoAssetPath;
   final bool emptyCard;
 
   const CreditCardWidget({
@@ -95,15 +95,17 @@ class CreditCardWidget extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  Positioned(
-                    top: 10,
-                    right: 20,
-                    child: Image.asset(
-                      cardLogoAssetPath,
-                      width: 50,
-                      height: 50,
-                    ),
-                  ),
+                  cardLogoAssetPath == null
+                      ? const SizedBox.shrink()
+                      : Positioned(
+                          top: 10,
+                          right: 20,
+                          child: Image.asset(
+                            cardLogoAssetPath!,
+                            width: 50,
+                            height: 50,
+                          ),
+                        ),
                 ],
         ),
       ),

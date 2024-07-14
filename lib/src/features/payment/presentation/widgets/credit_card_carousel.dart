@@ -31,8 +31,7 @@ class CreditCardCarousel extends ConsumerWidget {
                 cardHolderName: creditCard.cardHolderName,
                 cardNumber: creditCard.cardNumber,
                 expiryDate: creditCard.expirationDate,
-                cardLogoAssetPath:
-                    'assets/payment_methods/${creditCard.brand}.png',
+                cardLogoAssetPath: creditCard.brand,
                 emptyCard: false,
               ),
             ),

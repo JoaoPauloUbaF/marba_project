@@ -1,3 +1,4 @@
+import "package:diacritic/diacritic.dart";
 import "package:flutter/material.dart";
 import "package:flutter_masked_text2/flutter_masked_text2.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -7,6 +8,7 @@ import "package:project_marba/src/core/widgets/modal_center_top_line_widget.dart
 import "package:project_marba/src/features/payment/application/user_payments_view_model/user_payment_view_model.dart";
 import "package:project_marba/src/features/payment/presentation/widgets/credit_card_widget.dart";
 
+import "../../../../core/utils/view_utils.dart";
 import "../../../../core/widgets/medium_vertical_space_widget.dart";
 import "../../application/payment_method_view_model/payment_method_view_model.dart";
 
@@ -34,9 +36,9 @@ class _PaymentModalContentWidgetState
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const VerticalSpaceMediumWidget(),
+            const Gap(16),
             const ModalCenterTopLineWidget(),
-            const VerticalSpaceMediumWidget(),
+            const Gap(16),
             Text(
               'Selecione um meio de pagamento',
               style: Theme.of(context)
@@ -187,6 +189,8 @@ class _AddCardModalWidgetState extends ConsumerState<AddCardModalWidget> {
   String cardHolderName = '';
   String expiryDate = '';
   String cvv = '';
+  String? cardBrand;
+  final formKey = GlobalKey<FormState>();
 
   TextEditingController cardNumberController = MaskedTextController(
     mask: '0000 0000 0000 0000',
@@ -201,122 +205,163 @@ class _AddCardModalWidgetState extends ConsumerState<AddCardModalWidget> {
     final viewModel = ref.watch(userPaymentViewModelProvider.notifier);
 
     return BaseModalBodyWidget(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 30, left: 8, right: 8),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Adicionar Cartão de Crédito',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Theme.of(context).colorScheme.primary),
-            ),
-            const Gap(8),
-            SizedBox(
-              height: 200,
-              width: MediaQuery.of(context).size.width * 0.8,
-              child: CreditCardWidget(
-                  cardHolderName: cardHolderName,
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardLogoAssetPath: 'assets/payment_methods/visa.png',
-                  emptyCard: false),
-            ),
-            const Gap(16),
-            TextFormField(
-              controller: cardNumberController,
-              onChanged: (value) {
-                setState(() {
-                  cardNumber = value;
-                });
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Número do Cartão',
-                hintText: '1234 5678 9012 3456',
-              ),
-            ),
-            const VerticalSpaceMediumWidget(),
-            TextFormField(
-              controller: cardHolderNameController,
-              onChanged: (value) {
-                setState(() {
-                  cardHolderName = value;
-                });
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Nome do Titular',
-                hintText: 'João da Silva',
-              ),
-            ),
-            const VerticalSpaceMediumWidget(),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: expiryDateController,
-                    onChanged: (value) {
-                      setState(() {
-                        expiryDate = value;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Validade',
-                      hintText: 'MM/AA',
+      child: Scaffold(
+        resizeToAvoidBottomInset: true,
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight,
+                ),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 8.0, bottom: 30, left: 8, right: 8),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Adicionar Cartão de Crédito',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
+                          ),
+                          const Gap(8),
+                          SizedBox(
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: CreditCardWidget(
+                                cardHolderName: cardHolderName,
+                                cardNumber: cardNumber,
+                                expiryDate: expiryDate,
+                                cardLogoAssetPath: cardBrand,
+                                emptyCard: false),
+                          ),
+                          const Gap(16),
+                          TextFormField(
+                            controller: cardNumberController,
+                            onChanged: (value) {
+                              setState(() {
+                                cardNumber = value;
+                              });
+                              setState(() {
+                                cardBrand = viewModel.getCreditCardBrand(value);
+                              });
+                            },
+                            validator: (value) => viewModel.validateCardNumber(
+                                value,
+                                cardBrand: cardBrand),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Número do Cartão',
+                              hintText: '1234 5678 9012 3456',
+                            ),
+                          ),
+                          const VerticalSpaceMediumWidget(),
+                          TextFormField(
+                            controller: cardHolderNameController,
+                            textCapitalization: TextCapitalization.characters,
+                            autocorrect: false,
+                            onChanged: (value) {
+                              String cleanedValue =
+                                  removeDiacritics(value).toUpperCase();
+                              setState(() {
+                                cardHolderName = cleanedValue;
+                              });
+                            },
+                            validator: (value) =>
+                                viewModel.validateCardHolderName(value),
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'Nome do Titular - Como no Cartão',
+                              hintText: 'João da Silva',
+                            ),
+                          ),
+                          const VerticalSpaceMediumWidget(),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: expiryDateController,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      expiryDate = value;
+                                    });
+                                  },
+                                  validator: (value) =>
+                                      viewModel.validateExpiryDate(value),
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'Validade',
+                                    hintText: 'MM/AA',
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: cvvController,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      cvv = value;
+                                    });
+                                  },
+                                  validator: (value) =>
+                                      viewModel.validateCVV(value),
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    labelText: 'CVV',
+                                    hintText: '123',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const Spacer(),
+                          ButtonBar(
+                            alignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context)
+                                      .colorScheme
+                                      .secondaryContainer,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Cancelar'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  await viewModel.onSaveCard(
+                                    cardNumber: cardNumber,
+                                    cardHolderName: cardHolderName,
+                                    expiryDate: expiryDate,
+                                    cardBrand: cardBrand,
+                                    cvv: cvv,
+                                    formKey: formKey,
+                                    context: context,
+                                  );
+                                },
+                                child: const Text('Adicionar'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextFormField(
-                    controller: cvvController,
-                    onChanged: (value) {
-                      setState(() {
-                        cvv = value;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'CVV',
-                      hintText: '123',
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const Spacer(),
-            ButtonBar(
-              alignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Theme.of(context).colorScheme.secondaryContainer,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Cancelar'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    viewModel.saveCard(
-                      cardNumber: cardNumber,
-                      cardHolderName: cardHolderName,
-                      expirationDate: expiryDate,
-                      cvv: cvv,
-                    );
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Adicionar'),
-                ),
-              ],
-            ),
-          ],
+              ),
+            );
+          },
         ),
       ),
     );
