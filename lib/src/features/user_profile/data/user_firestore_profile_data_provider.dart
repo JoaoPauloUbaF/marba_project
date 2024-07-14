@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_data_repository.dart';
@@ -37,9 +38,9 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   @override
   Future<void> deleteProfile({required String uid}) async {
     await _usersCollection.doc(uid).delete().then((value) {
-      print('User with id $uid deleted');
+      log('User with id $uid deleted');
     }).catchError((error) {
-      print('Failed to delete user with id $uid: $error');
+      log('Failed to delete user with id $uid: $error');
     });
   }
 

@@ -6,47 +6,64 @@ import 'package:project_marba/src/features/payment/presentation/widgets/credit_c
 
 import '../../application/user_payments_view_model/user_payment_view_model.dart';
 
-class CreditCardCarousel extends ConsumerWidget {
+class CreditCardCarousel extends ConsumerStatefulWidget {
   const CreditCardCarousel({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  CreditCardCarouselState createState() => CreditCardCarouselState();
+}
+
+class CreditCardCarouselState extends ConsumerState<CreditCardCarousel> {
+  final CarouselController _carouselController = CarouselController();
+
+  @override
+  Widget build(BuildContext context) {
     final viewModel = ref.watch(userPaymentViewModelProvider.notifier);
     final creditCards = ref.watch(creditCardListProvider);
+
     return creditCards.when(
       data: (creditCards) {
-        return CarouselSlider(
-          items: [
-            const CreditCardWidget(
-              cardHolderName: '',
-              cardNumber: '',
-              expiryDate: '',
-              cardLogoAssetPath: '',
-              emptyCard: true,
-            ),
-            ...creditCards.map(
-              (creditCard) => CreditCardWidget(
-                cardHolderName: creditCard.cardHolderName,
-                cardNumber: creditCard.cardNumber,
-                expiryDate: creditCard.expirationDate,
-                cardLogoAssetPath: creditCard.brand,
-                emptyCard: false,
+        return Column(
+          children: [
+            CarouselSlider(
+              items: [
+                const CreditCardWidget(
+                  cardHolderName: '',
+                  cardNumber: '',
+                  expiryDate: '',
+                  cardLogoAssetPath: '',
+                  emptyCard: true,
+                ),
+                ...creditCards.map(
+                  (creditCard) => CreditCardWidget(
+                    cardHolderName: creditCard.cardHolderName,
+                    cardNumber: creditCard.cardNumber,
+                    expiryDate: creditCard.expirationDate,
+                    cardLogoAssetPath: creditCard.brand,
+                    emptyCard: false,
+                  ),
+                ),
+              ],
+              options: CarouselOptions(
+                enableInfiniteScroll: false,
+                enlargeCenterPage: true,
+                viewportFraction: .8,
+                initialPage: viewModel.currentIndex,
+                aspectRatio: 2,
+                onPageChanged: (index, reason) {
+                  viewModel.onCardChanged(index);
+                },
               ),
+              carouselController: _carouselController,
             ),
           ],
-          options: CarouselOptions(
-            enableInfiniteScroll: false,
-            enlargeCenterPage: true,
-            viewportFraction: .8,
-            initialPage: 1,
-            aspectRatio: 2,
-          ),
         );
       },
       loading: () => const LoadingWidget(),
-      error: (error, stackTrace) => ErrorWidget(error),
+      error: (error, stackTrace) =>
+          const Center(child: Text('Erro ao carregar cartões de crédito')),
     );
   }
 }

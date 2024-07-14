@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -85,7 +87,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
         _pagingController.appendPage(newItems, nextPageKey);
       }
     } catch (error) {
-      print(error);
+      log(error.toString());
       _pagingController.error = error;
     }
   }

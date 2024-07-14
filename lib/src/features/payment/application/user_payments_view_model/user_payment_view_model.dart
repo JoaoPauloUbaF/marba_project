@@ -13,8 +13,14 @@ part 'user_payment_view_model.g.dart';
 
 @Riverpod(keepAlive: true)
 class UserPaymentViewModel extends _$UserPaymentViewModel {
+  int currentIndex = 1;
+
   @override
   FutureOr<void> build() {}
+
+  void onCardChanged(int index) {
+    currentIndex = index;
+  }
 
   void addCard(BuildContext context) {
     showModalBottomSheet(
@@ -153,6 +159,7 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
       formKey: formKey,
     ).then((value) {
       hideLoader(context);
+      currentIndex = currentIndex + 1;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -181,12 +188,69 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
       );
     });
   }
+
+  Future<void> deleteCard() async {
+    final cardList = ref.read(creditCardListProvider).requireValue;
+    if (cardList.isEmpty || currentIndex == 0) return;
+    final card = cardList[currentIndex - 1];
+    final user = ref.watch(currentUserProvider)?.copyWith(
+          creditCards: [
+            ...ref.watch(currentUserProvider)?.creditCards ?? [],
+          ]..remove(card),
+        );
+    if (user != null) {
+      await ref.read(userProfileDataProvider).updateProfile(user: user);
+    }
+  }
+
+  Future<void> onDeleteCard(BuildContext context) async {
+    await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Excluir Cartão'),
+        content: const Text('Tem certeza que deseja excluir este cartão?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(false);
+            },
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(true);
+            },
+            child: const Text('Excluir'),
+          ),
+        ],
+      ),
+    ).then((value) async {
+      if (value == true) {
+        showLoader(context);
+        await deleteCard().then((value) {
+          hideLoader(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Cartão excluído com sucesso!'),
+            ),
+          );
+        }).catchError((error) {
+          hideLoader(context);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(error.toString()),
+            ),
+          );
+        });
+      }
+    });
+  }
 }
 
 @riverpod
 Stream<List<CreditCardModel>> creditCardList(CreditCardListRef ref) {
-  return ref.read(userProfileDataProvider).getCreditCards(
-        userId: ref.read(currentUserProvider)?.id ?? '',
+  return ref.watch(userProfileDataProvider).getCreditCards(
+        userId: ref.watch(currentUserProvider)?.id ?? '',
       );
 }
 

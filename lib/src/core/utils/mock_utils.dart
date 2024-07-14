@@ -10,6 +10,8 @@ class MockUtils {
 
   MockUtils._internal();
 
+  final bool isDev = true;
+
   // Método para obter um OrderModel a partir do JSON fornecido
   OfferModel getMockedOfferModel() {
     const json = {

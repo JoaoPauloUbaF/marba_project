@@ -49,7 +49,6 @@ class UserPaymentView extends ConsumerWidget {
           ),
           const Gap(16),
           const CreditCardCarousel(),
-          const Gap(16),
           const CreditCardActionsButtons(),
           const Gap(8),
           const PaymentHistoryWidget(),
