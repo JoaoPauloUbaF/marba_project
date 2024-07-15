@@ -125,8 +125,8 @@ class _SalesPerformanceStatisticsPageViewState
                                     style: DefaultTextStyle.of(context).style,
                                   ),
                                   TextSpan(
-                                    text:
-                                        '${RegistrationUtils().doubleAsCurrency(50.00)}',
+                                    text: RegistrationUtils()
+                                        .doubleAsCurrency(50.00),
                                     style: DefaultTextStyle.of(context).style,
                                   ),
                                 ],

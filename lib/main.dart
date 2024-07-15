@@ -26,7 +26,6 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
-import 'src/features/home/presentation/widgets/animated_logo_loading_widget.dart';
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
 import 'src/features/payment/presentation/views/user_payment_view.dart';
 import 'src/features/settings/presentation/views/business_submission_confirmation_view.dart';

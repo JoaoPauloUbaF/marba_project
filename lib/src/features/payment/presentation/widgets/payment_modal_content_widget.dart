@@ -8,7 +8,6 @@ import "package:project_marba/src/core/widgets/modal_center_top_line_widget.dart
 import "package:project_marba/src/features/payment/application/user_payments_view_model/user_payment_view_model.dart";
 import "package:project_marba/src/features/payment/presentation/widgets/credit_card_widget.dart";
 
-import "../../../../core/utils/view_utils.dart";
 import "../../../../core/widgets/medium_vertical_space_widget.dart";
 import "../../application/payment_method_view_model/payment_method_view_model.dart";
 

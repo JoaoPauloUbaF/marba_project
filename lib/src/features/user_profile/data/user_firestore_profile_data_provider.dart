@@ -6,7 +6,6 @@ import 'package:project_marba/src/features/user_profile/data/user_profile_data_r
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/models/user/user_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../../core/models/credit_card/credit_card_model.dart';
 
@@ -92,9 +91,7 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
 
   @override
   Future<void> addOrUpdateDeliveryAddress(
-      //TODO: break into two methods
-      {required String uid,
-      required Map<String, dynamic> address}) {
+      {required String uid, required Map<String, dynamic> address}) {
     return _usersCollection.doc(uid).update({
       'deliveryAddresses': FieldValue.arrayUnion([address]),
     });

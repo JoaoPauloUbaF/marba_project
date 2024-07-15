@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
-import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/features/user_profile/presentation/widgets/two_factor_auth_widget.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';

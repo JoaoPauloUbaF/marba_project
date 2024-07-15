@@ -22,7 +22,6 @@ class UserInfoWidget extends ConsumerWidget {
     ref.watch(authStateChangeProvider);
     final userAuth = ref.read(authRepositoryProvider).getCurrentUser();
     final userProfile = ref.watch(currentUserProvider);
-    final avatars = viewModel.avatars;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,

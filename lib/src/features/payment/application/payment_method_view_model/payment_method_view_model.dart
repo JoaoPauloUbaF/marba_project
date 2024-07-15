@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
-import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:uuid/uuid.dart';
 
-import '../../../../core/models/credit_card/credit_card_model.dart';
 part 'payment_method_view_model.g.dart';
 
 @Riverpod(keepAlive: true)

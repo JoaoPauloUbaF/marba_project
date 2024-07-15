@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/credit_card/credit_card_model.dart';
@@ -40,7 +41,7 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
   }) async {
     if (cardBrand == null) return;
     final creditCard = CreditCardModel(
-      id: Uuid().v4(),
+      id: const Uuid().v4(),
       cardNumber: cardNumber,
       cardHolderName: cardHolderName,
       expirationDate: expirationDate,
@@ -96,7 +97,7 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
     }
     final month = int.tryParse(parts[0]);
     final year = int.tryParse(
-        '20' + parts[1]); // Assuming yy format, prepend '20' for the year
+        '20${parts[1]}'); // Assuming yy format, prepend '20' for the year
     if (month == null || year == null) {
       return 'Data inválida';
     }
@@ -146,7 +147,14 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
     required GlobalKey<FormState> formKey,
     required BuildContext context,
   }) async {
-    if (formKey.currentState?.validate() == false) {
+    if (kDebugMode) {
+      cardNumber = '4111111111111111';
+      cardHolderName = 'John Doe';
+      expiryDate = '12/25';
+      cardBrand = 'assets/payment_methods/visa.png';
+      cvv = '123';
+    }
+    if (formKey.currentState?.validate() == false && !kDebugMode) {
       return;
     }
     showLoader(context);

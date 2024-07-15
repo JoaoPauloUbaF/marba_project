@@ -14,7 +14,7 @@ class SettingsScreenController extends _$SettingsScreenController {
         ref.read(authRepositoryProvider).getCurrentUser() != null;
     ref.read(signInScreenControllerProvider.notifier).setGoToRoute('/settings');
     String result = userIsLoggedIn ? '/profile' : '/sign-in';
-    return '/profile';
+    return result;
   }
 
   String onAddressTaped() {
