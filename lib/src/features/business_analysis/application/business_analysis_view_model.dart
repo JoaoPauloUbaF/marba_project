@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
@@ -14,6 +15,8 @@ class BusinessAnalysisViewModel {
   final WidgetRef ref;
 
   BusinessAnalysisViewModel(this.ref);
+
+  final userId = FirebaseAuth.instance.currentUser!.uid;
 
   String? validate(String type, String validator, String? value) {
     if (type == 'text') {
@@ -91,19 +94,19 @@ class BusinessAnalysisViewModel {
     Map<String, File?> imageFiles,
     Map<String, String> formData,
   ) async {
-    final id = const Uuid().v4();
     final fotoCpfUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['cpfPhoto']!, id: id, name: 'cpf');
+        .uploadImage(imageFiles['cpfPhoto']!, id: userId, name: 'cpf');
     final fotoRgOuCnhUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['rgOrCnhPhoto']!, id: id, name: 'rgOrCnh');
+        .uploadImage(imageFiles['rgOrCnhPhoto']!, id: userId, name: 'rgOrCnh');
     final comprovanteDeResidenciaUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['residenceProof']!, id: id, name: 'residence');
+        .uploadImage(imageFiles['residenceProof']!,
+            id: userId, name: 'residence');
 
     return BusinessAnalysis.cpf(
-      id: id,
+      id: userId,
       fullName: formData['fullName']!,
       cpf: formData['cpf']!,
       personalId: formData['rgOrCnh']!,

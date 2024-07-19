@@ -28,7 +28,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     SearchView(),
     FeedView(),
     UserOrdersView(),
-    ProfileSettingsView(),
+    SettingsView(),
     MyBusinessListScreen(),
   ];
 
