@@ -29,7 +29,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
     FeedView(),
     UserOrdersView(),
     SettingsView(),
-    MyBusinessListScreen(),
+    MyBusinessesView(),
   ];
 
   void _itemNavigation(int index) {

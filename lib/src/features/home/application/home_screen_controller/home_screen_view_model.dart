@@ -26,15 +26,12 @@ class HomeScreenViewModel extends _$HomeScreenViewModel {
   }
 
   Future<bool?> hasBusiness() async {
-    final user = ref.read(authRepositoryProvider).getCurrentUser();
+    final user = ref.read(currentUserProvider);
     if (user == null) {
       return false;
     }
 
-    final hasBusiness = await ref
-        .read(userProfileDataProvider)
-        .getOwnedBusinessIds(uid: user.uid);
-    return hasBusiness.isNotEmpty;
+    return user.isBusinessOwner;
   }
 
   void isUserRegistrationComplete(BuildContext context) async {

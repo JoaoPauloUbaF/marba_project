@@ -15,7 +15,7 @@ class UserModel with _$UserModel {
     required String id,
     required String phoneNumber,
     List<AddressModel>? deliveryAddresses,
-    bool? isBusinessOwner,
+    @Default(false) bool isBusinessOwner,
     Set<String>? ownedBusinessIds,
     Set<String>? favoriteOfferIds,
     List<String>? searchHistory,

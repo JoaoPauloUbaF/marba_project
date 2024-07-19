@@ -13,7 +13,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       deliveryAddresses: (json['deliveryAddresses'] as List<dynamic>?)
           ?.map((e) => AddressModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      isBusinessOwner: json['isBusinessOwner'] as bool?,
+      isBusinessOwner: json['isBusinessOwner'] as bool? ?? false,
       ownedBusinessIds: (json['ownedBusinessIds'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
@@ -45,7 +45,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
 
   writeNotNull('deliveryAddresses',
       instance.deliveryAddresses?.map((e) => e.toJson()).toList());
-  writeNotNull('isBusinessOwner', instance.isBusinessOwner);
+  val['isBusinessOwner'] = instance.isBusinessOwner;
   writeNotNull('ownedBusinessIds', instance.ownedBusinessIds?.toList());
   writeNotNull('favoriteOfferIds', instance.favoriteOfferIds?.toList());
   writeNotNull('searchHistory', instance.searchHistory);

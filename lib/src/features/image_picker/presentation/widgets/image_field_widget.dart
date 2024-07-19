@@ -51,7 +51,6 @@ class ImageFieldWidget extends ConsumerWidget {
                               .then(
                             (value) {
                               image = value;
-                              field.didChange(value);
                               onImagePicked(image);
                             },
                           );
@@ -72,7 +71,6 @@ class ImageFieldWidget extends ConsumerWidget {
                               .then(
                             (value) {
                               image = value;
-                              field.didChange(value);
                               onImagePicked(image);
                             },
                           );

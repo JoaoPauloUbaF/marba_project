@@ -56,18 +56,18 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  Future<List<String?>> getOwnedBusinessIds({required String uid}) async {
+  Future<List<String>> getOwnedBusinessIds({required String uid}) async {
     DocumentSnapshot docSnapshot = await _usersCollection.doc(uid).get();
 
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
       final businessIds = data['ownedBusinessIds'];
       if (businessIds == null) {
-        return [];
+        return Future.value([]);
       }
       return businessIds.cast<String>();
     } else {
-      return [];
+      return Future.value([]);
     }
   }
 

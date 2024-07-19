@@ -81,8 +81,8 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     final authRepository = ref.read(authRepositoryProvider);
     final userOwnedBusinessIdsList = await userProfileRepository
         .getOwnedBusinessIds(uid: authRepository.getCurrentUser()?.uid ?? '');
-    final userBusinessList = await getBusinessList(
-        ownedBusinessIds: userOwnedBusinessIdsList as List<String>);
+    final userBusinessList =
+        await getBusinessList(ownedBusinessIds: userOwnedBusinessIdsList);
     AsyncValue.data(userBusinessList);
     return userBusinessList;
   }
@@ -157,7 +157,7 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     return null;
   }
 
-  fetchUserBusinessList() async {
+  FutureOr<void> fetchUserBusinessList() async {
     var businessList = await getUserBusinessList();
     state = AsyncValue.data(businessList);
   }

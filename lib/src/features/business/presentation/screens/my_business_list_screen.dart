@@ -4,8 +4,8 @@ import 'package:project_marba/src/features/image_picker/application/image_field_
 import '../widgets/business_creation/create_business_stepper_widget.dart';
 import '../widgets/business_list/user_business_list_widget.dart';
 
-class MyBusinessListScreen extends ConsumerWidget {
-  const MyBusinessListScreen({super.key});
+class MyBusinessesView extends ConsumerWidget {
+  const MyBusinessesView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

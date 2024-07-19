@@ -24,7 +24,7 @@ mixin _$UserModel {
   String get phoneNumber => throw _privateConstructorUsedError;
   List<AddressModel>? get deliveryAddresses =>
       throw _privateConstructorUsedError;
-  bool? get isBusinessOwner => throw _privateConstructorUsedError;
+  bool get isBusinessOwner => throw _privateConstructorUsedError;
   Set<String>? get ownedBusinessIds => throw _privateConstructorUsedError;
   Set<String>? get favoriteOfferIds => throw _privateConstructorUsedError;
   List<String>? get searchHistory => throw _privateConstructorUsedError;
@@ -46,7 +46,7 @@ abstract class $UserModelCopyWith<$Res> {
       {String id,
       String phoneNumber,
       List<AddressModel>? deliveryAddresses,
-      bool? isBusinessOwner,
+      bool isBusinessOwner,
       Set<String>? ownedBusinessIds,
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
@@ -72,7 +72,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? id = null,
     Object? phoneNumber = null,
     Object? deliveryAddresses = freezed,
-    Object? isBusinessOwner = freezed,
+    Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
     Object? favoriteOfferIds = freezed,
     Object? searchHistory = freezed,
@@ -92,10 +92,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.deliveryAddresses
           : deliveryAddresses // ignore: cast_nullable_to_non_nullable
               as List<AddressModel>?,
-      isBusinessOwner: freezed == isBusinessOwner
+      isBusinessOwner: null == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       ownedBusinessIds: freezed == ownedBusinessIds
           ? _value.ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       {String id,
       String phoneNumber,
       List<AddressModel>? deliveryAddresses,
-      bool? isBusinessOwner,
+      bool isBusinessOwner,
       Set<String>? ownedBusinessIds,
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
@@ -169,7 +169,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? phoneNumber = null,
     Object? deliveryAddresses = freezed,
-    Object? isBusinessOwner = freezed,
+    Object? isBusinessOwner = null,
     Object? ownedBusinessIds = freezed,
     Object? favoriteOfferIds = freezed,
     Object? searchHistory = freezed,
@@ -189,10 +189,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value._deliveryAddresses
           : deliveryAddresses // ignore: cast_nullable_to_non_nullable
               as List<AddressModel>?,
-      isBusinessOwner: freezed == isBusinessOwner
+      isBusinessOwner: null == isBusinessOwner
           ? _value.isBusinessOwner
           : isBusinessOwner // ignore: cast_nullable_to_non_nullable
-              as bool?,
+              as bool,
       ownedBusinessIds: freezed == ownedBusinessIds
           ? _value._ownedBusinessIds
           : ownedBusinessIds // ignore: cast_nullable_to_non_nullable
@@ -224,7 +224,7 @@ class _$UserModelImpl extends _UserModel {
       {required this.id,
       required this.phoneNumber,
       final List<AddressModel>? deliveryAddresses,
-      this.isBusinessOwner,
+      this.isBusinessOwner = false,
       final Set<String>? ownedBusinessIds,
       final Set<String>? favoriteOfferIds,
       final List<String>? searchHistory,
@@ -256,7 +256,8 @@ class _$UserModelImpl extends _UserModel {
   }
 
   @override
-  final bool? isBusinessOwner;
+  @JsonKey()
+  final bool isBusinessOwner;
   final Set<String>? _ownedBusinessIds;
   @override
   Set<String>? get ownedBusinessIds {
@@ -360,7 +361,7 @@ abstract class _UserModel extends UserModel {
       {required final String id,
       required final String phoneNumber,
       final List<AddressModel>? deliveryAddresses,
-      final bool? isBusinessOwner,
+      final bool isBusinessOwner,
       final Set<String>? ownedBusinessIds,
       final Set<String>? favoriteOfferIds,
       final List<String>? searchHistory,
@@ -378,7 +379,7 @@ abstract class _UserModel extends UserModel {
   @override
   List<AddressModel>? get deliveryAddresses;
   @override
-  bool? get isBusinessOwner;
+  bool get isBusinessOwner;
   @override
   Set<String>? get ownedBusinessIds;
   @override

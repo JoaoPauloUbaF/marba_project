@@ -29,7 +29,6 @@ class BusinessInfoFormWidget extends StatelessWidget {
       child: Column(
         children: [
           ImageFieldWidget(
-            // ImageFieldWidget is not defined
             onImagePicked: (image) {},
           ),
           TextFormField(
