@@ -1,4 +1,4 @@
-import 'package:project_marba/src/features/business_analysis/data/business_analysis_repository.dart';
+import 'package:project_marba/src/features/business_analysis/data/repository/business_analysis_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'business_analysis_repository_firebase.dart';

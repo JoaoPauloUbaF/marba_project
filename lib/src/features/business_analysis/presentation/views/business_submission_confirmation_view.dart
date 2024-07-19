@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/features/business_analysis/data/utils/business_apply_strings.dart';
 
 class BusinessSubmissionConfirmationView extends StatelessWidget {
   const BusinessSubmissionConfirmationView({super.key});
@@ -6,9 +7,6 @@ class BusinessSubmissionConfirmationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Confirmação de Envio'),
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -20,7 +18,7 @@ class BusinessSubmissionConfirmationView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary, size: 100),
               const SizedBox(height: 20),
               Text(
-                'Cadastro Enviado com Sucesso!',
+                submitSuccessTitle,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
@@ -29,7 +27,7 @@ class BusinessSubmissionConfirmationView extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               const Text(
-                'Obrigado por enviar seus documentos. Nossa equipe irá analisá-los e retornaremos em breve através do e-mail cadastrado. Enquanto isso, relaxe e aproveite seu dia!',
+                submitSuccessMessage,
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
@@ -39,7 +37,7 @@ class BusinessSubmissionConfirmationView extends StatelessWidget {
                   Navigator.popUntil(context,
                       (route) => route.settings.name == '/business-apply');
                 },
-                child: const Text('Voltar ao Início'),
+                child: const Text(submitGoBackButtonLabel),
               ),
             ],
           ),

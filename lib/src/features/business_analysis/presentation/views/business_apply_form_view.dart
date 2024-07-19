@@ -7,9 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:project_marba/src/core/utils/view_utils.dart';
+import 'package:project_marba/src/features/business_analysis/data/utils/business_apply_strings.dart';
 import 'package:project_marba/src/features/image_picker/presentation/widgets/image_field_widget.dart';
 
-import '../../data/business_registration_enum.dart';
+import '../../data/utils/business_registration_enum.dart';
 import '../../application/business_analysis_view_model.dart';
 
 class BusinessApplyFormView extends ConsumerStatefulWidget {
@@ -89,7 +90,7 @@ class _BusinessApplyFormViewState extends ConsumerState<BusinessApplyFormView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Formulário de ${widget.category.name[0].toUpperCase()}${widget.category.name.substring(1)}',
+          '${widget.category.name[0].toUpperCase()}${widget.category.name.substring(1)}',
         ),
       ),
       body: SingleChildScrollView(
@@ -189,8 +190,7 @@ class _BusinessApplyFormViewState extends ConsumerState<BusinessApplyFormView> {
                                 builder: (context) {
                                   return AlertDialog(
                                     title: const Text('Erro'),
-                                    content: const Text(
-                                        'Ocorreu um erro ao enviar a análise de negócio. Por favor, tente novamente.'),
+                                    content: const Text(submitErrorMessage),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
@@ -205,7 +205,7 @@ class _BusinessApplyFormViewState extends ConsumerState<BusinessApplyFormView> {
                         }
                       },
                       child: Text(
-                        'Cadastrar ${widget.category.name}',
+                        'Enviar',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium

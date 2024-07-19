@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:project_marba/src/core/utils/view_utils.dart';
-import 'package:project_marba/src/features/business_analysis/data/business_analysis.dart';
-import 'package:project_marba/src/features/business_analysis/data/business_registration_enum.dart';
+import 'package:project_marba/src/features/business_analysis/data/model/business_analysis.dart';
+import 'package:project_marba/src/features/business_analysis/data/utils/business_registration_enum.dart';
 import 'package:uuid/uuid.dart';
 
-import '../data/business_analysis_repository_provider.dart';
+import '../data/repository/business_analysis_repository_provider.dart';
 
 class BusinessAnalysisViewModel {
   final WidgetRef ref;
@@ -91,19 +91,19 @@ class BusinessAnalysisViewModel {
     Map<String, File?> imageFiles,
     Map<String, String> formData,
   ) async {
+    final id = const Uuid().v4();
     final fotoCpfUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['cpfPhoto']!, cpfOrCNPJ: formData['cpf']!);
+        .uploadImage(imageFiles['cpfPhoto']!, id: id, name: 'cpf');
     final fotoRgOuCnhUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['rgOrCnhPhoto']!, cpfOrCNPJ: formData['cpf']!);
+        .uploadImage(imageFiles['rgOrCnhPhoto']!, id: id, name: 'rgOrCnh');
     final comprovanteDeResidenciaUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['residenceProof']!,
-            cpfOrCNPJ: formData['cpf']!);
+        .uploadImage(imageFiles['residenceProof']!, id: id, name: 'residence');
 
     return BusinessAnalysis.cpf(
-      id: const Uuid().v4(),
+      id: id,
       fullName: formData['fullName']!,
       cpf: formData['cpf']!,
       personalId: formData['rgOrCnh']!,
@@ -121,20 +121,25 @@ class BusinessAnalysisViewModel {
     Map<String, File?> imageFiles,
     Map<String, String> formData,
   ) async {
+    final id = const Uuid().v4();
     final cnpjMEIPhotoUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['cnpjPhoto']!, cpfOrCNPJ: formData['cnpj']!);
-    final addressProofUrl = await ref
-        .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['residenceProof']!,
-            cpfOrCNPJ: formData['cnpj']!);
-    final debtCertificateUrl = await ref
-        .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['taxDebtsCertificate']!,
-            cpfOrCNPJ: formData['cnpj']!);
+        .uploadImage(imageFiles['cnpjPhoto']!, id: id, name: 'cnpj');
+    final addressProofUrl =
+        await ref.read(businessAnalysisRepositoryProvider).uploadImage(
+              imageFiles['residenceProof']!,
+              id: id,
+              name: 'residence',
+            );
+    final debtCertificateUrl =
+        await ref.read(businessAnalysisRepositoryProvider).uploadImage(
+              imageFiles['taxDebtsCertificate']!,
+              id: id,
+              name: 'debtCertificate',
+            );
 
     return BusinessAnalysis.mei(
-      id: const Uuid().v4(),
+      id: id,
       meiFullName: formData['fullName']!,
       cnpj: formData['cnpj']!,
       address: formData['address']!,
@@ -151,28 +156,29 @@ class BusinessAnalysisViewModel {
     Map<String, File?> imageFiles,
     Map<String, String> formData,
   ) async {
+    final id = const Uuid().v4();
     final cnpjPhotoUrl = await ref
         .read(businessAnalysisRepositoryProvider)
-        .uploadImage(imageFiles['cnpjPhoto']!, cpfOrCNPJ: formData['cnpj']!);
+        .uploadImage(imageFiles['cnpjPhoto']!, id: id, name: 'cnpj');
     final stateRegistrationPhotoUrl = await ref
         .read(businessAnalysisRepositoryProvider)
         .uploadImage(imageFiles['stateRegistrationPhoto']!,
-            cpfOrCNPJ: formData['cnpj']!);
+            id: id, name: 'stateRegistration');
     final cityRegistrationPhotoUrl = await ref
         .read(businessAnalysisRepositoryProvider)
         .uploadImage(imageFiles['cityRegistrationPhoto']!,
-            cpfOrCNPJ: formData['cnpj']!);
+            id: id, name: 'cityRegistration');
     final businessAddressProofUrl = await ref
         .read(businessAnalysisRepositoryProvider)
         .uploadImage(imageFiles['businessAddressProof']!,
-            cpfOrCNPJ: formData['cnpj']!);
+            id: id, name: 'businessAddressProof');
     final taxDebtsCertificateUrl = await ref
         .read(businessAnalysisRepositoryProvider)
         .uploadImage(imageFiles['taxDebtsCertificate']!,
-            cpfOrCNPJ: formData['cnpj']!);
+            id: id, name: 'taxDebtsCertificate');
 
     return BusinessAnalysis.cnpj(
-      id: const Uuid().v4(),
+      id: id,
       companyName: formData['companyName']!,
       cnpj: formData['cnpj']!,
       businessAddress: formData['businessAddress']!,

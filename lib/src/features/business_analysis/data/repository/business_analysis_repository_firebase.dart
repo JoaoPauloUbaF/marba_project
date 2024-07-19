@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:project_marba/src/features/business_analysis/data/business_analysis_repository.dart';
+import 'package:project_marba/src/features/business_analysis/data/repository/business_analysis_repository.dart';
 
-import 'business_analysis.dart';
+import '../model/business_analysis.dart';
 
 class BusinessAnalysisRepositoryFirebase extends BusinessAnalysisRepository {
   final CollectionReference _businessAnalysisCollection =
@@ -36,8 +36,9 @@ class BusinessAnalysisRepositoryFirebase extends BusinessAnalysisRepository {
   }
 
   @override
-  Future<String> uploadImage(File image, {required String? cpfOrCNPJ}) {
-    final ref = _storageReference.child('business_analysis/$cpfOrCNPJ');
+  Future<String> uploadImage(File image,
+      {required String id, required String name}) {
+    final ref = _storageReference.child('business_analysis/$id/$name');
     return ref.putFile(image).then((task) => task.ref.getDownloadURL());
   }
 }
