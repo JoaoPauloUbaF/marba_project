@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,15 +8,17 @@ import '../../application/image_field_controller.dart';
 
 class ImageFieldWidget extends ConsumerWidget {
   final String? imageURL;
+  final Function(File?) onImagePicked;
 
   const ImageFieldWidget({
     super.key,
     this.imageURL,
+    required this.onImagePicked,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final image = ref.watch(imageFieldControllerProvider);
+    File? image;
     final imageFieldController =
         ref.read(imageFieldControllerProvider.notifier);
 
@@ -42,7 +46,15 @@ class ImageFieldWidget extends ConsumerWidget {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          imageFieldController.pickImage(ImageSource.camera);
+                          imageFieldController
+                              .pickImage(ImageSource.camera)
+                              .then(
+                            (value) {
+                              image = value;
+                              field.didChange(value);
+                              onImagePicked(image);
+                            },
+                          );
                         },
                       ),
                       ListTile(
@@ -55,7 +67,15 @@ class ImageFieldWidget extends ConsumerWidget {
                         ),
                         onTap: () {
                           Navigator.pop(context);
-                          imageFieldController.pickImage(ImageSource.gallery);
+                          imageFieldController
+                              .pickImage(ImageSource.gallery)
+                              .then(
+                            (value) {
+                              image = value;
+                              field.didChange(value);
+                              onImagePicked(image);
+                            },
+                          );
                         },
                       ),
                     ],
@@ -63,34 +83,37 @@ class ImageFieldWidget extends ConsumerWidget {
                 ),
               ),
               child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.33,
-                  child: Container(
-                    child: imageURL != null
-                        ? Image.network(
-                            imageURL!,
-                            fit: BoxFit.fill,
-                            errorBuilder: (context, error, stackTrace) =>
-                                const Placeholder(),
-                          )
-                        : image != null
-                            ? Image.file(
-                                image,
-                                fit: BoxFit.cover,
-                              )
-                            : const Icon(
-                                Icons.add_a_photo_sharp,
-                                size: 100,
-                              ),
-                  )),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.25,
+                child: Container(
+                  child: imageURL != null
+                      ? Image.network(
+                          imageURL!,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Placeholder(),
+                        )
+                      : image != null
+                          ? Image.file(
+                              image!,
+                              fit: BoxFit.fill,
+                            )
+                          : Icon(
+                              Icons.add_a_photo_sharp,
+                              size: 100,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                ),
+              ),
             ),
             field.errorText != null
-                ? Text(
-                    field.errorText.toString(),
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: Theme.of(context).colorScheme.error),
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      field.errorText.toString(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.error),
+                    ),
                   )
                 : const SizedBox.shrink(),
           ],

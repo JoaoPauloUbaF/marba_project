@@ -29,15 +29,15 @@ class BusinessSubmissionConfirmationView extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               const Text(
-                'Obrigado por enviar seus documentos. Nossa equipe irá analisá-los e retornaremos em breve. Enquanto isso, relaxe e aproveite seu dia!',
+                'Obrigado por enviar seus documentos. Nossa equipe irá analisá-los e retornaremos em breve através do e-mail cadastrado. Enquanto isso, relaxe e aproveite seu dia!',
                 style: TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false);
+                  Navigator.popUntil(context,
+                      (route) => route.settings.name == '/business-apply');
                 },
                 child: const Text('Voltar ao Início'),
               ),

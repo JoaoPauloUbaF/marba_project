@@ -7,7 +7,7 @@ part of 'image_field_controller.dart';
 // **************************************************************************
 
 String _$imageFieldControllerHash() =>
-    r'cbbf0fc130485690eb1171a619eb49903f122dae';
+    r'31ee6529eef1bf00a29253fd8e1e8af0bbbaf5c5';
 
 /// See also [ImageFieldController].
 @ProviderFor(ImageFieldController)

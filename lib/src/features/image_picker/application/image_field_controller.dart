@@ -13,12 +13,14 @@ class ImageFieldController extends _$ImageFieldController {
     return null;
   }
 
-  Future<void> pickImage(ImageSource source) async {
+  Future<File?> pickImage(ImageSource source) async {
     await requestPermissions();
     final pickedFile = await ImagePicker().pickImage(source: source);
     if (pickedFile != null) {
       state = File(pickedFile.path);
+      return state;
     }
+    return null;
   }
 
   String? validateImageUrl(String? value) {

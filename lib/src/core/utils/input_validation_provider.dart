@@ -83,7 +83,7 @@ class InputValidation extends _$InputValidation {
     return null;
   }
 
-  String? validateCpf(String? value) {
+  String? validateCPF(String? value) {
     if (value == null || value.isEmpty || value.length < 11) {
       return 'Por favor, insira seu CPF';
     }
@@ -116,6 +116,23 @@ class InputValidation extends _$InputValidation {
       if (value == null || value.isEmpty) {
         return 'Não é possível cadastrar um endereço sem número e sem complemento';
       }
+    }
+    return null;
+  }
+
+  String? validateSubscription(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Por favor, insira a inscrição';
+    }
+    if (value.length < 9) {
+      return 'A inscrição precisa ter no mínimo 9 caracteres';
+    }
+    return null;
+  }
+
+  validateRGorCNH(String? value) {
+    if (value == null || value.isEmpty || value.length < 9) {
+      return 'Por favor, insira o RG ou CNH';
     }
     return null;
   }

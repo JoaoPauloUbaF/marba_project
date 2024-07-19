@@ -17,7 +17,7 @@ import 'package:project_marba/src/features/business/presentation/screens/my_busi
 import 'package:project_marba/src/features/offers_management/presentation/views/offer_details_view.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/address_view.dart';
-import 'package:project_marba/src/features/settings/presentation/views/business_apply_view.dart';
+import 'package:project_marba/src/features/business_analysis/presentation/views/business_apply_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/notification_view.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/presentation/screens/profile_view.dart';
@@ -28,7 +28,7 @@ import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
 import 'src/features/payment/presentation/views/user_payment_view.dart';
-import 'src/features/settings/presentation/views/business_submission_confirmation_view.dart';
+import 'src/features/business_analysis/presentation/views/business_submission_confirmation_view.dart';
 import 'src/features/settings/presentation/views/chat_list_view.dart';
 import 'src/features/settings/presentation/views/privacy_view.dart';
 import 'src/features/settings/presentation/views/profile_settings_screen.dart';

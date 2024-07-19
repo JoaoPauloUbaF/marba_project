@@ -28,7 +28,10 @@ class BusinessInfoFormWidget extends StatelessWidget {
       key: formKeys[0],
       child: Column(
         children: [
-          const ImageFieldWidget(),
+          ImageFieldWidget(
+            // ImageFieldWidget is not defined
+            onImagePicked: (image) {},
+          ),
           TextFormField(
             key: const ValueKey('name'),
             controller: nameController,

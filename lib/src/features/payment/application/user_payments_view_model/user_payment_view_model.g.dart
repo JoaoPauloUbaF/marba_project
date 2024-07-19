@@ -6,7 +6,7 @@ part of 'user_payment_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$creditCardListHash() => r'95f9f3c7e332dbd91e2d04962cdee1064a5adc0d';
+String _$creditCardListHash() => r'e4b41ca391a610448ce07c2d864a65833a3aaf36';
 
 /// See also [creditCardList].
 @ProviderFor(creditCardList)
@@ -23,7 +23,7 @@ final creditCardListProvider =
 
 typedef CreditCardListRef = AutoDisposeStreamProviderRef<List<CreditCardModel>>;
 String _$userPaymentViewModelHash() =>
-    r'adf527539d90ee93911fe76c81dad5c1352c5742';
+    r'bf648361311cefb01d11ae4a904a8a82af50c26b';
 
 /// See also [UserPaymentViewModel].
 @ProviderFor(UserPaymentViewModel)
