@@ -28,6 +28,6 @@ class OfferCardViewModel extends _$OfferCardViewModel {
   Future<bool> shouldShowOfferActions(String businessId) async {
     return await ref
         .read(businessProfileViewModelProvider.notifier)
-        .isBusinessOwner(businessId: businessId);
+        .isThisBusinessOwner(businessId: businessId);
   }
 }

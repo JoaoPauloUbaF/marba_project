@@ -125,7 +125,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
                   child: const Icon(Icons.add_a_photo_sharp, size: 100),
                 ),
               ),
-        if (await isBusinessOwner() && state?.imageUrl != null)
+        if (await isThisBusinessOwner() && state?.imageUrl != null)
           Positioned(
             bottom: 20,
             right: 10,
@@ -146,7 +146,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     );
   }
 
-  Future<bool> isBusinessOwner({String? businessId}) async {
+  Future<bool> isThisBusinessOwner({String? businessId}) async {
     //TODO: refactor usages
     businessId ??= state?.id;
     final userId = ref.read(authRepositoryProvider).getCurrentUser()?.uid;

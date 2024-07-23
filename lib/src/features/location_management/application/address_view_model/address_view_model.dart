@@ -27,7 +27,6 @@ class AddressViewModel extends _$AddressViewModel {
   FutureOr<void> build() {}
 
   void saveOrUpdateAddress({
-    //TODO: break this method into smaller methods
     required BuildContext context,
     required AddressModel address,
     String? businessId,
@@ -92,7 +91,7 @@ class AddressViewModel extends _$AddressViewModel {
     if (isBusinessAddress) {
       final businessViewModel =
           ref.read(businessProfileViewModelProvider.notifier);
-      businessViewModel.isBusinessOwner().then(
+      businessViewModel.isThisBusinessOwner().then(
         (isOwner) {
           if (!isOwner) return;
           showDialog(

@@ -99,7 +99,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         InkWell(
           onTap: () {
             viewController
-                .isBusinessOwner()
+                .isThisBusinessOwner()
                 .then((value) => setState(() => isEditingPhone = value));
           },
           child: Row(
@@ -144,7 +144,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         InkWell(
           onTap: () {
             viewController
-                .isBusinessOwner()
+                .isThisBusinessOwner()
                 .then((value) => setState(() => isEditingEmail = value));
           },
           child: Row(

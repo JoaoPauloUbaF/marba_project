@@ -17,7 +17,7 @@ class MyBusinessOffersScreen extends ConsumerWidget {
     final business = ref.watch(businessProfileViewModelProvider);
     final isOwner = ref
         .read(businessProfileViewModelProvider.notifier)
-        .isBusinessOwner(businessId: business?.id);
+        .isThisBusinessOwner(businessId: business?.id);
 
     return Scaffold(
       body: NestedScrollView(

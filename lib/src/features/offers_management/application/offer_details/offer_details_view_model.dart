@@ -35,7 +35,7 @@ class OfferDetailsViewModel extends _$OfferDetailsViewModel {
   Future<bool> isOfferOwner(String businessId) async {
     return await ref
         .read(businessProfileViewModelProvider.notifier)
-        .isBusinessOwner(businessId: businessId);
+        .isThisBusinessOwner(businessId: businessId);
   }
 
   Future<void> updateOfferTitle(

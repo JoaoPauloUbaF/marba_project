@@ -7,7 +7,7 @@ part of 'offer_card_view_model.dart';
 // **************************************************************************
 
 String _$offerCardViewModelHash() =>
-    r'd9b7d8458ac4f5f0b549a4d9e2aaa3149f4abacf';
+    r'1cb8a764e488e1465fdf0ea170ec68dc43ff9f75';
 
 /// See also [OfferCardViewModel].
 @ProviderFor(OfferCardViewModel)
