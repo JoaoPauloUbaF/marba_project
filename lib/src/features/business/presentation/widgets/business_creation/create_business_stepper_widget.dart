@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
-import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_address_form_field_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_info_form_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/category_form_field_widget.dart';
@@ -30,6 +32,7 @@ class AddBusinessStepperWidgetState
   late Set<BusinessCategory> _selectedCategories;
   late TextEditingController _deliveryFeeController;
   late BusinessCreationViewModel businessCreationController;
+  File? businessProfileImage;
 
   int _currentStep = 0;
 
@@ -100,7 +103,9 @@ class AddBusinessStepperWidgetState
           businessCreationController: businessCreationController,
           emailController: _emailController,
           phoneController: _phoneController,
-          onChanged: () => setState(() {}),
+          onImagePicked: (image) {
+            businessProfileImage = image;
+          },
         ),
       ),
       Step(
@@ -169,10 +174,11 @@ class AddBusinessStepperWidgetState
             visible: details.currentStep != steps.length - 1,
             child: IconButton(
               color: Theme.of(context).colorScheme.primary,
-              onPressed:
-                  (formKeys[_currentStep].currentState?.validate() ?? false)
-                      ? details.onStepContinue
-                      : null,
+              onPressed: () {
+                if (formKeys[_currentStep].currentState?.validate() ?? false) {
+                  details.onStepContinue!();
+                }
+              },
               icon: const Icon(Icons.arrow_forward_rounded),
             ),
           ),

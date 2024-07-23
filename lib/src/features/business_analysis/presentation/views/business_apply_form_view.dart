@@ -153,6 +153,7 @@ class _BusinessApplyFormViewState extends ConsumerState<BusinessApplyFormView> {
                                   onImagePicked: (image) {
                                     _imageFiles[field['key']] = image;
                                   },
+                                  imageFile: _imageFiles[field['key']],
                                 ),
                               ),
                             ),

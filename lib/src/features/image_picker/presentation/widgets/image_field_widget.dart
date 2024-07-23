@@ -8,12 +8,14 @@ import '../../application/image_field_controller.dart';
 
 class ImageFieldWidget extends ConsumerWidget {
   final String? imageURL;
+  final File? imageFile;
   final Function(File?) onImagePicked;
 
   const ImageFieldWidget({
     super.key,
     this.imageURL,
     required this.onImagePicked,
+    this.imageFile,
   });
 
   @override
@@ -24,7 +26,7 @@ class ImageFieldWidget extends ConsumerWidget {
 
     return FormField(
       validator: (value) => imageFieldController.validateImageUrl(
-        image?.path,
+        image?.path ?? imageFile?.path,
       ),
       builder: (FormFieldState<dynamic> field) {
         return Column(
@@ -51,6 +53,7 @@ class ImageFieldWidget extends ConsumerWidget {
                               .then(
                             (value) {
                               image = value;
+                              field.didChange(image);
                               onImagePicked(image);
                             },
                           );
@@ -71,6 +74,7 @@ class ImageFieldWidget extends ConsumerWidget {
                               .then(
                             (value) {
                               image = value;
+                              field.didChange(image);
                               onImagePicked(image);
                             },
                           );
@@ -83,25 +87,32 @@ class ImageFieldWidget extends ConsumerWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.25,
-                child: Container(
-                  child: imageURL != null
-                      ? Image.network(
-                          imageURL!,
-                          fit: BoxFit.fill,
-                          errorBuilder: (context, error, stackTrace) =>
-                              const Placeholder(),
-                        )
-                      : image != null
-                          ? Image.file(
-                              image!,
-                              fit: BoxFit.fill,
-                            )
-                          : Icon(
-                              Icons.add_a_photo_sharp,
-                              size: 100,
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                ),
+                child: Builder(builder: (context) {
+                  if (imageURL != null) {
+                    return Image.network(
+                      imageURL!,
+                      fit: BoxFit.fill,
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Placeholder(),
+                    );
+                  } else if (image != null) {
+                    return Image.file(
+                      image!,
+                      fit: BoxFit.fill,
+                    );
+                  } else if (imageFile != null) {
+                    return Image.file(
+                      imageFile!,
+                      fit: BoxFit.fill,
+                    );
+                  } else {
+                    return Icon(
+                      Icons.add_a_photo_sharp,
+                      size: 100,
+                      color: Theme.of(context).colorScheme.secondary,
+                    );
+                  }
+                }),
               ),
             ),
             field.errorText != null

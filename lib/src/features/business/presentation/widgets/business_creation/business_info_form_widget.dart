@@ -1,8 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/features/image_picker/presentation/widgets/image_field_widget.dart';
-import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
 
-class BusinessInfoFormWidget extends StatelessWidget {
+class BusinessInfoFormWidget extends StatefulWidget {
   const BusinessInfoFormWidget({
     super.key,
     required this.formKeys,
@@ -10,7 +12,7 @@ class BusinessInfoFormWidget extends StatelessWidget {
     required this.businessCreationController,
     required this.emailController,
     required this.phoneController,
-    required this.onChanged,
+    required this.onImagePicked,
   });
 
   final List<GlobalKey<FormState>> formKeys;
@@ -18,38 +20,47 @@ class BusinessInfoFormWidget extends StatelessWidget {
   final BusinessCreationViewModel businessCreationController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
-  final void Function() onChanged;
+  final void Function(File?) onImagePicked;
+
+  @override
+  State<BusinessInfoFormWidget> createState() => _BusinessInfoFormWidgetState();
+}
+
+class _BusinessInfoFormWidgetState extends State<BusinessInfoFormWidget> {
+  File? businessProfileImage;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      onChanged: onChanged,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      key: formKeys[0],
+      key: widget.formKeys[0],
       child: Column(
         children: [
           ImageFieldWidget(
-            onImagePicked: (image) {},
+            onImagePicked: (image) {
+              widget.onImagePicked(image);
+              businessProfileImage = image;
+            },
+            imageFile: businessProfileImage,
           ),
           TextFormField(
             key: const ValueKey('name'),
-            controller: nameController,
+            controller: widget.nameController,
             decoration:
                 const InputDecoration(labelText: 'Nome do Empreendimento'),
             validator: (value) =>
-                businessCreationController.validateName(value),
+                widget.businessCreationController.validateName(value),
           ),
           TextFormField(
-            controller: emailController,
+            controller: widget.emailController,
             decoration: const InputDecoration(labelText: 'E-mail'),
             validator: (value) =>
-                businessCreationController.validateEmail(value),
+                widget.businessCreationController.validateEmail(value),
           ),
           TextFormField(
-            controller: phoneController,
+            controller: widget.phoneController,
             decoration: const InputDecoration(labelText: 'Telefone'),
             validator: (value) =>
-                businessCreationController.validatePhoneNumber(value),
+                widget.businessCreationController.validatePhoneNumber(value),
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'business_creation_controller.dart';
+part of 'business_creation_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator

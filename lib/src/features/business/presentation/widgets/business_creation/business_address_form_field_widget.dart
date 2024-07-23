@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/business/application/business_creation_controller/business_creation_controller.dart';
+import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 
 class BusinessAddressFormFieldWidget extends StatelessWidget {

@@ -14,7 +14,7 @@ import '../../../authentication/data/firebase_auth_provider.dart';
 import '../../../user_profile/data/user_profile_provider.dart';
 import '../../data/business_profile_data/business_profile_provider.dart';
 
-part 'business_creation_controller.g.dart';
+part 'business_creation_view_model.g.dart';
 
 @riverpod
 class BusinessCreationViewModel extends _$BusinessCreationViewModel {
