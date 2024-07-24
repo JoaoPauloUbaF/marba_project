@@ -59,20 +59,17 @@ class WideScreenDrawerWidget extends ConsumerWidget {
               onItemTapped(3);
             },
           ),
-          FutureBuilder(
-              future: homeScreenViewModel.hasBusiness(),
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                return snapshot.data != null && snapshot.data
-                    ? ListTile(
-                        leading: const Icon(Icons.monetization_on_sharp),
-                        title: const Text('Negócios'),
-                        onTap: () {
-                          Navigator.pop(context);
-                          onItemTapped(4);
-                        },
-                      )
-                    : const SizedBox.shrink();
-              }),
+          homeScreenViewModel.thisUserHasBusiness() == true &&
+                  homeScreenViewModel.thisUserHasBusiness() != null
+              ? ListTile(
+                  leading: const Icon(Icons.monetization_on_sharp),
+                  title: const Text('Negócios'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    onItemTapped(4);
+                  },
+                )
+              : const SizedBox.shrink(),
         ],
       ),
     );

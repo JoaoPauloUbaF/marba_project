@@ -29,8 +29,4 @@ class CurrentUser extends _$CurrentUser {
 
     return null;
   }
-
-  void reload() {
-    build();
-  }
 }

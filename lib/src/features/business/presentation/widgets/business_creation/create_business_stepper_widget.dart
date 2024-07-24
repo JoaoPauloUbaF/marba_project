@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_address_form_field_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_info_form_widget.dart';
@@ -69,28 +70,36 @@ class AddBusinessStepperWidgetState
     super.dispose();
   }
 
-  void _submitForm() {
-    businessCreationController
+  Future<void> _submitForm() async {
+    showLoader(context);
+    await businessCreationController
         .submitForm(
-          name: _nameController.text,
-          email: _emailController.text,
-          phoneNumber: _phoneController.text,
-          street: _streetController.text,
-          number: _numberController.text,
-          neighborhood: _neighborhoodController.text,
-          city: _cityController.text,
-          state: _stateController.text,
-          zipCode: _zipCodeController.text,
-          selectedCategories: _selectedCategories,
-          deliveryFee: _deliveryFeeController.text,
-        )
-        .then(
-          (value) => {
-            Navigator.of(context).pop(),
-            businessCreationController.showSuccessDialog(
-                context, _nameController.text),
-          },
-        );
+      name: _nameController.text,
+      email: _emailController.text,
+      phoneNumber: _phoneController.text,
+      street: _streetController.text,
+      number: _numberController.text,
+      neighborhood: _neighborhoodController.text,
+      city: _cityController.text,
+      state: _stateController.text,
+      zipCode: _zipCodeController.text,
+      selectedCategories: _selectedCategories,
+      deliveryFee: _deliveryFeeController.text,
+    )
+        .catchError((error) async {
+      hideLoader(context);
+      await businessCreationController.showFailureDialog(context);
+      return;
+    }).then(
+      (value) async => {
+        hideLoader(context),
+        await businessCreationController
+            .showSuccessDialog(context, _nameController.text)
+            .then((value) {
+          Navigator.of(context).pop();
+        }),
+      },
+    );
   }
 
   List<Step> get steps {
@@ -118,7 +127,6 @@ class AddBusinessStepperWidgetState
             numberController: _numberController,
             neighborhoodController: _neighborhoodController,
             cityController: _cityController,
-            context: context,
             stateController: _stateController,
             onChanged: () => setState(() {})),
       ),
@@ -157,6 +165,11 @@ class AddBusinessStepperWidgetState
         ref.read(businessCreationViewModelProvider.notifier);
 
     return Stepper(
+      connectorColor: WidgetStateColor.resolveWith(
+        (Set<WidgetState> states) {
+          return Theme.of(context).colorScheme.primary;
+        },
+      ),
       type: StepperType.vertical,
       currentStep: _currentStep,
       controlsBuilder: (context, details) => Row(
@@ -185,10 +198,9 @@ class AddBusinessStepperWidgetState
           Visibility(
             visible: details.currentStep == steps.length - 1,
             child: TextButton(
-              onPressed: () {
+              onPressed: () async {
                 if (formKeys[_currentStep].currentState?.validate() ?? false) {
-                  businessCreationController.showLoadingDialog(context);
-                  _submitForm();
+                  await _submitForm();
                 } else {
                   businessCreationController.showMissingFieldsDialog(context);
                 }

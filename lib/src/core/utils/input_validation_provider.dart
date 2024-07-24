@@ -63,7 +63,10 @@ class InputValidation extends _$InputValidation {
   }
 
   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null ||
+        value.isEmpty ||
+        !value.contains('@') ||
+        !value.contains('.com')) {
       return 'Por favor, insira seu e-mail';
     }
     return null;

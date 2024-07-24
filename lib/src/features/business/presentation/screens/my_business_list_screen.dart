@@ -1,7 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/image_picker/application/image_field_controller.dart';
-import '../widgets/business_creation/create_business_stepper_widget.dart';
 import '../widgets/business_list/user_business_list_widget.dart';
 
 class MyBusinessesView extends ConsumerWidget {
@@ -16,21 +14,7 @@ class MyBusinessesView extends ConsumerWidget {
         padding: const EdgeInsets.only(bottom: 100),
         child: FloatingActionButton(
           onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  insetAnimationCurve: Curves.easeInOut,
-                  insetAnimationDuration: const Duration(milliseconds: 500),
-                  insetPadding: EdgeInsets.only(
-                    top: AppBar().preferredSize.height,
-                    left: 16,
-                    right: 16,
-                  ),
-                  child: const CreateBusinessStepperWidget(),
-                );
-              },
-            ).then((value) => ref.invalidate(imageFieldControllerProvider));
+            Navigator.of(context).pushNamed('/business-create');
           },
           child: const Icon(Icons.add),
         ),

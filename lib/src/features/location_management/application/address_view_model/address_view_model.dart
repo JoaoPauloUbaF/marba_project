@@ -33,18 +33,14 @@ class AddressViewModel extends _$AddressViewModel {
     AddressModel? currentAddress,
   }) {
     if (businessId != null) {
-      ref.read(businessProfileViewModelProvider.notifier).updateBusinessAddress(
-        businessId: businessId,
-        address: {
-          'street': address.street,
-          'number': address.number ?? '',
-          'zipCode': address.zipCode,
-          'neighborhood': address.neighborhood,
-          'city': address.city,
-          'state': address.state,
-        },
-      ).then((value) => showSuccessDialog(context,
-          message: 'Endereço atualizado com sucesso'));
+      ref
+          .read(businessProfileViewModelProvider.notifier)
+          .updateBusinessAddress(
+            businessId: businessId,
+            address: address.toJson(),
+          )
+          .then((value) => showSuccessDialog(context,
+              message: 'Endereço atualizado com sucesso'));
       return;
     }
 
@@ -159,11 +155,22 @@ class AddressViewModel extends _$AddressViewModel {
     ref.read(deliveryAddressProvider.notifier).setDeliveryAddress(address);
   }
 
-  FutureOr<void> onPredictionSelected(
-      {required AutocompletePrediction prediction,
-      required BuildContext context}) {
-    getPredictionAddress(prediction: prediction).then((address) {
-      showConfirmAddressDialog(address, context);
+  Future<AddressModel?> onPredictionSelected({
+    required AutocompletePrediction prediction,
+    required BuildContext context,
+    required bool shouldUpload,
+  }) async {
+    return await getPredictionAddress(prediction: prediction)
+        .then((address) async {
+      return await showConfirmAddressDialog(address, context).then((value) {
+        if (value == null) {
+          return null;
+        }
+        if (shouldUpload) {
+          saveOrUpdateAddress(context: context, address: value);
+        }
+        return value;
+      });
     }).catchError((error) {
       String errorMessage;
       if (error is Exception) {
@@ -188,7 +195,9 @@ class AddressViewModel extends _$AddressViewModel {
           );
         },
       );
+      return Future.value(null);
     });
+    return Future.value(null);
   }
 
   Future<AddressModel> getPredictionAddress(
@@ -269,8 +278,9 @@ class AddressViewModel extends _$AddressViewModel {
     );
   }
 
-  void showConfirmAddressDialog(AddressModel address, BuildContext context) {
-    showDialog(
+  Future<AddressModel?> showConfirmAddressDialog(
+      AddressModel address, BuildContext context) async {
+    final confirmationAddress = await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -280,6 +290,10 @@ class AddressViewModel extends _$AddressViewModel {
         );
       },
     );
+    if (confirmationAddress == false) {
+      return null;
+    }
+    return confirmationAddress as AddressModel;
   }
 
   void showEdit(AddressModel address, BuildContext context) {

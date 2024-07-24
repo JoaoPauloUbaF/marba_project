@@ -84,35 +84,46 @@ class ImageFieldWidget extends ConsumerWidget {
                   ),
                 ),
               ),
-              child: SizedBox(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurfaceVariant
+                          .withAlpha(180)),
+                ),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.25,
-                child: Builder(builder: (context) {
-                  if (imageURL != null) {
-                    return Image.network(
-                      imageURL!,
-                      fit: BoxFit.fill,
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Placeholder(),
-                    );
-                  } else if (image != null) {
-                    return Image.file(
-                      image!,
-                      fit: BoxFit.fill,
-                    );
-                  } else if (imageFile != null) {
-                    return Image.file(
-                      imageFile!,
-                      fit: BoxFit.fill,
-                    );
-                  } else {
-                    return Icon(
-                      Icons.add_a_photo_sharp,
-                      size: 100,
-                      color: Theme.of(context).colorScheme.secondary,
-                    );
-                  }
-                }),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Builder(builder: (context) {
+                    if (imageURL != null) {
+                      return Image.network(
+                        imageURL!,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Placeholder(),
+                      );
+                    } else if (image != null) {
+                      return Image.file(
+                        image!,
+                        fit: BoxFit.fill,
+                      );
+                    } else if (imageFile != null) {
+                      return Image.file(
+                        imageFile!,
+                        fit: BoxFit.fill,
+                      );
+                    } else {
+                      return Icon(
+                        Icons.add_a_photo_sharp,
+                        size: 100,
+                        color: Theme.of(context).colorScheme.secondary,
+                      );
+                    }
+                  }),
+                ),
               ),
             ),
             field.errorText != null

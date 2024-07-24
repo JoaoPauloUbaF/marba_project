@@ -48,7 +48,10 @@ class _AddressFormModalWidgetState
             const VerticalSpaceMediumWidget(),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.5,
-              child: AddressSearchWidget(currentAddress: widget.currentAddress),
+              child: AddressSearchWidget(
+                currentAddress: widget.currentAddress,
+                onAddressSelected: (value) {},
+              ),
             ),
             const VerticalSpaceMediumWidget(),
           ],

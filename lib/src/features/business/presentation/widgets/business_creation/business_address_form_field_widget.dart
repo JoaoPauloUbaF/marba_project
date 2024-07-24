@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
-import 'package:project_marba/src/core/utils/registration_utils.dart';
+import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
+import 'package:project_marba/src/features/location_management/presentation/widgets/address_search_widget.dart';
 
-class BusinessAddressFormFieldWidget extends StatelessWidget {
+import '../../../../../core/models/address/address.dart';
+
+class BusinessAddressFormFieldWidget extends StatefulWidget {
   const BusinessAddressFormFieldWidget({
     super.key,
     required this.formKeys,
@@ -12,7 +16,6 @@ class BusinessAddressFormFieldWidget extends StatelessWidget {
     required this.numberController,
     required this.neighborhoodController,
     required this.cityController,
-    required this.context,
     required this.stateController,
     required this.onChanged,
   });
@@ -24,59 +27,87 @@ class BusinessAddressFormFieldWidget extends StatelessWidget {
   final TextEditingController numberController;
   final TextEditingController neighborhoodController;
   final TextEditingController cityController;
-  final BuildContext context;
   final TextEditingController stateController;
   final void Function() onChanged;
 
   @override
+  State<BusinessAddressFormFieldWidget> createState() =>
+      _BusinessAddressFormFieldWidgetState();
+}
+
+class _BusinessAddressFormFieldWidgetState
+    extends State<BusinessAddressFormFieldWidget> {
+  bool isControllersFilled() {
+    return widget.streetController.text.isNotEmpty &&
+        widget.numberController.text.isNotEmpty &&
+        widget.neighborhoodController.text.isNotEmpty &&
+        widget.cityController.text.isNotEmpty &&
+        widget.stateController.text.isNotEmpty &&
+        widget.zipCodeController.text.isNotEmpty;
+  }
+
+  void clearControllers() {
+    setState(() {
+      widget.streetController.clear();
+      widget.numberController.clear();
+      widget.neighborhoodController.clear();
+      widget.cityController.clear();
+      widget.stateController.clear();
+      widget.zipCodeController.clear();
+    });
+  }
+
+  void onAddressSelected(AddressModel? value) {
+    if (value == null) {
+      return;
+    }
+    setState(() {
+      widget.zipCodeController.text = value.zipCode;
+      widget.streetController.text = value.street;
+      widget.numberController.text = value.number ?? '';
+      widget.neighborhoodController.text = value.neighborhood;
+      widget.cityController.text = value.city;
+      widget.stateController.text = value.state;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      onChanged: onChanged,
-      key: formKeys[1],
-      child: Column(
-        children: [
-          TextFormField(
-            controller: zipCodeController,
-            decoration: const InputDecoration(labelText: 'CEP'),
-            validator: (value) =>
-                businessCreationController.validateZipCode(value),
-          ),
-          TextFormField(
-            controller: streetController,
-            decoration: const InputDecoration(labelText: 'Rua'),
-            validator: (value) =>
-                businessCreationController.validateAddressStreet(value),
-          ),
-          TextFormField(
-            controller: numberController,
-            decoration: const InputDecoration(labelText: 'Número'),
-            validator: (value) =>
-                businessCreationController.validateAddressNumber(value),
-          ),
-          TextFormField(
-            controller: neighborhoodController,
-            decoration: const InputDecoration(labelText: 'Bairro'),
-            validator: (value) =>
-                businessCreationController.validateNeighborhood(value),
-          ),
-          TextFormField(
-            controller: cityController,
-            decoration: const InputDecoration(labelText: 'Cidade'),
-            validator: (value) =>
-                businessCreationController.validateCity(value),
-          ),
-          DropdownButtonFormField<String>(
-            menuMaxHeight: MediaQuery.of(context).size.height * 0.45,
-            value: stateController.text.isEmpty ? null : stateController.text,
-            decoration: const InputDecoration(labelText: 'Estado'),
-            items: RegistrationUtils().getStatesList(),
-            onChanged: (String? newValue) {
-              stateController.text = newValue ?? '';
-            },
-            validator: (value) =>
-                businessCreationController.validateState(value),
-          ),
-        ],
+      onChanged: widget.onChanged,
+      key: widget.formKeys[1],
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        height: MediaQuery.of(context).size.height * 0.5,
+        child: isControllersFilled()
+            ? Column(
+                children: [
+                  AddressDisplayWidget(
+                      address: AddressModel.create(
+                        zipCode: widget.zipCodeController.text,
+                        street: widget.streetController.text,
+                        number: widget.numberController.text,
+                        neighborhood: widget.neighborhoodController.text,
+                        city: widget.cityController.text,
+                        state: widget.stateController.text,
+                      ),
+                      isEditable: false,
+                      isBusinessAddress: false),
+                  const Gap(16),
+                  ElevatedButton(
+                    onPressed: () {
+                      clearControllers();
+                    },
+                    child: const Text('Alterar endereço'),
+                  ),
+                ],
+              )
+            : AddressSearchWidget(
+                currentAddress: null,
+                onAddressSelected: (value) {
+                  onAddressSelected(value);
+                },
+              ),
       ),
     );
   }

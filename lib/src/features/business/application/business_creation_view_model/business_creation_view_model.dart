@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:project_marba/src/core/utils/input_validation_provider.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:project_marba/src/features/image_picker/application/image_field_controller.dart';
 import 'package:project_marba/src/features/business/application/my_business_list_screen_controller/my_business_list_screen_controller.dart';
@@ -18,69 +20,43 @@ part 'business_creation_view_model.g.dart';
 
 @riverpod
 class BusinessCreationViewModel extends _$BusinessCreationViewModel {
+  late InputValidation inputValidation;
   @override
   BusinessModel? build() {
+    inputValidation = ref.read(inputValidationProvider.notifier);
     return null;
-  }
-
-  dispose() {
-    state = null;
   }
 
   String? validateName(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, insira o nome do seu negócio';
-    }
-    return null;
+    return inputValidation.validateName(value);
   }
 
   String? validatePhoneNumber(String? value) {
-    if (value == null || value.isEmpty || value.length < 15) {
-      return 'Por favor, insira o número de telefone';
-    }
-    return null;
+    return inputValidation.validatePhoneNumber(value);
   }
 
   String? validateAddressStreet(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, insira o nome da rua';
-    }
-    return null;
+    return inputValidation.validateAddressStreet(value);
   }
 
   String? validateAddressNumber(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, insira o número';
-    }
-    return null;
+    return inputValidation.validateAddressNumber(value);
   }
 
   String? validateCity(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, insira a cidade';
-    }
-    return null;
+    return inputValidation.validateAddressCity(value);
   }
 
   String? validateState(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, insira o estado';
-    }
-    return null;
+    return inputValidation.validateAddressState(value);
   }
 
   String? validateZipCode(String? value) {
-    if (value == null || value.isEmpty || value.length < 8) {
-      return 'Por favor, insira o CEP';
-    }
-    return null;
+    return inputValidation.validateAddressZipCode(value);
   }
 
   String? validateNeighborhood(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Por favor, insira o bairro';
-    }
-    return null;
+    return inputValidation.validateAddressNeighborhood(value);
   }
 
   String? validateCategories(Set<BusinessCategory> selectedCategories) {
@@ -91,10 +67,7 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
   }
 
   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty || !value.contains('@')) {
-      return 'Por favor, insira um e-mail válido';
-    }
-    return null;
+    return inputValidation.validateEmail(value);
   }
 
   Future<void> submitForm({
@@ -194,30 +167,52 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
     );
   }
 
-  void showSuccessDialog(BuildContext context, String value) {
-    showDialog(
+  Future<FutureOr<void>> showSuccessDialog(
+      BuildContext context, String value) async {
+    await showDialog(
       context: context,
       builder: (context) {
         return Center(
           child: SizedBox(
             width: MediaQuery.of(context).size.width, // Set the width
-            height: MediaQuery.of(context).size.height * 0.3, // Set the height
+            height: MediaQuery.of(context).size.height * 0.4, // Set the height
             child: AlertDialog(
               title: Column(
                 children: [
                   Center(
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: 'Negócio\n',
-                        style: Theme.of(context).textTheme.bodyMedium,
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: value,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Negócio',
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        const Gap(8),
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundImage: ref
+                                          .read(imageFieldControllerProvider) !=
+                                      null
+                                  ? FileImage(
+                                      ref.read(imageFieldControllerProvider)!)
+                                  : null,
+                            ),
+                            const Gap(8),
+                            Text(
+                              value,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleLarge
+                                  ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -227,13 +222,33 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pop();
                   },
                   child: const Text('Ok'),
                 ),
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Future<FutureOr<void>> showFailureDialog(BuildContext context) async {
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Erro'),
+          content: const Text(
+              'Ocorreu um erro ao criar o negócio. Por favor, tente novamente.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
+          ],
         );
       },
     );

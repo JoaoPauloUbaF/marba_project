@@ -242,30 +242,25 @@ class ConfirmAddressFormState extends ConsumerState<ConfirmAddressForm> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(false);
               },
               child: const Text('Cancelar'),
             ),
             TextButton(
               onPressed: () {
                 if (_formKey.currentState!.validate()) {
-                  ref
-                      .read(addressViewModelProvider.notifier)
-                      .saveOrUpdateAddress(
-                        context: context,
-                        address: widget.address.copyWith(
-                          street: streetController.text,
-                          number: includeNumber ? numberController.text : '',
-                          neighborhood: neighborhoodController.text,
-                          city: cityController.text,
-                          state: stateController.text,
-                          zipCode: zipCodeController.text,
-                          complement: includeComplement
-                              ? complementController.text
-                              : null,
-                          nickname: nicknameController.text,
-                        ),
-                      );
+                  final newAddress = widget.address.copyWith(
+                    street: streetController.text,
+                    number: includeNumber ? numberController.text : '',
+                    neighborhood: neighborhoodController.text,
+                    city: cityController.text,
+                    state: stateController.text,
+                    zipCode: zipCodeController.text,
+                    complement:
+                        includeComplement ? complementController.text : null,
+                    nickname: nicknameController.text,
+                  );
+                  Navigator.of(context).pop(newAddress);
                 }
               },
               child: const Text('Confirmar'),

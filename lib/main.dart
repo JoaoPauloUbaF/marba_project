@@ -26,6 +26,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
+import 'src/features/business/presentation/screens/business_creation_view.dart';
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
 import 'src/features/payment/presentation/views/user_payment_view.dart';
 import 'src/features/business_analysis/presentation/views/business_submission_confirmation_view.dart';
@@ -73,6 +74,7 @@ class MainApp extends ConsumerWidget {
           '/profile-form': (context) => const ProfileFormScreen(),
           '/settings': (context) => const SettingsView(),
           '/business-list': (context) => const MyBusinessesView(),
+          '/business-create': (context) => const BusinessCreationView(),
           '/business-home': (context) => const MyBusinessHomeScreen(),
           '/business-profile': (context) => const BusinessProfileScreen(),
           '/edit-offer': (context) => const EditOfferView(),

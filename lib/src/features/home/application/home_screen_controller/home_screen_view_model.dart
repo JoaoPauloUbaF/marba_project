@@ -5,7 +5,6 @@ import 'package:project_marba/src/features/search/application/search_view_model/
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
-import '../../../user_profile/data/user_profile_provider.dart';
 
 part 'home_screen_view_model.g.dart';
 
@@ -14,7 +13,7 @@ class HomeScreenViewModel extends _$HomeScreenViewModel {
   @override
   HomeScreenState build() {
     ref.watch(authStateChangeProvider);
-    ref.watch(currentUserProvider);
+    // ref.watch(currentUserProvider);
     mockLoading();
     return (HomeScreenState.loading);
   }
@@ -25,7 +24,7 @@ class HomeScreenViewModel extends _$HomeScreenViewModel {
     });
   }
 
-  Future<bool?> hasBusiness() async {
+  bool? thisUserHasBusiness() {
     final user = ref.read(currentUserProvider);
     if (user == null) {
       return false;
