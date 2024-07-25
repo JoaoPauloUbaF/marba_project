@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_tile_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/all_business_offers_button.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_description_widget.dart';

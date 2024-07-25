@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/darkmode/presentation/components/theme_switch_widget.dart';
 import 'package:project_marba/src/features/feed/presentation/screens/feed_view.dart';
-import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/business/presentation/views/my_business_list_screen.dart';
 import 'package:project_marba/src/features/home/presentation/widgets/animated_logo_loading_widget.dart';
 import 'package:project_marba/src/features/orders/presentation/views/user_orders_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/profile_settings_screen.dart';

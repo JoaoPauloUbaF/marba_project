@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../../core/utils/registration_utils.dart';
 import '../../../../../../core/widgets/medium_vertical_space_widget.dart';
 import '../../../../../../core/widgets/modal_center_top_line_widget.dart';
-import '../../../../application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import '../../../../application/business_profile_view_model/business_profile_screen_controller.dart';
 
 class DeliverySettingsModalWidget extends ConsumerStatefulWidget {
   const DeliverySettingsModalWidget({

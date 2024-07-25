@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:project_marba/src/core/utils/input_validation_provider.dart';
-import 'package:project_marba/src/features/location_management/application/address_view_model/address_view_model.dart';
 
 import '../../../../core/models/address/address.dart';
 

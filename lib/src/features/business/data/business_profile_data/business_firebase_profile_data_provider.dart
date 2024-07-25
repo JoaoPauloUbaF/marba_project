@@ -17,40 +17,98 @@ final firestoreBusinessProfileDataProvider =
   return BusinessFirebaseProfileDataProvider();
 });
 
+/// A data provider for managing business profiles in Firebase.
 class BusinessFirebaseProfileDataProvider
     implements BusinessProfileDataRepository {
   final CollectionReference _businessCollection =
       FirebaseFirestore.instance.collection('businesses');
 
+  // *** Business Profile CRUD Operations ***
+
   @override
   Future<DocumentSnapshot?> createBusinessProfile({
     required BusinessModel business,
   }) async {
-    await _businessCollection.doc(business.id).set({
-      'businessName': business.name,
-      'businessNameWords': business.nameWords,
-      'businessEmail': business.email,
-      'businessPhoneNumber': business.phoneNumber,
-      'address': business.address.toJson(),
-      'status': business.status.name.toString(),
-      'businessCategory': business.categories.map((e) => e.name).toList(),
-      'businessCategoriesWords': business.categoriesWords,
-      'offersIds': business.offersIds.toList().asMap(),
-    });
+    await _businessCollection.doc(business.id).set(business.toJson());
     return await _businessCollection.doc(business.id).get();
   }
+
+  @override
+  Future<void> updateBusinessProfile({
+    required BusinessModel business,
+  }) async {
+    await _businessCollection.doc(business.id).update(business.toJson());
+  }
+
+  @override
+  Future<void> deleteBusinessProfile({required String uid}) async {
+    await _businessCollection.doc(uid).delete().then((value) async {
+      await deleteBusinessFolder(uid: uid);
+      log('Business profile deleted');
+    }).catchError((error) {
+      log('Error deleting business profile: $error');
+    });
+  }
+
+  @override
+  Future<BusinessModel?> getBusinessProfileData({required String uid}) async {
+    DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
+    if (docSnapshot.exists) {
+      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+      final business = BusinessModel.fromJson(data);
+      return business;
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<void> deleteBusinessFolder({required String uid}) async {
+    String storagePath = 'business_profile_images/$uid';
+    Reference storageRef = FirebaseStorage.instance.ref().child(storagePath);
+
+    // List all files and folders inside the business folder
+    ListResult result = await storageRef.listAll();
+
+    // Delete all files
+    for (Reference fileRef in result.items) {
+      await fileRef.delete();
+    }
+
+    // Delete all subfolders recursively
+    for (Reference folderRef in result.prefixes) {
+      await deleteFolderContents(folderRef);
+    }
+  }
+
+  Future<void> deleteFolderContents(Reference folderRef) async {
+    // List all files and folders inside the folder
+    ListResult result = await folderRef.listAll();
+
+    // Delete all files
+    for (Reference fileRef in result.items) {
+      await fileRef.delete();
+    }
+
+    // Delete all subfolders recursively
+    for (Reference subfolderRef in result.prefixes) {
+      await deleteFolderContents(subfolderRef);
+    }
+  }
+
+  // *** Business Profile Updates ***
 
   @override
   Future<void> updateBusinessName({
     required String uid,
     required String businessName,
   }) async {
-    await _businessCollection.doc(uid).update({
-      'businessName': businessName,
-    });
-    await _businessCollection.doc(uid).update({
-      'businessNameWords': businessName.toLowerCase().split(' '),
-    });
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(
+        business: business.copyWith(
+            name: businessName,
+            nameWords: businessName.toLowerCase().split(" ")));
   }
 
   @override
@@ -58,9 +116,10 @@ class BusinessFirebaseProfileDataProvider
     required String uid,
     required String businessEmail,
   }) async {
-    await _businessCollection.doc(uid).update({
-      'businessEmail': businessEmail,
-    });
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(
+        business: business.copyWith(email: businessEmail));
   }
 
   @override
@@ -68,9 +127,10 @@ class BusinessFirebaseProfileDataProvider
     required String uid,
     required String businessPhoneNumber,
   }) async {
-    await _businessCollection.doc(uid).update({
-      'businessPhoneNumber': businessPhoneNumber,
-    });
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(
+        business: business.copyWith(phoneNumber: businessPhoneNumber));
   }
 
   @override
@@ -78,9 +138,10 @@ class BusinessFirebaseProfileDataProvider
     required String uid,
     required Map<String, dynamic> address,
   }) async {
-    await _businessCollection.doc(uid).update({
-      'address': address,
-    });
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(
+        business: business.copyWith(address: AddressModel.fromJson(address)));
   }
 
   @override
@@ -88,9 +149,9 @@ class BusinessFirebaseProfileDataProvider
     required String uid,
     required BusinessStatus status,
   }) async {
-    await _businessCollection.doc(uid).update({
-      'status': status.toString().split('.').last,
-    });
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(business: business.copyWith(status: status));
   }
 
   @override
@@ -98,127 +159,72 @@ class BusinessFirebaseProfileDataProvider
     required String uid,
     required List<BusinessCategory> businessCategories,
   }) async {
-    await _businessCollection.doc(uid).update({
-      'businessCategory': businessCategories.map((e) => e.name).toList(),
-    });
     final businessCategoriesWords = businessCategories
         .map((e) =>
             removeDiacritics(getBusinessCategoryTranslation(e).toLowerCase()))
         .toSet();
-    await _businessCollection.doc(uid).update({
-      'businessCategoriesWords': businessCategoriesWords,
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(
+        business: business.copyWith(
+            categories: businessCategories.toSet(),
+            categoriesWords: businessCategoriesWords));
+  }
+
+  @override
+  Future<void> updateBusinessOpeningHours({
+    required String uid,
+    required openingHours,
+  }) {
+    return _businessCollection.doc(uid).update({
+      'openingHours': openingHours,
     });
   }
 
   @override
-  Future<void> deleteBusinessProfile({required String uid}) async {
-    await _businessCollection.doc(uid).delete();
-  }
-
-  @override
-  Future<BusinessModel?> getBusinessProfileData({required String uid}) async {
-    DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
-
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
-      final categories = (data['businessCategory'] as List<dynamic>)
-          .map((e) {
-            return BusinessCategory.values.firstWhere(
-              (element) => element.toString().split('.').last == e,
-              orElse: () => BusinessCategory
-                  .other, // Handle case when enum value is not found
-            );
-          })
-          .where((element) => true)
-          .toSet();
-
-      final offersIds = (data['offersIds'] as Map<String, dynamic>)
-          .values
-          .toSet()
-          .cast<String>();
-
-      return BusinessModel(
-        id: uid,
-        name: data['businessName'],
-        email: data['businessEmail'],
-        phoneNumber: data['businessPhoneNumber'],
-        address: AddressModel.fromJson(data['address']),
-        status: BusinessStatus.values.firstWhere(
-          (e) => e.toString().split('.').last == data['status'],
-        ),
-        categories: categories.toSet(),
-        offersIds: offersIds,
-        imageUrl: data['profileImageUrl'],
-        deliveryFee: data['deliveryFee'] ?? 5.0,
-      );
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  Future<void> updateBusinessOffers(
-      {required String uid, required Set<String> offersIds}) {
+  Future<void> updateBusinessOffers({
+    required String uid,
+    required Set<String> offersIds,
+  }) {
     return _businessCollection.doc(uid).update({
       'offersIds': offersIds.toList(),
     });
   }
 
   @override
-  Future<void> updateBusinessProfileImage(
-      {required String uid, required File imageFile}) async {
+  Future<void> updateBusinessProfileImage({
+    required String uid,
+    required File imageFile,
+  }) async {
     String storagePath = 'business_profile_images/$uid/profileImage';
     Reference storageRef = FirebaseStorage.instance.ref().child(storagePath);
     UploadTask uploadTask = storageRef.putFile(imageFile);
     TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
     String downloadUrl = await taskSnapshot.ref.getDownloadURL();
-    DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
-      if (data.containsKey('profileImageUrl')) {
-        // Update 'profileImageUrl' field
-        await _businessCollection.doc(uid).update({
-          'profileImageUrl': downloadUrl,
-        }).whenComplete(
-            () => log(_businessCollection.doc(uid).get().toString()));
-      } else {
-        // Add 'profileImageUrl' field
-        await _businessCollection.doc(uid).update({
-          'profileImageUrl': downloadUrl,
-        });
-      }
-    } else {
-      log('Document does not exist');
-    }
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    await updateBusinessProfile(
+      business: business.copyWith(profileImageUrl: downloadUrl),
+    );
   }
 
   @override
-  Future<double> getBusinessDeliveryFee(businessId) async {
-    try {
-      final docSnapshot = await _businessCollection.doc(businessId).get();
-      if (docSnapshot.exists) {
-        final data = docSnapshot.data() as Map<String, dynamic>;
-        return data['deliveryFee'] ?? 0.0;
-      } else {
-        return 0.0;
-      }
-    } catch (e) {
-      log('Error getting delivery fee: $e');
-      return 0.0;
-    }
-  }
-
-  @override
-  Future<void> updateBusinessDelivery(
-      {required String uid, required double deliveryFee}) {
+  Future<void> updateBusinessDelivery({
+    required String uid,
+    required double deliveryFee,
+  }) {
     return _businessCollection.doc(uid).update({
       'deliveryFee': deliveryFee,
     });
   }
 
+  // *** Business Queries ***
+
   @override
-  Future<List<BusinessModel>?> queryBusinessAt(
-      {required String queryStr, required String city}) async {
+  Future<List<BusinessModel>?> queryBusinessAt({
+    required String queryStr,
+    required String city,
+  }) async {
     List<BusinessModel> businesses = [];
 
     final businessByName =
@@ -244,13 +250,15 @@ class BusinessFirebaseProfileDataProvider
   }
 
   @override
-  Future<List<BusinessModel>?> queryBusinessesByCategory(
-      {required String city, required List<String> categories}) {
+  Future<List<BusinessModel>?> queryBusinessesByCategory({
+    required String city,
+    required List<String> categories,
+  }) {
     if (categories.isEmpty) {
       return Future(() => null);
     }
     Query query = _businessCollection
-        .where('businessCategory', arrayContainsAny: categories)
+        .where('categories', arrayContainsAny: categories)
         .where('address.city', isEqualTo: city);
 
     return getBusinesses(query: query);
@@ -264,37 +272,10 @@ class BusinessFirebaseProfileDataProvider
       }
       final businesses = querySnapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        final categories = (data['businessCategory'] as List<dynamic>)
-            .map((e) {
-              return BusinessCategory.values.firstWhere(
-                (element) => element.toString().split('.').last == e,
-                orElse: () => BusinessCategory
-                    .other, // Handle case when enum value is not found
-              );
-            })
-            .where((element) => true)
-            .toSet();
-
-        final offersIds = (data['offersIds'] as Map<String, dynamic>)
-            .values
-            .toSet()
-            .cast<String>();
-
-        return BusinessModel(
-          id: doc.id,
-          name: data['businessName'],
-          email: data['businessEmail'],
-          phoneNumber: data['businessPhoneNumber'],
-          address: AddressModel.fromJson(data['address']),
-          status: BusinessStatus.values.firstWhere(
-            (e) => e.toString().split('.').last == data['status'],
-          ),
-          categories: categories.toSet(),
-          offersIds: offersIds,
-          imageUrl: data['profileImageUrl'],
-          deliveryFee: data['deliveryFee'] ?? 5.0,
-        );
+        final business = BusinessModel.fromJson(data);
+        return business;
       }).toList();
+
       return businesses;
     });
   }
@@ -302,18 +283,36 @@ class BusinessFirebaseProfileDataProvider
   @override
   getBusinessesAt({required String city}) async {
     Query query = _businessCollection.where('address.city', isEqualTo: city);
-
     return await getBusinesses(query: query);
   }
 
   @override
-  Future<List<BusinessModel>?> queryBusinessesByName(
-      {required String city, required String queryStr}) {
+  Future<List<BusinessModel>?> queryBusinessesByName({
+    required String city,
+    required String queryStr,
+  }) {
     Query query = _businessCollection
-        .where('businessNameWords',
-            arrayContainsAny: queryStr.toLowerCase().split(" "))
+        .where('nameWords', arrayContainsAny: queryStr.toLowerCase().split(" "))
         .where('address.city', isEqualTo: city);
 
     return getBusinesses(query: query);
+  }
+
+  // *** Business Delivery Fee ***
+
+  @override
+  Future<double> getBusinessDeliveryFee(businessId) async {
+    try {
+      final docSnapshot = await _businessCollection.doc(businessId).get();
+      if (docSnapshot.exists) {
+        final data = docSnapshot.data() as Map<String, dynamic>;
+        return data['deliveryFee'] ?? 0.0;
+      } else {
+        return 0.0;
+      }
+    } catch (e) {
+      log('Error getting delivery fee: $e');
+      return 0.0;
+    }
   }
 }

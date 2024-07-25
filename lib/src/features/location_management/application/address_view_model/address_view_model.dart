@@ -10,7 +10,7 @@ import 'package:project_marba/src/features/location_management/application/user_
 import 'package:project_marba/src/features/location_management/presentation/widgets/confirm_address_form.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import '../../../business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import '../../../shopping/application/delivery_address_provider/delivery_address_provider.dart';
 import '../../../user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import '../../../user_profile/data/user_profile_provider.dart';

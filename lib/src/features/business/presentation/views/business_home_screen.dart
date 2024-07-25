@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_dashboard_view.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_offers_screen.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_settings_view.dart';
+import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_dashboard_view.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_offers_screen.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_profile_view.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_settings_view.dart';
+
+import '../widgets/business_profile/business_info_dialog.dart';
 
 class MyBusinessHomeScreen extends ConsumerStatefulWidget {
   const MyBusinessHomeScreen({super.key});
@@ -17,7 +19,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   int _selectedIndex = 0; //TODO: search on business products
 
   static final List<Widget> _widgetOptions = <Widget>[
-    const BusinessProfileScreen(),
+    const BusinessProfileView(),
     const BusinessDashboardView(),
     const MyBusinessOffersScreen(),
     const BusinessSettingsView(),
@@ -34,11 +36,11 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
         automaticallyImplyLeading: true,
         actions: [
           IconButton(
-            icon: Icon(Icons.home_sharp,
+            icon: Icon(Icons.info_outline,
                 color: Theme.of(context).colorScheme.primary),
             onPressed: () {
-              viewController.dispose();
-              Navigator.pushNamed(context, '/home');
+              showDialog(
+                  context: context, builder: (_) => const BusinessInfoDialog());
             },
           ),
         ],

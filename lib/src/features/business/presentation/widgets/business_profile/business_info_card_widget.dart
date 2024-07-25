@@ -1,8 +1,7 @@
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
-import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_category_tiles_widget.dart';
+import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 
 class BusinessContactInfoCardWidget extends ConsumerWidget {
@@ -19,10 +18,7 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
         ? Card(
             margin: EdgeInsets.zero,
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: SizedBox(
               width: double.infinity,
@@ -31,8 +27,6 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
                 children: <Widget>[
                   const SizedBox(height: 8),
                   BusinessPhoneAndEmail(business: business),
-                  const SizedBox(height: 8),
-                  BusinessCategoryTilesWidget(),
                   const SizedBox(height: 8),
                 ],
               ),
@@ -41,10 +35,7 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
         : Card(
             margin: EdgeInsets.zero,
             shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: SizedBox(
               width: double.infinity,
@@ -53,8 +44,6 @@ class BusinessContactInfoCardWidget extends ConsumerWidget {
                 children: <Widget>[
                   const SizedBox(height: 8),
                   BusinessPhoneAndEmail(business: business),
-                  const SizedBox(height: 8),
-                  BusinessCategoryTilesWidget(),
                   const SizedBox(height: 8),
                 ],
               ),
@@ -97,7 +86,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
       children: [
         const Spacer(),
         InkWell(
-          onTap: () {
+          onLongPress: () {
             viewController
                 .isThisBusinessOwner()
                 .then((value) => setState(() => isEditingPhone = value));
@@ -111,7 +100,8 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
               const SizedBox(width: 4),
               isEditingPhone
                   ? SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: 35,
                       child: TextFormField(
                         style: Theme.of(context).textTheme.bodySmall,
                         decoration: InputDecoration(
@@ -121,6 +111,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
                               const EdgeInsets.symmetric(horizontal: 4),
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.check),
+                            iconSize: 20,
                             onPressed: () {
                               setState(() {
                                 viewController.updateBusinessPhoneNumber(
@@ -142,7 +133,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
         ),
         const Spacer(),
         InkWell(
-          onTap: () {
+          onLongPress: () {
             viewController
                 .isThisBusinessOwner()
                 .then((value) => setState(() => isEditingEmail = value));
@@ -156,7 +147,8 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
               const SizedBox(width: 4),
               isEditingEmail
                   ? SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: 35,
                       child: TextFormField(
                         style: Theme.of(context).textTheme.bodySmall,
                         decoration: InputDecoration(
@@ -166,6 +158,7 @@ class _BusinessPhoneAndEmailState extends ConsumerState<BusinessPhoneAndEmail> {
                               const EdgeInsets.symmetric(horizontal: 4),
                           suffixIcon: IconButton(
                             icon: const Icon(Icons.check),
+                            iconSize: 20,
                             onPressed: () {
                               setState(() {
                                 viewController

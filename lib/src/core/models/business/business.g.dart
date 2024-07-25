@@ -19,15 +19,24 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
           .toSet(),
       offersIds:
           (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
-      deliveryFee: (json['deliveryFee'] as num).toDouble(),
+      deliveryFee: (json['deliveryFee'] as num?)?.toDouble(),
+      minimumOrderValue: (json['minimumOrderValue'] as num?)?.toDouble(),
+      deliveryTime: (json['deliveryTime'] as List<dynamic>?)
+          ?.map((e) => (e as num).toDouble())
+          .toSet(),
+      openingHours: (json['openingHours'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      profileImageUrl: json['profileImageUrl'] as String?,
       categoriesWords: (json['categoriesWords'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
-      rating: (json['rating'] as num?)?.toDouble(),
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       nameWords: (json['nameWords'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
@@ -41,7 +50,6 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
     'categories':
         instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
     'offersIds': instance.offersIds.toList(),
-    'deliveryFee': instance.deliveryFee,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -50,10 +58,14 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
     }
   }
 
+  writeNotNull('deliveryFee', instance.deliveryFee);
+  writeNotNull('minimumOrderValue', instance.minimumOrderValue);
+  writeNotNull('deliveryTime', instance.deliveryTime?.toList());
+  writeNotNull('openingHours', instance.openingHours);
+  writeNotNull('profileImageUrl', instance.profileImageUrl);
   writeNotNull('categoriesWords', instance.categoriesWords?.toList());
-  writeNotNull('rating', instance.rating);
+  writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
   writeNotNull('nameWords', instance.nameWords);
-  writeNotNull('imageUrl', instance.imageUrl);
   return val;
 }
 
@@ -63,7 +75,6 @@ const _$BusinessStatusEnumMap = {
   BusinessStatus.pending: 'pending',
   BusinessStatus.rejected: 'rejected',
   BusinessStatus.suspended: 'suspended',
-  BusinessStatus.deleted: 'deleted',
 };
 
 const _$BusinessCategoryEnumMap = {

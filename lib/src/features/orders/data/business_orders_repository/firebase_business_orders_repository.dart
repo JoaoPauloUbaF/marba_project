@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/business_order_item.dart';
 import 'package:project_marba/src/core/models/order/business_order_model.dart';
-import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository.dart';
 
 class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {

@@ -13,7 +13,7 @@ import '../../../../core/models/product/enums.dart';
 import '../../../../core/models/product/product.dart';
 import '../../../../core/models/service/enums.dart';
 import '../../../../core/models/service/service.dart';
-import '../../../business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import '../../../business/application/business_profile_view_model/business_profile_screen_controller.dart';
 
 part 'offer_creation_controller.g.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_offers_screen.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_offers_screen.dart';
 
 class AllBusinessOffersButton extends StatelessWidget {
   const AllBusinessOffersButton({

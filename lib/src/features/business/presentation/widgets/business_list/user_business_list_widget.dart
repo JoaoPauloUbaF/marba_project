@@ -44,7 +44,8 @@ class UserBusinessListWidget extends ConsumerWidget {
                   child: Card(
                     child: ListTile(
                       leading: CircleAvatar(
-                        backgroundImage: NetworkImage(business?.imageUrl ?? ''),
+                        backgroundImage:
+                            NetworkImage(business?.profileImageUrl ?? ''),
                       ),
                       title: Text(business?.name ?? ''),
                       onTap: () => myBusinessListController.onTapBusiness(

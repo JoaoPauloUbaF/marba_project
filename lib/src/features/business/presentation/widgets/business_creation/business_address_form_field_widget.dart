@@ -94,11 +94,21 @@ class _BusinessAddressFormFieldWidgetState
                       isEditable: false,
                       isBusinessAddress: false),
                   const Gap(16),
-                  ElevatedButton(
-                    onPressed: () {
-                      clearControllers();
-                    },
-                    child: const Text('Alterar endereço'),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        clearControllers();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                      ),
+                      child: Text('Alterar endereço',
+                          style: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.onSecondary)),
+                    ),
                   ),
                 ],
               )

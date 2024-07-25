@@ -177,7 +177,11 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
             width: MediaQuery.of(context).size.width, // Set the width
             height: MediaQuery.of(context).size.height * 0.4, // Set the height
             child: AlertDialog(
-              title: Column(
+              title: Text(
+                'Negócio',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              content: Column(
                 children: [
                   Center(
                     child: Column(
@@ -189,15 +193,15 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
                         const Gap(8),
                         Row(
                           children: [
-                            CircleAvatar(
-                              radius: 20,
-                              backgroundImage: ref
-                                          .read(imageFieldControllerProvider) !=
-                                      null
-                                  ? FileImage(
-                                      ref.read(imageFieldControllerProvider)!)
-                                  : null,
-                            ),
+                            // CircleAvatar(
+                            //   radius: 20,
+                            //   backgroundImage: ref
+                            //               .read(imageFieldControllerProvider) !=
+                            //           null
+                            //       ? FileImage(
+                            //           ref.read(imageFieldControllerProvider)!)
+                            //       : null,
+                            // ),
                             const Gap(8),
                             Text(
                               value,
@@ -212,12 +216,12 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
                             ),
                           ],
                         ),
+                        const Center(child: Text('Criado com sucesso!')),
                       ],
                     ),
                   )
                 ],
               ),
-              content: const Center(child: Text('Criado com sucesso!')),
               actions: [
                 TextButton(
                   onPressed: () {

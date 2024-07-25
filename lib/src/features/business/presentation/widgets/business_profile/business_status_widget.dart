@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
 
 class BusinessStatusWidget extends ConsumerWidget {
   const BusinessStatusWidget({super.key});
@@ -10,11 +10,8 @@ class BusinessStatusWidget extends ConsumerWidget {
     Map<String, String> statusTranslations = {
       'open': 'Aberto',
       'closed': 'Fechado',
-      'pending': 'Pendente',
-      'rejected': 'Rejeitado',
-      'suspended': 'Suspenso',
-      'deleted': 'Deletado',
     };
+
     final businessProfileViewModel =
         ref.read(businessProfileViewModelProvider.notifier);
     final business = ref.watch(businessProfileViewModelProvider);
@@ -22,8 +19,24 @@ class BusinessStatusWidget extends ConsumerWidget {
     final String businessStatus =
         business?.status.toString().split('.').last ?? '';
 
+    if (businessProfileViewModel.isOwner) {
+      statusTranslations = {
+        ...statusTranslations,
+        'rejected': 'Rejeitado',
+        'suspended': 'Suspenso',
+        'deleted': 'Deletado',
+        'pending': 'Pendente',
+      };
+    }
+
+    if (!businessProfileViewModel.isOwner &&
+        businessStatus != 'open' &&
+        businessStatus != 'closed') {
+      return const SizedBox.shrink();
+    }
+
     final String businessStatusTranslated =
-        statusTranslations[businessStatus] ?? businessStatus;
+        statusTranslations[businessStatus] ?? '';
 
     final Color businessStatusColor =
         businessProfileViewModel.getBusinessStatusColor();
@@ -43,10 +56,13 @@ class BusinessStatusWidget extends ConsumerWidget {
                             child: Text(status),
                           ))
                       .toList(),
-                  onChanged: (value) {
-                    ref
+                  onChanged: (value) async {
+                    await ref
                         .read(businessProfileViewModelProvider.notifier)
-                        .changeBusinessStatus(status: value!);
+                        .changeBusinessStatus(status: value!)
+                        .then(
+                          (value) => Navigator.of(context).pop(),
+                        );
                   },
                 ),
                 actions: [
@@ -58,32 +74,21 @@ class BusinessStatusWidget extends ConsumerWidget {
               ),
             )
           : null,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor.withAlpha(100),
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(20),
+      child: Row(
+        children: [
+          Icon(
+            Icons.circle,
+            size: 12,
+            color: businessStatusColor,
           ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Icon(
-                Icons.circle,
-                size: 12,
-                color: businessStatusColor,
-              ),
-              const SizedBox(width: 2),
-              Text(
-                businessStatusTranslated,
-                style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                      color: businessStatusColor,
-                    ),
-              ),
-            ],
+          const SizedBox(width: 2),
+          Text(
+            businessStatusTranslated,
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: businessStatusColor,
+                ),
           ),
-        ),
+        ],
       ),
     );
   }

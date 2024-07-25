@@ -8,12 +8,12 @@ import 'package:project_marba/src/features/authentication/presentation/screens/s
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_marba/src/features/home/presentation/views/home_view.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_home_screen.dart';
-import 'package:project_marba/src/features/business/presentation/screens/business_profile_screen.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_home_screen.dart';
+import 'package:project_marba/src/features/business/presentation/views/business_profile_view.dart';
 import 'package:project_marba/src/features/location_management/application/current_location_provider/current_location_provider.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_list_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/views/edit_offer_view.dart';
-import 'package:project_marba/src/features/business/presentation/screens/my_business_list_screen.dart';
+import 'package:project_marba/src/features/business/presentation/views/my_business_list_screen.dart';
 import 'package:project_marba/src/features/offers_management/presentation/views/offer_details_view.dart';
 import 'package:project_marba/src/features/orders/presentation/views/checkout_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/address_view.dart';
@@ -26,7 +26,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:firebase_ui_localizations/firebase_ui_localizations.dart';
 import 'package:firebase_ui_auth/src/providers/email_auth_provider.dart'
     as email_auth;
-import 'src/features/business/presentation/screens/business_creation_view.dart';
+import 'src/features/business/presentation/views/business_creation_view.dart';
 import 'src/features/orders/presentation/views/user_order_details_view.dart';
 import 'src/features/payment/presentation/views/user_payment_view.dart';
 import 'src/features/business_analysis/presentation/views/business_submission_confirmation_view.dart';
@@ -76,7 +76,7 @@ class MainApp extends ConsumerWidget {
           '/business-list': (context) => const MyBusinessesView(),
           '/business-create': (context) => const BusinessCreationView(),
           '/business-home': (context) => const MyBusinessHomeScreen(),
-          '/business-profile': (context) => const BusinessProfileScreen(),
+          '/business-profile': (context) => const BusinessProfileView(),
           '/edit-offer': (context) => const EditOfferView(),
           '/offer-details': (context) => const OfferDetailsView(),
           '/shopping-cart': (context) => const ShoppingCartScreen(),

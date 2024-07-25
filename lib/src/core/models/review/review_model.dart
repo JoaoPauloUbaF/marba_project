@@ -5,7 +5,7 @@ part 'review_model.g.dart';
 
 @freezed
 class ReviewModel with _$ReviewModel {
-  factory ReviewModel({
+  const factory ReviewModel.offer({
     required String id,
     required String userId,
     required String offerId,
@@ -13,7 +13,17 @@ class ReviewModel with _$ReviewModel {
     required double rating,
     required DateTime createdAt,
     required DateTime updatedAt,
-  }) = _ReviewModel;
+  }) = _ReviewModelOffer;
+
+  const factory ReviewModel.business({
+    required String id,
+    required String userId,
+    required String businessId,
+    required String review,
+    required double rating,
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) = _ReviewModelBusiness;
 
   factory ReviewModel.fromJson(Map<String, dynamic> json) =>
       _$ReviewModelFromJson(json);

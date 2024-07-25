@@ -24,7 +24,7 @@ class AddressDisplayWidget extends ConsumerWidget {
 
     return Card(
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
         onTap: isEditable
             ? () => addressViewModel.onAddressTileTap(
                 context, address, isBusinessAddress)
@@ -32,12 +32,13 @@ class AddressDisplayWidget extends ConsumerWidget {
         leading: const Icon(Icons.location_on_sharp),
         title: Text(
           '${address.street}, ${address.number}, ${address.neighborhood}',
-          style: textTheme.titleMedium,
+          style: textTheme.titleSmall,
         ),
         subtitle: Text(
           '${address.city} - ${address.state}',
-          style: textTheme.bodyMedium,
+          style: textTheme.bodySmall,
         ),
+        horizontalTitleGap: 4,
         trailing: IconButton(
           padding: EdgeInsets.zero,
           onPressed: () => {

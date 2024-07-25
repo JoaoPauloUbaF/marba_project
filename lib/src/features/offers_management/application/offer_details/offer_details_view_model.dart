@@ -4,7 +4,7 @@ import 'package:project_marba/src/features/user_profile/data/user_profile_provid
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
-import '../../../business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import '../../../business/application/business_profile_view_model/business_profile_screen_controller.dart';
 
 part 'offer_details_view_model.g.dart';
 

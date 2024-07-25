@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../screens/business_profile_screen.dart';
+import '../../views/business_profile_view.dart';
 
 class BusinessDetailsModalBodyWidget extends StatelessWidget {
   const BusinessDetailsModalBodyWidget({
@@ -20,7 +20,7 @@ class BusinessDetailsModalBodyWidget extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
         child: Scaffold(
-          body: const BusinessProfileScreen(),
+          body: const BusinessProfileView(),
           appBar: AppBar(
             title: Text(businessName),
           ),

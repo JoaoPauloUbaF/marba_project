@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project_marba/src/core/models/business/enums.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_profile/business_opening_hours_update_dialog.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/edit_business_categories_dialog_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
@@ -47,7 +48,19 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
         .getBusinessProfileData(uid: state!.id);
     if (business != null) {
       state = business;
+      await isThisBusinessOwner();
     }
+  }
+
+  String getReviewsRating() {
+    final reviews = state?.reviews;
+    if (reviews == null || reviews.isEmpty) {
+      return '--';
+    }
+
+    double totalRating =
+        reviews.fold(0.0, (sum, review) => sum + review.rating);
+    return (totalRating / reviews.length).toString();
   }
 
   Color getBusinessStatusColor() {
@@ -62,14 +75,14 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
         return Colors.red;
       case BusinessStatus.suspended:
         return Colors.amber;
-      case BusinessStatus.deleted:
-        return Colors.black;
+
       default:
         return Colors.black;
     }
   }
 
   Future<void> updateBusinessProfileImage() async {
+    if (!isOwner) return;
     final image = await pickNewBusinessProfileImage();
     if (image == null) {
       return;
@@ -100,52 +113,6 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     return null;
   }
 
-  Future<Widget> getBusinessProfileImage({required double width}) async {
-    return Stack(
-      children: [
-        state?.imageUrl != null
-            ? Image(
-                width: width,
-                height: width * (3 / 4),
-                loadingBuilder: (context, child, loadingProgress) =>
-                    loadingProgress == null
-                        ? child
-                        : const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                fit: BoxFit.fill,
-                image: NetworkImage(
-                  state?.imageUrl ?? '',
-                ),
-              )
-            : InkWell(
-                onTap: () => updateBusinessProfileImage(),
-                child: SizedBox(
-                  width: width,
-                  child: const Icon(Icons.add_a_photo_sharp, size: 100),
-                ),
-              ),
-        if (await isThisBusinessOwner() && state?.imageUrl != null)
-          Positioned(
-            bottom: 20,
-            right: 10,
-            child: InkWell(
-              onTap: () => updateBusinessProfileImage(),
-              child: const Icon(
-                Icons.add_a_photo,
-                shadows: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 10,
-                  )
-                ],
-              ),
-            ),
-          ),
-      ],
-    );
-  }
-
   Future<bool> isThisBusinessOwner({String? businessId}) async {
     //TODO: refactor usages
     businessId ??= state?.id;
@@ -174,16 +141,15 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
         .then((value) => fetchBusinessProfile());
   }
 
-  void changeBusinessStatus({required String status}) {
+  Future<void> changeBusinessStatus({required String status}) async {
     final statusMap = {
       'Aberto': BusinessStatus.open,
       'Fechado': BusinessStatus.closed,
       'Pendente': BusinessStatus.pending,
       'Rejeitado': BusinessStatus.rejected,
       'Suspenso': BusinessStatus.suspended,
-      'Deletado': BusinessStatus.deleted,
     };
-    ref
+    await ref
         .read(businessProfileDataProvider)
         .updateBusinessStatus(
           uid: state?.id ?? '',
@@ -274,6 +240,88 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
         );
       },
     );
+  }
+
+  int? getReviewsNumber() {
+    return state?.reviews?.length;
+  }
+
+  String getDeliveryTimeStr() {
+    final deliveryTime = state?.deliveryTime;
+    if (deliveryTime == null) {
+      return '--';
+    }
+    return '${deliveryTime.first} - ${deliveryTime.last} min';
+  }
+
+  String getDeliveryCostStr() {
+    final deliveryFee = state?.deliveryFee;
+    if (deliveryFee == null) {
+      return '--';
+    }
+    return 'R\$ ${deliveryFee.toStringAsFixed(2)}';
+  }
+
+  String getMinimumOrderValueStr() {
+    final minimumOrderValue = state?.minimumOrderValue;
+    if (minimumOrderValue == null) {
+      return '--';
+    }
+    return 'R\$ ${minimumOrderValue.toStringAsFixed(2)}';
+  }
+
+  Set<String> getOpeningHours() {
+    final openingHoursSet = <String>{};
+    final schedule = state?.openingHours;
+    if (schedule == null) {
+      return {};
+    }
+
+    final sortedKeys = weekDays.keys.where(schedule.containsKey).toList();
+
+    for (var key in sortedKeys) {
+      openingHoursSet.add('$key: ${schedule[key]}');
+    }
+
+    return openingHoursSet;
+  }
+
+  Future<void> showUpdateOpeningHoursDialog(BuildContext context) async {
+    if (!isOwner) return;
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return BusinessOpeningHoursUpdateDialog(
+          openingHours: state?.openingHours ?? {},
+        );
+      },
+    ).then((value) async {
+      if (value == null) return;
+      await ref
+          .read(businessProfileDataProvider)
+          .updateBusinessOpeningHours(
+            uid: state?.id ?? '',
+            openingHours: value,
+          )
+          .then((_) => fetchBusinessProfile());
+    }).catchError((e) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Houve um erro ao atualizar os horários'),
+              content: Text(e.toString()),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Fechar'),
+                ),
+              ],
+            );
+          });
+    });
   }
 }
 

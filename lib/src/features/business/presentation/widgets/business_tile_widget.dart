@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/features/business/application/business_profile_screen_controller/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/data/business_profile_data/business_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 
@@ -37,7 +37,8 @@ class BusinessTileWidget extends ConsumerWidget {
                     CircleAvatar(
                       radius: 20,
                       backgroundImage: NetworkImage(
-                        business.imageUrl ?? 'https://via.placeholder.com/150',
+                        business.profileImageUrl ??
+                            'https://via.placeholder.com/150',
                       ),
                     ),
                     const SizedBox(width: 8),
