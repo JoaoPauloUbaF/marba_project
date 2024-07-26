@@ -19,13 +19,14 @@ class BusinessOpeningHoursWidget extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const Gap(8),
               Text('Horários de funcionamento',
                   style: Theme.of(context).textTheme.titleMedium),
-              const Gap(8),
+              const Spacer(),
               Icon(Icons.schedule,
                   size: 20, color: Theme.of(context).colorScheme.tertiary),
+              const Gap(16),
             ],
           ),
         ),

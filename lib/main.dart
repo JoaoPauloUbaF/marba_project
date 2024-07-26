@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
+import 'package:project_marba/src/features/business/presentation/widgets/business_modal_body/business_modal_body_widget.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:project_marba/src/features/home/presentation/views/home_view.dart';
@@ -63,8 +64,8 @@ class MainApp extends ConsumerWidget {
         themeAnimationDuration: const Duration(milliseconds: 500),
         debugShowCheckedModeBanner: false,
         title: 'Onktem', //Onktem
-        theme: MaterialTheme(textTheme).light(),
-        darkTheme: MaterialTheme(textTheme).dark(),
+        theme: MaterialTheme(textTheme).lightMediumContrast(),
+        darkTheme: MaterialTheme(textTheme).darkMediumContrast(),
         themeMode: ref.watch(darkModeProvider),
         initialRoute: '/home',
         routes: {

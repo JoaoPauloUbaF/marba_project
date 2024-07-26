@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../views/business_profile_view.dart';
 
-class BusinessDetailsModalBodyWidget extends StatelessWidget {
-  const BusinessDetailsModalBodyWidget({
+class BusinessDetailsBodyWidget extends StatelessWidget {
+  const BusinessDetailsBodyWidget({
     super.key,
     required this.businessName,
   });

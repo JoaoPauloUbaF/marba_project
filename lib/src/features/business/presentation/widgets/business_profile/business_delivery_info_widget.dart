@@ -17,57 +17,61 @@ class BusinessDeliveryInfoWidget extends ConsumerWidget {
     final minimumOrderValue = viewModel.getMinimumOrderValueStr();
 
     return Expanded(
-      child: Card(
-        color: Theme.of(context).colorScheme.onInverseSurface,
-        child: SizedBox(
-          height: 45,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.timer,
-                      size: 16, color: Theme.of(context).colorScheme.tertiary),
-                  const Gap(4),
-                  Text(
-                    deliveryTimeStr,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                  ),
-                  const Gap(8),
-                  Icon(
-                    Icons.delivery_dining,
-                    size: 16,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
-                  const Gap(4),
-                  Text(
-                    deliveryCostStr,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                  ),
-                ],
-              ),
-              const Gap(4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Pedido mínimo',
-                      style: Theme.of(context).textTheme.bodySmall),
-                  const Gap(8),
-                  Text(
-                    minimumOrderValue,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                  ),
-                ],
-              ),
-            ],
+      child: InkWell(
+        onLongPress: () => viewModel.showDeliveryUpdateDialog(context),
+        child: Card(
+          color: Theme.of(context).colorScheme.onInverseSurface,
+          child: SizedBox(
+            height: 45,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.timer,
+                        size: 16,
+                        color: Theme.of(context).colorScheme.tertiary),
+                    const Gap(4),
+                    Text(
+                      deliveryTimeStr,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                    const Gap(8),
+                    Icon(
+                      Icons.delivery_dining,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
+                    const Gap(4),
+                    Text(
+                      deliveryCostStr,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                    ),
+                  ],
+                ),
+                const Gap(4),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Pedido mínimo',
+                        style: Theme.of(context).textTheme.bodySmall),
+                    const Gap(8),
+                    Text(
+                      minimumOrderValue,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

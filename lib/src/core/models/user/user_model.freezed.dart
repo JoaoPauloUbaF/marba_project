@@ -30,6 +30,7 @@ mixin _$UserModel {
   List<String>? get searchHistory => throw _privateConstructorUsedError;
   Cart? get cart => throw _privateConstructorUsedError;
   List<CreditCardModel>? get creditCards => throw _privateConstructorUsedError;
+  List<ReviewModel>? get reviews => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -51,7 +52,8 @@ abstract class $UserModelCopyWith<$Res> {
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
       Cart? cart,
-      List<CreditCardModel>? creditCards});
+      List<CreditCardModel>? creditCards,
+      List<ReviewModel>? reviews});
 
   $CartCopyWith<$Res>? get cart;
 }
@@ -78,6 +80,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? searchHistory = freezed,
     Object? cart = freezed,
     Object? creditCards = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -116,6 +119,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.creditCards
           : creditCards // ignore: cast_nullable_to_non_nullable
               as List<CreditCardModel>?,
+      reviews: freezed == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewModel>?,
     ) as $Val);
   }
 
@@ -149,7 +156,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       Set<String>? favoriteOfferIds,
       List<String>? searchHistory,
       Cart? cart,
-      List<CreditCardModel>? creditCards});
+      List<CreditCardModel>? creditCards,
+      List<ReviewModel>? reviews});
 
   @override
   $CartCopyWith<$Res>? get cart;
@@ -175,6 +183,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? searchHistory = freezed,
     Object? cart = freezed,
     Object? creditCards = freezed,
+    Object? reviews = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -213,6 +222,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value._creditCards
           : creditCards // ignore: cast_nullable_to_non_nullable
               as List<CreditCardModel>?,
+      reviews: freezed == reviews
+          ? _value._reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as List<ReviewModel>?,
     ));
   }
 }
@@ -229,12 +242,14 @@ class _$UserModelImpl extends _UserModel {
       final Set<String>? favoriteOfferIds,
       final List<String>? searchHistory,
       this.cart,
-      final List<CreditCardModel>? creditCards})
+      final List<CreditCardModel>? creditCards,
+      final List<ReviewModel>? reviews})
       : _deliveryAddresses = deliveryAddresses,
         _ownedBusinessIds = ownedBusinessIds,
         _favoriteOfferIds = favoriteOfferIds,
         _searchHistory = searchHistory,
         _creditCards = creditCards,
+        _reviews = reviews,
         super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -300,9 +315,19 @@ class _$UserModelImpl extends _UserModel {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<ReviewModel>? _reviews;
+  @override
+  List<ReviewModel>? get reviews {
+    final value = _reviews;
+    if (value == null) return null;
+    if (_reviews is EqualUnmodifiableListView) return _reviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'UserModel(id: $id, phoneNumber: $phoneNumber, deliveryAddresses: $deliveryAddresses, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, favoriteOfferIds: $favoriteOfferIds, searchHistory: $searchHistory, cart: $cart, creditCards: $creditCards)';
+    return 'UserModel(id: $id, phoneNumber: $phoneNumber, deliveryAddresses: $deliveryAddresses, isBusinessOwner: $isBusinessOwner, ownedBusinessIds: $ownedBusinessIds, favoriteOfferIds: $favoriteOfferIds, searchHistory: $searchHistory, cart: $cart, creditCards: $creditCards, reviews: $reviews)';
   }
 
   @override
@@ -325,7 +350,8 @@ class _$UserModelImpl extends _UserModel {
                 .equals(other._searchHistory, _searchHistory) &&
             (identical(other.cart, cart) || other.cart == cart) &&
             const DeepCollectionEquality()
-                .equals(other._creditCards, _creditCards));
+                .equals(other._creditCards, _creditCards) &&
+            const DeepCollectionEquality().equals(other._reviews, _reviews));
   }
 
   @JsonKey(ignore: true)
@@ -340,7 +366,8 @@ class _$UserModelImpl extends _UserModel {
       const DeepCollectionEquality().hash(_favoriteOfferIds),
       const DeepCollectionEquality().hash(_searchHistory),
       cart,
-      const DeepCollectionEquality().hash(_creditCards));
+      const DeepCollectionEquality().hash(_creditCards),
+      const DeepCollectionEquality().hash(_reviews));
 
   @JsonKey(ignore: true)
   @override
@@ -366,7 +393,8 @@ abstract class _UserModel extends UserModel {
       final Set<String>? favoriteOfferIds,
       final List<String>? searchHistory,
       final Cart? cart,
-      final List<CreditCardModel>? creditCards}) = _$UserModelImpl;
+      final List<CreditCardModel>? creditCards,
+      final List<ReviewModel>? reviews}) = _$UserModelImpl;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -390,6 +418,8 @@ abstract class _UserModel extends UserModel {
   Cart? get cart;
   @override
   List<CreditCardModel>? get creditCards;
+  @override
+  List<ReviewModel>? get reviews;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

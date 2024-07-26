@@ -72,29 +72,27 @@ class MobileBusinessProfileViewWidget extends StatelessWidget {
                   const BusinessOpeningHoursWidget(),
                   Card(
                     color: Theme.of(context).colorScheme.onInverseSurface,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ExpansionTile(
-                        visualDensity: VisualDensity.compact,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        title: Text(
-                          'Contato e Endereço',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        children: <Widget>[
-                          const BusinessContactInfoCardWidget(),
-                          const Gap(4),
-                          business?.address == null
-                              ? const SizedBox.shrink()
-                              : AddressDisplayWidget(
-                                  address: business!.address,
-                                  isEditable: true,
-                                  isBusinessAddress: true,
-                                ),
-                        ],
+                    child: ExpansionTile(
+                      visualDensity: VisualDensity.compact,
+                      minTileHeight: 25,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
+                      title: Text(
+                        'Contato e Endereço',
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      children: <Widget>[
+                        const BusinessContactInfoCardWidget(),
+                        const Gap(4),
+                        business?.address == null
+                            ? const SizedBox.shrink()
+                            : AddressDisplayWidget(
+                                address: business!.address,
+                                isEditable: true,
+                                isBusinessAddress: true,
+                              ),
+                      ],
                     ),
                   ),
                 ],

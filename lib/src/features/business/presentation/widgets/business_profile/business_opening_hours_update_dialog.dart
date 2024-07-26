@@ -120,20 +120,22 @@ class BusinessOpeningHoursUpdateDialogState
               ...openingHours.keys
                   .map((day) => _buildOpeningHourField(day, textTheme)),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  final result = {
-                    for (var day in openingHours.keys)
-                      day: isClosed[day]!
-                          ? 'Fechado'
-                          : (openingHours[day]!.isEmpty
-                              ? 'Fechado'
-                              : openingHours[day]!)
-                  };
-                  Navigator.of(context).pop(result);
-                },
-                child: const Text('Salvar'),
-              ),
+              ButtonBar(children: [
+                ElevatedButton(
+                  onPressed: () {
+                    final result = {
+                      for (var day in openingHours.keys)
+                        day: isClosed[day]!
+                            ? 'Fechado'
+                            : (openingHours[day]!.isEmpty
+                                ? 'Fechado'
+                                : openingHours[day]!)
+                    };
+                    Navigator.of(context).pop(result);
+                  },
+                  child: const Text('Salvar'),
+                ),
+              ]),
             ],
           ),
         ),

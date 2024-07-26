@@ -16,6 +16,7 @@ import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../presentation/widgets/business_modal_body/business_modal_body_widget.dart';
+import '../../presentation/widgets/business_settings/delivery_settings/delivery_settings_modal_widget.dart';
 
 part 'business_profile_screen_controller.g.dart';
 
@@ -60,7 +61,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
 
     double totalRating =
         reviews.fold(0.0, (sum, review) => sum + review.rating);
-    return (totalRating / reviews.length).toString();
+    return (totalRating / reviews.length).toStringAsFixed(1);
   }
 
   Color getBusinessStatusColor() {
@@ -231,14 +232,12 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
     BusinessModel business,
   ) {
     setSelectedBusiness(business);
-    showModalBottomSheet(
-      scrollControlDisabledMaxHeightRatio: .9,
-      context: context,
-      builder: (BuildContext context) {
-        return BusinessDetailsModalBodyWidget(
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => BusinessDetailsBodyWidget(
           businessName: business.name,
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -322,6 +321,15 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
             );
           });
     });
+  }
+
+  showDeliveryUpdateDialog(BuildContext context) {
+    if (!isOwner) return;
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return const DeliverySettingsModalWidget();
+        });
   }
 }
 

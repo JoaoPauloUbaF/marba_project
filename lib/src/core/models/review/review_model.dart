@@ -8,9 +8,11 @@ class ReviewModel with _$ReviewModel {
   const factory ReviewModel.offer({
     required String id,
     required String userId,
+    required String reviewerName,
     required String offerId,
     required String review,
     required double rating,
+    required String profileImageURL,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _ReviewModelOffer;
@@ -19,8 +21,10 @@ class ReviewModel with _$ReviewModel {
     required String id,
     required String userId,
     required String businessId,
+    required String reviewerName,
     required String review,
     required double rating,
+    required String profileImageURL,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _ReviewModelBusiness;

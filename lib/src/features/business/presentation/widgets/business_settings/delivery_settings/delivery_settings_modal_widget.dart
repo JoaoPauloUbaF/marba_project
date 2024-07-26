@@ -23,6 +23,9 @@ class _DeliveryModalWidgetState
   late TextEditingController _additionalDistanceFeeController;
   late TextEditingController _baseDistanceController;
   late TextEditingController _additionalDistanceController;
+  late TextEditingController _minimumDeliveryTimeController;
+  late TextEditingController _maximumDeliveryTimeController;
+  late TextEditingController _minimumOrderValueController;
 
   @override
   void initState() {
@@ -39,6 +42,16 @@ class _DeliveryModalWidgetState
     );
     _additionalDistanceController = MaskedTextController(
       mask: '0,00 km',
+    );
+    _minimumDeliveryTimeController = MaskedTextController(
+      mask: '00:00',
+    );
+    _maximumDeliveryTimeController = MaskedTextController(
+      mask: '00:00',
+    );
+    _minimumOrderValueController = MoneyMaskedTextController(
+      leftSymbol: 'R\$ ',
+      decimalSeparator: ',',
     );
     super.initState();
   }
@@ -123,6 +136,50 @@ class _DeliveryModalWidgetState
                           contentPadding: EdgeInsets.all(2),
                           border: OutlineInputBorder(),
                           hintText: '0,00 km',
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.timer),
+                    title: const Text('Tempo de Entrega Mínimo'),
+                    trailing: SizedBox(
+                      width: 80,
+                      child: TextField(
+                        controller: _minimumDeliveryTimeController,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(2),
+                          border: OutlineInputBorder(),
+                          hintText: '00:00',
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.timer),
+                    title: const Text('Tempo de Entrega Máximo'),
+                    trailing: SizedBox(
+                      width: 80,
+                      child: TextField(
+                        controller: _maximumDeliveryTimeController,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(2),
+                          border: OutlineInputBorder(),
+                          hintText: '00:00',
+                        ),
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.shopping_cart),
+                    title: const Text('Pedido Mínimo'),
+                    trailing: SizedBox(
+                      width: 80,
+                      child: TextField(
+                        controller: _minimumOrderValueController,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(2),
+                          border: OutlineInputBorder(),
                         ),
                       ),
                     ),

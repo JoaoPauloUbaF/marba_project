@@ -29,6 +29,9 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       creditCards: (json['creditCards'] as List<dynamic>?)
           ?.map((e) => CreditCardModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
@@ -52,5 +55,6 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
   writeNotNull('cart', instance.cart?.toJson());
   writeNotNull(
       'creditCards', instance.creditCards?.map((e) => e.toJson()).toList());
+  writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
   return val;
 }
