@@ -15,7 +15,6 @@ class ReviewCardWidget extends StatelessWidget {
     final colorScheme = getColorScheme(context);
 
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 10),
       color: colorScheme.tertiary,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -74,7 +73,7 @@ class ReviewCardWidget extends StatelessWidget {
                             review.createdAt.difference(DateTime.now()).inDays >
                                     0
                                 ? 'Há ${review.createdAt.difference(DateTime.now()).inDays} dias'
-                                : 'Hoje',
+                                : 'Hoje, ${review.createdAt.hour}:${review.createdAt.minute}',
                             style: textTheme.bodySmall
                                 ?.copyWith(color: colorScheme.onTertiary),
                           ),

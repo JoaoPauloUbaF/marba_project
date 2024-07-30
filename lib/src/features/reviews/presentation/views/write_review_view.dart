@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/widgets/base_modal_body_widget.dart';
-import '../../application/review_view_model_provider.dart';
+import '../../application/review_view_model.dart';
 
 class WriteReviewView extends ConsumerStatefulWidget {
-  final String uid;
-  final ReviewViewModelType type;
+  final ReviewViewModel reviewViewModel;
 
   const WriteReviewView({
     super.key,
-    required this.uid,
-    required this.type,
+    required this.reviewViewModel,
   });
 
   @override
@@ -25,15 +23,14 @@ class _WriteReviewViewState extends ConsumerState<WriteReviewView> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final reviewViewModel =
-        ref.read(reviewViewModelProvider(type: widget.type, widgetRef: ref));
+    final reviewViewModel = widget.reviewViewModel;
 
     return BaseModalBodyWidget(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Sua avaliação'),
         ),
-        body: reviewViewModel.canWriteReview(widget.uid)
+        body: reviewViewModel.canWriteReview()
             ? Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
@@ -69,10 +66,30 @@ class _WriteReviewViewState extends ConsumerState<WriteReviewView> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: colorScheme.tertiary,
                         ),
-                        onPressed: () {
-                          reviewViewModel.writeReview(
-                              '', widget.uid, _rating, commentController.text);
-                          Navigator.of(context).pop(true);
+                        onPressed: () async {
+                          await reviewViewModel
+                              .writeReview(
+                                  rating: _rating,
+                                  review: commentController.text)
+                              .catchError(
+                            (error) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Erro ao enviar avaliação: $error',
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Avaliação enviada com sucesso'),
+                              ),
+                            );
+                            reviewViewModel.refreshList();
+                            Navigator.of(context).pop();
+                          });
                         },
                         child: Text(
                           'Enviar',

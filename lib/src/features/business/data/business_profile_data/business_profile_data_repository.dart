@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
+import 'package:project_marba/src/core/models/review/review_model.dart';
 
 import '../../../../core/models/business/enums.dart';
 
@@ -47,6 +48,12 @@ abstract class BusinessProfileDataRepository {
   Future<List<BusinessModel>?> queryBusinessAt(
       {required String city, required String queryStr});
   Future<List<BusinessModel>?> getBusinesses({required Query query});
+
+  /// Reviews
+  Future<List<ReviewModel>> fetchReviews(
+      {required String businessId, String? lastReviewId, int limit});
+  Future<void> writeReview(
+      {required String businessId, required ReviewModel review});
 
   /// Taxa de Entrega
   Future<double> getBusinessDeliveryFee(businessId);

@@ -17,19 +17,23 @@ class OfferReviewViewModel extends ReviewViewModel {
   OfferReviewViewModel(this.ref);
 
   @override
-  AsyncValue<List<ReviewModel>> getReviews(String uid) {
-    return ref.watch(offerReviewsProvider(uid));
+  Future<List<ReviewModel>> fetchReviews({int? limit, String? lastReviewId}) {
+    throw UnimplementedError();
   }
 
   @override
-  Future<void> writeReview(
-      String reviewerId, String reviewedId, double rating, String comment) {
-    // TODO: implement writeReview
+  Future<void> writeReview({required double rating, required String review}) {
     throw UnimplementedError();
   }
 
   @override
   void refreshList() {
     // TODO: implement refreshList
+  }
+
+  @override
+  ProviderBase<AsyncValue<List<ReviewModel>>> getReviewsProvider(
+      {int? limit, String? lastReviewId}) {
+    throw UnimplementedError();
   }
 }

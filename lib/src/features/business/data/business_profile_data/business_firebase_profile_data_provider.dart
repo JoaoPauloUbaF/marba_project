@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
+import 'package:project_marba/src/core/models/review/review_model.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -55,6 +56,7 @@ class BusinessFirebaseProfileDataProvider
     DocumentSnapshot docSnapshot = await _businessCollection.doc(uid).get();
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+      data.remove('reviews');
       final business = BusinessModel.fromJson(data);
       return business;
     } else {
@@ -314,5 +316,47 @@ class BusinessFirebaseProfileDataProvider
       log('Error getting delivery fee: $e');
       return 0.0;
     }
+  }
+
+  // *** Reviews ***
+  @override
+  Future<List<ReviewModel>> fetchReviews({
+    required String businessId,
+    String? lastReviewId,
+    int limit = 3,
+  }) async {
+    Query query = _businessCollection
+        .doc(businessId)
+        .collection('reviews')
+        .orderBy('createdAt', descending: true)
+        .limit(limit);
+
+    if (lastReviewId != null) {
+      DocumentSnapshot lastDocument = await _businessCollection
+          .doc(businessId)
+          .collection('reviews')
+          .doc(lastReviewId)
+          .get();
+      query = query.startAfterDocument(lastDocument);
+    }
+
+    QuerySnapshot querySnapshot = await query.get();
+
+    List<ReviewModel> reviews = querySnapshot.docs.map((doc) {
+      final data = doc.data() as Map<String, dynamic>;
+      return ReviewModel.fromJson(data);
+    }).toList();
+
+    return reviews;
+  }
+
+  @override
+  Future<void> writeReview(
+      {required String businessId, required ReviewModel review}) {
+    return _businessCollection
+        .doc(businessId)
+        .collection('reviews')
+        .doc(review.id)
+        .set(review.toJson());
   }
 }

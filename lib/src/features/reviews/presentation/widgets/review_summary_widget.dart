@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:project_marba/src/core/models/review/review_model.dart';
 import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/features/reviews/application/review_view_model.dart';
 
 class ReviewSummaryWidget extends StatelessWidget {
-  final List<ReviewModel> reviews;
   final ReviewViewModel reviewViewModel;
 
   const ReviewSummaryWidget({
     super.key,
-    required this.reviews,
     required this.reviewViewModel,
   });
 
@@ -18,9 +15,9 @@ class ReviewSummaryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = getTextTheme(context);
     final colorScheme = getColorScheme(context);
-    final averageRating = reviewViewModel.getAverageRating(reviews: reviews);
+    final averageRating = reviewViewModel.getAverageRating(reviews: []);
     final ratingDistribution =
-        reviewViewModel.getRatingDistribution(reviews: reviews);
+        reviewViewModel.getRatingDistribution(reviews: []);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

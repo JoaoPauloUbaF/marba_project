@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/review/review_model.dart';
 
 abstract class ReviewViewModel {
-  AsyncValue<List<ReviewModel>> getReviews(String uid);
+  ProviderBase<AsyncValue<List<ReviewModel>>> getReviewsProvider(
+      {int? limit, String? lastReviewId});
+  Future<List<ReviewModel>> fetchReviews({int? limit, String? lastReviewId});
   double getAverageRating({required List<ReviewModel> reviews}) {
     if (reviews.isEmpty) {
       return 0.0;
@@ -24,12 +26,11 @@ abstract class ReviewViewModel {
     return distribution;
   }
 
-  canWriteReview(String uid) {
+  canWriteReview() {
     return true;
   }
 
-  Future<void> writeReview(
-      String reviewerId, String reviewedId, double rating, String comment);
+  Future<void> writeReview({required double rating, required String review});
 
   void refreshList();
 }

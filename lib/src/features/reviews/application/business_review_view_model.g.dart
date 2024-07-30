@@ -6,7 +6,7 @@ part of 'business_review_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessReviewsHash() => r'ac5f85760f938008af55467fcc4f1d4929be2209';
+String _$businessReviewsHash() => r'e70d54660894317b55e4bc130a7ab2611d50f9b0';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -41,9 +41,13 @@ class BusinessReviewsFamily extends Family<AsyncValue<List<ReviewModel>>> {
   /// See also [businessReviews].
   BusinessReviewsProvider call(
     String uid,
+    int? limit,
+    String? lastReviewId,
   ) {
     return BusinessReviewsProvider(
       uid,
+      limit,
+      lastReviewId,
     );
   }
 
@@ -53,6 +57,8 @@ class BusinessReviewsFamily extends Family<AsyncValue<List<ReviewModel>>> {
   ) {
     return call(
       provider.uid,
+      provider.limit,
+      provider.lastReviewId,
     );
   }
 
@@ -77,10 +83,14 @@ class BusinessReviewsProvider
   /// See also [businessReviews].
   BusinessReviewsProvider(
     String uid,
+    int? limit,
+    String? lastReviewId,
   ) : this._internal(
           (ref) => businessReviews(
             ref as BusinessReviewsRef,
             uid,
+            limit,
+            lastReviewId,
           ),
           from: businessReviewsProvider,
           name: r'businessReviewsProvider',
@@ -92,6 +102,8 @@ class BusinessReviewsProvider
           allTransitiveDependencies:
               BusinessReviewsFamily._allTransitiveDependencies,
           uid: uid,
+          limit: limit,
+          lastReviewId: lastReviewId,
         );
 
   BusinessReviewsProvider._internal(
@@ -102,9 +114,13 @@ class BusinessReviewsProvider
     required super.debugGetCreateSourceHash,
     required super.from,
     required this.uid,
+    required this.limit,
+    required this.lastReviewId,
   }) : super.internal();
 
   final String uid;
+  final int? limit;
+  final String? lastReviewId;
 
   @override
   Override overrideWith(
@@ -120,6 +136,8 @@ class BusinessReviewsProvider
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
         uid: uid,
+        limit: limit,
+        lastReviewId: lastReviewId,
       ),
     );
   }
@@ -131,13 +149,18 @@ class BusinessReviewsProvider
 
   @override
   bool operator ==(Object other) {
-    return other is BusinessReviewsProvider && other.uid == uid;
+    return other is BusinessReviewsProvider &&
+        other.uid == uid &&
+        other.limit == limit &&
+        other.lastReviewId == lastReviewId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, uid.hashCode);
+    hash = _SystemHash.combine(hash, limit.hashCode);
+    hash = _SystemHash.combine(hash, lastReviewId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -146,6 +169,12 @@ class BusinessReviewsProvider
 mixin BusinessReviewsRef on AutoDisposeFutureProviderRef<List<ReviewModel>> {
   /// The parameter `uid` of this provider.
   String get uid;
+
+  /// The parameter `limit` of this provider.
+  int? get limit;
+
+  /// The parameter `lastReviewId` of this provider.
+  String? get lastReviewId;
 }
 
 class _BusinessReviewsProviderElement
@@ -155,6 +184,10 @@ class _BusinessReviewsProviderElement
 
   @override
   String get uid => (origin as BusinessReviewsProvider).uid;
+  @override
+  int? get limit => (origin as BusinessReviewsProvider).limit;
+  @override
+  String? get lastReviewId => (origin as BusinessReviewsProvider).lastReviewId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
