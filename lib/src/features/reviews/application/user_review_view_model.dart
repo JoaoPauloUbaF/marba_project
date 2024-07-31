@@ -35,4 +35,16 @@ class UserReviewViewModel extends ReviewViewModel {
   void refreshList() {
     // TODO: implement refreshList
   }
+
+  @override
+  bool isReviewOwner(ReviewModel review) {
+    // TODO: implement isReviewOwner
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getReviewProfilePicture(ReviewModel review) {
+    // TODO: implement getReviewProfilePicture
+    throw UnimplementedError();
+  }
 }

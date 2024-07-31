@@ -74,8 +74,10 @@ class ReviewListWidgetState extends ConsumerState<ReviewListWidget> {
         child: PagedListView<int, ReviewModel>(
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<ReviewModel>(
-            itemBuilder: (context, item, index) =>
-                ReviewCardWidget(review: item),
+            itemBuilder: (context, item, index) => ReviewCardWidget(
+              review: item,
+              reviewViewModel: widget.reviewViewModel,
+            ),
             noItemsFoundIndicatorBuilder: (context) => const Center(
               child: Text('Nenhuma avaliação encontrada'),
             ),

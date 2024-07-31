@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
+import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../business/data/business_profile_data/business_profile_provider.dart';
@@ -62,7 +66,6 @@ class BusinessReviewViewModel extends ReviewViewModel {
       reviewerName: user.displayName ?? 'Anônimo',
       review: review,
       rating: rating,
-      profileImageURL: user.photoURL ?? 'https://i.pravatar.cc/250',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     );
@@ -75,5 +78,26 @@ class BusinessReviewViewModel extends ReviewViewModel {
   @override
   void refreshList() {
     ref.invalidate(businessReviewsProvider);
+  }
+
+  @override
+  bool isReviewOwner(ReviewModel review) {
+    final user = ref.read(currentUserProvider);
+    if (user == null) {
+      return false;
+    }
+    return review.userId == user.id;
+  }
+
+  @override
+  Future<String> getReviewProfilePicture(ReviewModel review) async {
+    final user = await ref
+        .read(userProfileDataProvider)
+        .getProfileData(uid: review.userId)
+        .first;
+    if (user == null) {
+      return 'assets/avatars/avatar1.png';
+    }
+    return user.photoUrl ?? 'assets/avatars/avatar1.png';
   }
 }

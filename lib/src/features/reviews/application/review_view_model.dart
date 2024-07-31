@@ -1,3 +1,4 @@
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/models/review/review_model.dart';
@@ -33,4 +34,12 @@ abstract class ReviewViewModel {
   Future<void> writeReview({required double rating, required String review});
 
   void refreshList();
+
+  bool isReviewOwner(ReviewModel review);
+
+  confirmDeleteReview(ReviewModel review, BuildContext context) {}
+
+  deleteReview({required ReviewModel review}) {}
+
+  Future<String> getReviewProfilePicture(ReviewModel review);
 }

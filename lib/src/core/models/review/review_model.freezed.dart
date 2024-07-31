@@ -34,7 +34,6 @@ mixin _$ReviewModel {
   String get reviewerName => throw _privateConstructorUsedError;
   String get review => throw _privateConstructorUsedError;
   double get rating => throw _privateConstructorUsedError;
-  String get profileImageURL => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -46,7 +45,6 @@ mixin _$ReviewModel {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)
         offer,
@@ -57,7 +55,6 @@ mixin _$ReviewModel {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)
         business,
@@ -72,7 +69,6 @@ mixin _$ReviewModel {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         offer,
@@ -83,7 +79,6 @@ mixin _$ReviewModel {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         business,
@@ -98,7 +93,6 @@ mixin _$ReviewModel {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         offer,
@@ -109,7 +103,6 @@ mixin _$ReviewModel {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         business,
@@ -153,7 +146,6 @@ abstract class $ReviewModelCopyWith<$Res> {
       String reviewerName,
       String review,
       double rating,
-      String profileImageURL,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -176,7 +168,6 @@ class _$ReviewModelCopyWithImpl<$Res, $Val extends ReviewModel>
     Object? reviewerName = null,
     Object? review = null,
     Object? rating = null,
-    Object? profileImageURL = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -201,10 +192,6 @@ class _$ReviewModelCopyWithImpl<$Res, $Val extends ReviewModel>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      profileImageURL: null == profileImageURL
-          ? _value.profileImageURL
-          : profileImageURL // ignore: cast_nullable_to_non_nullable
-              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -232,7 +219,6 @@ abstract class _$$ReviewModelOfferImplCopyWith<$Res>
       String offerId,
       String review,
       double rating,
-      String profileImageURL,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -254,7 +240,6 @@ class __$$ReviewModelOfferImplCopyWithImpl<$Res>
     Object? offerId = null,
     Object? review = null,
     Object? rating = null,
-    Object? profileImageURL = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -283,10 +268,6 @@ class __$$ReviewModelOfferImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      profileImageURL: null == profileImageURL
-          ? _value.profileImageURL
-          : profileImageURL // ignore: cast_nullable_to_non_nullable
-              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -309,7 +290,6 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
       required this.offerId,
       required this.review,
       required this.rating,
-      required this.profileImageURL,
       required this.createdAt,
       required this.updatedAt,
       final String? $type})
@@ -331,8 +311,6 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
   @override
   final double rating;
   @override
-  final String profileImageURL;
-  @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
@@ -342,7 +320,7 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
 
   @override
   String toString() {
-    return 'ReviewModel.offer(id: $id, userId: $userId, reviewerName: $reviewerName, offerId: $offerId, review: $review, rating: $rating, profileImageURL: $profileImageURL, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ReviewModel.offer(id: $id, userId: $userId, reviewerName: $reviewerName, offerId: $offerId, review: $review, rating: $rating, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -357,8 +335,6 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             (identical(other.offerId, offerId) || other.offerId == offerId) &&
             (identical(other.review, review) || other.review == review) &&
             (identical(other.rating, rating) || other.rating == rating) &&
-            (identical(other.profileImageURL, profileImageURL) ||
-                other.profileImageURL == profileImageURL) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -368,7 +344,7 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, reviewerName,
-      offerId, review, rating, profileImageURL, createdAt, updatedAt);
+      offerId, review, rating, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -387,7 +363,6 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)
         offer,
@@ -398,13 +373,12 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)
         business,
   }) {
-    return offer(id, userId, reviewerName, offerId, review, rating,
-        profileImageURL, createdAt, updatedAt);
+    return offer(id, userId, reviewerName, offerId, review, rating, createdAt,
+        updatedAt);
   }
 
   @override
@@ -417,7 +391,6 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         offer,
@@ -428,13 +401,12 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         business,
   }) {
     return offer?.call(id, userId, reviewerName, offerId, review, rating,
-        profileImageURL, createdAt, updatedAt);
+        createdAt, updatedAt);
   }
 
   @override
@@ -447,7 +419,6 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         offer,
@@ -458,15 +429,14 @@ class _$ReviewModelOfferImpl implements _ReviewModelOffer {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         business,
     required TResult orElse(),
   }) {
     if (offer != null) {
-      return offer(id, userId, reviewerName, offerId, review, rating,
-          profileImageURL, createdAt, updatedAt);
+      return offer(id, userId, reviewerName, offerId, review, rating, createdAt,
+          updatedAt);
     }
     return orElse();
   }
@@ -518,7 +488,6 @@ abstract class _ReviewModelOffer implements ReviewModel {
       required final String offerId,
       required final String review,
       required final double rating,
-      required final String profileImageURL,
       required final DateTime createdAt,
       required final DateTime updatedAt}) = _$ReviewModelOfferImpl;
 
@@ -536,8 +505,6 @@ abstract class _ReviewModelOffer implements ReviewModel {
   String get review;
   @override
   double get rating;
-  @override
-  String get profileImageURL;
   @override
   DateTime get createdAt;
   @override
@@ -563,7 +530,6 @@ abstract class _$$ReviewModelBusinessImplCopyWith<$Res>
       String reviewerName,
       String review,
       double rating,
-      String profileImageURL,
       DateTime createdAt,
       DateTime updatedAt});
 }
@@ -585,7 +551,6 @@ class __$$ReviewModelBusinessImplCopyWithImpl<$Res>
     Object? reviewerName = null,
     Object? review = null,
     Object? rating = null,
-    Object? profileImageURL = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -614,10 +579,6 @@ class __$$ReviewModelBusinessImplCopyWithImpl<$Res>
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double,
-      profileImageURL: null == profileImageURL
-          ? _value.profileImageURL
-          : profileImageURL // ignore: cast_nullable_to_non_nullable
-              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -640,7 +601,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
       required this.reviewerName,
       required this.review,
       required this.rating,
-      required this.profileImageURL,
       required this.createdAt,
       required this.updatedAt,
       final String? $type})
@@ -662,8 +622,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
   @override
   final double rating;
   @override
-  final String profileImageURL;
-  @override
   final DateTime createdAt;
   @override
   final DateTime updatedAt;
@@ -673,7 +631,7 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
 
   @override
   String toString() {
-    return 'ReviewModel.business(id: $id, userId: $userId, businessId: $businessId, reviewerName: $reviewerName, review: $review, rating: $rating, profileImageURL: $profileImageURL, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ReviewModel.business(id: $id, userId: $userId, businessId: $businessId, reviewerName: $reviewerName, review: $review, rating: $rating, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -689,8 +647,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
                 other.reviewerName == reviewerName) &&
             (identical(other.review, review) || other.review == review) &&
             (identical(other.rating, rating) || other.rating == rating) &&
-            (identical(other.profileImageURL, profileImageURL) ||
-                other.profileImageURL == profileImageURL) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -700,7 +656,7 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userId, businessId,
-      reviewerName, review, rating, profileImageURL, createdAt, updatedAt);
+      reviewerName, review, rating, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -719,7 +675,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)
         offer,
@@ -730,13 +685,12 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)
         business,
   }) {
     return business(id, userId, businessId, reviewerName, review, rating,
-        profileImageURL, createdAt, updatedAt);
+        createdAt, updatedAt);
   }
 
   @override
@@ -749,7 +703,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         offer,
@@ -760,13 +713,12 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         business,
   }) {
     return business?.call(id, userId, businessId, reviewerName, review, rating,
-        profileImageURL, createdAt, updatedAt);
+        createdAt, updatedAt);
   }
 
   @override
@@ -779,7 +731,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
             String offerId,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         offer,
@@ -790,7 +741,6 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
             String reviewerName,
             String review,
             double rating,
-            String profileImageURL,
             DateTime createdAt,
             DateTime updatedAt)?
         business,
@@ -798,7 +748,7 @@ class _$ReviewModelBusinessImpl implements _ReviewModelBusiness {
   }) {
     if (business != null) {
       return business(id, userId, businessId, reviewerName, review, rating,
-          profileImageURL, createdAt, updatedAt);
+          createdAt, updatedAt);
     }
     return orElse();
   }
@@ -850,7 +800,6 @@ abstract class _ReviewModelBusiness implements ReviewModel {
       required final String reviewerName,
       required final String review,
       required final double rating,
-      required final String profileImageURL,
       required final DateTime createdAt,
       required final DateTime updatedAt}) = _$ReviewModelBusinessImpl;
 
@@ -868,8 +817,6 @@ abstract class _ReviewModelBusiness implements ReviewModel {
   String get review;
   @override
   double get rating;
-  @override
-  String get profileImageURL;
   @override
   DateTime get createdAt;
   @override

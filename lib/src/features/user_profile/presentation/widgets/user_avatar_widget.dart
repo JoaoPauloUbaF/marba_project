@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 
 import '../../application/profile_screen_controller/profile_screen_controller.dart';
 
@@ -77,19 +78,23 @@ class _AvatarSelectionDialogState extends State<AvatarSelectionDialog> {
                 return FutureBuilder(
                   builder: (context, snapshot) {
                     return CircleAvatar(
+                      backgroundColor: Colors.transparent,
                       radius: 40,
                       child: InkWell(
                         splashColor: Colors.transparent,
                         onTap: () {
+                          showLoader(context);
                           widget.viewModel
                               .updateProfileImage(
                                 widget.avatars[index].assetName,
                               )
-                              .then((value) => setState(() {}));
+                              .then((value) => setState(() {
+                                    hideLoader(context);
+                                  }));
                         },
                         child: Opacity(
                           opacity:
-                              snapshot.data == widget.avatars[index] ? 1 : 0.3,
+                              snapshot.data == widget.avatars[index] ? 1 : 0.5,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(40),
                             child: Image(

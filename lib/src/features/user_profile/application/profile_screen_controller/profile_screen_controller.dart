@@ -10,6 +10,7 @@ import 'package:project_marba/src/features/user_profile/presentation/widgets/two
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/models/user/user_model.dart';
 import '../../presentation/widgets/change_password_widget.dart';
 
 part 'profile_screen_controller.g.dart';
@@ -38,9 +39,16 @@ class ProfileScreenController extends _$ProfileScreenController {
   Future<ImageProvider<Object>> getProfileImage() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    if (sharedPreferences.getString('photoURL') != null) {
-      return AssetImage(sharedPreferences.getString('photoURL')!);
+    final userPhotoPath =
+        ref.read(authRepositoryProvider).getCurrentUser()?.photoURL;
+
+    if (userPhotoPath != null) {
+      return AssetImage(userPhotoPath);
     } else {
+      final photoURL = sharedPreferences.getString('photoURL');
+      if (photoURL != null) {
+        return AssetImage(photoURL);
+      }
       return const AssetImage('assets/avatars/avatar1.png');
     }
   }
@@ -50,6 +58,18 @@ class ProfileScreenController extends _$ProfileScreenController {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
     sharedPreferences.setString('photoURL', assetName);
+    await ref
+        .read(authRepositoryProvider)
+        .getCurrentUser()
+        ?.updatePhotoURL(assetName)
+        .then((_) {
+      UserModel? user = ref.read(currentUserProvider);
+      if (user == null) {
+        return;
+      }
+      final updatedUser = user.copyWith(photoUrl: assetName);
+      ref.read(userProfileDataProvider).updateProfile(user: updatedUser);
+    });
     state = ProfileViewState.loaded;
   }
 

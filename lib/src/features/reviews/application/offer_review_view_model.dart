@@ -36,4 +36,16 @@ class OfferReviewViewModel extends ReviewViewModel {
       {int? limit, String? lastReviewId}) {
     throw UnimplementedError();
   }
+
+  @override
+  bool isReviewOwner(ReviewModel review) {
+    // TODO: implement isReviewOwner
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getReviewProfilePicture(ReviewModel review) {
+    // TODO: implement getReviewProfilePicture
+    throw UnimplementedError();
+  }
 }

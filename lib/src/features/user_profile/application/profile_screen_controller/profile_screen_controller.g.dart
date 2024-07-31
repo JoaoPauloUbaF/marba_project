@@ -7,7 +7,7 @@ part of 'profile_screen_controller.dart';
 // **************************************************************************
 
 String _$profileScreenControllerHash() =>
-    r'620ddce5488145d6ed98f82ccd808b475a524d27';
+    r'a72ec4a9a0f0ad7096a05ba54236fdabf2239ba9';
 
 /// See also [ProfileScreenController].
 @ProviderFor(ProfileScreenController)

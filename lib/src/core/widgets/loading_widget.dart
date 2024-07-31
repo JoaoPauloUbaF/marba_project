@@ -15,7 +15,9 @@ class LoadingWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.3,
           height: MediaQuery.of(context).size.width * 0.3,
           child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.primaryContainer),
+            color: Theme.of(context).colorScheme.primaryContainer,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+          ),
         ),
       ),
     );

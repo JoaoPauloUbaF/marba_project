@@ -12,7 +12,6 @@ class ReviewModel with _$ReviewModel {
     required String offerId,
     required String review,
     required double rating,
-    required String profileImageURL,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _ReviewModelOffer;
@@ -24,7 +23,6 @@ class ReviewModel with _$ReviewModel {
     required String reviewerName,
     required String review,
     required double rating,
-    required String profileImageURL,
     required DateTime createdAt,
     required DateTime updatedAt,
   }) = _ReviewModelBusiness;
