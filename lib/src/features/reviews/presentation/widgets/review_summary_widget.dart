@@ -15,9 +15,11 @@ class ReviewSummaryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = getTextTheme(context);
     final colorScheme = getColorScheme(context);
-    final averageRating = reviewViewModel.getAverageRating(reviews: []);
+    final averageRating = reviewViewModel.getAverageRating(reviewedID: '');
     final ratingDistribution =
-        reviewViewModel.getRatingDistribution(reviews: []);
+        reviewViewModel.getRatingDistribution(reviewedID: '');
+    final totalNumberOfReviews =
+        ratingDistribution.values.fold(0, (a, b) => a + b);
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,7 +36,13 @@ class ReviewSummaryWidget extends StatelessWidget {
             ),
             const Gap(4),
             Text(
-              'Média de Avaliações',
+              'Média de Avaliações ',
+              style: textTheme.bodySmall?.copyWith(
+                color: colorScheme.secondary,
+              ),
+            ),
+            Text(
+              'Total ($totalNumberOfReviews)',
               style: textTheme.bodySmall?.copyWith(
                 color: colorScheme.secondary,
               ),

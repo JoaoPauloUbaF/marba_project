@@ -72,7 +72,7 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
     int firstFourDigits = int.parse(cleanedCardNumber.substring(0, 4));
     if ((firstTwoDigits >= 51 && firstTwoDigits <= 55) ||
         (firstFourDigits >= 2221 && firstFourDigits <= 2720)) {
-      return 'assets/payment_methods/mastercad.png';
+      return 'assets/payment_methods/mastercard.png';
     }
     return null;
   }

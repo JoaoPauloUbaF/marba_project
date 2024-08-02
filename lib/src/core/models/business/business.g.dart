@@ -31,12 +31,14 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
       categoriesWords: (json['categoriesWords'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
-      reviews: (json['reviews'] as List<dynamic>?)
-          ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
       nameWords: (json['nameWords'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
+      averageRating: (json['averageRating'] as num?)?.toDouble(),
+      ratingDistribution:
+          (json['ratingDistribution'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), (e as num).toInt()),
+      ),
     );
 
 Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
@@ -64,8 +66,10 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
   writeNotNull('openingHours', instance.openingHours);
   writeNotNull('profileImageUrl', instance.profileImageUrl);
   writeNotNull('categoriesWords', instance.categoriesWords?.toList());
-  writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
   writeNotNull('nameWords', instance.nameWords);
+  writeNotNull('averageRating', instance.averageRating);
+  writeNotNull('ratingDistribution',
+      instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e)));
   return val;
 }
 

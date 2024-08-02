@@ -1,12 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/orders/data/user_orders_repository/user_orders_repository_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../business/data/business_profile_data/business_profile_provider.dart';
@@ -76,7 +75,10 @@ class BusinessReviewViewModel extends ReviewViewModel {
   }
 
   @override
-  void refreshList() {
+  Future<void> refreshList() async {
+    await ref
+        .read(businessProfileViewModelProvider.notifier)
+        .fetchBusinessProfile();
     ref.invalidate(businessReviewsProvider);
   }
 
@@ -99,5 +101,52 @@ class BusinessReviewViewModel extends ReviewViewModel {
       return 'assets/avatars/avatar1.png';
     }
     return user.photoUrl ?? 'assets/avatars/avatar1.png';
+  }
+
+  @override
+  canWriteReview() async {
+    return true;
+    final userOrdersStream =
+        ref.read(userOrdersRepositoryProvider).getUserOrders();
+    final user = ref.read(currentUserProvider);
+    final business = ref.read(businessProfileViewModelProvider);
+
+    if (user == null || business == null) {
+      return false;
+    }
+
+    final allOrders = await userOrdersStream.first;
+
+    final orders = allOrders
+        .where((order) => order.businessOrdersIds.contains(business.id))
+        .toList();
+    return orders.isNotEmpty;
+  }
+
+  @override
+  deleteReview({required ReviewModel review}) {
+    final businessId = review.whenOrNull(
+      business: (id, userId, businessId, reviewerName, review, rating,
+          createdAt, updatedAt) {
+        return businessId;
+      },
+    );
+    if (businessId == null) {
+      throw Exception('Business not found');
+    }
+    return ref.read(businessProfileDataProvider).deleteReview(
+          businessId: businessId,
+          reviewId: review.id,
+        );
+  }
+
+  @override
+  double getAverageRating({required String reviewedID}) {
+    return ref.read(businessProfileViewModelProvider)?.averageRating ?? 0;
+  }
+
+  @override
+  Map<int, int> getRatingDistribution({required String reviewedID}) {
+    return ref.read(businessProfileViewModelProvider)?.ratingDistribution ?? {};
   }
 }

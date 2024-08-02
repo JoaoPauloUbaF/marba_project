@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
-import 'package:project_marba/src/core/models/review/review_model.dart';
 
 import 'enums.dart';
 
@@ -24,8 +23,9 @@ class BusinessModel with _$BusinessModel {
     Map<String, String>? openingHours,
     String? profileImageUrl,
     Set<String>? categoriesWords,
-    List<ReviewModel>? reviews,
     List<String>? nameWords,
+    double? averageRating,
+    Map<int, int>? ratingDistribution,
   }) = _BusinessModel;
 
   factory BusinessModel.fromJson(Map<String, dynamic> json) =>

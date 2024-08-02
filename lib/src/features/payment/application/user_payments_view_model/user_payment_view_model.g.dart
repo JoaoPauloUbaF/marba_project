@@ -23,7 +23,7 @@ final creditCardListProvider =
 
 typedef CreditCardListRef = AutoDisposeStreamProviderRef<List<CreditCardModel>>;
 String _$userPaymentViewModelHash() =>
-    r'bf648361311cefb01d11ae4a904a8a82af50c26b';
+    r'3ce9d0bc0dbc6684b2faa9b4d0d7908d7e6625c4';
 
 /// See also [UserPaymentViewModel].
 @ProviderFor(UserPaymentViewModel)

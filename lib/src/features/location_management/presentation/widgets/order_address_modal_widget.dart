@@ -211,9 +211,12 @@ class _AddressListState extends State<AddressList> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
-            tileColor:
-                Theme.of(context).colorScheme.surfaceContainerHighest.withAlpha(50),
-            selectedTileColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+            tileColor: Theme.of(context)
+                .colorScheme
+                .surfaceContainerHighest
+                .withAlpha(50),
+            selectedTileColor:
+                Theme.of(context).colorScheme.surfaceContainerHighest,
             leading: const Icon(Icons.location_on_sharp, size: 30),
             title: widget.addressViewModel.buildAddressTitle(address),
             subtitle: widget.addressViewModel.buildAddressSubtitle(address),

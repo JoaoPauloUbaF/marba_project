@@ -19,20 +19,39 @@ class HotBusinessesWidget extends ConsumerWidget {
     final hotBusinesses = ref.watch(hotBusinessesProvider);
 
     return hotBusinesses.when(
-      data: (businesses) => businesses == null
-          ? const SizedBox.shrink()
-          : CarouselSlider(
-              items: businesses
-                  .map((business) => HotBusinessCardWidget(business: business))
-                  .toList(),
-              options: CarouselOptions(
-                autoPlay: true,
-                autoPlayAnimationDuration: const Duration(seconds: 2),
-                autoPlayInterval: const Duration(seconds: 2),
-                height: 200,
-                viewportFraction: isWideScreen(context) ? 0.3 : 0.9,
+      data: (businesses) {
+        if (businesses == null || businesses.isEmpty) {
+          return SizedBox(
+            height: 200,
+            child: Center(
+              child: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.tertiary,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  'Ainda não há negócios disponíveis',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onTertiary),
+                ),
               ),
             ),
+          );
+        }
+        return CarouselSlider(
+          items: businesses
+              .map((business) => HotBusinessCardWidget(business: business))
+              .toList(),
+          options: CarouselOptions(
+            autoPlay: true,
+            autoPlayAnimationDuration: const Duration(seconds: 2),
+            autoPlayInterval: const Duration(seconds: 2),
+            height: 200,
+            viewportFraction: isWideScreen(context) ? 0.3 : 0.9,
+          ),
+        );
+      },
       loading: () => const LoadingWidget(),
       error: (error, stackTrace) {
         return const Card(

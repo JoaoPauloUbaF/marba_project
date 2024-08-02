@@ -19,16 +19,36 @@ class HotOffersWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final hotOffers = ref.watch(hotOffersProvider);
     return hotOffers.when(
-      data: (offers) => CarouselSlider(
-        items: offers.map((offer) => HotOfferCardWidget(offer: offer)).toList(),
-        options: CarouselOptions(
-          autoPlay: true,
-          autoPlayAnimationDuration: const Duration(seconds: 2),
-          autoPlayInterval: const Duration(seconds: 3),
-          height: 200,
-          viewportFraction: isWideScreen(context) ? 0.3 : 0.9,
-        ),
-      ),
+      data: (offers) => offers.isEmpty
+          ? SizedBox(
+              height: 200,
+              child: Center(
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    'Ainda não há ofertas disponíveis',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onTertiary),
+                  ),
+                ),
+              ),
+            )
+          : CarouselSlider(
+              items: offers
+                  .map((offer) => HotOfferCardWidget(offer: offer))
+                  .toList(),
+              options: CarouselOptions(
+                autoPlay: true,
+                autoPlayAnimationDuration: const Duration(seconds: 2),
+                autoPlayInterval: const Duration(seconds: 3),
+                height: 200,
+                viewportFraction: isWideScreen(context) ? 0.3 : 0.9,
+              ),
+            ),
       loading: () => const LoadingWidget(),
       error: (error, stackTrace) => Text('Error: $error'),
     );

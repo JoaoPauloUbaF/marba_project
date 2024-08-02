@@ -27,8 +27,9 @@ class OfferReviewViewModel extends ReviewViewModel {
   }
 
   @override
-  void refreshList() {
+  Future<void> refreshList() {
     // TODO: implement refreshList
+    throw UnimplementedError();
   }
 
   @override
@@ -46,6 +47,24 @@ class OfferReviewViewModel extends ReviewViewModel {
   @override
   Future<String> getReviewProfilePicture(ReviewModel review) {
     // TODO: implement getReviewProfilePicture
+    throw UnimplementedError();
+  }
+
+  @override
+  deleteReview({required ReviewModel review}) {
+    // TODO: implement deleteReview
+    throw UnimplementedError();
+  }
+
+  @override
+  double getAverageRating({required String reviewedID}) {
+    // TODO: implement getAverageRating
+    throw UnimplementedError();
+  }
+
+  @override
+  Map<int, int> getRatingDistribution({required String reviewedID}) {
+    // TODO: implement getRatingDistribution
     throw UnimplementedError();
   }
 }

@@ -54,10 +54,9 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   }
 
   String getReviewsRating() {
-    final reviews = state?.reviews;
-    if (reviews == null || reviews.isEmpty) {
-      return '--';
-    }
+    return '--';
+    final reviews = [];
+    if (reviews == null || reviews.isEmpty) {}
 
     double totalRating =
         reviews.fold(0.0, (sum, review) => sum + review.rating);
@@ -242,7 +241,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   }
 
   int? getReviewsNumber() {
-    return state?.reviews?.length;
+    return 0;
   }
 
   String getDeliveryTimeStr() {

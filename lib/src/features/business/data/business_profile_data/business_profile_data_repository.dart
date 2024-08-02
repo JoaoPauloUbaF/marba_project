@@ -54,6 +54,8 @@ abstract class BusinessProfileDataRepository {
       {required String businessId, String? lastReviewId, int limit});
   Future<void> writeReview(
       {required String businessId, required ReviewModel review});
+  Future<void> deleteReview(
+      {required String businessId, required String reviewId});
 
   /// Taxa de Entrega
   Future<double> getBusinessDeliveryFee(businessId);

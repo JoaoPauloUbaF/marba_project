@@ -359,4 +359,14 @@ class BusinessFirebaseProfileDataProvider
         .doc(review.id)
         .set(review.toJson());
   }
+
+  @override
+  Future<void> deleteReview(
+      {required String businessId, required String reviewId}) {
+    return _businessCollection
+        .doc(businessId)
+        .collection('reviews')
+        .doc(reviewId)
+        .delete();
+  }
 }

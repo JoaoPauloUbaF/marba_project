@@ -1,45 +1,72 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../core/models/review/review_model.dart';
+
+part 'review_view_model.g.dart';
 
 abstract class ReviewViewModel {
   ProviderBase<AsyncValue<List<ReviewModel>>> getReviewsProvider(
       {int? limit, String? lastReviewId});
-  Future<List<ReviewModel>> fetchReviews({int? limit, String? lastReviewId});
-  double getAverageRating({required List<ReviewModel> reviews}) {
-    if (reviews.isEmpty) {
-      return 0.0;
-    }
-    final totalRating = reviews.fold<double>(
-      0.0,
-      (sum, review) => sum + review.rating,
+
+  double getAverageRating({required String reviewedID});
+
+  Map<int, int> getRatingDistribution({required String reviewedID});
+
+  Future<bool> confirmDeleteReview(
+      ReviewModel review, BuildContext context) async {
+    final shouldDeleteReview = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Deletar avaliação'),
+          content: const Text('Tem certeza que deseja deletar essa avaliação?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('Deletar'),
+            ),
+          ],
+        );
+      },
     );
-    return totalRating / reviews.length;
+    return shouldDeleteReview ?? false;
   }
 
-  Map<int, int> getRatingDistribution({required List<ReviewModel> reviews}) {
-    final Map<int, int> distribution = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0};
-    for (var review in reviews) {
-      distribution[review.rating.toInt()] =
-          (distribution[review.rating] ?? 0) + 1;
-    }
-    return distribution;
-  }
+  Future<List<ReviewModel>> fetchReviews({int? limit, String? lastReviewId});
 
-  canWriteReview() {
-    return true;
+  Future<bool> canWriteReview() {
+    return Future.value(true);
   }
 
   Future<void> writeReview({required double rating, required String review});
 
-  void refreshList();
+  Future<void> refreshList();
 
   bool isReviewOwner(ReviewModel review);
 
-  confirmDeleteReview(ReviewModel review, BuildContext context) {}
-
-  deleteReview({required ReviewModel review}) {}
+  Future<void> deleteReview({required ReviewModel review});
 
   Future<String> getReviewProfilePicture(ReviewModel review);
+}
+
+@riverpod
+class RatingCounter extends _$RatingCounter {
+  @override
+  double build() {
+    return 0;
+  }
+
+  void setState(double value) {
+    super.state = value;
+  }
 }
