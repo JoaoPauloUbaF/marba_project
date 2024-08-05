@@ -105,7 +105,6 @@ class BusinessReviewViewModel extends ReviewViewModel {
 
   @override
   canWriteReview() async {
-    return true;
     final userOrdersStream =
         ref.read(userOrdersRepositoryProvider).getUserOrders();
     final user = ref.read(currentUserProvider);

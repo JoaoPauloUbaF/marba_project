@@ -54,13 +54,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   }
 
   String getReviewsRating() {
-    return '--';
-    final reviews = [];
-    if (reviews == null || reviews.isEmpty) {}
-
-    double totalRating =
-        reviews.fold(0.0, (sum, review) => sum + review.rating);
-    return (totalRating / reviews.length).toStringAsFixed(1);
+    return state?.averageRating?.toStringAsFixed(2) ?? '--';
   }
 
   Color getBusinessStatusColor() {
@@ -241,7 +235,7 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
   }
 
   int? getReviewsNumber() {
-    return 0;
+    return state?.ratingDistribution?.length ?? 0;
   }
 
   String getDeliveryTimeStr() {
