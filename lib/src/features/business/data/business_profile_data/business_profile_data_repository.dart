@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
+import 'package:project_marba/src/core/models/business_delivery/business_delivery.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
 
 import '../../../../core/models/business/enums.dart';
@@ -37,7 +38,7 @@ abstract class BusinessProfileDataRepository {
   Future<void> updateBusinessOpeningHours(
       {required String uid, required Map<String, String> openingHours});
   Future<void> updateBusinessDelivery(
-      {required String uid, required double deliveryFee});
+      {required String uid, required BusinessDeliveryModel deliveryData});
 
   /// Consultas de Negócios
   Future<List<BusinessModel>?> getBusinessesAt({required String city});

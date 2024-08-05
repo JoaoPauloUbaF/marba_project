@@ -15,6 +15,7 @@ import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/models/business_delivery/business_delivery.dart';
 import '../../presentation/widgets/business_modal_body/business_modal_body_widget.dart';
 import '../../presentation/widgets/business_settings/delivery_settings/delivery_settings_modal_widget.dart';
 
@@ -172,12 +173,13 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
         .then((value) => fetchBusinessProfile());
   }
 
-  void updateBusinessDelivery(double parse) {
-    ref
+  Future<void> updateBusinessDelivery(
+      {required BusinessDeliveryModel deliveryData}) {
+    return ref
         .read(businessProfileDataProvider)
         .updateBusinessDelivery(
           uid: state?.id ?? '',
-          deliveryFee: parse,
+          deliveryData: deliveryData,
         )
         .then((value) => fetchBusinessProfile());
   }

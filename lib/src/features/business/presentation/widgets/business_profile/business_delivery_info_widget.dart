@@ -11,6 +11,7 @@ class BusinessDeliveryInfoWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(businessProfileViewModelProvider);
     final viewModel = ref.watch(businessProfileViewModelProvider.notifier);
     final deliveryTimeStr = viewModel.getDeliveryTimeStr();
     final deliveryCostStr = viewModel.getDeliveryCostStr();

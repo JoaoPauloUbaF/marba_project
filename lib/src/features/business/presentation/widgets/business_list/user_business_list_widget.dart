@@ -82,11 +82,11 @@ class UserBusinessListWidget extends ConsumerWidget {
           loading: () => const Center(
             child: CircularProgressIndicator(),
           ),
-          error: (error, _) => Padding(
-            padding: const EdgeInsets.all(16.0),
+          error: (error, _) => const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Center(
               child: Text(
-                error.toString(),
+                'Erro ao carregar a lista de negócios\n',
                 textAlign: TextAlign.center,
               ),
             ),

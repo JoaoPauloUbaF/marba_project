@@ -10,6 +10,9 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
     _$BusinessModelImpl(
       id: json['id'] as String,
       name: json['name'] as String,
+      nameWords: (json['nameWords'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       email: json['email'] as String,
       phoneNumber: json['phoneNumber'] as String,
       address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
@@ -17,23 +20,23 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
       categories: (json['categories'] as List<dynamic>)
           .map((e) => $enumDecode(_$BusinessCategoryEnumMap, e))
           .toSet(),
-      offersIds:
-          (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
-      deliveryFee: (json['deliveryFee'] as num?)?.toDouble(),
-      minimumOrderValue: (json['minimumOrderValue'] as num?)?.toDouble(),
-      deliveryTime: (json['deliveryTime'] as List<dynamic>?)
-          ?.map((e) => (e as num).toDouble())
-          .toSet(),
-      openingHours: (json['openingHours'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
-      profileImageUrl: json['profileImageUrl'] as String?,
       categoriesWords: (json['categoriesWords'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toSet(),
-      nameWords: (json['nameWords'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      offersIds:
+          (json['offersIds'] as List<dynamic>).map((e) => e as String).toSet(),
+      profileImageUrl: json['profileImageUrl'] as String?,
+      minimumOrderValue: (json['minimumOrderValue'] as num?)?.toDouble(),
+      deliveryFee: (json['deliveryFee'] as num?)?.toDouble(),
+      deliveryTime: (json['deliveryTime'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toSet(),
+      baseDeliveryDistance: (json['baseDeliveryDistance'] as num?)?.toDouble(),
+      additionalDistanceFee:
+          (json['additionalDistanceFee'] as num?)?.toDouble(),
+      openingHours: (json['openingHours'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
       averageRating: (json['averageRating'] as num?)?.toDouble(),
       ratingDistribution:
           (json['ratingDistribution'] as Map<String, dynamic>?)?.map(
@@ -45,13 +48,6 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'name': instance.name,
-    'email': instance.email,
-    'phoneNumber': instance.phoneNumber,
-    'address': instance.address.toJson(),
-    'status': _$BusinessStatusEnumMap[instance.status]!,
-    'categories':
-        instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList(),
-    'offersIds': instance.offersIds.toList(),
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -60,13 +56,22 @@ Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
     }
   }
 
-  writeNotNull('deliveryFee', instance.deliveryFee);
-  writeNotNull('minimumOrderValue', instance.minimumOrderValue);
-  writeNotNull('deliveryTime', instance.deliveryTime?.toList());
-  writeNotNull('openingHours', instance.openingHours);
-  writeNotNull('profileImageUrl', instance.profileImageUrl);
-  writeNotNull('categoriesWords', instance.categoriesWords?.toList());
   writeNotNull('nameWords', instance.nameWords);
+  val['email'] = instance.email;
+  val['phoneNumber'] = instance.phoneNumber;
+  val['address'] = instance.address.toJson();
+  val['status'] = _$BusinessStatusEnumMap[instance.status]!;
+  val['categories'] =
+      instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList();
+  writeNotNull('categoriesWords', instance.categoriesWords?.toList());
+  val['offersIds'] = instance.offersIds.toList();
+  writeNotNull('profileImageUrl', instance.profileImageUrl);
+  writeNotNull('minimumOrderValue', instance.minimumOrderValue);
+  writeNotNull('deliveryFee', instance.deliveryFee);
+  writeNotNull('deliveryTime', instance.deliveryTime?.toList());
+  writeNotNull('baseDeliveryDistance', instance.baseDeliveryDistance);
+  writeNotNull('additionalDistanceFee', instance.additionalDistanceFee);
+  writeNotNull('openingHours', instance.openingHours);
   writeNotNull('averageRating', instance.averageRating);
   writeNotNull('ratingDistribution',
       instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e)));

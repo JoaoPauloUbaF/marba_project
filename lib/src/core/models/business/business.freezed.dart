@@ -22,19 +22,21 @@ BusinessModel _$BusinessModelFromJson(Map<String, dynamic> json) {
 mixin _$BusinessModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  List<String>? get nameWords => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get phoneNumber => throw _privateConstructorUsedError;
   AddressModel get address => throw _privateConstructorUsedError;
   BusinessStatus get status => throw _privateConstructorUsedError;
   Set<BusinessCategory> get categories => throw _privateConstructorUsedError;
-  Set<String> get offersIds => throw _privateConstructorUsedError;
-  double? get deliveryFee => throw _privateConstructorUsedError;
-  double? get minimumOrderValue => throw _privateConstructorUsedError;
-  Set<double>? get deliveryTime => throw _privateConstructorUsedError;
-  Map<String, String>? get openingHours => throw _privateConstructorUsedError;
-  String? get profileImageUrl => throw _privateConstructorUsedError;
   Set<String>? get categoriesWords => throw _privateConstructorUsedError;
-  List<String>? get nameWords => throw _privateConstructorUsedError;
+  Set<String> get offersIds => throw _privateConstructorUsedError;
+  String? get profileImageUrl => throw _privateConstructorUsedError;
+  double? get minimumOrderValue => throw _privateConstructorUsedError;
+  double? get deliveryFee => throw _privateConstructorUsedError;
+  Set<int>? get deliveryTime => throw _privateConstructorUsedError;
+  double? get baseDeliveryDistance => throw _privateConstructorUsedError;
+  double? get additionalDistanceFee => throw _privateConstructorUsedError;
+  Map<String, String>? get openingHours => throw _privateConstructorUsedError;
   double? get averageRating => throw _privateConstructorUsedError;
   Map<int, int>? get ratingDistribution => throw _privateConstructorUsedError;
 
@@ -53,19 +55,21 @@ abstract class $BusinessModelCopyWith<$Res> {
   $Res call(
       {String id,
       String name,
+      List<String>? nameWords,
       String email,
       String phoneNumber,
       AddressModel address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
-      Set<String> offersIds,
-      double? deliveryFee,
-      double? minimumOrderValue,
-      Set<double>? deliveryTime,
-      Map<String, String>? openingHours,
-      String? profileImageUrl,
       Set<String>? categoriesWords,
-      List<String>? nameWords,
+      Set<String> offersIds,
+      String? profileImageUrl,
+      double? minimumOrderValue,
+      double? deliveryFee,
+      Set<int>? deliveryTime,
+      double? baseDeliveryDistance,
+      double? additionalDistanceFee,
+      Map<String, String>? openingHours,
       double? averageRating,
       Map<int, int>? ratingDistribution});
 
@@ -87,19 +91,21 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? nameWords = freezed,
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
     Object? status = null,
     Object? categories = null,
-    Object? offersIds = null,
-    Object? deliveryFee = freezed,
-    Object? minimumOrderValue = freezed,
-    Object? deliveryTime = freezed,
-    Object? openingHours = freezed,
-    Object? profileImageUrl = freezed,
     Object? categoriesWords = freezed,
-    Object? nameWords = freezed,
+    Object? offersIds = null,
+    Object? profileImageUrl = freezed,
+    Object? minimumOrderValue = freezed,
+    Object? deliveryFee = freezed,
+    Object? deliveryTime = freezed,
+    Object? baseDeliveryDistance = freezed,
+    Object? additionalDistanceFee = freezed,
+    Object? openingHours = freezed,
     Object? averageRating = freezed,
     Object? ratingDistribution = freezed,
   }) {
@@ -112,6 +118,10 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      nameWords: freezed == nameWords
+          ? _value.nameWords
+          : nameWords // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -132,38 +142,42 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as Set<BusinessCategory>,
-      offersIds: null == offersIds
-          ? _value.offersIds
-          : offersIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-      deliveryFee: freezed == deliveryFee
-          ? _value.deliveryFee
-          : deliveryFee // ignore: cast_nullable_to_non_nullable
-              as double?,
-      minimumOrderValue: freezed == minimumOrderValue
-          ? _value.minimumOrderValue
-          : minimumOrderValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      deliveryTime: freezed == deliveryTime
-          ? _value.deliveryTime
-          : deliveryTime // ignore: cast_nullable_to_non_nullable
-              as Set<double>?,
-      openingHours: freezed == openingHours
-          ? _value.openingHours
-          : openingHours // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-      profileImageUrl: freezed == profileImageUrl
-          ? _value.profileImageUrl
-          : profileImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       categoriesWords: freezed == categoriesWords
           ? _value.categoriesWords
           : categoriesWords // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
-      nameWords: freezed == nameWords
-          ? _value.nameWords
-          : nameWords // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      offersIds: null == offersIds
+          ? _value.offersIds
+          : offersIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minimumOrderValue: freezed == minimumOrderValue
+          ? _value.minimumOrderValue
+          : minimumOrderValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryFee: freezed == deliveryFee
+          ? _value.deliveryFee
+          : deliveryFee // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryTime: freezed == deliveryTime
+          ? _value.deliveryTime
+          : deliveryTime // ignore: cast_nullable_to_non_nullable
+              as Set<int>?,
+      baseDeliveryDistance: freezed == baseDeliveryDistance
+          ? _value.baseDeliveryDistance
+          : baseDeliveryDistance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      additionalDistanceFee: freezed == additionalDistanceFee
+          ? _value.additionalDistanceFee
+          : additionalDistanceFee // ignore: cast_nullable_to_non_nullable
+              as double?,
+      openingHours: freezed == openingHours
+          ? _value.openingHours
+          : openingHours // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
       averageRating: freezed == averageRating
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
@@ -195,19 +209,21 @@ abstract class _$$BusinessModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String name,
+      List<String>? nameWords,
       String email,
       String phoneNumber,
       AddressModel address,
       BusinessStatus status,
       Set<BusinessCategory> categories,
-      Set<String> offersIds,
-      double? deliveryFee,
-      double? minimumOrderValue,
-      Set<double>? deliveryTime,
-      Map<String, String>? openingHours,
-      String? profileImageUrl,
       Set<String>? categoriesWords,
-      List<String>? nameWords,
+      Set<String> offersIds,
+      String? profileImageUrl,
+      double? minimumOrderValue,
+      double? deliveryFee,
+      Set<int>? deliveryTime,
+      double? baseDeliveryDistance,
+      double? additionalDistanceFee,
+      Map<String, String>? openingHours,
       double? averageRating,
       Map<int, int>? ratingDistribution});
 
@@ -228,19 +244,21 @@ class __$$BusinessModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? nameWords = freezed,
     Object? email = null,
     Object? phoneNumber = null,
     Object? address = null,
     Object? status = null,
     Object? categories = null,
-    Object? offersIds = null,
-    Object? deliveryFee = freezed,
-    Object? minimumOrderValue = freezed,
-    Object? deliveryTime = freezed,
-    Object? openingHours = freezed,
-    Object? profileImageUrl = freezed,
     Object? categoriesWords = freezed,
-    Object? nameWords = freezed,
+    Object? offersIds = null,
+    Object? profileImageUrl = freezed,
+    Object? minimumOrderValue = freezed,
+    Object? deliveryFee = freezed,
+    Object? deliveryTime = freezed,
+    Object? baseDeliveryDistance = freezed,
+    Object? additionalDistanceFee = freezed,
+    Object? openingHours = freezed,
     Object? averageRating = freezed,
     Object? ratingDistribution = freezed,
   }) {
@@ -253,6 +271,10 @@ class __$$BusinessModelImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      nameWords: freezed == nameWords
+          ? _value._nameWords
+          : nameWords // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -273,38 +295,42 @@ class __$$BusinessModelImplCopyWithImpl<$Res>
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as Set<BusinessCategory>,
-      offersIds: null == offersIds
-          ? _value._offersIds
-          : offersIds // ignore: cast_nullable_to_non_nullable
-              as Set<String>,
-      deliveryFee: freezed == deliveryFee
-          ? _value.deliveryFee
-          : deliveryFee // ignore: cast_nullable_to_non_nullable
-              as double?,
-      minimumOrderValue: freezed == minimumOrderValue
-          ? _value.minimumOrderValue
-          : minimumOrderValue // ignore: cast_nullable_to_non_nullable
-              as double?,
-      deliveryTime: freezed == deliveryTime
-          ? _value._deliveryTime
-          : deliveryTime // ignore: cast_nullable_to_non_nullable
-              as Set<double>?,
-      openingHours: freezed == openingHours
-          ? _value._openingHours
-          : openingHours // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>?,
-      profileImageUrl: freezed == profileImageUrl
-          ? _value.profileImageUrl
-          : profileImageUrl // ignore: cast_nullable_to_non_nullable
-              as String?,
       categoriesWords: freezed == categoriesWords
           ? _value._categoriesWords
           : categoriesWords // ignore: cast_nullable_to_non_nullable
               as Set<String>?,
-      nameWords: freezed == nameWords
-          ? _value._nameWords
-          : nameWords // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
+      offersIds: null == offersIds
+          ? _value._offersIds
+          : offersIds // ignore: cast_nullable_to_non_nullable
+              as Set<String>,
+      profileImageUrl: freezed == profileImageUrl
+          ? _value.profileImageUrl
+          : profileImageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      minimumOrderValue: freezed == minimumOrderValue
+          ? _value.minimumOrderValue
+          : minimumOrderValue // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryFee: freezed == deliveryFee
+          ? _value.deliveryFee
+          : deliveryFee // ignore: cast_nullable_to_non_nullable
+              as double?,
+      deliveryTime: freezed == deliveryTime
+          ? _value._deliveryTime
+          : deliveryTime // ignore: cast_nullable_to_non_nullable
+              as Set<int>?,
+      baseDeliveryDistance: freezed == baseDeliveryDistance
+          ? _value.baseDeliveryDistance
+          : baseDeliveryDistance // ignore: cast_nullable_to_non_nullable
+              as double?,
+      additionalDistanceFee: freezed == additionalDistanceFee
+          ? _value.additionalDistanceFee
+          : additionalDistanceFee // ignore: cast_nullable_to_non_nullable
+              as double?,
+      openingHours: freezed == openingHours
+          ? _value._openingHours
+          : openingHours // ignore: cast_nullable_to_non_nullable
+              as Map<String, String>?,
       averageRating: freezed == averageRating
           ? _value.averageRating
           : averageRating // ignore: cast_nullable_to_non_nullable
@@ -323,27 +349,29 @@ class _$BusinessModelImpl implements _BusinessModel {
   _$BusinessModelImpl(
       {required this.id,
       required this.name,
+      final List<String>? nameWords,
       required this.email,
       required this.phoneNumber,
       required this.address,
       required this.status,
       required final Set<BusinessCategory> categories,
-      required final Set<String> offersIds,
-      this.deliveryFee,
-      this.minimumOrderValue,
-      final Set<double>? deliveryTime,
-      final Map<String, String>? openingHours,
-      this.profileImageUrl,
       final Set<String>? categoriesWords,
-      final List<String>? nameWords,
+      required final Set<String> offersIds,
+      this.profileImageUrl,
+      this.minimumOrderValue,
+      this.deliveryFee,
+      final Set<int>? deliveryTime,
+      this.baseDeliveryDistance,
+      this.additionalDistanceFee,
+      final Map<String, String>? openingHours,
       this.averageRating,
       final Map<int, int>? ratingDistribution})
-      : _categories = categories,
+      : _nameWords = nameWords,
+        _categories = categories,
+        _categoriesWords = categoriesWords,
         _offersIds = offersIds,
         _deliveryTime = deliveryTime,
         _openingHours = openingHours,
-        _categoriesWords = categoriesWords,
-        _nameWords = nameWords,
         _ratingDistribution = ratingDistribution;
 
   factory _$BusinessModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -353,6 +381,16 @@ class _$BusinessModelImpl implements _BusinessModel {
   final String id;
   @override
   final String name;
+  final List<String>? _nameWords;
+  @override
+  List<String>? get nameWords {
+    final value = _nameWords;
+    if (value == null) return null;
+    if (_nameWords is EqualUnmodifiableListView) return _nameWords;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String email;
   @override
@@ -369,40 +407,6 @@ class _$BusinessModelImpl implements _BusinessModel {
     return EqualUnmodifiableSetView(_categories);
   }
 
-  final Set<String> _offersIds;
-  @override
-  Set<String> get offersIds {
-    if (_offersIds is EqualUnmodifiableSetView) return _offersIds;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_offersIds);
-  }
-
-  @override
-  final double? deliveryFee;
-  @override
-  final double? minimumOrderValue;
-  final Set<double>? _deliveryTime;
-  @override
-  Set<double>? get deliveryTime {
-    final value = _deliveryTime;
-    if (value == null) return null;
-    if (_deliveryTime is EqualUnmodifiableSetView) return _deliveryTime;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(value);
-  }
-
-  final Map<String, String>? _openingHours;
-  @override
-  Map<String, String>? get openingHours {
-    final value = _openingHours;
-    if (value == null) return null;
-    if (_openingHours is EqualUnmodifiableMapView) return _openingHours;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
-  @override
-  final String? profileImageUrl;
   final Set<String>? _categoriesWords;
   @override
   Set<String>? get categoriesWords {
@@ -413,14 +417,42 @@ class _$BusinessModelImpl implements _BusinessModel {
     return EqualUnmodifiableSetView(value);
   }
 
-  final List<String>? _nameWords;
+  final Set<String> _offersIds;
   @override
-  List<String>? get nameWords {
-    final value = _nameWords;
-    if (value == null) return null;
-    if (_nameWords is EqualUnmodifiableListView) return _nameWords;
+  Set<String> get offersIds {
+    if (_offersIds is EqualUnmodifiableSetView) return _offersIds;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableSetView(_offersIds);
+  }
+
+  @override
+  final String? profileImageUrl;
+  @override
+  final double? minimumOrderValue;
+  @override
+  final double? deliveryFee;
+  final Set<int>? _deliveryTime;
+  @override
+  Set<int>? get deliveryTime {
+    final value = _deliveryTime;
+    if (value == null) return null;
+    if (_deliveryTime is EqualUnmodifiableSetView) return _deliveryTime;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
+
+  @override
+  final double? baseDeliveryDistance;
+  @override
+  final double? additionalDistanceFee;
+  final Map<String, String>? _openingHours;
+  @override
+  Map<String, String>? get openingHours {
+    final value = _openingHours;
+    if (value == null) return null;
+    if (_openingHours is EqualUnmodifiableMapView) return _openingHours;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
@@ -438,7 +470,7 @@ class _$BusinessModelImpl implements _BusinessModel {
 
   @override
   String toString() {
-    return 'BusinessModel(id: $id, name: $name, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, offersIds: $offersIds, deliveryFee: $deliveryFee, minimumOrderValue: $minimumOrderValue, deliveryTime: $deliveryTime, openingHours: $openingHours, profileImageUrl: $profileImageUrl, categoriesWords: $categoriesWords, nameWords: $nameWords, averageRating: $averageRating, ratingDistribution: $ratingDistribution)';
+    return 'BusinessModel(id: $id, name: $name, nameWords: $nameWords, email: $email, phoneNumber: $phoneNumber, address: $address, status: $status, categories: $categories, categoriesWords: $categoriesWords, offersIds: $offersIds, profileImageUrl: $profileImageUrl, minimumOrderValue: $minimumOrderValue, deliveryFee: $deliveryFee, deliveryTime: $deliveryTime, baseDeliveryDistance: $baseDeliveryDistance, additionalDistanceFee: $additionalDistanceFee, openingHours: $openingHours, averageRating: $averageRating, ratingDistribution: $ratingDistribution)';
   }
 
   @override
@@ -448,6 +480,8 @@ class _$BusinessModelImpl implements _BusinessModel {
             other is _$BusinessModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other._nameWords, _nameWords) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.phoneNumber, phoneNumber) ||
                 other.phoneNumber == phoneNumber) &&
@@ -456,21 +490,23 @@ class _$BusinessModelImpl implements _BusinessModel {
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
             const DeepCollectionEquality()
-                .equals(other._offersIds, _offersIds) &&
-            (identical(other.deliveryFee, deliveryFee) ||
-                other.deliveryFee == deliveryFee) &&
-            (identical(other.minimumOrderValue, minimumOrderValue) ||
-                other.minimumOrderValue == minimumOrderValue) &&
-            const DeepCollectionEquality()
-                .equals(other._deliveryTime, _deliveryTime) &&
-            const DeepCollectionEquality()
-                .equals(other._openingHours, _openingHours) &&
-            (identical(other.profileImageUrl, profileImageUrl) ||
-                other.profileImageUrl == profileImageUrl) &&
-            const DeepCollectionEquality()
                 .equals(other._categoriesWords, _categoriesWords) &&
             const DeepCollectionEquality()
-                .equals(other._nameWords, _nameWords) &&
+                .equals(other._offersIds, _offersIds) &&
+            (identical(other.profileImageUrl, profileImageUrl) ||
+                other.profileImageUrl == profileImageUrl) &&
+            (identical(other.minimumOrderValue, minimumOrderValue) ||
+                other.minimumOrderValue == minimumOrderValue) &&
+            (identical(other.deliveryFee, deliveryFee) ||
+                other.deliveryFee == deliveryFee) &&
+            const DeepCollectionEquality()
+                .equals(other._deliveryTime, _deliveryTime) &&
+            (identical(other.baseDeliveryDistance, baseDeliveryDistance) ||
+                other.baseDeliveryDistance == baseDeliveryDistance) &&
+            (identical(other.additionalDistanceFee, additionalDistanceFee) ||
+                other.additionalDistanceFee == additionalDistanceFee) &&
+            const DeepCollectionEquality()
+                .equals(other._openingHours, _openingHours) &&
             (identical(other.averageRating, averageRating) ||
                 other.averageRating == averageRating) &&
             const DeepCollectionEquality()
@@ -479,25 +515,28 @@ class _$BusinessModelImpl implements _BusinessModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      email,
-      phoneNumber,
-      address,
-      status,
-      const DeepCollectionEquality().hash(_categories),
-      const DeepCollectionEquality().hash(_offersIds),
-      deliveryFee,
-      minimumOrderValue,
-      const DeepCollectionEquality().hash(_deliveryTime),
-      const DeepCollectionEquality().hash(_openingHours),
-      profileImageUrl,
-      const DeepCollectionEquality().hash(_categoriesWords),
-      const DeepCollectionEquality().hash(_nameWords),
-      averageRating,
-      const DeepCollectionEquality().hash(_ratingDistribution));
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        name,
+        const DeepCollectionEquality().hash(_nameWords),
+        email,
+        phoneNumber,
+        address,
+        status,
+        const DeepCollectionEquality().hash(_categories),
+        const DeepCollectionEquality().hash(_categoriesWords),
+        const DeepCollectionEquality().hash(_offersIds),
+        profileImageUrl,
+        minimumOrderValue,
+        deliveryFee,
+        const DeepCollectionEquality().hash(_deliveryTime),
+        baseDeliveryDistance,
+        additionalDistanceFee,
+        const DeepCollectionEquality().hash(_openingHours),
+        averageRating,
+        const DeepCollectionEquality().hash(_ratingDistribution)
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -517,19 +556,21 @@ abstract class _BusinessModel implements BusinessModel {
   factory _BusinessModel(
       {required final String id,
       required final String name,
+      final List<String>? nameWords,
       required final String email,
       required final String phoneNumber,
       required final AddressModel address,
       required final BusinessStatus status,
       required final Set<BusinessCategory> categories,
-      required final Set<String> offersIds,
-      final double? deliveryFee,
-      final double? minimumOrderValue,
-      final Set<double>? deliveryTime,
-      final Map<String, String>? openingHours,
-      final String? profileImageUrl,
       final Set<String>? categoriesWords,
-      final List<String>? nameWords,
+      required final Set<String> offersIds,
+      final String? profileImageUrl,
+      final double? minimumOrderValue,
+      final double? deliveryFee,
+      final Set<int>? deliveryTime,
+      final double? baseDeliveryDistance,
+      final double? additionalDistanceFee,
+      final Map<String, String>? openingHours,
       final double? averageRating,
       final Map<int, int>? ratingDistribution}) = _$BusinessModelImpl;
 
@@ -541,6 +582,8 @@ abstract class _BusinessModel implements BusinessModel {
   @override
   String get name;
   @override
+  List<String>? get nameWords;
+  @override
   String get email;
   @override
   String get phoneNumber;
@@ -551,21 +594,23 @@ abstract class _BusinessModel implements BusinessModel {
   @override
   Set<BusinessCategory> get categories;
   @override
+  Set<String>? get categoriesWords;
+  @override
   Set<String> get offersIds;
-  @override
-  double? get deliveryFee;
-  @override
-  double? get minimumOrderValue;
-  @override
-  Set<double>? get deliveryTime;
-  @override
-  Map<String, String>? get openingHours;
   @override
   String? get profileImageUrl;
   @override
-  Set<String>? get categoriesWords;
+  double? get minimumOrderValue;
   @override
-  List<String>? get nameWords;
+  double? get deliveryFee;
+  @override
+  Set<int>? get deliveryTime;
+  @override
+  double? get baseDeliveryDistance;
+  @override
+  double? get additionalDistanceFee;
+  @override
+  Map<String, String>? get openingHours;
   @override
   double? get averageRating;
   @override

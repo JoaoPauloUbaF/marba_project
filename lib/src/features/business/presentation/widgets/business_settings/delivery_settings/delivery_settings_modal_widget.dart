@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/models/business_delivery/business_delivery.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 
-import '../../../../../../core/utils/registration_utils.dart';
 import '../../../../../../core/widgets/medium_vertical_space_widget.dart';
 import '../../../../../../core/widgets/modal_center_top_line_widget.dart';
 import '../../../../application/business_profile_view_model/business_profile_screen_controller.dart';
@@ -22,7 +23,6 @@ class _DeliveryModalWidgetState
   late TextEditingController _baseDeliveryFeeController;
   late TextEditingController _additionalDistanceFeeController;
   late TextEditingController _baseDistanceController;
-  late TextEditingController _additionalDistanceController;
   late TextEditingController _minimumDeliveryTimeController;
   late TextEditingController _maximumDeliveryTimeController;
   late TextEditingController _minimumOrderValueController;
@@ -40,14 +40,12 @@ class _DeliveryModalWidgetState
     _baseDistanceController = MaskedTextController(
       mask: '0,00 km',
     );
-    _additionalDistanceController = MaskedTextController(
-      mask: '0,00 km',
-    );
+
     _minimumDeliveryTimeController = MaskedTextController(
-      mask: '00:00',
+      mask: '00 min',
     );
     _maximumDeliveryTimeController = MaskedTextController(
-      mask: '00:00',
+      mask: '00 min',
     );
     _minimumOrderValueController = MoneyMaskedTextController(
       leftSymbol: 'R\$ ',
@@ -60,8 +58,21 @@ class _DeliveryModalWidgetState
   Widget build(BuildContext context) {
     final business = ref.watch(businessProfileViewModelProvider);
     final viewModel = ref.watch(businessProfileViewModelProvider.notifier);
+
     double baseDeliveryFee = business?.deliveryFee ?? 0.0;
+    double additionalDistanceFee = business?.additionalDistanceFee ?? 0.0;
+    double baseDistance = business?.baseDeliveryDistance ?? 0.0;
+    String minimumDeliveryTime = '${business?.deliveryTime?.first ?? 0} min';
+    String maximumDeliveryTime = '${business?.deliveryTime?.last ?? 0} min';
+    double minimumOrderValue = business?.minimumOrderValue ?? 0.0;
+
     _baseDeliveryFeeController.text = baseDeliveryFee.toStringAsFixed(2);
+    _additionalDistanceFeeController.text =
+        additionalDistanceFee.toStringAsFixed(2);
+    _baseDistanceController.text = '${baseDistance.toStringAsFixed(2)} km';
+    _minimumDeliveryTimeController.text = minimumDeliveryTime;
+    _maximumDeliveryTimeController.text = maximumDeliveryTime;
+    _minimumOrderValueController.text = minimumOrderValue.toStringAsFixed(2);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -124,23 +135,6 @@ class _DeliveryModalWidgetState
                     ),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.directions_sharp),
-                    title: const Text('Distância Adicional'),
-                    subtitle:
-                        const Text('Distância adicional para taxa adicional'),
-                    trailing: SizedBox(
-                      width: 80,
-                      child: TextField(
-                        controller: _additionalDistanceController,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.all(2),
-                          border: OutlineInputBorder(),
-                          hintText: '0,00 km',
-                        ),
-                      ),
-                    ),
-                  ),
-                  ListTile(
                     leading: const Icon(Icons.timer),
                     title: const Text('Tempo de Entrega Mínimo'),
                     trailing: SizedBox(
@@ -190,10 +184,63 @@ class _DeliveryModalWidgetState
           ),
           const VerticalSpaceMediumWidget(),
           ElevatedButton(
-            onPressed: () {
-              viewModel.updateBusinessDelivery(
-                RegistrationUtils()
-                    .currencyStringToDouble(_baseDeliveryFeeController.text),
+            onPressed: () async {
+              showLoader(context);
+              await viewModel
+                  .updateBusinessDelivery(
+                deliveryData: BusinessDeliveryModel(
+                  baseDeliveryFee: _baseDeliveryFeeController.text,
+                  additionalDistanceFee: _additionalDistanceFeeController.text,
+                  baseDistance: _baseDistanceController.text,
+                  minimumDeliveryTime: _minimumDeliveryTimeController.text,
+                  maximumDeliveryTime: _maximumDeliveryTimeController.text,
+                  minimumOrderValue: _minimumOrderValueController.text,
+                ),
+              )
+                  .catchError(
+                (error) async {
+                  hideLoader(context);
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Erro'),
+                        content: const Text(
+                            'Ocorreu um erro ao salvar as configurações de entrega. Por favor, tente novamente.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
+              ).then(
+                (value) async {
+                  hideLoader(context);
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Sucesso'),
+                          content: const Text(
+                              'Configurações de entrega salvas com sucesso.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        );
+                      });
+                },
               );
             },
             style: ButtonStyle(

@@ -94,7 +94,8 @@ class AddBusinessStepperWidgetState
       (value) async => {
         hideLoader(context),
         await businessCreationController
-            .showSuccessDialog(context, _nameController.text)
+            .showSuccessDialog(
+                context, _nameController.text, businessProfileImage)
             .then((value) {
           Navigator.of(context).pop();
         }),

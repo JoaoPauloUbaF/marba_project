@@ -5,7 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
+import 'package:project_marba/src/core/models/business_delivery/business_delivery.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
+import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -213,11 +215,26 @@ class BusinessFirebaseProfileDataProvider
   @override
   Future<void> updateBusinessDelivery({
     required String uid,
-    required double deliveryFee,
-  }) {
-    return _businessCollection.doc(uid).update({
-      'deliveryFee': deliveryFee,
-    });
+    required BusinessDeliveryModel deliveryData,
+  }) async {
+    final business = await getBusinessProfileData(uid: uid);
+    if (business == null) return;
+    final updatedBusiness = business.copyWith(
+      deliveryFee: RegistrationUtils()
+          .currencyStringToDouble(deliveryData.baseDeliveryFee),
+      deliveryTime: {
+        int.parse(deliveryData.minimumDeliveryTime),
+        int.parse(deliveryData.minimumDeliveryTime)
+      },
+      minimumOrderValue: RegistrationUtils()
+          .currencyStringToDouble(deliveryData.minimumOrderValue),
+      baseDeliveryDistance:
+          double.parse(deliveryData.baseDistance.replaceAll(',', '.')),
+      additionalDistanceFee: RegistrationUtils()
+          .currencyStringToDouble(deliveryData.additionalDistanceFee),
+    );
+
+    return await updateBusinessProfile(business: updatedBusiness);
   }
 
   // *** Business Queries ***

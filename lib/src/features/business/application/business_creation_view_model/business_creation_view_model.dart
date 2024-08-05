@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -168,70 +169,13 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
   }
 
   Future<FutureOr<void>> showSuccessDialog(
-      BuildContext context, String value) async {
+      BuildContext context, String value, File? businessProfileImage) async {
     await showDialog(
       context: context,
       builder: (context) {
-        return Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width, // Set the width
-            height: MediaQuery.of(context).size.height * 0.4, // Set the height
-            child: AlertDialog(
-              title: Text(
-                'Negócio',
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              content: Column(
-                children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Negócio',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        const Gap(8),
-                        Row(
-                          children: [
-                            // CircleAvatar(
-                            //   radius: 20,
-                            //   backgroundImage: ref
-                            //               .read(imageFieldControllerProvider) !=
-                            //           null
-                            //       ? FileImage(
-                            //           ref.read(imageFieldControllerProvider)!)
-                            //       : null,
-                            // ),
-                            const Gap(8),
-                            Text(
-                              value,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleLarge
-                                  ?.copyWith(
-                                    color:
-                                        Theme.of(context).colorScheme.primary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        const Center(child: Text('Criado com sucesso!')),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Ok'),
-                ),
-              ],
-            ),
-          ),
+        return BusinessCreationSuccessDialogWidget(
+          value: value,
+          businessProfileImage: businessProfileImage,
         );
       },
     );
@@ -255,6 +199,94 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
           ],
         );
       },
+    );
+  }
+}
+
+class BusinessCreationSuccessDialogWidget extends StatelessWidget {
+  final String value;
+  final File? businessProfileImage;
+
+  const BusinessCreationSuccessDialogWidget({
+    super.key,
+    required this.value,
+    this.businessProfileImage,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width, // Set the width
+        height: MediaQuery.of(context).size.height * 0.4, // Set the height
+        child: AlertDialog(
+          title: Text(
+            'Negócio',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+          content: Column(
+            children: [
+              Center(
+                child: Column(
+                  children: [
+                    Text(
+                      'Negócio',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    const Gap(8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        businessProfileImage == null
+                            ? CircleAvatar(
+                                radius: 20,
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                child: Text(
+                                  value[0].toUpperCase(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleLarge
+                                      ?.copyWith(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              )
+                            : CircleAvatar(
+                                radius: 20,
+                                backgroundImage:
+                                    FileImage(businessProfileImage!),
+                              ),
+                        const Gap(8),
+                        Text(
+                          value,
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleLarge
+                              ?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                      ],
+                    ),
+                    const Center(child: Text('Criado com sucesso!')),
+                  ],
+                ),
+              )
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
