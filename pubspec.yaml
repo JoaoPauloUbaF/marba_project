@@ -11,6 +11,7 @@ dependencies:
   camera: ^0.11.0+1
   carousel_slider: ^4.2.1
   cloud_firestore: ^4.13.6
+  cloud_functions: ^4.7.6
   device_preview: ^1.1.0
   diacritic: ^0.1.5
   firebase_auth: ^4.15.3

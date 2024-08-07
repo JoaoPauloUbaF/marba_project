@@ -11,6 +11,7 @@ class BusinessOrderItem with _$BusinessOrderItem {
     required String name,
     required String imageUrl,
     required double price,
+    required double cost,
     required int quantity,
     DateTime? deliveredAt,
     DateTime? canceledAt,

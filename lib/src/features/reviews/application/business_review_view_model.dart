@@ -1,3 +1,4 @@
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/business_order_model.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
@@ -107,9 +108,8 @@ class BusinessReviewViewModel extends ReviewViewModel {
 
   @override
   Future<bool> canWriteReview() async {
-    //TODO: use cloud functions
-    final userOrdersRepository = ref.read(userOrdersRepositoryProvider);
-    final businessOrdersRepository = ref.read(businessOrdersRepositoryProvider);
+    final HttpsCallable callable = FirebaseFunctions.instance
+        .httpsCallable('canUserWriteBusinessReviewFunction');
     final user = ref.read(currentUserProvider);
     final business = ref.read(businessProfileViewModelProvider);
 
@@ -117,26 +117,17 @@ class BusinessReviewViewModel extends ReviewViewModel {
       return false;
     }
 
-    final userOrdersStream = userOrdersRepository.getUserOrders();
-    final allOrders = await userOrdersStream.first;
+    try {
+      final response = await callable.call(<String, dynamic>{
+        'userId': user.id,
+        'businessId': business.id,
+      });
 
-    for (var order in allOrders) {
-      for (var element in order.businessOrdersIds) {
-        final businessOrderResult = await businessOrdersRepository
-            .getBusinessOrderById(orderId: element)
-            .first;
-
-        if (businessOrderResult?.status != BusinessOrderStatus.done) {
-          return false;
-        }
-
-        if (businessOrderResult?.businessId == business.id) {
-          return true;
-        }
-      }
+      return response.data['canWrite'] as bool;
+    } catch (error) {
+      print('Error calling canWriteBusinessReview: $error');
+      return false;
     }
-
-    return false;
   }
 
   @override

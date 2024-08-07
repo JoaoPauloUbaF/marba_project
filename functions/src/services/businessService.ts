@@ -1,7 +1,5 @@
 import * as admin from "firebase-admin";
 
-admin.initializeApp();
-
 export const updateAverageRating = async (businessId: string) => {
   const reviewsCollection = admin.firestore().
     collection(`businesses/${businessId}/reviews`);

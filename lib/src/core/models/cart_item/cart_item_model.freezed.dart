@@ -23,6 +23,7 @@ mixin _$CartItemModel {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  double get cost => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   String get businessId => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $CartItemModelCopyWith<$Res> {
       {String id,
       String name,
       double price,
+      double cost,
       String imageUrl,
       int quantity,
       String businessId,
@@ -66,6 +68,7 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
     Object? id = null,
     Object? name = null,
     Object? price = null,
+    Object? cost = null,
     Object? imageUrl = null,
     Object? quantity = null,
     Object? businessId = null,
@@ -83,6 +86,10 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      cost: null == cost
+          ? _value.cost
+          : cost // ignore: cast_nullable_to_non_nullable
               as double,
       imageUrl: null == imageUrl
           ? _value.imageUrl
@@ -116,6 +123,7 @@ abstract class _$$CartItemModelImplCopyWith<$Res>
       {String id,
       String name,
       double price,
+      double cost,
       String imageUrl,
       int quantity,
       String businessId,
@@ -136,6 +144,7 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? price = null,
+    Object? cost = null,
     Object? imageUrl = null,
     Object? quantity = null,
     Object? businessId = null,
@@ -153,6 +162,10 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      cost: null == cost
+          ? _value.cost
+          : cost // ignore: cast_nullable_to_non_nullable
               as double,
       imageUrl: null == imageUrl
           ? _value.imageUrl
@@ -181,6 +194,7 @@ class _$CartItemModelImpl implements _CartItemModel {
       {required this.id,
       required this.name,
       required this.price,
+      required this.cost,
       required this.imageUrl,
       required this.quantity,
       required this.businessId,
@@ -196,6 +210,8 @@ class _$CartItemModelImpl implements _CartItemModel {
   @override
   final double price;
   @override
+  final double cost;
+  @override
   final String imageUrl;
   @override
   final int quantity;
@@ -206,7 +222,7 @@ class _$CartItemModelImpl implements _CartItemModel {
 
   @override
   String toString() {
-    return 'CartItemModel(id: $id, name: $name, price: $price, imageUrl: $imageUrl, quantity: $quantity, businessId: $businessId, offerType: $offerType)';
+    return 'CartItemModel(id: $id, name: $name, price: $price, cost: $cost, imageUrl: $imageUrl, quantity: $quantity, businessId: $businessId, offerType: $offerType)';
   }
 
   @override
@@ -217,6 +233,7 @@ class _$CartItemModelImpl implements _CartItemModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.cost, cost) || other.cost == cost) &&
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.quantity, quantity) ||
@@ -229,8 +246,8 @@ class _$CartItemModelImpl implements _CartItemModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, name, price, imageUrl, quantity, businessId, offerType);
+  int get hashCode => Object.hash(runtimeType, id, name, price, cost, imageUrl,
+      quantity, businessId, offerType);
 
   @JsonKey(ignore: true)
   @override
@@ -251,6 +268,7 @@ abstract class _CartItemModel implements CartItemModel {
       {required final String id,
       required final String name,
       required final double price,
+      required final double cost,
       required final String imageUrl,
       required final int quantity,
       required final String businessId,
@@ -265,6 +283,8 @@ abstract class _CartItemModel implements CartItemModel {
   String get name;
   @override
   double get price;
+  @override
+  double get cost;
   @override
   String get imageUrl;
   @override

@@ -10,6 +10,7 @@ class CartItemModel with _$CartItemModel {
     required String id,
     required String name,
     required double price,
+    required double cost,
     required String imageUrl,
     required int quantity,
     required String businessId,

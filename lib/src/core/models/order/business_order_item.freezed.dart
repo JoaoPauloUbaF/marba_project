@@ -25,6 +25,7 @@ mixin _$BusinessOrderItem {
   String get name => throw _privateConstructorUsedError;
   String get imageUrl => throw _privateConstructorUsedError;
   double get price => throw _privateConstructorUsedError;
+  double get cost => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   DateTime? get deliveredAt => throw _privateConstructorUsedError;
   DateTime? get canceledAt => throw _privateConstructorUsedError;
@@ -49,6 +50,7 @@ abstract class $BusinessOrderItemCopyWith<$Res> {
       String name,
       String imageUrl,
       double price,
+      double cost,
       int quantity,
       DateTime? deliveredAt,
       DateTime? canceledAt,
@@ -74,6 +76,7 @@ class _$BusinessOrderItemCopyWithImpl<$Res, $Val extends BusinessOrderItem>
     Object? name = null,
     Object? imageUrl = null,
     Object? price = null,
+    Object? cost = null,
     Object? quantity = null,
     Object? deliveredAt = freezed,
     Object? canceledAt = freezed,
@@ -100,6 +103,10 @@ class _$BusinessOrderItemCopyWithImpl<$Res, $Val extends BusinessOrderItem>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      cost: null == cost
+          ? _value.cost
+          : cost // ignore: cast_nullable_to_non_nullable
               as double,
       quantity: null == quantity
           ? _value.quantity
@@ -139,6 +146,7 @@ abstract class _$$BusinessOrderItemImplCopyWith<$Res>
       String name,
       String imageUrl,
       double price,
+      double cost,
       int quantity,
       DateTime? deliveredAt,
       DateTime? canceledAt,
@@ -162,6 +170,7 @@ class __$$BusinessOrderItemImplCopyWithImpl<$Res>
     Object? name = null,
     Object? imageUrl = null,
     Object? price = null,
+    Object? cost = null,
     Object? quantity = null,
     Object? deliveredAt = freezed,
     Object? canceledAt = freezed,
@@ -188,6 +197,10 @@ class __$$BusinessOrderItemImplCopyWithImpl<$Res>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      cost: null == cost
+          ? _value.cost
+          : cost // ignore: cast_nullable_to_non_nullable
               as double,
       quantity: null == quantity
           ? _value.quantity
@@ -222,6 +235,7 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
       required this.name,
       required this.imageUrl,
       required this.price,
+      required this.cost,
       required this.quantity,
       this.deliveredAt,
       this.canceledAt,
@@ -242,6 +256,8 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
   @override
   final double price;
   @override
+  final double cost;
+  @override
   final int quantity;
   @override
   final DateTime? deliveredAt;
@@ -254,7 +270,7 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
 
   @override
   String toString() {
-    return 'BusinessOrderItem(id: $id, businessOrderId: $businessOrderId, name: $name, imageUrl: $imageUrl, price: $price, quantity: $quantity, deliveredAt: $deliveredAt, canceledAt: $canceledAt, scheduledAt: $scheduledAt, status: $status)';
+    return 'BusinessOrderItem(id: $id, businessOrderId: $businessOrderId, name: $name, imageUrl: $imageUrl, price: $price, cost: $cost, quantity: $quantity, deliveredAt: $deliveredAt, canceledAt: $canceledAt, scheduledAt: $scheduledAt, status: $status)';
   }
 
   @override
@@ -269,6 +285,7 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.price, price) || other.price == price) &&
+            (identical(other.cost, cost) || other.cost == cost) &&
             (identical(other.quantity, quantity) ||
                 other.quantity == quantity) &&
             (identical(other.deliveredAt, deliveredAt) ||
@@ -282,8 +299,19 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, businessOrderId, name,
-      imageUrl, price, quantity, deliveredAt, canceledAt, scheduledAt, status);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      businessOrderId,
+      name,
+      imageUrl,
+      price,
+      cost,
+      quantity,
+      deliveredAt,
+      canceledAt,
+      scheduledAt,
+      status);
 
   @JsonKey(ignore: true)
   @override
@@ -307,6 +335,7 @@ abstract class _BusinessOrderItem implements BusinessOrderItem {
       required final String name,
       required final String imageUrl,
       required final double price,
+      required final double cost,
       required final int quantity,
       final DateTime? deliveredAt,
       final DateTime? canceledAt,
@@ -326,6 +355,8 @@ abstract class _BusinessOrderItem implements BusinessOrderItem {
   String get imageUrl;
   @override
   double get price;
+  @override
+  double get cost;
   @override
   int get quantity;
   @override

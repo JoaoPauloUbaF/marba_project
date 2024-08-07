@@ -305,7 +305,6 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
         .collection('offers')
         .where('city', isEqualTo: city)
         .orderBy(
-          //TODO: add the city
           'createdAt',
           descending: true,
         )

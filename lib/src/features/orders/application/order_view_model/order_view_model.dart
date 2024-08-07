@@ -57,6 +57,7 @@ class OrderViewModel extends _$OrderViewModel {
           name: item.name,
           imageUrl: item.imageUrl,
           price: item.price,
+          cost: item.cost,
           quantity: item.quantity,
           deliveredAt: null,
           canceledAt: null,

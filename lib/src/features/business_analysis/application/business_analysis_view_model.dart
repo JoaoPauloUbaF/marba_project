@@ -36,7 +36,7 @@ class BusinessAnalysisViewModel {
         case 'validateAddress':
           return ref
               .read(inputValidationProvider.notifier)
-              .validateAddressCity(value); // TODO: use google maps
+              .validateAddressCity(value);
         case 'validatePhone':
           return ref
               .read(inputValidationProvider.notifier)

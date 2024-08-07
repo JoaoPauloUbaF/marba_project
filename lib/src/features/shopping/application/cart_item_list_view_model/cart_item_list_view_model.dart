@@ -47,7 +47,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
   }
 
   void createNewItem(String id, String name, double price, String imageUrl,
-      String businessId, OfferType offerType) {
+      String businessId, OfferType offerType, double cost) {
     if (state.any((element) => element.id == id)) {
       final item = state.firstWhere((element) => element.id == id);
       increaseItemQuantity(item);
@@ -58,6 +58,7 @@ class CartItemListViewModel extends _$CartItemListViewModel {
       id: id,
       name: name,
       price: price,
+      cost: cost,
       imageUrl: imageUrl,
       quantity: 1,
       businessId: businessId,
