@@ -6,7 +6,7 @@ part of 'address_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$addressViewModelHash() => r'506ac4e0d50be8a64d3186e6a15cdf74cf2db14f';
+String _$addressViewModelHash() => r'2c0c41e75b3398edf57da4c0d28a250e3457bf64';
 
 /// See also [AddressViewModel].
 @ProviderFor(AddressViewModel)

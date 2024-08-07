@@ -90,11 +90,32 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   }
 
   @override
-  Future<void> addOrUpdateDeliveryAddress(
-      {required String uid, required Map<String, dynamic> address}) {
-    return _usersCollection.doc(uid).update({
-      'deliveryAddresses': FieldValue.arrayUnion([address]),
-    });
+  Future<void> addDeliveryAddress(
+      {required String uid, required AddressModel address}) async {
+    final user = await getProfileData(uid: uid).first;
+    if (user == null) {
+      return;
+    }
+    final updatedUser = user.copyWith(
+      deliveryAddresses: [...?user.deliveryAddresses, address],
+    );
+    return updateProfile(user: updatedUser);
+  }
+
+  @override
+  Future<void> updateDeliveryAddress(
+      {required String uid, required AddressModel address}) async {
+    final user = await getProfileData(uid: uid).first;
+    if (user == null || user.deliveryAddresses == null) {
+      return;
+    }
+
+    final updatedAddresses = user.deliveryAddresses
+        ?.map((deliveryAddress) =>
+            deliveryAddress.id == address.id ? address : deliveryAddress)
+        .toList();
+    final updatedUser = user.copyWith(deliveryAddresses: updatedAddresses);
+    return updateProfile(user: updatedUser);
   }
 
   @override

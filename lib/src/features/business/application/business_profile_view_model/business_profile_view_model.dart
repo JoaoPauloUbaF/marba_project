@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:project_marba/src/core/models/review/review_model.dart';
 
 class BusinessProfileViewModel {
   final WidgetRef ref;

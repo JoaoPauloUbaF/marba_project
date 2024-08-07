@@ -28,8 +28,11 @@ abstract class ProfileDataRepository {
   Future<void> removeOwnedBusinessId(
       {required String uid, required String businessId});
 
-  Future<void> addOrUpdateDeliveryAddress(
-      {required String uid, required Map<String, dynamic> address});
+  Future<void> addDeliveryAddress(
+      {required String uid, required AddressModel address});
+
+  Future<void> updateDeliveryAddress(
+      {required String uid, required AddressModel address});
 
   Stream<List<AddressModel>> getDeliveryAddresses({required String uid});
 

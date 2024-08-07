@@ -44,9 +44,7 @@ abstract class ReviewViewModel {
 
   Future<List<ReviewModel>> fetchReviews({int? limit, String? lastReviewId});
 
-  Future<bool> canWriteReview() {
-    return Future.value(true);
-  }
+  Future<bool> canWriteReview();
 
   Future<void> writeReview({required double rating, required String review});
 

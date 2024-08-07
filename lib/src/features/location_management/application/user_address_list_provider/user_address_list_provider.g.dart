@@ -6,7 +6,7 @@ part of 'user_address_list_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userAddressListHash() => r'08c9d37c8c94ad2a850748091df5e8fe939d093a';
+String _$userAddressListHash() => r'32556493c522d904b8e79b58046bd9e5dbaed636';
 
 /// See also [userAddressList].
 @ProviderFor(userAddressList)

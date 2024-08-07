@@ -39,8 +39,12 @@ class AddressViewModel extends _$AddressViewModel {
             businessId: businessId,
             address: address.toJson(),
           )
-          .then((value) => showSuccessDialog(context,
+          .catchError((error) {
+        showFailureDialog(context);
+        throw Exception('Error : $error');
+      }).then((value) => showSuccessDialog(context,
               message: 'Endereço atualizado com sucesso'));
+
       return;
     }
 
@@ -57,19 +61,13 @@ class AddressViewModel extends _$AddressViewModel {
             ? 'Endereço atualizado'
             : 'Endereço salvo com sucesso';
         try {
-          ref.read(userProfileDataProvider).addOrUpdateDeliveryAddress(
-            uid: user.id,
-            address: {
-              'street': address.street,
-              'number': address.number,
-              'zipCode': address.zipCode,
-              'neighborhood': address.neighborhood,
-              'city': address.city,
-              'state': address.state,
-              'complement': address.complement,
-              'nickname': address.nickname,
-            },
-          ).then((value) => showSuccessDialog(context, message: message));
+          ref
+              .read(userProfileDataProvider)
+              .addDeliveryAddress(
+                uid: user.id,
+                address: address,
+              )
+              .then((value) => showSuccessDialog(context, message: message));
         } on Exception catch (e) {
           showFailureDialog(context);
           throw Exception('Error : $e');
@@ -197,7 +195,6 @@ class AddressViewModel extends _$AddressViewModel {
       );
       return Future.value(null);
     });
-    return Future.value(null);
   }
 
   Future<AddressModel> getPredictionAddress(
@@ -268,12 +265,17 @@ class AddressViewModel extends _$AddressViewModel {
     showLoader(context);
     await Future.delayed(const Duration(milliseconds: 500));
     await ref.read(currentLocationProvider.notifier).getCurrentLocation().then(
-      (value) {
+      (value) async {
         hideLoader(context);
         if (value == null) {
           return;
         }
-        showConfirmAddressDialog(value, context);
+        await showConfirmAddressDialog(value, context).then((value) {
+          if (value == null) {
+            return;
+          }
+          saveOrUpdateAddress(context: context, address: value);
+        });
       },
     );
   }

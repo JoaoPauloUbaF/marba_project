@@ -27,7 +27,7 @@ class AllBusinessOffersButton extends StatelessWidget {
                         appBar: AppBar(
                           title: Text('Ofertas $businessName'),
                         ),
-                        body: const MyBusinessOffersScreen()));
+                        body: const BusinessOffersView()));
               });
         },
         icon: const Icon(Icons.arrow_forward_ios),

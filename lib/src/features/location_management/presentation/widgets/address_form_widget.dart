@@ -4,6 +4,7 @@ import 'package:project_marba/src/features/location_management/presentation/widg
 
 import '../../../../core/models/address/address.dart';
 import '../../../../core/widgets/medium_vertical_space_widget.dart';
+import '../../application/address_view_model/address_view_model.dart';
 
 class AddressFormModalWidget extends ConsumerStatefulWidget {
   final String title;
@@ -50,7 +51,14 @@ class _AddressFormModalWidgetState
               height: MediaQuery.of(context).size.height * 0.5,
               child: AddressSearchWidget(
                 currentAddress: widget.currentAddress,
-                onAddressSelected: (value) {},
+                onAddressSelected: (value) {
+                  if (value == null) {
+                    return;
+                  }
+                  ref
+                      .read(addressViewModelProvider.notifier)
+                      .saveOrUpdateAddress(context: context, address: value);
+                },
               ),
             ),
             const VerticalSpaceMediumWidget(),

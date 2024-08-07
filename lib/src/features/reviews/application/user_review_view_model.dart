@@ -65,4 +65,10 @@ class UserReviewViewModel extends ReviewViewModel {
     // TODO: implement getRatingDistribution
     throw UnimplementedError();
   }
+
+  @override
+  Future<bool> canWriteReview() {
+    // TODO: implement canWriteReview
+    throw UnimplementedError();
+  }
 }

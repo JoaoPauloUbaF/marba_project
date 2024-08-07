@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
+import 'package:project_marba/src/core/widgets/base_modal_body_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/order_address_modal_widget.dart';
 
 class OrderAddressTileContentWidget extends StatelessWidget {
-  final AddressModel address;
+  final AddressModel? address;
 
   const OrderAddressTileContentWidget({
     super.key,
@@ -12,6 +13,9 @@ class OrderAddressTileContentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final addressTileTitle = address == null
+        ? 'Adicionar endereço de entrega'
+        : '${address!.street}, ${address!.number}, ${address!.neighborhood}, ${address!.city}';
     return ListTile(
       contentPadding: EdgeInsets.zero,
       leading: Container(
@@ -25,7 +29,7 @@ class OrderAddressTileContentWidget extends StatelessWidget {
         ),
       ),
       title: Text(
-        '${address.street}, ${address.number}, ${address.neighborhood}, ${address.city}',
+        addressTileTitle,
         style: Theme.of(context).textTheme.titleMedium,
       ),
       trailing: IconButton(
@@ -37,7 +41,8 @@ class OrderAddressTileContentWidget extends StatelessWidget {
           showModalBottomSheet(
             context: context,
             builder: (context) {
-              return const AddressesManagementWidget();
+              return const BaseModalBodyWidget(
+                  child: AddressesManagementWidget());
             },
           );
         },

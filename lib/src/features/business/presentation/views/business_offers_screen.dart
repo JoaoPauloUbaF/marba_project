@@ -7,17 +7,14 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 
 import '../../application/business_profile_view_model/business_profile_screen_controller.dart';
 
-class MyBusinessOffersScreen extends ConsumerWidget {
-  const MyBusinessOffersScreen({super.key});
+class BusinessOffersView extends ConsumerWidget {
+  const BusinessOffersView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final businessOffers = ref.watch(businessOffersProvider);
     final businessOffersNotifier = ref.read(businessOffersProvider.notifier);
-    final business = ref.watch(businessProfileViewModelProvider);
-    final isOwner = ref
-        .read(businessProfileViewModelProvider.notifier)
-        .isThisBusinessOwner(businessId: business?.id);
+    final viewModel = ref.read(businessProfileViewModelProvider.notifier);
 
     return Scaffold(
       body: NestedScrollView(
@@ -33,46 +30,26 @@ class MyBusinessOffersScreen extends ConsumerWidget {
           ];
         },
       ),
-      floatingActionButton: FutureBuilder(
-        future: isOwner,
-        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            if (snapshot.hasError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Theme.of(context).colorScheme.onError,
-                  content: Text(snapshot.error.toString()),
-                ),
-              );
-              return const SizedBox.shrink();
-            } else {
-              return snapshot.data == true
-                  ? FloatingActionButton(
-                      backgroundColor: Theme.of(context).colorScheme.onPrimary,
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return Dialog(
-                              insetPadding: EdgeInsets.only(
-                                top: AppBar().preferredSize.height,
-                                left: 16,
-                                right: 16,
-                              ),
-                              child: const CreateOfferStepperWidget(),
-                            );
-                          },
-                        );
-                      },
-                      child: const Icon(Icons.add),
-                    )
-                  : const SizedBox();
-            }
-          } else {
-            return const SizedBox.shrink();
-          }
-        },
-      ),
+      floatingActionButton: viewModel.isOwner
+          ? FloatingActionButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      insetPadding: EdgeInsets.only(
+                        top: AppBar().preferredSize.height,
+                        left: 16,
+                        right: 16,
+                      ),
+                      child: const CreateOfferStepperWidget(),
+                    );
+                  },
+                );
+              },
+              child: const Icon(Icons.add),
+            )
+          : null,
     );
   }
 }

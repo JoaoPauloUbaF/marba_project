@@ -1,7 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/models/order/business_order_model.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
+import 'package:project_marba/src/features/orders/data/business_orders_repository/business_orders_repository_provider.dart';
 import 'package:project_marba/src/features/orders/data/user_orders_repository/user_orders_repository_provider.dart';
 import 'package:project_marba/src/features/user_profile/application/current_user_profile_provider/current_user_profile_provider.dart';
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
@@ -104,9 +106,10 @@ class BusinessReviewViewModel extends ReviewViewModel {
   }
 
   @override
-  canWriteReview() async {
-    final userOrdersStream =
-        ref.read(userOrdersRepositoryProvider).getUserOrders();
+  Future<bool> canWriteReview() async {
+    //TODO: use cloud functions
+    final userOrdersRepository = ref.read(userOrdersRepositoryProvider);
+    final businessOrdersRepository = ref.read(businessOrdersRepositoryProvider);
     final user = ref.read(currentUserProvider);
     final business = ref.read(businessProfileViewModelProvider);
 
@@ -114,12 +117,26 @@ class BusinessReviewViewModel extends ReviewViewModel {
       return false;
     }
 
+    final userOrdersStream = userOrdersRepository.getUserOrders();
     final allOrders = await userOrdersStream.first;
 
-    final orders = allOrders
-        .where((order) => order.businessOrdersIds.contains(business.id))
-        .toList();
-    return orders.isNotEmpty;
+    for (var order in allOrders) {
+      for (var element in order.businessOrdersIds) {
+        final businessOrderResult = await businessOrdersRepository
+            .getBusinessOrderById(orderId: element)
+            .first;
+
+        if (businessOrderResult?.status != BusinessOrderStatus.done) {
+          return false;
+        }
+
+        if (businessOrderResult?.businessId == business.id) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   @override

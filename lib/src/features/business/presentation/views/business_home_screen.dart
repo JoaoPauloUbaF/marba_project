@@ -21,7 +21,7 @@ class BusinessHomeScreenState extends ConsumerState<MyBusinessHomeScreen> {
   static final List<Widget> _widgetOptions = <Widget>[
     const BusinessProfileView(),
     const BusinessDashboardView(),
-    const MyBusinessOffersScreen(),
+    const BusinessOffersView(),
     const BusinessSettingsView(),
   ];
 
