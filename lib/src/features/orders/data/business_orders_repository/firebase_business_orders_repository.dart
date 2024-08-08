@@ -33,7 +33,10 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   Future<List<BusinessOrder>> getClosedOrders() async {
     try {
       final snapshot = await businessOrdersCollection
-          .where('status', isEqualTo: BusinessOrderStatus.done.toString())
+          .where('status',
+              isNotEqualTo: BusinessOrderStatus.waitingConfirmation.toString())
+          .where('status',
+              isNotEqualTo: BusinessOrderStatus.canceled.toString())
           .get();
       return snapshot.docs
           .map((doc) =>
@@ -91,9 +94,21 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
   }
 
   @override
-  Stream<List<BusinessOrder>> getOrders({required String? businessId}) async* {
+  Stream<List<BusinessOrder>> getOrders(
+      {required String? businessId, required Query? query}) async* {
     if (businessId == null) {
       throw Exception('Business ID not found');
+    }
+
+    if (query != null) {
+      try {
+        yield* query.snapshots().map((snapshot) => snapshot.docs
+            .map((doc) =>
+                BusinessOrder.fromJson(doc.data() as Map<String, dynamic>))
+            .toList());
+      } catch (e) {
+        rethrow;
+      }
     }
 
     try {
@@ -229,5 +244,57 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
     } catch (e) {
       throw Exception('Falha ao buscar itens do pedido: $e');
     }
+  }
+
+  @override
+  Stream<List<BusinessOrder>> getOrdersWithQuery({
+    required String businessId,
+    required Map<String, dynamic> queryParameters,
+  }) {
+    Query query =
+        businessOrdersCollection.where('businessId', isEqualTo: businessId);
+
+    queryParameters.forEach((key, value) {
+      switch (key) {
+        case 'isEqualTo':
+          value.forEach((field, val) {
+            query = query.where(field, isEqualTo: val);
+          });
+          break;
+        case 'isNotEqualTo':
+          value.forEach((field, val) {
+            query = query.where(field, isNotEqualTo: val);
+          });
+          break;
+        case 'isLessThan':
+          value.forEach((field, val) {
+            query = query.where(field, isLessThan: val);
+          });
+          break;
+        case 'isLessThanOrEqualTo':
+          value.forEach((field, val) {
+            query = query.where(field, isLessThanOrEqualTo: val);
+          });
+          break;
+        case 'isGreaterThan':
+          value.forEach((field, val) {
+            query = query.where(field, isGreaterThan: val);
+          });
+          break;
+        case 'isGreaterThanOrEqualTo':
+          value.forEach((field, val) {
+            query = query.where(field, isGreaterThanOrEqualTo: val);
+          });
+          break;
+        case 'arrayContains':
+          value.forEach((field, val) {
+            query = query.where(field, arrayContains: val);
+          });
+          break;
+        // Adicione mais casos conforme necessário
+      }
+    });
+
+    return getOrders(businessId: businessId, query: query);
   }
 }

@@ -26,7 +26,9 @@ mixin _$BusinessOrder {
   AddressModel get address => throw _privateConstructorUsedError;
   Set<BusinessOrderItem> get items => throw _privateConstructorUsedError;
   BusinessOrderStatus get status => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
+  @TimestampConverter()
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime? get canceledAt => throw _privateConstructorUsedError;
 
@@ -49,8 +51,8 @@ abstract class $BusinessOrderCopyWith<$Res> {
       AddressModel address,
       Set<BusinessOrderItem> items,
       BusinessOrderStatus status,
-      DateTime createdAt,
-      DateTime updatedAt,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt,
       DateTime? canceledAt});
 
   $AddressModelCopyWith<$Res> get address;
@@ -143,8 +145,8 @@ abstract class _$$BusinessOrderImplCopyWith<$Res>
       AddressModel address,
       Set<BusinessOrderItem> items,
       BusinessOrderStatus status,
-      DateTime createdAt,
-      DateTime updatedAt,
+      @TimestampConverter() DateTime createdAt,
+      @TimestampConverter() DateTime updatedAt,
       DateTime? canceledAt});
 
   @override
@@ -223,8 +225,8 @@ class _$BusinessOrderImpl implements _BusinessOrder {
       required this.address,
       required final Set<BusinessOrderItem> items,
       required this.status,
-      required this.createdAt,
-      required this.updatedAt,
+      @TimestampConverter() required this.createdAt,
+      @TimestampConverter() required this.updatedAt,
       this.canceledAt})
       : _items = items;
 
@@ -250,8 +252,10 @@ class _$BusinessOrderImpl implements _BusinessOrder {
   @override
   final BusinessOrderStatus status;
   @override
+  @TimestampConverter()
   final DateTime createdAt;
   @override
+  @TimestampConverter()
   final DateTime updatedAt;
   @override
   final DateTime? canceledAt;
@@ -318,8 +322,8 @@ abstract class _BusinessOrder implements BusinessOrder {
       required final AddressModel address,
       required final Set<BusinessOrderItem> items,
       required final BusinessOrderStatus status,
-      required final DateTime createdAt,
-      required final DateTime updatedAt,
+      @TimestampConverter() required final DateTime createdAt,
+      @TimestampConverter() required final DateTime updatedAt,
       final DateTime? canceledAt}) = _$BusinessOrderImpl;
 
   factory _BusinessOrder.fromJson(Map<String, dynamic> json) =
@@ -338,8 +342,10 @@ abstract class _BusinessOrder implements BusinessOrder {
   @override
   BusinessOrderStatus get status;
   @override
+  @TimestampConverter()
   DateTime get createdAt;
   @override
+  @TimestampConverter()
   DateTime get updatedAt;
   @override
   DateTime? get canceledAt;

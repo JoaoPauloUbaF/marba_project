@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../../../core/models/order/business_order_item.dart';
 import '../../../../core/models/order/business_order_model.dart';
 
@@ -6,7 +8,12 @@ abstract class BusinessOrdersRepository {
   /// Retrieves a list of all business orders.
   ///
   /// Returns a list of [BusinessOrder] objects.
-  Stream<List<BusinessOrder>> getOrders({required String? businessId});
+  Stream<List<BusinessOrder>> getOrders(
+      {required String? businessId, required Query? query});
+
+  Stream<List<BusinessOrder>> getOrdersWithQuery(
+      {required String businessId,
+      required Map<String, dynamic> queryParameters});
 
   /// Adds a new business order to the repository.
   ///

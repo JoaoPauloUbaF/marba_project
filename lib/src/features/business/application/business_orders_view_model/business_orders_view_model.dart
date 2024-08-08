@@ -21,7 +21,7 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
 
     final businessOrders = ref
         .watch(businessOrdersRepositoryProvider)
-        .getOrders(businessId: businessId);
+        .getOrders(businessId: businessId, query: null);
 
     return businessOrders;
   }

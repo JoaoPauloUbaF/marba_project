@@ -156,7 +156,7 @@ class _SelectedOrderProviderElement
 }
 
 String _$businessOrdersViewModelHash() =>
-    r'924d725b5643e6f743ab82fce550fc99c9e35a7b';
+    r'03794ac94ec14bec56ce795dc2ecc9c9731222a7';
 
 /// See also [BusinessOrdersViewModel].
 @ProviderFor(BusinessOrdersViewModel)

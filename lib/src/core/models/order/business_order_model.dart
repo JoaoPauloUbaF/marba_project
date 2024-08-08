@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 
@@ -15,8 +16,8 @@ class BusinessOrder with _$BusinessOrder {
     required AddressModel address,
     required Set<BusinessOrderItem> items,
     required BusinessOrderStatus status,
-    required DateTime createdAt,
-    required DateTime updatedAt,
+    @TimestampConverter() required DateTime createdAt,
+    @TimestampConverter() required DateTime updatedAt,
     DateTime? canceledAt,
   }) = _BusinessOrder;
 
@@ -32,4 +33,18 @@ enum BusinessOrderStatus {
   delivered,
   done,
   canceled,
+}
+
+class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  DateTime fromJson(Timestamp timestamp) {
+    return timestamp.toDate();
+  }
+
+  @override
+  Timestamp toJson(DateTime date) {
+    return Timestamp.fromDate(date);
+  }
 }

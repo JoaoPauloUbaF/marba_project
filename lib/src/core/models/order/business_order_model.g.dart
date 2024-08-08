@@ -16,8 +16,10 @@ _$BusinessOrderImpl _$$BusinessOrderImplFromJson(Map<String, dynamic> json) =>
           .map((e) => BusinessOrderItem.fromJson(e as Map<String, dynamic>))
           .toSet(),
       status: $enumDecode(_$BusinessOrderStatusEnumMap, json['status']),
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      updatedAt: DateTime.parse(json['updatedAt'] as String),
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+      updatedAt:
+          const TimestampConverter().fromJson(json['updatedAt'] as Timestamp),
       canceledAt: json['canceledAt'] == null
           ? null
           : DateTime.parse(json['canceledAt'] as String),
@@ -31,8 +33,8 @@ Map<String, dynamic> _$$BusinessOrderImplToJson(_$BusinessOrderImpl instance) {
     'address': instance.address.toJson(),
     'items': instance.items.map((e) => e.toJson()).toList(),
     'status': _$BusinessOrderStatusEnumMap[instance.status]!,
-    'createdAt': instance.createdAt.toIso8601String(),
-    'updatedAt': instance.updatedAt.toIso8601String(),
+    'createdAt': const TimestampConverter().toJson(instance.createdAt),
+    'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
   };
 
   void writeNotNull(String key, dynamic value) {

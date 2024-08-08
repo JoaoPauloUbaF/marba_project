@@ -58,7 +58,7 @@ class _BusinessOrdersPageViewState
                           status: null);
                     }
                     setState(() {
-                      _status = null;
+                      _status = value;
                     });
                     businessOrdersViewModel.applyOrdersStatusFilter(
                         status: value);
