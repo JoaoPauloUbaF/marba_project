@@ -46,8 +46,7 @@ class OrderListItem extends ConsumerWidget {
                     businessOrdersViewModel.getStatusTranslation(
                         order.status.toString().split('.').last),
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          color: businessOrdersViewModel.getStatusTextColor(
-                              status: order.status),
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                   ),
                 ],

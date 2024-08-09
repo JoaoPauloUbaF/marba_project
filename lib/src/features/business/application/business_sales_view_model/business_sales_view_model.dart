@@ -75,7 +75,11 @@ Stream<List<BusinessOrder>> businessSaleData(BusinessSaleDataRef ref) {
         'createdAt': Timestamp.fromDate(dateRange.start)
       },
       'isLessThanOrEqualTo': {'createdAt': Timestamp.fromDate(dateRange.end)},
-      'isNotEqualTo': {'status': BusinessOrderStatus.canceled.toString()},
+      'isNotEqualTo': {
+        'status': BusinessOrderStatus.waitingConfirmation.name.toString()
+      },
+      // ignore: equal_keys_in_map
+      'isNotEqualTo': {'status': BusinessOrderStatus.canceled.name.toString()}
     });
   });
 }

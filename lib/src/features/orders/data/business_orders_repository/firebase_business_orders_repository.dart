@@ -220,7 +220,7 @@ class FirebaseBusinessOrdersRepository extends BusinessOrdersRepository {
           if (snapshot.docs.isNotEmpty) {
             snapshot.docs.first.reference.update({'status': newStatus});
             snapshot.docs.first.reference
-                .update({'updatedAt': DateTime.now().toString()});
+                .update({'updatedAt': Timestamp.now()});
             if (newStatus == BusinessOrderStatus.delivered.toString()) {
               snapshot.docs.first.reference
                   .update({'deliveredAt': DateTime.now().toString()});

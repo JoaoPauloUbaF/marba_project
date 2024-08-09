@@ -6,7 +6,7 @@ part of 'business_sales_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessSaleDataHash() => r'e5a0ccfe5277bc93426fbeab449b91d31575edf9';
+String _$businessSaleDataHash() => r'430d50b1578b6379f0d2756e30739c1e530985de';
 
 /// See also [businessSaleData].
 @ProviderFor(businessSaleData)

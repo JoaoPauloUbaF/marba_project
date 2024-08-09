@@ -105,8 +105,7 @@ class _SuccessBodyWidgetState extends State<SuccessBodyWidget> {
                   widget.businessOrdersViewModel.getStatusTranslation(
                       widget.order.status.toString().split('.').last),
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: widget.businessOrdersViewModel
-                            .getStatusTextColor(status: widget.order.status),
+                        color: Theme.of(context).colorScheme.onPrimary,
                       ),
                 ),
               ),

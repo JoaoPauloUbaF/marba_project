@@ -51,40 +51,19 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
       case BusinessOrderStatus.waitingConfirmation:
         return Colors.orange[900]?.withAlpha(150);
       case BusinessOrderStatus.delivered:
-        return Colors.green[900]?.withAlpha(100);
+        return Colors.green[900]?.withAlpha(150);
       case BusinessOrderStatus.done:
-        return Colors.green[900]?.withAlpha(100);
+        return Colors.green[900]?.withAlpha(150);
       case BusinessOrderStatus.accepted:
-        return Colors.teal[900]?.withAlpha(100);
+        return Colors.teal[900]?.withAlpha(150);
       case BusinessOrderStatus.preparing:
-        return Colors.yellow[900]?.withAlpha(100);
+        return Colors.yellow[900]?.withAlpha(150);
       case BusinessOrderStatus.delivering:
-        return Colors.orange[900]?.withAlpha(100);
+        return Colors.orange[900]?.withAlpha(150);
       case BusinessOrderStatus.canceled:
-        return Colors.red[900]?.withAlpha(100);
+        return Colors.red[900]?.withAlpha(150);
       default:
-        return Colors.grey[900]?.withAlpha(100);
-    }
-  }
-
-  Color? getStatusTextColor({required BusinessOrderStatus status}) {
-    switch (status) {
-      case BusinessOrderStatus.waitingConfirmation:
-        return Colors.orange[100];
-      case BusinessOrderStatus.delivered:
-        return Colors.green[100];
-      case BusinessOrderStatus.done:
-        return Colors.green[100];
-      case BusinessOrderStatus.accepted:
-        return Colors.teal[100];
-      case BusinessOrderStatus.preparing:
-        return Colors.yellow[100];
-      case BusinessOrderStatus.delivering:
-        return Colors.orange[100];
-      case BusinessOrderStatus.canceled:
-        return Colors.red[100];
-      default:
-        return Colors.grey[100];
+        return Colors.grey[900]?.withAlpha(150);
     }
   }
 

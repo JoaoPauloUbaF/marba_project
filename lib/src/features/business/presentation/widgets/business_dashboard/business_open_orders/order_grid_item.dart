@@ -43,8 +43,7 @@ class OrderGridItem extends ConsumerWidget {
                     businessOrdersViewModel.getStatusTranslation(
                         order.status.toString().split('.').last),
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          color: businessOrdersViewModel.getStatusTextColor(
-                              status: order.status),
+                          color: Theme.of(context).colorScheme.onPrimary,
                         ),
                   ),
                 ],
