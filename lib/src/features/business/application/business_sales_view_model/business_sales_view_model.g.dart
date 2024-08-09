@@ -6,7 +6,7 @@ part of 'business_sales_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessSaleDataHash() => r'57fc9089e98f6459a764f10015d6b009f1202f70';
+String _$businessSaleDataHash() => r'e5a0ccfe5277bc93426fbeab449b91d31575edf9';
 
 /// See also [businessSaleData].
 @ProviderFor(businessSaleData)
@@ -23,7 +23,7 @@ final businessSaleDataProvider =
 
 typedef BusinessSaleDataRef = AutoDisposeStreamProviderRef<List<BusinessOrder>>;
 String _$salesDateTimeRangeFilterHash() =>
-    r'20a7a2d393dd672f3c31e9ee2f89b3b79c9879ee';
+    r'12ee3c8a4379800bc236861a22b4b48dba88ae79';
 
 /// See also [SalesDateTimeRangeFilter].
 @ProviderFor(SalesDateTimeRangeFilter)
