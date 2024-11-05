@@ -53,7 +53,7 @@ class UserBusinessListWidget extends ConsumerWidget {
                         context: context,
                       ),
                       subtitle: Text(
-                          "${business?.email ?? ''} - ${business?.phoneNumber ?? ''}"),
+                          "${business?.email ?? ''}\n${business?.phoneNumber ?? ''}"),
                       trailing: IconButton(
                         icon: Icon(
                           Icons.delete,

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:project_marba/src/features/location_management/application/current_location_provider/current_location_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../../core/models/offer/offer_model.dart';
@@ -15,12 +16,12 @@ class QueryOffersResult extends _$QueryOffersResult {
 
   Future<List<OfferModel>>? queryOffers({required String queryStr}) async {
     try {
+      final currentLocationCity = ref.read(currentLocationProvider).hasValue
+          ? ref.read(currentLocationProvider).requireValue?.city
+          : '';
       final offers = await ref
           .read(offersDataRepositoryProvider)
-          .queryOffers(queryStr: queryStr);
-      if (offers == null) {
-        return [];
-      }
+          .queryOffers(queryStr: queryStr, city: currentLocationCity ?? '');
       state = AsyncValue.data(offers);
       return offers;
     } catch (e, stackTrace) {

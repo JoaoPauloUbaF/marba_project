@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+
+import '../../../../core/utils/view_utils.dart';
+import '../../../search/application/search_view_model/search_view_model.dart';
+import '../../../search/presentation/widgets/search_body_widget.dart';
 
 // Defina uma lista de dados para as categorias populares
 final List<Map<String, dynamic>> popularServices = [
@@ -21,9 +26,6 @@ class PopularServicesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -47,9 +49,39 @@ class PopularServicesWidget extends StatelessWidget {
                 mainAxisExtent: 150.0,
               ),
               itemBuilder: (BuildContext context, int index) {
-                return PopularServiceTile(
-                  icon: popularServices[index]['icon'],
-                  text: popularServices[index]['text'],
+                return Consumer(
+                  builder: (_, WidgetRef ref, __) {
+                    return InkWell(
+                      onTap: () async {
+                        showLoader(context);
+                        await ref
+                            .read(searchViewModelProvider.notifier)
+                            .onSearchSubmit(
+                                query: popularServices[index]['text'])
+                            .then((_) {
+                          hideLoader(context);
+                          Navigator.of(context).push(
+                            MaterialPageRoute<void>(
+                              builder: (context) {
+                                return Scaffold(
+                                    appBar: AppBar(
+                                      title:
+                                          Text(popularServices[index]['text']),
+                                    ),
+                                    body: const SearchBodyWidget(
+                                      searchViewState: SearchViewState.result,
+                                    ));
+                              },
+                            ),
+                          );
+                        });
+                      },
+                      child: PopularServiceTile(
+                        icon: popularServices[index]['icon'],
+                        text: popularServices[index]['text'],
+                      ),
+                    );
+                  },
                 );
               },
             ),
@@ -60,7 +92,7 @@ class PopularServicesWidget extends StatelessWidget {
   }
 }
 
-class PopularServiceTile extends StatelessWidget {
+class PopularServiceTile extends ConsumerWidget {
   final IconData icon;
   final String text;
 
@@ -71,48 +103,45 @@ class PopularServiceTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        width: 80,
-        margin: const EdgeInsets.symmetric(horizontal: 2.0),
-        padding: const EdgeInsets.all(2.0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.tertiary,
-          borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.secondary.withAlpha(100),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      width: 80,
+      margin: const EdgeInsets.symmetric(horizontal: 2.0),
+      padding: const EdgeInsets.all(2.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.tertiary,
+        borderRadius: BorderRadius.circular(12.0),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.secondary.withAlpha(100),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.2),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
           ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              size: 40,
-              color: Theme.of(context).colorScheme.onTertiary,
-            ),
-            const Gap(8),
-            Text(
-              text,
-              overflow: TextOverflow.fade,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onTertiary,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ],
-        ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            icon,
+            size: 40,
+            color: Theme.of(context).colorScheme.onTertiary,
+          ),
+          const Gap(8),
+          Text(
+            text,
+            overflow: TextOverflow.fade,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onTertiary,
+                  fontWeight: FontWeight.w600,
+                ),
+          ),
+        ],
       ),
     );
   }

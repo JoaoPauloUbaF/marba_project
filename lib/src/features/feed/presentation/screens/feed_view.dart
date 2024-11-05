@@ -12,6 +12,7 @@ import '../../../offers_management/presentation/widgets/offer_list/offers_list_w
 import '../../../offers_management/application/offer_list/feed_offers_list_provider.dart';
 import '../../application/feed_screen_controller/feed_view_model.dart';
 import '../widgets/featured_carousel.dart';
+import '../widgets/offer_row_widget.dart';
 
 class FeedView extends ConsumerWidget {
   const FeedView({super.key});
@@ -54,11 +55,11 @@ class FeedView extends ConsumerWidget {
             const SliverToBoxAdapter(
               child: Gap(8),
             ),
-            // const SliverToBoxAdapter(
-            //   child: OfferRowWidget(
-            //     title: 'Promoções',
-            //   ),
-            // ),
+            const SliverToBoxAdapter(
+              child: OfferRowWidget(
+                title: 'Vistos Recentemente',
+              ),
+            ),
             const SliverToBoxAdapter(
               child: Gap(8),
             ),

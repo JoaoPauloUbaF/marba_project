@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_card_widget.dart';
 
 import '../../application/query_offers_result_provider/query_offers_result_provider.dart';
@@ -40,12 +41,11 @@ class _OffersSearchResultTabViewState
             child: Text('Nenhuma oferta encontrada!'),
           );
         }
-        return GridView.builder(
+        return MasonryGridView.builder(
           controller: _scrollController,
           itemCount: offers.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            mainAxisExtent: 250,
           ),
           itemBuilder: (BuildContext context, int index) {
             return OfferCardWidget(offer: offers[index]);

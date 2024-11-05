@@ -32,6 +32,7 @@ class SearchViewModel extends _$SearchViewModel {
   }
 
   Future<void> onSearchSubmit({required String? query}) async {
+    SearchViewState.searching;
     if (query == null || query.isEmpty) {
       return;
     }

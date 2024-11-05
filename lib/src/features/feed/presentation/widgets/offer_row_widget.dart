@@ -27,48 +27,57 @@ class OfferRowWidget extends ConsumerWidget {
                 ),
               ),
             ),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: SizedBox(
-                height: 175,
-                child: GridView.builder(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    if (index == 9) {
-                      return GestureDetector(
-                        onTap: () {},
-                        child: SizedBox(
-                          width: 160,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.arrow_forward_ios_sharp,
-                                size: 40,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              Text(
-                                'Ver mais',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
+            Builder(builder: (context) {
+              if (offers.isEmpty) {
+                return const SizedBox(
+                    height: 100,
+                    child: Center(
+                        child: Text('Você ainda não visitou nenhuma oferta!')));
+              }
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: SizedBox(
+                  height: 175,
+                  child: GridView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    scrollDirection: Axis.horizontal,
+                    itemCount: offers.length + 1 > 10 ? 10 : offers.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 9 || index == offers.length) {
+                        return GestureDetector(
+                          onTap: () {},
+                          child: SizedBox(
+                            width: 160,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.arrow_forward_ios_sharp,
+                                  size: 40,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                Text(
+                                  'Ver mais',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                    final offer = offers[0];
-                    return OfferCardWidget(offer: offer, size: 0.6);
-                  },
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
-                    crossAxisSpacing: 8,
-                    mainAxisExtent: 150,
+                        );
+                      }
+                      final offer = offers[index];
+                      return OfferCardWidget(offer: offer, size: 0.6);
+                    },
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      crossAxisSpacing: 8,
+                      mainAxisExtent: 150,
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
           ],
         );
       },

@@ -30,74 +30,71 @@ class OfferCardWidget extends ConsumerWidget {
               '/offer-details',
             ),
           ),
-      child: Hero(
-        tag: offer.id,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(3),
-          ),
-          clipBehavior: Clip.antiAlias,
-          color: Theme.of(context).colorScheme.secondary,
-          shadowColor: Theme.of(context).colorScheme.onSurface,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(children: [
-                Image.network(
-                  offer.getImageUrl,
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                  height: 150 * size,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(3),
+        ),
+        clipBehavior: Clip.antiAlias,
+        color: Theme.of(context).colorScheme.secondary,
+        shadowColor: Theme.of(context).colorScheme.onSurface,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Stack(children: [
+              Image.network(
+                offer.getImageUrl,
+                fit: BoxFit.fill,
+                width: double.infinity,
+                height: 150 * size,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return const SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  log('$error');
+                  return Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(50.0),
+                      child: Icon(
+                        Icons.error,
+                        color: Theme.of(context).colorScheme.error,
+                        size: 30 * size,
+                      ),
+                    ),
+                  );
+                },
+              ),
+              Positioned(
+                right: 4,
+                top: 4,
+                child: FutureBuilder(
+                  future:
+                      cardController.shouldShowOfferActions(offer.businessId),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      return snapshot.data
+                          ? OfferQuickManageWidget(offer: offer)
+                          : const SizedBox.shrink();
                     }
-                    return const SizedBox(
-                      width: double.infinity,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  },
-                  errorBuilder: (context, error, stackTrace) {
-                    log('$error');
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(50.0),
-                        child: Icon(
-                          Icons.error,
-                          color: Theme.of(context).colorScheme.error,
-                          size: 30 * size,
-                        ),
-                      ),
-                    );
+                    return const SizedBox.shrink();
                   },
                 ),
-                Positioned(
-                  right: 4,
-                  top: 4,
-                  child: FutureBuilder(
-                    future:
-                        cardController.shouldShowOfferActions(offer.businessId),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<dynamic> snapshot) {
-                      if (snapshot.hasData) {
-                        return snapshot.data
-                            ? OfferQuickManageWidget(offer: offer)
-                            : const SizedBox.shrink();
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                ),
-              ]),
-              OfferTitleWidget(offer: offer, fontSize: 16 * size),
-              OfferPriceWidget(offer: offer, fontSize: 14 * size),
-              OfferAvailableQuantityWidget(offer: offer),
-            ],
-          ),
+              ),
+            ]),
+            OfferTitleWidget(offer: offer, fontSize: 16 * size),
+            OfferPriceWidget(offer: offer, fontSize: 14 * size),
+            OfferAvailableQuantityWidget(offer: offer),
+          ],
         ),
       ),
     );

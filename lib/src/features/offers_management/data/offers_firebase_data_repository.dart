@@ -4,13 +4,11 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/product/enums.dart';
 import 'package:project_marba/src/core/models/service/enums.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 
 import '../../../core/models/offer/offer_model.dart';
-import '../../location_management/application/current_location_provider/current_location_provider.dart';
 import 'offers_data_repository.dart';
 
 class OffersFirebaseDataRepository implements OffersDataRepository {
@@ -181,52 +179,39 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     });
   }
 
+  // Modified query methods
   @override
-  Future<List<OfferModel>>? queryOffersByTitle(String queryStr) async {
+  Query queryOffersByTitle(String queryStr, String city) {
     final queryArray = queryStr.toLowerCase().split(' ');
-    Query query = _firestore.collection('offers').where(
-          'titleWords',
-          arrayContainsAny: queryArray,
-        );
-
-    final offerList = await query.get();
-    return offerList.docs
-        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+    Query query =
+        _firestore.collection('offers').where('city', isEqualTo: city).where(
+              'titleWords',
+              arrayContainsAny: queryArray,
+            );
+    return query;
   }
 
   @override
-  Future<List<OfferModel>>? queryOffersByBusinessCategory(
-      String queryStr) async {
+  Query queryOffersByBusinessCategory(String queryStr, String city) {
     Query query = _firestore
         .collection('offers')
+        .where('city', isEqualTo: city)
         .where('businessCategory', isEqualTo: queryStr);
-
-    final offerList = await query.get();
-    return offerList.docs
-        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+    return query;
   }
 
   @override
-  Future<List<OfferModel>>? queryOffersByBusinessName(String queryStr) async {
+  Query queryOffersByBusinessName(String queryStr, String city) {
     Query query = _firestore
         .collection('offers')
+        .where('city', isEqualTo: city)
         .where('businessName', isEqualTo: queryStr);
-
-    final offerList = await query.get();
-    return offerList.docs
-        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+    return query;
   }
 
   @override
-  Future<List<OfferModel>>? queryOffersByCategory(String queryStr) async {
-    //TODO: offers must have address too
+  Query queryOffersByCategory(String queryStr, String city) {
     queryStr = normalizeString(str: queryStr).toLowerCase();
-    ProviderContainer container = ProviderContainer();
-    final currentAddressCity =
-        container.read(currentLocationProvider).requireValue?.city;
     final List<String> productCategoriesMatches = productCategoryTranslations
         .entries
         .where(
@@ -240,59 +225,59 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
             (element) => normalizeString(str: element.value).contains(queryStr))
         .map((e) => e.key.toString())
         .toList();
+
     final matches = [...productCategoriesMatches, ...servicesCategoriesMatches];
-    if (matches.isEmpty) return Future(() => <OfferModel>[]);
+
+    if (matches.isEmpty) {
+      // Return a query that will yield no results
+      return _firestore
+          .collection('offers')
+          .where('city', isEqualTo: city)
+          .where('category', isEqualTo: '__nonexistent__');
+    }
+
+    // Limit to Firestore's maximum of 10 for arrayContainsAny
+    final limitedMatches = matches.take(10).toList();
 
     Query query = _firestore
         .collection('offers')
-        .where('city', isEqualTo: currentAddressCity)
-        .where('category', arrayContainsAny: matches.take(30));
+        .where('city', isEqualTo: city)
+        .where('category', arrayContainsAny: limitedMatches);
 
-    final offerList = await query.get();
-    return offerList.docs
-        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+    return query;
   }
 
   @override
-  Future<List<OfferModel>>? queryOffersByDescription(String queryStr) async {
-    Query query = _firestore.collection('offers').where('descriptionWords',
-        arrayContainsAny: queryStr.toLowerCase().split(' '));
-
-    final offerList = await query.get();
-    return offerList.docs
-        .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
+  Query queryOffersByDescription(String queryStr, String city) {
+    final queryArray = queryStr.toLowerCase().split(' ');
+    Query query = _firestore
+        .collection('offers')
+        .where('city', isEqualTo: city)
+        .where('descriptionWords', arrayContainsAny: queryArray);
+    return query;
   }
 
   @override
-  Future<List<OfferModel>>? queryOffers({required String queryStr}) async {
-    var offersByTitle = await queryOffersByTitle(queryStr);
-    var offersByBusinessCategory =
-        await queryOffersByBusinessCategory(queryStr);
-    var offersByBusinessName = await queryOffersByBusinessName(queryStr);
-    var offersByCategory = await queryOffersByCategory(queryStr);
-    var offersByDescription = await queryOffersByDescription(queryStr);
+  Future<List<OfferModel>> queryOffers(
+      {required String queryStr, required String city}) async {
+    var queries = [
+      queryOffersByTitle(queryStr, city),
+      queryOffersByBusinessCategory(queryStr, city),
+      queryOffersByBusinessName(queryStr, city),
+      queryOffersByCategory(queryStr, city),
+      queryOffersByDescription(queryStr, city),
+    ];
 
-    var allOffers = <OfferModel>[];
-    if (offersByTitle != null && offersByTitle.isNotEmpty) {
-      allOffers.addAll(offersByTitle);
-    }
-    if (offersByBusinessCategory != null &&
-        offersByBusinessCategory.isNotEmpty) {
-      allOffers.addAll(offersByBusinessCategory);
-    }
-    if (offersByBusinessName != null && offersByBusinessName.isNotEmpty) {
-      allOffers.addAll(offersByBusinessName);
-    }
-    if (offersByCategory != null && offersByCategory.isNotEmpty) {
-      allOffers.addAll(offersByCategory);
-    }
-    if (offersByDescription != null && offersByDescription.isNotEmpty) {
-      allOffers.addAll(offersByDescription);
+    List<OfferModel> allOffers = [];
+
+    for (var query in queries) {
+      final offerList = await query.get();
+      allOffers.addAll(offerList.docs
+          .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
+          .toList());
     }
 
-    // Remove duplicates from the list
+    // Remove duplicates
     var uniqueOffers = allOffers.toSet().toList();
 
     return uniqueOffers;

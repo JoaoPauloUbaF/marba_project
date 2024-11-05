@@ -243,6 +243,7 @@ class OfferCreationController extends _$OfferCreationController {
               children: [
                 Text(
                   value,
+                  textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

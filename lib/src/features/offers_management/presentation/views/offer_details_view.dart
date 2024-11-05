@@ -89,11 +89,8 @@ class OfferBodyWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.secondaryContainer,
           child: Column(
             children: [
-              Hero(
-                tag: offer.id,
-                child: OfferMediaWidget(
-                  items: mediaItems,
-                ),
+              OfferMediaWidget(
+                items: mediaItems,
               ),
               OfferInfoWidget(offer: offer),
               OrderingActionsWidget(offer: offer),
@@ -128,10 +125,10 @@ class OfferBodyWidget extends StatelessWidget {
           ),
         ),
         const VerticalSpaceMediumWidget(),
-        OtherBusinessOffersWidget(
-          offerId: offer.id,
-          businessId: offer.businessId,
-        ),
+        // OtherBusinessOffersWidget(
+        //   offerId: offer.id,
+        //   businessId: offer.businessId,
+        // ),
         const VerticalSpaceMediumWidget(),
         AllBusinessOffersButton(businessName: businessName),
         const VerticalSpaceMediumWidget(),

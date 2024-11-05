@@ -23,10 +23,13 @@ abstract class OffersDataRepository {
     List<File?> offerMedia,
     String offerId,
   );
-  Future<List<OfferModel>>? queryOffers({required String queryStr});
-  Future<List<OfferModel>>? queryOffersByTitle(String queryStr);
-  Future<List<OfferModel>>? queryOffersByCategory(String queryStr);
-  Future<List<OfferModel>>? queryOffersByBusinessName(String queryStr);
-  Future<List<OfferModel>>? queryOffersByBusinessCategory(String queryStr);
-  Future<List<OfferModel>>? queryOffersByDescription(String queryStr);
+
+  // Updated method signatures
+  Future<List<OfferModel>> queryOffers(
+      {required String queryStr, required String city});
+  Query queryOffersByTitle(String queryStr, String city);
+  Query queryOffersByCategory(String queryStr, String city);
+  Query queryOffersByBusinessName(String queryStr, String city);
+  Query queryOffersByBusinessCategory(String queryStr, String city);
+  Query queryOffersByDescription(String queryStr, String city);
 }

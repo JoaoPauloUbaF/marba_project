@@ -121,6 +121,10 @@ class FirestoreProfileDataRepository implements ProfileDataRepository {
   @override
   Future<void> addQueryToSearchHistory(
       {required String uid, required String query}) async {
+    if (query.isEmpty || uid.isEmpty) {
+      return;
+    }
+
     DocumentSnapshot userDoc = await _usersCollection.doc(uid).get();
 
     if (userDoc.exists) {
