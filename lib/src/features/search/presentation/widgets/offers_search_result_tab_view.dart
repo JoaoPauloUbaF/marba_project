@@ -45,8 +45,7 @@ class _OffersSearchResultTabViewState
           controller: _scrollController,
           itemCount: offers.length,
           gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-          ),
+              crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index) {
             return OfferCardWidget(offer: offers[index]);
           },

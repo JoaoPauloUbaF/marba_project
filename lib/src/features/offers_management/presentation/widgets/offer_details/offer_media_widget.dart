@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/widgets/loading_widget.dart';
 
@@ -16,14 +16,14 @@ class OfferMediaWidget extends StatefulWidget {
 
 class _OfferMediaWidgetState extends State<OfferMediaWidget> {
   int _current = 0;
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         CarouselSlider(
-          carouselController: _controller,
+          controller: _controller,
           options: CarouselOptions(
             height: MediaQuery.of(context).size.height * 0.4,
             viewportFraction: 1,

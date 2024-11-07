@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,7 @@ class FeaturedCarousel extends ConsumerStatefulWidget {
 
 class FeaturedCarouselState extends ConsumerState<FeaturedCarousel> {
   int _current = 0;
-  final CarouselController _controller = CarouselController();
+  final CarouselSliderController _controller = CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class FeaturedCarouselState extends ConsumerState<FeaturedCarousel> {
         children: [
           CarouselSlider(
             items: items,
-            carouselController: _controller,
+            controller: _controller,
             options: CarouselOptions(
               autoPlay: true,
               aspectRatio: 16 / 9,

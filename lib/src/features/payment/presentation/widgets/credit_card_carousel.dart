@@ -1,5 +1,5 @@
+import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/widgets/loading_widget.dart';
 import 'package:project_marba/src/features/payment/presentation/widgets/credit_card_widget.dart';
@@ -16,7 +16,8 @@ class CreditCardCarousel extends ConsumerStatefulWidget {
 }
 
 class CreditCardCarouselState extends ConsumerState<CreditCardCarousel> {
-  final CarouselController _carouselController = CarouselController();
+  final CarouselSliderController _carouselController =
+      CarouselSliderController();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class CreditCardCarouselState extends ConsumerState<CreditCardCarousel> {
                   viewModel.onCardChanged(index);
                 },
               ),
-              carouselController: _carouselController,
+              controller: _carouselController,
             ),
           ],
         );
