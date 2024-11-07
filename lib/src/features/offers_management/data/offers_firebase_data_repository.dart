@@ -9,6 +9,7 @@ import 'package:project_marba/src/core/models/service/enums.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 
 import '../../../core/models/offer/offer_model.dart';
+import '../../../core/models/review/review_model.dart';
 import 'offers_data_repository.dart';
 
 class OffersFirebaseDataRepository implements OffersDataRepository {
@@ -179,6 +180,35 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     });
   }
 
+  @override
+  fetchReviews(
+      {required String offerId,
+      required int limit,
+      String? lastReviewId}) async {
+    Query query = _firestore
+        .collection('offers')
+        .doc(offerId)
+        .collection('reviews')
+        .orderBy('createdAt', descending: true)
+        .limit(limit);
+
+    if (lastReviewId != null) {
+      final DocumentSnapshot lastReviewSnapshot = await _firestore
+          .collection('offers')
+          .doc(offerId)
+          .collection('reviews')
+          .doc(lastReviewId)
+          .get();
+      query = query.startAfterDocument(lastReviewSnapshot);
+    }
+
+    final querySnapshot = await query.get();
+
+    return querySnapshot.docs
+        .map((doc) => ReviewModel.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
+  }
+
   // Modified query methods
   @override
   Query queryOffersByTitle(String queryStr, String city) {
@@ -186,7 +216,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     Query query =
         _firestore.collection('offers').where('city', isEqualTo: city).where(
               'titleWords',
-              arrayContainsAny: queryArray,
+              arrayContains: queryArray,
             );
     return query;
   }
@@ -253,7 +283,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     Query query = _firestore
         .collection('offers')
         .where('city', isEqualTo: city)
-        .where('descriptionWords', arrayContainsAny: queryArray);
+        .where('descriptionWords', arrayContains: queryArray);
     return query;
   }
 
@@ -305,5 +335,28 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     return offerList.docs
         .map((doc) => OfferModel.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
+  }
+
+  @override
+  Future<void> writeReview(
+      {required String offerId, required ReviewModel review}) async {
+    final offerRef = _firestore.collection('offers').doc(offerId);
+    final reviewRef = offerRef.collection('reviews').doc(review.id);
+    await reviewRef.set(review.toJson());
+  }
+
+  @override
+  Future<void> deleteReview(
+      {required String offerId, required String reviewId}) async {
+    final reviewRef = _firestore
+        .collection('offers')
+        .doc(offerId)
+        .collection('reviews')
+        .doc(reviewId);
+    await reviewRef.delete().then((value) {
+      log('Review deleted');
+    }).catchError((error) {
+      log('Error deleting review: $error');
+    });
   }
 }

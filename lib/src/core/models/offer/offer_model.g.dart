@@ -30,7 +30,12 @@ _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
       reviews: (json['reviews'] as List<dynamic>?)
           ?.map((e) => ReviewModel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      totalSalesNumber: (json['totalSalesNumber'] as num?)?.toInt(),
       rating: (json['rating'] as num?)?.toDouble(),
+      ratingDistribution:
+          (json['ratingDistribution'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(int.parse(k), (e as num).toInt()),
+      ),
       discount: (json['discount'] as num?)?.toDouble(),
       offerImagesUrls: (json['offerImagesUrls'] as List<dynamic>?)
           ?.map((e) => e as String)
@@ -68,7 +73,10 @@ Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) {
   }
 
   writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
+  writeNotNull('totalSalesNumber', instance.totalSalesNumber);
   writeNotNull('rating', instance.rating);
+  writeNotNull('ratingDistribution',
+      instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e)));
   writeNotNull('discount', instance.discount);
   writeNotNull('offerImagesUrls', instance.offerImagesUrls?.toList());
   writeNotNull('product', instance.product?.toJson());

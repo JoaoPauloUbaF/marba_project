@@ -37,13 +37,15 @@ class _OfferMediaWidgetState extends State<OfferMediaWidget> {
           items: widget.items.map((i) {
             return SizedBox(
               width: MediaQuery.of(context).size.width,
-              child: Image.network(
-                i,
-                fit: BoxFit.fill,
-                loadingBuilder: (context, child, loadingProgress) =>
-                    loadingProgress == null ? child : const LoadingWidget(),
-                errorBuilder: (context, error, stackTrace) => const Center(
-                  child: Placeholder(),
+              child: InteractiveViewer(
+                child: Image.network(
+                  i,
+                  fit: BoxFit.fill,
+                  loadingBuilder: (context, child, loadingProgress) =>
+                      loadingProgress == null ? child : const LoadingWidget(),
+                  errorBuilder: (context, error, stackTrace) => const Center(
+                    child: Placeholder(),
+                  ),
                 ),
               ),
             );

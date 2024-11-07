@@ -32,8 +32,12 @@ mixin _$BusinessOrderItem {
   DateTime? get scheduledAt => throw _privateConstructorUsedError;
   BusinessOrderItemStatus get status => throw _privateConstructorUsedError;
 
+  /// Serializes this BusinessOrderItem to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BusinessOrderItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BusinessOrderItemCopyWith<BusinessOrderItem> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -68,6 +72,8 @@ class _$BusinessOrderItemCopyWithImpl<$Res, $Val extends BusinessOrderItem>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BusinessOrderItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -162,6 +168,8 @@ class __$$BusinessOrderItemImplCopyWithImpl<$Res>
       $Res Function(_$BusinessOrderItemImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BusinessOrderItem
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -297,7 +305,7 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
             (identical(other.status, status) || other.status == status));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -313,7 +321,9 @@ class _$BusinessOrderItemImpl implements _BusinessOrderItem {
       scheduledAt,
       status);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BusinessOrderItem
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BusinessOrderItemImplCopyWith<_$BusinessOrderItemImpl> get copyWith =>
@@ -367,8 +377,11 @@ abstract class _BusinessOrderItem implements BusinessOrderItem {
   DateTime? get scheduledAt;
   @override
   BusinessOrderItemStatus get status;
+
+  /// Create a copy of BusinessOrderItem
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BusinessOrderItemImplCopyWith<_$BusinessOrderItemImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

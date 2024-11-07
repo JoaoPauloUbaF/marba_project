@@ -145,8 +145,8 @@ class ReviewCardWidget extends StatelessWidget {
                                     ],
                                     size: 16,
                                     color: index < review.rating
-                                        ? colorScheme.onTertiary
-                                        : colorScheme.tertiaryContainer,
+                                        ? colorScheme.tertiaryContainer
+                                        : colorScheme.onTertiary,
                                   );
                                 }),
                               ),

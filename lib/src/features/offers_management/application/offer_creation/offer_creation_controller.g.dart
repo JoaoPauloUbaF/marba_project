@@ -7,7 +7,7 @@ part of 'offer_creation_controller.dart';
 // **************************************************************************
 
 String _$offerCreationControllerHash() =>
-    r'272e31c81cca7839bea2d397fbe1f0fff51809fe';
+    r'84d14571059a401605387e4cf6cec703250b88dd';
 
 /// See also [OfferCreationController].
 @ProviderFor(OfferCreationController)
@@ -24,4 +24,4 @@ final offerCreationControllerProvider =
 
 typedef _$OfferCreationController = AutoDisposeAsyncNotifier<void>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

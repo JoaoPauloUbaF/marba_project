@@ -6,7 +6,7 @@ part of 'query_offers_result_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$queryOffersResultHash() => r'ab8d06c90cb14dc313d0f3efee34592e89113a31';
+String _$queryOffersResultHash() => r'51a816ae2b1e0473784a344ac4cc6f403220bcb3';
 
 /// See also [QueryOffersResult].
 @ProviderFor(QueryOffersResult)
@@ -23,4 +23,4 @@ final queryOffersResultProvider =
 
 typedef _$QueryOffersResult = AsyncNotifier<List<OfferModel>>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -27,7 +27,9 @@ class OfferModel with _$OfferModel {
     required OfferType type,
     required String city,
     List<ReviewModel>? reviews,
+    int? totalSalesNumber,
     double? rating,
+    Map<int, int>? ratingDistribution,
     double? discount,
     Set<String>? offerImagesUrls,
     Product? product,
@@ -48,6 +50,8 @@ class OfferModel with _$OfferModel {
   double get ratingValue => rating ?? 0.0;
   double get priceWithDiscount => getPrice - (getPrice * discountValue / 100);
   int get totalRatings => reviews?.length ?? 0;
+  int get totalSales => totalSalesNumber ?? 0;
+  Map<int, int> get ratingsDistribution => ratingDistribution ?? {};
 
   factory OfferModel.fromJson(Map<String, dynamic> json) =>
       _$OfferModelFromJson(json);

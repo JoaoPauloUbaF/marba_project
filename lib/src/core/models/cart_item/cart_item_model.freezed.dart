@@ -29,8 +29,12 @@ mixin _$CartItemModel {
   String get businessId => throw _privateConstructorUsedError;
   OfferType get offerType => throw _privateConstructorUsedError;
 
+  /// Serializes this CartItemModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CartItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CartItemModelCopyWith<CartItemModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$CartItemModelCopyWithImpl<$Res, $Val extends CartItemModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CartItemModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,6 +144,8 @@ class __$$CartItemModelImplCopyWithImpl<$Res>
       _$CartItemModelImpl _value, $Res Function(_$CartItemModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CartItemModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -244,12 +252,14 @@ class _$CartItemModelImpl implements _CartItemModel {
                 other.offerType == offerType));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, price, cost, imageUrl,
       quantity, businessId, offerType);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CartItemModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CartItemModelImplCopyWith<_$CartItemModelImpl> get copyWith =>
@@ -293,8 +303,11 @@ abstract class _CartItemModel implements CartItemModel {
   String get businessId;
   @override
   OfferType get offerType;
+
+  /// Create a copy of CartItemModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CartItemModelImplCopyWith<_$CartItemModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

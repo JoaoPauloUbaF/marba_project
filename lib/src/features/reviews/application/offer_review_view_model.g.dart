@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'business_review_view_model.dart';
+part of 'offer_review_view_model.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$businessReviewsHash() => r'e70d54660894317b55e4bc130a7ab2611d50f9b0';
+String _$offerReviewsHash() => r'7844a50df445cfbfee9891354e39adc4cb0c211a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,22 +29,22 @@ class _SystemHash {
   }
 }
 
-/// See also [businessReviews].
-@ProviderFor(businessReviews)
-const businessReviewsProvider = BusinessReviewsFamily();
+/// See also [offerReviews].
+@ProviderFor(offerReviews)
+const offerReviewsProvider = OfferReviewsFamily();
 
-/// See also [businessReviews].
-class BusinessReviewsFamily extends Family<AsyncValue<List<ReviewModel>>> {
-  /// See also [businessReviews].
-  const BusinessReviewsFamily();
+/// See also [offerReviews].
+class OfferReviewsFamily extends Family<AsyncValue<List<ReviewModel>>> {
+  /// See also [offerReviews].
+  const OfferReviewsFamily();
 
-  /// See also [businessReviews].
-  BusinessReviewsProvider call(
+  /// See also [offerReviews].
+  OfferReviewsProvider call(
     String uid,
     int? limit,
     String? lastReviewId,
   ) {
-    return BusinessReviewsProvider(
+    return OfferReviewsProvider(
       uid,
       limit,
       lastReviewId,
@@ -52,8 +52,8 @@ class BusinessReviewsFamily extends Family<AsyncValue<List<ReviewModel>>> {
   }
 
   @override
-  BusinessReviewsProvider getProviderOverride(
-    covariant BusinessReviewsProvider provider,
+  OfferReviewsProvider getProviderOverride(
+    covariant OfferReviewsProvider provider,
   ) {
     return call(
       provider.uid,
@@ -74,39 +74,39 @@ class BusinessReviewsFamily extends Family<AsyncValue<List<ReviewModel>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'businessReviewsProvider';
+  String? get name => r'offerReviewsProvider';
 }
 
-/// See also [businessReviews].
-class BusinessReviewsProvider
+/// See also [offerReviews].
+class OfferReviewsProvider
     extends AutoDisposeFutureProvider<List<ReviewModel>> {
-  /// See also [businessReviews].
-  BusinessReviewsProvider(
+  /// See also [offerReviews].
+  OfferReviewsProvider(
     String uid,
     int? limit,
     String? lastReviewId,
   ) : this._internal(
-          (ref) => businessReviews(
-            ref as BusinessReviewsRef,
+          (ref) => offerReviews(
+            ref as OfferReviewsRef,
             uid,
             limit,
             lastReviewId,
           ),
-          from: businessReviewsProvider,
-          name: r'businessReviewsProvider',
+          from: offerReviewsProvider,
+          name: r'offerReviewsProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$businessReviewsHash,
-          dependencies: BusinessReviewsFamily._dependencies,
+                  : _$offerReviewsHash,
+          dependencies: OfferReviewsFamily._dependencies,
           allTransitiveDependencies:
-              BusinessReviewsFamily._allTransitiveDependencies,
+              OfferReviewsFamily._allTransitiveDependencies,
           uid: uid,
           limit: limit,
           lastReviewId: lastReviewId,
         );
 
-  BusinessReviewsProvider._internal(
+  OfferReviewsProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -124,12 +124,12 @@ class BusinessReviewsProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<ReviewModel>> Function(BusinessReviewsRef provider) create,
+    FutureOr<List<ReviewModel>> Function(OfferReviewsRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: BusinessReviewsProvider._internal(
-        (ref) => create(ref as BusinessReviewsRef),
+      override: OfferReviewsProvider._internal(
+        (ref) => create(ref as OfferReviewsRef),
         from: from,
         name: null,
         dependencies: null,
@@ -144,12 +144,12 @@ class BusinessReviewsProvider
 
   @override
   AutoDisposeFutureProviderElement<List<ReviewModel>> createElement() {
-    return _BusinessReviewsProviderElement(this);
+    return _OfferReviewsProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is BusinessReviewsProvider &&
+    return other is OfferReviewsProvider &&
         other.uid == uid &&
         other.limit == limit &&
         other.lastReviewId == lastReviewId;
@@ -168,7 +168,7 @@ class BusinessReviewsProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin BusinessReviewsRef on AutoDisposeFutureProviderRef<List<ReviewModel>> {
+mixin OfferReviewsRef on AutoDisposeFutureProviderRef<List<ReviewModel>> {
   /// The parameter `uid` of this provider.
   String get uid;
 
@@ -179,17 +179,17 @@ mixin BusinessReviewsRef on AutoDisposeFutureProviderRef<List<ReviewModel>> {
   String? get lastReviewId;
 }
 
-class _BusinessReviewsProviderElement
+class _OfferReviewsProviderElement
     extends AutoDisposeFutureProviderElement<List<ReviewModel>>
-    with BusinessReviewsRef {
-  _BusinessReviewsProviderElement(super.provider);
+    with OfferReviewsRef {
+  _OfferReviewsProviderElement(super.provider);
 
   @override
-  String get uid => (origin as BusinessReviewsProvider).uid;
+  String get uid => (origin as OfferReviewsProvider).uid;
   @override
-  int? get limit => (origin as BusinessReviewsProvider).limit;
+  int? get limit => (origin as OfferReviewsProvider).limit;
   @override
-  String? get lastReviewId => (origin as BusinessReviewsProvider).lastReviewId;
+  String? get lastReviewId => (origin as OfferReviewsProvider).lastReviewId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

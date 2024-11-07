@@ -40,8 +40,12 @@ mixin _$BusinessModel {
   double? get averageRating => throw _privateConstructorUsedError;
   Map<int, int>? get ratingDistribution => throw _privateConstructorUsedError;
 
+  /// Serializes this BusinessModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BusinessModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BusinessModelCopyWith<BusinessModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -86,6 +90,8 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BusinessModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -189,6 +195,8 @@ class _$BusinessModelCopyWithImpl<$Res, $Val extends BusinessModel>
     ) as $Val);
   }
 
+  /// Create a copy of BusinessModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressModelCopyWith<$Res> get address {
@@ -239,6 +247,8 @@ class __$$BusinessModelImplCopyWithImpl<$Res>
       _$BusinessModelImpl _value, $Res Function(_$BusinessModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BusinessModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -513,7 +523,7 @@ class _$BusinessModelImpl implements _BusinessModel {
                 .equals(other._ratingDistribution, _ratingDistribution));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -538,7 +548,9 @@ class _$BusinessModelImpl implements _BusinessModel {
         const DeepCollectionEquality().hash(_ratingDistribution)
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BusinessModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BusinessModelImplCopyWith<_$BusinessModelImpl> get copyWith =>
@@ -615,8 +627,11 @@ abstract class _BusinessModel implements BusinessModel {
   double? get averageRating;
   @override
   Map<int, int>? get ratingDistribution;
+
+  /// Create a copy of BusinessModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BusinessModelImplCopyWith<_$BusinessModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

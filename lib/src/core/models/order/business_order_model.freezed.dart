@@ -32,8 +32,12 @@ mixin _$BusinessOrder {
   DateTime get updatedAt => throw _privateConstructorUsedError;
   DateTime? get canceledAt => throw _privateConstructorUsedError;
 
+  /// Serializes this BusinessOrder to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BusinessOrder
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BusinessOrderCopyWith<BusinessOrder> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -68,6 +72,8 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BusinessOrder
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -121,6 +127,8 @@ class _$BusinessOrderCopyWithImpl<$Res, $Val extends BusinessOrder>
     ) as $Val);
   }
 
+  /// Create a copy of BusinessOrder
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $AddressModelCopyWith<$Res> get address {
@@ -161,6 +169,8 @@ class __$$BusinessOrderImplCopyWithImpl<$Res>
       _$BusinessOrderImpl _value, $Res Function(_$BusinessOrderImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BusinessOrder
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -286,7 +296,7 @@ class _$BusinessOrderImpl implements _BusinessOrder {
                 other.canceledAt == canceledAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -300,7 +310,9 @@ class _$BusinessOrderImpl implements _BusinessOrder {
       updatedAt,
       canceledAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BusinessOrder
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BusinessOrderImplCopyWith<_$BusinessOrderImpl> get copyWith =>
@@ -349,8 +361,11 @@ abstract class _BusinessOrder implements BusinessOrder {
   DateTime get updatedAt;
   @override
   DateTime? get canceledAt;
+
+  /// Create a copy of BusinessOrder
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BusinessOrderImplCopyWith<_$BusinessOrderImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -26,8 +26,13 @@ class OfferInfoWidget extends ConsumerWidget {
           Row(
             children: [
               OfferRatingWidget(
+                id: offer.id,
                 rating: offer.ratingValue,
-                totalRatings: offer.totalRatings,
+                totalRatings: offer.ratingDistribution?.entries.fold<int>(
+                        0,
+                        (previousValue, element) =>
+                            previousValue + element.value) ??
+                    0,
               ),
               const Spacer(),
               const OfferActionsWidget(),

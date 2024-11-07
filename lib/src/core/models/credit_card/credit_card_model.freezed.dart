@@ -29,8 +29,12 @@ mixin _$CreditCardModel {
   DateTime get createdAt => throw _privateConstructorUsedError;
   DateTime get updatedAt => throw _privateConstructorUsedError;
 
+  /// Serializes this CreditCardModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreditCardModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CreditCardModelCopyWith<CreditCardModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -62,6 +66,8 @@ class _$CreditCardModelCopyWithImpl<$Res, $Val extends CreditCardModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CreditCardModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -138,6 +144,8 @@ class __$$CreditCardModelImplCopyWithImpl<$Res>
       _$CreditCardModelImpl _value, $Res Function(_$CreditCardModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreditCardModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -245,12 +253,14 @@ class _$CreditCardModelImpl implements _CreditCardModel {
                 other.updatedAt == updatedAt));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, cardNumber, cardHolderName,
       expirationDate, cvv, brand, createdAt, updatedAt);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreditCardModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreditCardModelImplCopyWith<_$CreditCardModelImpl> get copyWith =>
@@ -295,8 +305,11 @@ abstract class _CreditCardModel implements CreditCardModel {
   DateTime get createdAt;
   @override
   DateTime get updatedAt;
+
+  /// Create a copy of CreditCardModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreditCardModelImplCopyWith<_$CreditCardModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

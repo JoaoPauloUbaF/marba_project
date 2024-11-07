@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
+import 'package:project_marba/src/core/models/review/review_model.dart';
 
 abstract class OffersDataRepository {
   Stream<List<OfferModel>> getOffers({OfferModel? lastOffer});
@@ -32,4 +33,13 @@ abstract class OffersDataRepository {
   Query queryOffersByBusinessName(String queryStr, String city);
   Query queryOffersByBusinessCategory(String queryStr, String city);
   Query queryOffersByDescription(String queryStr, String city);
+
+  Future<List<ReviewModel>> fetchReviews(
+      {required String offerId, required int limit, String? lastReviewId});
+
+  Future<void> writeReview(
+      {required String offerId, required ReviewModel review});
+
+  Future<void> deleteReview(
+      {required String offerId, required String reviewId});
 }

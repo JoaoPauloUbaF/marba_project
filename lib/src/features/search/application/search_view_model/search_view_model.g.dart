@@ -6,7 +6,7 @@ part of 'search_view_model.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$searchViewModelHash() => r'99901ef2b6597af75218c085de167e70fc0d793d';
+String _$searchViewModelHash() => r'e46bda6bbe09468f21fcfdc3d3ba1e54353df47a';
 
 /// See also [SearchViewModel].
 @ProviderFor(SearchViewModel)
@@ -23,4 +23,4 @@ final searchViewModelProvider =
 
 typedef _$SearchViewModel = AutoDisposeNotifier<SearchViewState>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

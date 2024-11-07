@@ -185,8 +185,13 @@ mixin _$BusinessAnalysis {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  /// Serializes this BusinessAnalysis to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $BusinessAnalysisCopyWith<BusinessAnalysis> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -210,6 +215,8 @@ class _$BusinessAnalysisCopyWithImpl<$Res, $Val extends BusinessAnalysis>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -259,6 +266,8 @@ class __$$CPFBusinessImplCopyWithImpl<$Res>
       _$CPFBusinessImpl _value, $Res Function(_$CPFBusinessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -400,7 +409,7 @@ class _$CPFBusinessImpl implements CPFBusiness {
                 other.statusCpf == statusCpf));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -416,7 +425,9 @@ class _$CPFBusinessImpl implements CPFBusiness {
       residenceProofUrl,
       statusCpf);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CPFBusinessImplCopyWith<_$CPFBusinessImpl> get copyWith =>
@@ -639,8 +650,11 @@ abstract class CPFBusiness implements BusinessAnalysis {
   String get personalIdImageUrl;
   String get residenceProofUrl;
   String get statusCpf;
+
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CPFBusinessImplCopyWith<_$CPFBusinessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -674,6 +688,8 @@ class __$$MEIBusinessImplCopyWithImpl<$Res>
       _$MEIBusinessImpl _value, $Res Function(_$MEIBusinessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -805,7 +821,7 @@ class _$MEIBusinessImpl implements MEIBusiness {
                 other.statusMei == statusMei));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -820,7 +836,9 @@ class _$MEIBusinessImpl implements MEIBusiness {
       debtCertificateUrl,
       statusMei);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MEIBusinessImplCopyWith<_$MEIBusinessImpl> get copyWith =>
@@ -1041,8 +1059,11 @@ abstract class MEIBusiness implements BusinessAnalysis {
   String get residenceProofUrl;
   String get debtCertificateUrl;
   String get statusMei;
+
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MEIBusinessImplCopyWith<_$MEIBusinessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1078,6 +1099,8 @@ class __$$CNPJBusinessImplCopyWithImpl<$Res>
       _$CNPJBusinessImpl _value, $Res Function(_$CNPJBusinessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1233,7 +1256,7 @@ class _$CNPJBusinessImpl implements CNPJBusiness {
                 other.statusCnpj == statusCnpj));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -1250,7 +1273,9 @@ class _$CNPJBusinessImpl implements CNPJBusiness {
       taxDebtsCertUrl,
       statusCnpj);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CNPJBusinessImplCopyWith<_$CNPJBusinessImpl> get copyWith =>
@@ -1508,8 +1533,11 @@ abstract class CNPJBusiness implements BusinessAnalysis {
   String get businessAddressProofUrl;
   String get taxDebtsCertUrl;
   String get statusCnpj;
+
+  /// Create a copy of BusinessAnalysis
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CNPJBusinessImplCopyWith<_$CNPJBusinessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

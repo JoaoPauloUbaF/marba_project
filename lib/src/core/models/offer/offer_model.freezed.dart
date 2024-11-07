@@ -35,14 +35,20 @@ mixin _$OfferModel {
   OfferType get type => throw _privateConstructorUsedError;
   String get city => throw _privateConstructorUsedError;
   List<ReviewModel>? get reviews => throw _privateConstructorUsedError;
+  int? get totalSalesNumber => throw _privateConstructorUsedError;
   double? get rating => throw _privateConstructorUsedError;
+  Map<int, int>? get ratingDistribution => throw _privateConstructorUsedError;
   double? get discount => throw _privateConstructorUsedError;
   Set<String>? get offerImagesUrls => throw _privateConstructorUsedError;
   Product? get product => throw _privateConstructorUsedError;
   Service? get service => throw _privateConstructorUsedError;
 
+  /// Serializes this OfferModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $OfferModelCopyWith<OfferModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -69,7 +75,9 @@ abstract class $OfferModelCopyWith<$Res> {
       OfferType type,
       String city,
       List<ReviewModel>? reviews,
+      int? totalSalesNumber,
       double? rating,
+      Map<int, int>? ratingDistribution,
       double? discount,
       Set<String>? offerImagesUrls,
       Product? product,
@@ -89,6 +97,8 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -107,7 +117,9 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     Object? type = null,
     Object? city = null,
     Object? reviews = freezed,
+    Object? totalSalesNumber = freezed,
     Object? rating = freezed,
+    Object? ratingDistribution = freezed,
     Object? discount = freezed,
     Object? offerImagesUrls = freezed,
     Object? product = freezed,
@@ -174,10 +186,18 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
           ? _value.reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<ReviewModel>?,
+      totalSalesNumber: freezed == totalSalesNumber
+          ? _value.totalSalesNumber
+          : totalSalesNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      ratingDistribution: freezed == ratingDistribution
+          ? _value.ratingDistribution
+          : ratingDistribution // ignore: cast_nullable_to_non_nullable
+              as Map<int, int>?,
       discount: freezed == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -197,6 +217,8 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     ) as $Val);
   }
 
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ProductCopyWith<$Res>? get product {
@@ -209,6 +231,8 @@ class _$OfferModelCopyWithImpl<$Res, $Val extends OfferModel>
     });
   }
 
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $ServiceCopyWith<$Res>? get service {
@@ -246,7 +270,9 @@ abstract class _$$OfferModelImplCopyWith<$Res>
       OfferType type,
       String city,
       List<ReviewModel>? reviews,
+      int? totalSalesNumber,
       double? rating,
+      Map<int, int>? ratingDistribution,
       double? discount,
       Set<String>? offerImagesUrls,
       Product? product,
@@ -266,6 +292,8 @@ class __$$OfferModelImplCopyWithImpl<$Res>
       _$OfferModelImpl _value, $Res Function(_$OfferModelImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -284,7 +312,9 @@ class __$$OfferModelImplCopyWithImpl<$Res>
     Object? type = null,
     Object? city = null,
     Object? reviews = freezed,
+    Object? totalSalesNumber = freezed,
     Object? rating = freezed,
+    Object? ratingDistribution = freezed,
     Object? discount = freezed,
     Object? offerImagesUrls = freezed,
     Object? product = freezed,
@@ -351,10 +381,18 @@ class __$$OfferModelImplCopyWithImpl<$Res>
           ? _value._reviews
           : reviews // ignore: cast_nullable_to_non_nullable
               as List<ReviewModel>?,
+      totalSalesNumber: freezed == totalSalesNumber
+          ? _value.totalSalesNumber
+          : totalSalesNumber // ignore: cast_nullable_to_non_nullable
+              as int?,
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
               as double?,
+      ratingDistribution: freezed == ratingDistribution
+          ? _value._ratingDistribution
+          : ratingDistribution // ignore: cast_nullable_to_non_nullable
+              as Map<int, int>?,
       discount: freezed == discount
           ? _value.discount
           : discount // ignore: cast_nullable_to_non_nullable
@@ -394,7 +432,9 @@ class _$OfferModelImpl extends _OfferModel {
       required this.type,
       required this.city,
       final List<ReviewModel>? reviews,
+      this.totalSalesNumber,
       this.rating,
+      final Map<int, int>? ratingDistribution,
       this.discount,
       final Set<String>? offerImagesUrls,
       this.product,
@@ -403,6 +443,7 @@ class _$OfferModelImpl extends _OfferModel {
         _descriptionWords = descriptionWords,
         _category = category,
         _reviews = reviews,
+        _ratingDistribution = ratingDistribution,
         _offerImagesUrls = offerImagesUrls,
         super._();
 
@@ -467,7 +508,20 @@ class _$OfferModelImpl extends _OfferModel {
   }
 
   @override
+  final int? totalSalesNumber;
+  @override
   final double? rating;
+  final Map<int, int>? _ratingDistribution;
+  @override
+  Map<int, int>? get ratingDistribution {
+    final value = _ratingDistribution;
+    if (value == null) return null;
+    if (_ratingDistribution is EqualUnmodifiableMapView)
+      return _ratingDistribution;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   final double? discount;
   final Set<String>? _offerImagesUrls;
@@ -487,7 +541,7 @@ class _$OfferModelImpl extends _OfferModel {
 
   @override
   String toString() {
-    return 'OfferModel(id: $id, title: $title, titleWords: $titleWords, description: $description, descriptionWords: $descriptionWords, price: $price, imageUrl: $imageUrl, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, city: $city, reviews: $reviews, rating: $rating, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
+    return 'OfferModel(id: $id, title: $title, titleWords: $titleWords, description: $description, descriptionWords: $descriptionWords, price: $price, imageUrl: $imageUrl, businessId: $businessId, category: $category, createdAt: $createdAt, updatedAt: $updatedAt, status: $status, type: $type, city: $city, reviews: $reviews, totalSalesNumber: $totalSalesNumber, rating: $rating, ratingDistribution: $ratingDistribution, discount: $discount, offerImagesUrls: $offerImagesUrls, product: $product, service: $service)';
   }
 
   @override
@@ -517,7 +571,11 @@ class _$OfferModelImpl extends _OfferModel {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.city, city) || other.city == city) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
+            (identical(other.totalSalesNumber, totalSalesNumber) ||
+                other.totalSalesNumber == totalSalesNumber) &&
             (identical(other.rating, rating) || other.rating == rating) &&
+            const DeepCollectionEquality()
+                .equals(other._ratingDistribution, _ratingDistribution) &&
             (identical(other.discount, discount) ||
                 other.discount == discount) &&
             const DeepCollectionEquality()
@@ -526,7 +584,7 @@ class _$OfferModelImpl extends _OfferModel {
             (identical(other.service, service) || other.service == service));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -545,14 +603,18 @@ class _$OfferModelImpl extends _OfferModel {
         type,
         city,
         const DeepCollectionEquality().hash(_reviews),
+        totalSalesNumber,
         rating,
+        const DeepCollectionEquality().hash(_ratingDistribution),
         discount,
         const DeepCollectionEquality().hash(_offerImagesUrls),
         product,
         service
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$OfferModelImplCopyWith<_$OfferModelImpl> get copyWith =>
@@ -583,7 +645,9 @@ abstract class _OfferModel extends OfferModel {
       required final OfferType type,
       required final String city,
       final List<ReviewModel>? reviews,
+      final int? totalSalesNumber,
       final double? rating,
+      final Map<int, int>? ratingDistribution,
       final double? discount,
       final Set<String>? offerImagesUrls,
       final Product? product,
@@ -624,7 +688,11 @@ abstract class _OfferModel extends OfferModel {
   @override
   List<ReviewModel>? get reviews;
   @override
+  int? get totalSalesNumber;
+  @override
   double? get rating;
+  @override
+  Map<int, int>? get ratingDistribution;
   @override
   double? get discount;
   @override
@@ -633,8 +701,11 @@ abstract class _OfferModel extends OfferModel {
   Product? get product;
   @override
   Service? get service;
+
+  /// Create a copy of OfferModel
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$OfferModelImplCopyWith<_$OfferModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
