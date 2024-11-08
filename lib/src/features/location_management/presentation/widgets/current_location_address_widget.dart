@@ -18,6 +18,7 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
 
     void showAddressModal(BuildContext context, AddressModel address) {
       final user = ref.read(authRepositoryProvider).getCurrentUser();
+      ref.watch(authStateChangeProvider);
       showModalBottomSheet(
         context: context,
         builder: (context) {

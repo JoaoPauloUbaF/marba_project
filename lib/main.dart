@@ -1,4 +1,5 @@
 // ignore_for_file: implementation_imports
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -47,7 +48,9 @@ Future<void> main() async {
   FirebaseUIAuth.configureProviders([email_auth.EmailAuthProvider()]);
   await dotenv.load(fileName: ".env");
 
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(DevicePreview(
+      enabled: true,
+      builder: (context) => const ProviderScope(child: MainApp())));
 }
 
 class MainApp extends ConsumerWidget {
@@ -60,6 +63,8 @@ class MainApp extends ConsumerWidget {
 
     return _EagerInitialization(
       child: MaterialApp(
+        builder: DevicePreview.appBuilder,
+        useInheritedMediaQuery: true,
         themeAnimationCurve: Curves.easeInOut,
         themeAnimationDuration: const Duration(milliseconds: 500),
         debugShowCheckedModeBanner: false,
@@ -99,7 +104,7 @@ class MainApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
           FirebaseUILocalizations.delegate,
         ],
-        locale: const Locale('pt', 'BR'),
+        locale: DevicePreview.locale(context),
         supportedLocales: const [
           Locale('pt', 'BR'),
           Locale('en', 'US'),
