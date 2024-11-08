@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/shopping/application/cart_item_list_view_model/cart_item_list_view_model.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 
+import '../../../../../core/models/cart_item/cart_item_model.dart';
 import '../../../../scheduling/presentation/widgets/calendar_modal_widget.dart';
 
-class OrderingActionsWidget extends ConsumerWidget {
+class OrderingActionsWidget extends ConsumerStatefulWidget {
   const OrderingActionsWidget({
     super.key,
     required this.offer,
@@ -14,7 +15,13 @@ class OrderingActionsWidget extends ConsumerWidget {
   final OfferModel offer;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<OrderingActionsWidget> createState() =>
+      _OrderingActionsWidgetState();
+}
+
+class _OrderingActionsWidgetState extends ConsumerState<OrderingActionsWidget> {
+  @override
+  Widget build(BuildContext context) {
     final cartViewModel = ref.watch(cartItemListViewModelProvider.notifier);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -23,7 +30,7 @@ class OrderingActionsWidget extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              offer.offerType == OfferType.product
+              widget.offer.offerType == OfferType.product
                   ? Expanded(
                       child: TextButton.icon(
                         style: TextButton.styleFrom(
@@ -31,15 +38,17 @@ class OrderingActionsWidget extends ConsumerWidget {
                               Theme.of(context).colorScheme.secondary,
                         ),
                         onPressed: () {
-                          cartViewModel.createNewItem(
-                            offer.id,
-                            offer.getTitle,
-                            offer.priceWithDiscount,
-                            offer.getImageUrl,
-                            offer.businessId,
-                            offer.offerType,
-                            offer.itemCost ?? 0.0,
-                          );
+                          cartViewModel.createSingleBuyCart(
+                              item: CartItemModel(
+                            id: widget.offer.id,
+                            name: widget.offer.getTitle,
+                            price: widget.offer.priceWithDiscount,
+                            imageUrl: widget.offer.getImageUrl,
+                            businessId: widget.offer.businessId,
+                            offerType: widget.offer.offerType,
+                            cost: widget.offer.itemCost ?? 0.0,
+                            quantity: 1,
+                          ));
                           Navigator.pushNamed(context, '/shopping-cart');
                         },
                         icon: Icon(
@@ -47,6 +56,7 @@ class OrderingActionsWidget extends ConsumerWidget {
                           color: Theme.of(context).colorScheme.onSecondary,
                         ),
                         label: Text(
+                          textAlign: TextAlign.center,
                           "Comprar\nagora",
                           maxLines: 2,
                           style: Theme.of(context)
@@ -91,7 +101,7 @@ class OrderingActionsWidget extends ConsumerWidget {
                     ),
               const SizedBox(width: 8),
               Expanded(
-                child: AddToCartButtonWidget(offer: offer),
+                child: AddToCartButtonWidget(offer: widget.offer),
               ),
             ],
           ),
@@ -186,6 +196,7 @@ class _AddToCartWidgetState extends ConsumerState<AddToCartButtonWidget>
             ),
           ),
           child: Text(
+            textAlign: TextAlign.center,
             _isAdded ? "Adicionado" : "Adicionar\nao carrinho",
             maxLines: 2,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(

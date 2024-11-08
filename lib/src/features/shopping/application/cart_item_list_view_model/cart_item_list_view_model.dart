@@ -17,7 +17,8 @@ import '../discount_coupon_provider/discount_coupon_provider.dart';
 
 part 'cart_item_list_view_model.g.dart';
 
-@Riverpod(keepAlive: true)
+// @Riverpod(keepAlive: true)
+@riverpod
 class CartItemListViewModel extends _$CartItemListViewModel {
   late ShoppingCartRepository shoppingCartRepository;
 
@@ -81,6 +82,10 @@ class CartItemListViewModel extends _$CartItemListViewModel {
     shoppingCartRepository.clearCart(
         userId: ref.read(authRepositoryProvider).getCurrentUser()!.uid);
     state = [];
+  }
+
+  void createSingleBuyCart({required CartItemModel item}) {
+    state = [item];
   }
 
   double get total {

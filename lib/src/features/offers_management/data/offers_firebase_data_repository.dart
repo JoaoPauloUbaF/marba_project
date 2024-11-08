@@ -216,7 +216,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     Query query =
         _firestore.collection('offers').where('city', isEqualTo: city).where(
               'titleWords',
-              arrayContains: queryArray,
+              arrayContainsAny: queryArray,
             );
     return query;
   }
@@ -283,7 +283,7 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
     Query query = _firestore
         .collection('offers')
         .where('city', isEqualTo: city)
-        .where('descriptionWords', arrayContains: queryArray);
+        .where('descriptionWords', arrayContainsAny: queryArray);
     return query;
   }
 

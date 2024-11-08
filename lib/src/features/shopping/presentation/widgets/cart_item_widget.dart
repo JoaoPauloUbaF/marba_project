@@ -6,6 +6,7 @@ import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
 import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/widgets/large_horizontal_space_widget.dart';
 
+import '../../../offers_management/application/offer_details/offer_details_view_model.dart';
 import '../../../scheduling/presentation/widgets/calendar_modal_widget.dart';
 
 class CartItemWidget extends ConsumerWidget {
@@ -21,62 +22,92 @@ class CartItemWidget extends ConsumerWidget {
     final cartItemListViewModel =
         ref.read(cartItemListViewModelProvider.notifier);
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: SizedBox(
-        height: 125,
-        width: MediaQuery.of(context).size.width,
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.network(
-                item.imageUrl,
-                width: 125,
-                height: 125,
-                fit: BoxFit.fill,
+    return InkWell(
+      onTap: () {
+        ref
+            .read(offerDetailsViewModelProvider.notifier)
+            .setSelectedOfferFromId(item.id);
+        Navigator.of(context).pushNamed('/offer-details');
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: SizedBox(
+          height: 125,
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.network(
+                  item.imageUrl,
+                  width: 125,
+                  height: 125,
+                  fit: BoxFit.fill,
+                ),
               ),
-            ),
-            const LargeHorizontalSpaceWidget(),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    item.name,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(RegistrationUtils().doubleAsCurrency(item.price),
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  item.offerType == OfferType.product
-                      ? ProductStepperWidget(
-                          cartItemListViewModel: cartItemListViewModel,
-                          item: item)
-                      : TextButton.icon(
-                          style: TextButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.onPrimary),
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return const CalendarModalWidget();
-                                //TODO: Implement scheduling
-                              },
-                            );
-                          },
-                          icon: const Icon(Icons.calendar_month_sharp),
-                          label: const Text('Agendar'),
-                        ),
-                ],
+              const LargeHorizontalSpaceWidget(),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      item.name,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(RegistrationUtils().doubleAsCurrency(item.price),
+                        style: Theme.of(context).textTheme.bodyMedium),
+                    item.offerType == OfferType.product
+                        ? ProductStepperWidget(
+                            cartItemListViewModel: cartItemListViewModel,
+                            item: item)
+                        : Row(
+                            children: [
+                              SizedBox(
+                                width: 30.0,
+                                height: 30.0,
+                                child: IconButton.outlined(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  icon: Icon(
+                                      cartItemListViewModel
+                                          .getDecreaseIcon(item.quantity),
+                                      size: 18.0),
+                                  onPressed: () {
+                                    cartItemListViewModel.decreaseItemQuantity(
+                                        item, context);
+                                  },
+                                  padding: const EdgeInsets.all(0),
+                                  constraints: const BoxConstraints(),
+                                ),
+                              ),
+                              TextButton.icon(
+                                style: TextButton.styleFrom(
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .onPrimary),
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return const CalendarModalWidget();
+                                      //TODO: Implement scheduling
+                                    },
+                                  );
+                                },
+                                icon: const Icon(Icons.calendar_month_sharp),
+                                label: const Text('Agendar'),
+                              ),
+                            ],
+                          ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

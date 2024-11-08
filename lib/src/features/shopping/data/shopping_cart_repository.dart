@@ -20,4 +20,7 @@ abstract class ShoppingCartRepository {
 
   // Clear the user's cart
   Future<void> clearCart({required String userId});
+
+  Future<void> createSingleBuyCart(
+      {required String userId, required CartItemModel item});
 }

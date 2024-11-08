@@ -112,6 +112,11 @@ class ProfileScreenController extends _$ProfileScreenController {
         'onPressed': () {},
       },
       {
+        'icon': Icons.favorite_sharp,
+        'title': 'Ofertas salvas',
+        'onPressed': () {},
+      },
+      {
         'icon': Icons.help_sharp,
         'title': 'Ajuda',
         'onPressed': () {},

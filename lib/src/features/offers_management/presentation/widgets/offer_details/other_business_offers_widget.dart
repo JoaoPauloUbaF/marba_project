@@ -18,6 +18,7 @@ class OtherBusinessOffersWidget extends ConsumerWidget {
     final moreBusinessOffers = ref.watch(
       otherBusinessOffersProvider(businessId ?? ''),
     );
+
     return Container(
       child: moreBusinessOffers.when(
         loading: () => const Center(child: CircularProgressIndicator()),

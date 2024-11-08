@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/core/models/order/business_order_item.dart';
+import 'package:project_marba/src/features/offers_management/application/offer_details/offer_details_view_model.dart';
 
 import '../../../business/presentation/widgets/business_tile_widget.dart';
 import '../../application/order_view_model/order_view_model.dart';
@@ -64,7 +66,6 @@ class _OrderItemsListWidgetState extends State<OrderItemsListWidget> {
                   ),
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(2.0),
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: businessOrderItems.length,
@@ -72,28 +73,56 @@ class _OrderItemsListWidgetState extends State<OrderItemsListWidget> {
                       final item = businessOrderItems[index];
                       return Column(
                         children: [
-                          ListTile(
-                            leading: Image.network(
-                              item.imageUrl,
-                              width: 50,
-                              height: 80,
-                              fit: BoxFit.fill,
-                            ),
-                            title: Text(item.name,
-                                style: Theme.of(context).textTheme.titleMedium),
-                            subtitle: RichText(
-                              text: TextSpan(
-                                text: 'R\$ ${item.price.toStringAsFixed(2)}\n',
-                                style: DefaultTextStyle.of(context).style,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text:
-                                        widget.orderViewModel.getDeliveryTime(),
+                          Consumer(
+                            builder: (_, WidgetRef ref, __) {
+                              return ListTile(
+                                onTap: () async {
+                                  await ref
+                                      .read(offerDetailsViewModelProvider
+                                          .notifier)
+                                      .setSelectedOfferFromId(item.id)
+                                      .then(
+                                        (_) => Navigator.of(context).pushNamed(
+                                          '/offer-details',
+                                        ),
+                                      );
+                                },
+                                contentPadding: const EdgeInsets.all(8.0),
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    item.imageUrl,
+                                    width: 50,
+                                    height: 80,
+                                    fit: BoxFit.fill,
                                   ),
-                                ],
-                              ),
-                            ),
-                            trailing: Text('Qtd: ${item.quantity}'),
+                                ),
+                                title: Text(
+                                  item.name,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    text:
+                                        'R\$ ${item.price.toStringAsFixed(2)}\n',
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                        text: widget.orderViewModel
+                                            .getDeliveryTime(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                trailing: Text('Qtd: ${item.quantity}'),
+                              );
+                            },
                           ),
                         ],
                       );
@@ -121,7 +150,7 @@ class _OrderItemsListWidgetState extends State<OrderItemsListWidget> {
                     ),
                   ),
                   UserOrderDeliveryProgressBarWidget(
-                      widget: widget,
+                      orderListWidget: widget,
                       itemsGroupedByBusiness: itemsGroupedByBusiness,
                       businessName: businessName),
                 ],
@@ -137,12 +166,12 @@ class _OrderItemsListWidgetState extends State<OrderItemsListWidget> {
 class UserOrderDeliveryProgressBarWidget extends StatefulWidget {
   const UserOrderDeliveryProgressBarWidget({
     super.key,
-    required this.widget,
+    required this.orderListWidget,
     required this.itemsGroupedByBusiness,
     required this.businessName,
   });
 
-  final OrderItemsListWidget widget;
+  final OrderItemsListWidget orderListWidget;
   final Map<String, List<BusinessOrderItem>> itemsGroupedByBusiness;
   final String businessName;
 
@@ -180,8 +209,10 @@ class _UserOrderDeliveryProgressBarWidgetState
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: widget.widget.orderViewModel.getOrderDeliveryProgressByBusiness(
-          orderItem: widget.itemsGroupedByBusiness[widget.businessName]!.first),
+      future: widget.orderListWidget.orderViewModel
+          .getOrderDeliveryProgressByBusiness(
+              orderItem:
+                  widget.itemsGroupedByBusiness[widget.businessName]!.first),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Center(

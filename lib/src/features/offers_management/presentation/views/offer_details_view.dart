@@ -7,12 +7,12 @@ import 'package:project_marba/src/features/offers_management/presentation/widget
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_error_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_info_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/offer_ordering_actions_widget.dart';
-import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/other_business_offers_widget.dart';
 import 'package:project_marba/src/core/models/offer/offer_model.dart';
 import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart';
 
 import '../../application/offer_details/offer_details_view_model.dart';
 import '../widgets/offer_details/offer_media_widget.dart';
+import '../widgets/offer_details/other_business_offers_widget.dart';
 
 class OfferDetailsView extends ConsumerStatefulWidget {
   const OfferDetailsView({super.key});
@@ -125,10 +125,10 @@ class OfferBodyWidget extends StatelessWidget {
           ),
         ),
         const VerticalSpaceMediumWidget(),
-        // OtherBusinessOffersWidget(
-        //   offerId: offer.id,
-        //   businessId: offer.businessId,
-        // ),
+        OtherBusinessOffersWidget(
+          offerId: offer.id,
+          businessId: offer.businessId,
+        ),
         const VerticalSpaceMediumWidget(),
         AllBusinessOffersButton(businessName: businessName),
         const VerticalSpaceMediumWidget(),
@@ -140,8 +140,8 @@ class OfferBodyWidget extends StatelessWidget {
           ),
         ),
         const VerticalSpaceMediumWidget(),
-        // OtherBusinessOffersWidget(
-        //     offerId: offer.id, businessId: offer.businessId),
+        OtherBusinessOffersWidget(
+            offerId: offer.id, businessId: offer.businessId),
       ],
     );
   }

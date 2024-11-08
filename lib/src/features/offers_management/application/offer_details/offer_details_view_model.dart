@@ -19,6 +19,13 @@ class OfferDetailsViewModel extends _$OfferDetailsViewModel {
     state = offer;
   }
 
+  Future<void> setSelectedOfferFromId(String offerId) async {
+    await ref
+        .read(offersDataRepositoryProvider)
+        .getOffer(offerId)
+        .then((value) => state = value);
+  }
+
   Set<String> getOfferMedia() {
     Set<String> media = {};
     media.add(state?.getImageUrl ?? '');

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/widgets/modal_center_top_line_widget.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/search/presentation/views/search_view.dart';
+import 'package:project_marba/src/features/shopping/application/cart_item_list_view_model/cart_item_list_view_model.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/cart_items_list_view_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/check_out_button_widget.dart';
 import 'package:project_marba/src/features/shopping/presentation/widgets/order_summary_widget.dart';
@@ -19,6 +20,12 @@ class ShoppingCartScreen extends ConsumerWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       appBar: AppBar(
+        leading: BackButton(
+          onPressed: () {
+            ref.invalidate(cartItemListViewModelProvider);
+            Navigator.pop(context);
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8.0),

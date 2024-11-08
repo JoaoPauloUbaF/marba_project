@@ -15,8 +15,9 @@ class BusinessInfoDialog extends StatelessWidget {
             const SizedBox(height: 8),
             const Text('Ajuda'),
             const SizedBox(height: 8),
-            const Text('Em Breve!'),
-            const SizedBox(height: 8),
+            const Text(
+                textAlign: TextAlign.center,
+                'Para editar os campos de seu negócio, pressione e segure.'),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();

@@ -97,8 +97,10 @@ class MainApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
           FirebaseUILocalizations.delegate,
         ],
+        locale: const Locale('pt', 'BR'),
         supportedLocales: const [
           Locale('pt', 'BR'),
+          Locale('en', 'US'),
         ],
       ),
     );

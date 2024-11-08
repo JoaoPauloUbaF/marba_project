@@ -145,6 +145,72 @@ class UserOrderItemWidget extends ConsumerWidget {
                     .read(ordersRepositoryProvider)
                     .getOrderItems(orderId: order.id),
                 builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.hasError) {
+                    log('Erro ao carregar imagens: ${snapshot.error}');
+                    return const Center(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+
+                  if (snapshot.data == null) {
+                    return const Center(
+                      child: Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                    );
+                  }
+
+                  if (snapshot.data?.length == 1) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.network(
+                          snapshot.data?.first.imageUrl ?? '',
+                          fit: BoxFit.fill,
+                          height: MediaQuery.of(context).size.height * .25,
+                          width: MediaQuery.of(context).size.width,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            }
+                            return Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        loadingProgress.expectedTotalBytes!
+                                    : null,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stackTrace) {
+                            log('$error');
+                            return Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Icon(
+                                  Icons.error,
+                                  color: Theme.of(context).colorScheme.error,
+                                  size: 30,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  }
+
                   return CarouselSlider(
                     options: CarouselOptions(
                       height: 200,

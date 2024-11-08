@@ -7,12 +7,12 @@ part of 'cart_item_list_view_model.dart';
 // **************************************************************************
 
 String _$cartItemListViewModelHash() =>
-    r'ae88a6a2a561d1f9181e9c28f60619080308942a';
+    r'b2c21b02aade924d07bd868022b5f3c002482385';
 
 /// See also [CartItemListViewModel].
 @ProviderFor(CartItemListViewModel)
-final cartItemListViewModelProvider =
-    NotifierProvider<CartItemListViewModel, List<CartItemModel>>.internal(
+final cartItemListViewModelProvider = AutoDisposeNotifierProvider<
+    CartItemListViewModel, List<CartItemModel>>.internal(
   CartItemListViewModel.new,
   name: r'cartItemListViewModelProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final cartItemListViewModelProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$CartItemListViewModel = Notifier<List<CartItemModel>>;
+typedef _$CartItemListViewModel = AutoDisposeNotifier<List<CartItemModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

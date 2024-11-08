@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_marba/src/core/models/cart_item/cart_item_model.dart';
+import 'package:uuid/uuid.dart';
 
 import 'shopping_cart_repository.dart';
 
@@ -74,5 +75,14 @@ class FirebaseShoppingCartRepository implements ShoppingCartRepository {
         await cartRef.add(item.toJson());
       }
     });
+  }
+
+  Future<void> createSingleBuyCart(
+      {required String userId, required CartItemModel item}) async {
+    final cartRef = _firestore
+        .collection('users')
+        .doc(userId)
+        .collection(const Uuid().v4());
+    await cartRef.add(item.toJson());
   }
 }
