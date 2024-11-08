@@ -10,6 +10,7 @@ import 'package:project_marba/src/features/business/application/my_business_list
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/models/address/address.dart';
 import '../../../../core/models/business/enums.dart';
@@ -152,7 +153,7 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Erro'),
+          title: Text(AppLocalizations.of(context)?.error ?? 'Error'),
           content:
               const Text('Por favor, preencha todos os campos corretamente.'),
           actions: [

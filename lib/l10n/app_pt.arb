@@ -1,3 +1,4 @@
 {
-  "helloWorld": "Olá!"
+  "error": "Erro",
+  "validateCategories": "Por favor, selecione pelo menos uma categoria"
 }

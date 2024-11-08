@@ -36,6 +36,7 @@ import 'src/features/settings/presentation/views/profile_settings_screen.dart';
 import 'src/features/shopping/presentation/views/shopping_cart_view.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 import 'theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -92,6 +93,7 @@ class MainApp extends ConsumerWidget {
           '/user-payment': (context) => const UserPaymentView(),
         },
         localizationsDelegates: [
+          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
