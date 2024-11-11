@@ -36,6 +36,7 @@ class AddBusinessStepperWidgetState
   File? businessProfileImage;
 
   int _currentStep = 0;
+  //TODO: change validation messages
 
   @override
   void initState() {
@@ -106,7 +107,7 @@ class AddBusinessStepperWidgetState
   List<Step> get steps {
     return [
       Step(
-        title: const Text('Informações básicas'),
+        title: const Text('Configuração Inicial'),
         content: BusinessInfoFormWidget(
           formKeys: formKeys,
           nameController: _nameController,

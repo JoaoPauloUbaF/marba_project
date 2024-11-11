@@ -14,7 +14,9 @@ class OrderAddressTileWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orderAddress = ref.watch(deliveryAddressProvider);
-    final authState = ref.watch(authStateChangeProvider).requireValue;
+    final authState = ref.watch(authStateChangeProvider).hasValue
+        ? ref.watch(authStateChangeProvider).requireValue
+        : null;
     return orderAddress.when(
       data: (address) {
         if (authState == null) {

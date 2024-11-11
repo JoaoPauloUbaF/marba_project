@@ -2,7 +2,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
@@ -46,7 +45,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseUIAuth.configureProviders([email_auth.EmailAuthProvider()]);
-  await dotenv.load(fileName: ".env");
 
   runApp(DevicePreview(
       enabled: true,

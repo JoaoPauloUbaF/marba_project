@@ -52,7 +52,7 @@ class _ChangePasswordWidgetState extends ConsumerState<ChangePasswordWidget> {
               TextFormField(
                 controller: _currentPasswordController,
                 decoration: const InputDecoration(
-                  labelText: 'Senha atual',
+                  labelText: 'Senha atual*',
                   border: OutlineInputBorder(),
                   contentPadding: EdgeInsets.symmetric(horizontal: 8),
                 ),
@@ -62,7 +62,7 @@ class _ChangePasswordWidgetState extends ConsumerState<ChangePasswordWidget> {
               TextFormField(
                 controller: _newPasswordController,
                 decoration: const InputDecoration(
-                  labelText: 'Nova senha',
+                  labelText: 'Nova senha*',
                   border: OutlineInputBorder(),
                   contentPadding: EdgeInsets.symmetric(horizontal: 8),
                 ),

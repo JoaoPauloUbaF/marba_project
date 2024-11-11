@@ -18,7 +18,9 @@ class QueryBusinessResult extends _$QueryBusinessResult {
   Future<List<BusinessModel>>? queryBusinessesAt(
       {required String queryStr}) async {
     try {
-      final currentAddress = ref.read(currentLocationProvider).requireValue;
+      final currentAddress = ref.read(currentLocationProvider).hasValue
+          ? ref.read(currentLocationProvider).requireValue
+          : null;
       if (currentAddress == null) {
         return [];
       }

@@ -28,7 +28,6 @@
 
 # Other
 **/build/
-!/build/web
 **/ios/Runner.xcodeproj/
 .DS_Store
 *.log

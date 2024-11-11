@@ -107,11 +107,16 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
                 loading: () => const CircularProgressIndicator(),
                 error: (error, stackTrace) {
                   log('Error: $error');
-                  return Text(
-                    textAlign: TextAlign.center,
-                    'Houve um erro\nao buscar sua localização',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    overflow: TextOverflow.ellipsis,
+                  return InkWell(
+                    onTap: () {
+                      ref.invalidate(currentLocationProvider);
+                    },
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      'Erro ao buscar sua localização\nToque para tentar novamente',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   );
                 }),
           ),

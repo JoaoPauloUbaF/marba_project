@@ -1,12 +1,9 @@
-import 'dart:convert';
-
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart' as http;
 
 part 'current_location_provider.g.dart';
 
@@ -70,29 +67,27 @@ class CurrentLocation extends _$CurrentLocation {
       double latitude = position.latitude;
       double longitude = position.longitude;
 
-      final apiKey = dotenv.env['GOOGLE_API_KEY'] ?? '';
+      // Crie uma instância de HttpsCallable para chamar a função Firebase
+      final HttpsCallable callable = FirebaseFunctions.instance
+          .httpsCallable('getAddressFromCoordinatesCallable');
 
-      Uri uri = Uri.https("maps.googleapis.com", "/maps/api/geocode/json", {
-        "latlng": "$latitude,$longitude",
-        "key": apiKey,
+      // Chame a função com os parâmetros necessários
+      final response = await callable.call(<String, dynamic>{
+        'latitude': latitude,
+        'longitude': longitude,
       });
-      final response = await http.get(uri);
 
-      if (response.statusCode == 200) {
-        try {
-          var data = jsonDecode(response.body);
+      // Processar a resposta
+      if (response.data != null) {
+        final data = response.data as Map<String, dynamic>;
 
-          if (data['results'] != null && data['results'].isNotEmpty) {
-            return _parseAddressComponents(
-                data['results'][0]['address_components']);
-          }
-        } catch (e) {
-          throw Exception(e);
+        if (data['address_components'] != null) {
+          return _parseAddressComponents(data['address_components']);
         }
       }
       throw Exception('Failed to fetch address from coordinates');
     } catch (e) {
-      throw Exception('Error fetching address from location $e');
+      throw Exception('Error fetching address from location: $e');
     }
   }
 
@@ -137,10 +132,11 @@ class CurrentLocation extends _$CurrentLocation {
       } else if (types.contains('sublocality') ||
           types.contains('neighborhood')) {
         neighborhood = component['long_name'];
-      } else if (types.contains('locality')) {
-        city = component['long_name'];
+      } else if (types.contains('locality') ||
+          types.contains('administrative_area_level_2')) {
+        city = component['short_name'];
       } else if (types.contains('administrative_area_level_1')) {
-        state = component['long_name'];
+        state = component['short_name'];
       } else if (types.contains('postal_code')) {
         zipCode = component['long_name'];
       }

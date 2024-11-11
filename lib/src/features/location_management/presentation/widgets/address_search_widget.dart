@@ -22,15 +22,15 @@ class AddressSearchWidget extends ConsumerStatefulWidget {
 
 class AddressSearchWidgetState extends ConsumerState<AddressSearchWidget> {
   final TextEditingController _textEditingController = TextEditingController();
-  final FlutterGooglePlacesSdk _places =
-      FlutterGooglePlacesSdk(dotenv.env['GOOGLE_API_KEY'] ?? '');
   List<AutocompletePrediction> _predictions = [];
 
   void _onChanged(String query) async {
     if (query.isNotEmpty && query.length > 2) {
-      final predictions = await _places.findAutocompletePredictions(query);
+      final predictions = await ref
+          .read(addressViewModelProvider.notifier)
+          .getAutocompletePredictions(query);
       setState(() {
-        _predictions = predictions.predictions;
+        _predictions = predictions;
       });
     } else {
       setState(() {

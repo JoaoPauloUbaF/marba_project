@@ -74,4 +74,3 @@ flutter:
     - assets/images/
     - assets/avatars/
     - assets/payment_methods/
-    - .env

@@ -38,6 +38,7 @@ class HotOffersWidget extends ConsumerWidget {
               ),
             )
           : CarouselSlider(
+              //TODO: Add items navigation
               items: offers
                   .map((offer) => HotOfferCardWidget(offer: offer))
                   .toList(),

@@ -221,8 +221,8 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
                         children: [
                           for (var category in filteredCategories)
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 4.0, vertical: 2),
                               child: ChoiceChip(
                                 label: Text(
                                   widget.offerCreationController
@@ -271,7 +271,8 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
                     }
                     Navigator.pop(context);
                   },
-                  child: const Text('Aplicar filtros'),
+                  child: const Text(
+                      'Aplicar filtros'), //TODO: logic to disable when no filters selected
                 ),
                 const SizedBox(width: 8.0),
                 ElevatedButton(

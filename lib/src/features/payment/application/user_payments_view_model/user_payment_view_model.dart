@@ -198,7 +198,9 @@ class UserPaymentViewModel extends _$UserPaymentViewModel {
   }
 
   Future<void> deleteCard() async {
-    final cardList = ref.read(creditCardListProvider).requireValue;
+    final cardList = ref.read(creditCardListProvider).hasValue
+        ? ref.read(creditCardListProvider).requireValue
+        : [];
     if (cardList.isEmpty || currentIndex == 0) return;
     final card = cardList[currentIndex - 1];
     final user = ref.watch(currentUserProvider)?.copyWith(

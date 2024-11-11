@@ -20,6 +20,7 @@ class CreditCardActionsButtons extends ConsumerWidget {
             : MediaQuery.of(context).size.width * .8,
         child: ElevatedButton.icon(
           onPressed: () async {
+            //TODO: hide button if no card is selected
             await viewModel.onDeleteCard(context);
           },
           icon: const Icon(Icons.delete),

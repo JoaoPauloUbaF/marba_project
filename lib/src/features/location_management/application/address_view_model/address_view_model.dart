@@ -9,6 +9,7 @@ import 'package:project_marba/src/core/widgets/base_modal_body_widget.dart';
 import 'package:project_marba/src/features/location_management/application/user_address_list_provider/user_address_list_provider.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/confirm_address_form.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../../business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import '../../../shopping/application/delivery_address_provider/delivery_address_provider.dart';
@@ -20,9 +21,6 @@ part 'address_view_model.g.dart';
 
 @riverpod
 class AddressViewModel extends _$AddressViewModel {
-  final FlutterGooglePlacesSdk _places =
-      FlutterGooglePlacesSdk(dotenv.env['GOOGLE_API_KEY'] ?? '');
-
   @override
   FutureOr<void> build() {}
 
@@ -153,6 +151,57 @@ class AddressViewModel extends _$AddressViewModel {
     ref.read(deliveryAddressProvider.notifier).setDeliveryAddress(address);
   }
 
+  Future<List<AutocompletePrediction>> getAutocompletePredictions(
+      String input) async {
+    final HttpsCallable callable =
+        FirebaseFunctions.instance.httpsCallable('getAutocompletePredictions');
+
+    try {
+      final response = await callable.call(<String, dynamic>{
+        'input': input,
+      });
+
+      final data = response.data;
+
+      if (data != null) {
+        if (data is List) {
+          return data.map((json) {
+            // Converter o Map<String, dynamic> para o formato esperado
+            final predictionMap =
+                _mapJsonToAutocompletePrediction(json as Map<String, dynamic>);
+            return AutocompletePrediction.fromJson(predictionMap);
+          }).toList();
+        } else {
+          print('Esperava uma lista, mas recebeu ${data.runtimeType}');
+          return [];
+        }
+      } else {
+        print('Os dados da resposta são nulos');
+        return [];
+      }
+    } catch (error) {
+      print('Erro ao chamar getAutocompletePredictions: $error');
+      return [];
+    }
+  }
+
+  Map<String, dynamic> _mapJsonToAutocompletePrediction(
+      Map<String, dynamic> json) {
+    return {
+      'placeId': json['place_id'] ?? '',
+      'primaryText': json['structured_formatting'] != null
+          ? json['structured_formatting']['main_text']
+          : '',
+      'secondaryText': json['structured_formatting'] != null
+          ? json['structured_formatting']['secondary_text']
+          : '',
+      'fullText': json['description'] ?? '',
+      'distanceMeters': json['distance_meters'],
+      'placeTypes':
+          json['types'] != null ? List<String>.from(json['types']) : [],
+    };
+  }
+
   Future<AddressModel?> onPredictionSelected({
     required AutocompletePrediction prediction,
     required BuildContext context,
@@ -170,12 +219,7 @@ class AddressViewModel extends _$AddressViewModel {
         return value;
       });
     }).catchError((error) {
-      String errorMessage;
-      if (error is Exception) {
-        errorMessage = error.toString().replaceFirst('Exception: ', '');
-      } else {
-        errorMessage = 'Erro inesperado';
-      }
+      String errorMessage = error.toString().replaceFirst('Exception: ', '');
       showDialog(
         context: context,
         builder: (context) {
@@ -199,16 +243,26 @@ class AddressViewModel extends _$AddressViewModel {
 
   Future<AddressModel> getPredictionAddress(
       {required AutocompletePrediction prediction}) async {
-    final placeDetails = await _places.fetchPlace(
-      prediction.placeId,
-      fields: [PlaceField.AddressComponents],
-    );
-    final place = placeDetails.place;
+    final HttpsCallable callable = FirebaseFunctions.instance
+        .httpsCallable('getAddressFromPlaceIdCallable');
 
-    if (place == null || place.addressComponents == null) {
-      return Future(() => throw Exception('Este endereço não é válido'));
+    try {
+      final response = await callable.call(<String, dynamic>{
+        'placeId': prediction.placeId,
+      });
+
+      final data = response.data as Map<String, dynamic>;
+      if (data['address_components'] != null) {
+        return _parseAddressComponents(data['address_components']);
+      } else {
+        throw Exception('Este endereço não é válido');
+      }
+    } catch (error) {
+      throw Exception('Erro ao obter detalhes do endereço: $error');
     }
+  }
 
+  AddressModel _parseAddressComponents(List<dynamic> components) {
     String street = '';
     String number = '';
     String neighborhood = '';
@@ -216,39 +270,28 @@ class AddressViewModel extends _$AddressViewModel {
     String state = '';
     String zipCode = '';
 
-    for (var component in place.addressComponents!) {
-      if (component.types.contains('street_number')) {
-        number = component.name;
-      } else if (component.types.contains('route')) {
-        street = component.name;
-      } else if (component.types.contains('sublocality') ||
-          component.types.contains('sublocality_level_1')) {
-        neighborhood = component.name;
-      } else if (component.types.contains('locality') ||
-          component.types.contains('administrative_area_level_2')) {
-        city = component.name;
-      } else if (component.types.contains('administrative_area_level_1')) {
-        state = component.shortName; // Use shortName for state abbreviations
-      } else if (component.types.contains('postal_code')) {
-        zipCode = component.name;
+    for (var component in components) {
+      final types = component['types'] as List;
+      final name = component['long_name'] ?? component['short_name'];
+      if (types.contains('street_number')) {
+        number = name;
+      } else if (types.contains('route')) {
+        street = name;
+      } else if (types.contains('sublocality') ||
+          types.contains('sublocality_level_1')) {
+        neighborhood = name;
+      } else if (types.contains('locality') ||
+          types.contains('administrative_area_level_2')) {
+        city = name;
+      } else if (types.contains('administrative_area_level_1')) {
+        state = name;
+      } else if (types.contains('postal_code')) {
+        zipCode = name;
       }
     }
 
-    // Verifique se todos os campos necessários estão preenchidos
-    if (street.isEmpty ||
-        neighborhood.isEmpty ||
-        city.isEmpty ||
-        state.isEmpty ||
-        zipCode.isEmpty) {
-      List<String> missingFields = [];
-      if (street.isEmpty) missingFields.add('Rua');
-      if (neighborhood.isEmpty) missingFields.add('Bairro');
-      if (city.isEmpty) missingFields.add('Cidade');
-      if (state.isEmpty) missingFields.add('Estado');
-      if (zipCode.isEmpty) missingFields.add('CEP');
-
-      throw Exception(
-          'Ops! Faltam essas informações no seu endereço: \n${missingFields.join(', ')}');
+    if ([street, neighborhood, city, state, zipCode].contains('')) {
+      throw Exception('Ops! Faltam informações no endereço.');
     }
 
     return AddressModel.create(
@@ -327,9 +370,11 @@ class AddressViewModel extends _$AddressViewModel {
     } on Exception catch (e) {
       throw Exception('Error : $e');
     }
-    if (ref.read(deliveryAddressProvider).requireValue == address) {
-      ref.invalidate(currentLocationProvider);
-      ref.invalidate(deliveryAddressProvider);
+    if (ref.read(deliveryAddressProvider).hasValue) {
+      if (ref.read(deliveryAddressProvider).requireValue == address) {
+        ref.invalidate(currentLocationProvider);
+        ref.invalidate(deliveryAddressProvider);
+      }
     }
 
     ref.invalidate(userAddressListProvider);
