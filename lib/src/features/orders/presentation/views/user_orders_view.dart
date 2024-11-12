@@ -11,6 +11,7 @@ import 'package:project_marba/src/core/widgets/medium_vertical_space_widget.dart
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/orders/application/user_orders_view_model/user_orders_view_model.dart';
 import 'package:project_marba/src/features/orders/data/orders_repository/orders_repository_provider.dart';
+import 'package:project_marba/util.dart';
 
 import '../../application/order_view_model/order_view_model.dart';
 
@@ -94,8 +95,8 @@ class _UserOrdersViewState extends ConsumerState<UserOrdersView> {
                     child: Text(
                         'Houve um erro ao carregar os pedidos. Tente novamente.'),
                   ),
-                  noItemsFoundIndicatorBuilder: (context) => const Center(
-                    child: Text('Nenhum pedido encontrado.'),
+                  noItemsFoundIndicatorBuilder: (context) => Center(
+                    child: Text(getAppLocalizations(context).no_order_found),
                   ),
                   newPageErrorIndicatorBuilder: (context) => const Center(
                     child: Text(

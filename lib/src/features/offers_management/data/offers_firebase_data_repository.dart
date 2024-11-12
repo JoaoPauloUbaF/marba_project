@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:project_marba/main.dart';
 import 'package:project_marba/src/core/models/product/enums.dart';
 import 'package:project_marba/src/core/models/service/enums.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
@@ -249,11 +251,13 @@ class OffersFirebaseDataRepository implements OffersDataRepository {
         .map((e) => e.key.toString())
         .toList();
 
-    final List<String> servicesCategoriesMatches = serviceCategoryTranslations
-        .entries
-        .where(
-            (element) => normalizeString(str: element.value).contains(queryStr))
-        .map((e) => e.key.toString())
+    final categoriesStrings = ServiceCategory.values
+        .map((e) =>
+            e.getServiceCategoryTranslation(navigatorKey.currentContext!))
+        .toList();
+
+    final List<String> servicesCategoriesMatches = categoriesStrings
+        .where((element) => normalizeString(str: element).contains(queryStr))
         .toList();
 
     final matches = [...productCategoriesMatches, ...servicesCategoriesMatches];

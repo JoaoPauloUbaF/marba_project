@@ -3,6 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_search_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../core/models/address/address.dart';
 
@@ -104,7 +105,7 @@ class _BusinessAddressFormFieldWidgetState
                         backgroundColor:
                             Theme.of(context).colorScheme.secondary,
                       ),
-                      child: Text('Alterar endereço',
+                      child: Text(AppLocalizations.of(context)!.change_address,
                           style: TextStyle(
                               color:
                                   Theme.of(context).colorScheme.onSecondary)),

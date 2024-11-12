@@ -38,6 +38,8 @@ import 'src/features/user_profile/presentation/screens/profile_form_screen.dart'
 import 'theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'util.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -50,6 +52,8 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MainApp()));
 }
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MainApp extends ConsumerWidget {
   const MainApp({super.key});
 
@@ -60,6 +64,7 @@ class MainApp extends ConsumerWidget {
 
     return _EagerInitialization(
       child: MaterialApp(
+        navigatorKey: navigatorKey,
         themeAnimationCurve: Curves.easeInOut,
         themeAnimationDuration: const Duration(milliseconds: 500),
         debugShowCheckedModeBanner: false,
@@ -99,7 +104,7 @@ class MainApp extends ConsumerWidget {
           GlobalCupertinoLocalizations.delegate,
           FirebaseUILocalizations.delegate,
         ],
-        locale: const Locale('pt', 'BR'),
+        locale: const Locale('en', 'US'),
         supportedLocales: const [
           Locale('pt', 'BR'),
           Locale('en', 'US'),

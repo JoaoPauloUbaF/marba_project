@@ -8,6 +8,7 @@ import 'package:project_marba/src/features/business/application/business_creatio
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_address_form_field_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/business_info_form_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_creation/category_form_field_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../../core/models/business/enums.dart';
 
@@ -85,6 +86,7 @@ class AddBusinessStepperWidgetState
       zipCode: _zipCodeController.text,
       selectedCategories: _selectedCategories,
       deliveryFee: _deliveryFeeController.text,
+      context: context,
     )
         .catchError((error) async {
       hideLoader(context);
@@ -106,7 +108,7 @@ class AddBusinessStepperWidgetState
   List<Step> get steps {
     return [
       Step(
-        title: const Text('Informações básicas'),
+        title: Text(AppLocalizations.of(context)!.basic_information),
         content: BusinessInfoFormWidget(
           formKeys: formKeys,
           nameController: _nameController,
@@ -119,7 +121,7 @@ class AddBusinessStepperWidgetState
         ),
       ),
       Step(
-        title: const Text('Endereço'),
+        title: Text(AppLocalizations.of(context)!.address),
         content: BusinessAddressFormFieldWidget(
             formKeys: formKeys,
             zipCodeController: _zipCodeController,
@@ -132,7 +134,7 @@ class AddBusinessStepperWidgetState
             onChanged: () => setState(() {})),
       ),
       Step(
-        title: const Text('Categorias e taxas'),
+        title: Text(AppLocalizations.of(context)!.categories_and_fees),
         content: Column(
           children: [
             TextFormField(

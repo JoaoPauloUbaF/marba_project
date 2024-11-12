@@ -6,6 +6,7 @@ import 'package:project_marba/src/features/business/presentation/views/my_busine
 import 'package:project_marba/src/features/home/presentation/widgets/animated_logo_loading_widget.dart';
 import 'package:project_marba/src/features/orders/presentation/views/user_orders_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/profile_settings_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/utils/view_utils.dart';
 import '../../../search/presentation/views/search_view.dart';
@@ -61,10 +62,10 @@ class _HomeViewState extends ConsumerState<HomeView> {
       case HomeScreenState.loading:
         return const AnimatedLogoLoadingWidget();
       case HomeScreenState.error:
-        return const Scaffold(
+        return Scaffold(
           body: Center(
             child: Text(
-              'Erro ao carregar a página.\n Tente novamente mais tarde.',
+              AppLocalizations.of(context)!.error,
               textAlign: TextAlign.center,
             ),
           ),
@@ -103,7 +104,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           controller: _searchController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(4),
-                            hintText: 'Pesquisar',
+                            hintText: AppLocalizations.of(context)!.search,
                             hintStyle: TextStyle(
                               color: Theme.of(context)
                                   .colorScheme

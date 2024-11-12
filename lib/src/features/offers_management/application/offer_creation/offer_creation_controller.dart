@@ -201,11 +201,12 @@ class OfferCreationController extends _$OfferCreationController {
     return offer.getTitle;
   }
 
-  String getCategoryTranslation(dynamic category, OfferType offerType) {
+  String getCategoryTranslation(
+      dynamic category, OfferType offerType, BuildContext context) {
     if (offerType == OfferType.product) {
       return productCategoryTranslations[category] ?? '';
     }
-    return serviceCategoryTranslations[category as ServiceCategory] ?? '';
+    return category.getServiceCategoryTranslation(context);
   }
 
   double currencyStringToDouble(String currencyString) {

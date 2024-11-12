@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/util.dart';
 
 import '../../application/search_view_model/search_view_model.dart';
 
@@ -60,7 +61,7 @@ class SearchAppBarWidgetState extends State<SearchAppBarWidget>
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(8),
                   border: const OutlineInputBorder(),
-                  hintText: "Pesquise por Serviços, Negócios e Produtos!",
+                  hintText: getAppLocalizations(context).search_hint,
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.search),
                     onPressed: () => widget.searchViewModel

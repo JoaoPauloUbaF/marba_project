@@ -5,6 +5,8 @@ import 'package:project_marba/src/features/business/application/business_orders_
 import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_open_orders/open_orders_grid_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_open_orders/open_orders_list_widget.dart';
 
+import '../../../../../../../util.dart';
+
 class BusinessOrdersPageView extends ConsumerStatefulWidget {
   const BusinessOrdersPageView({super.key});
 
@@ -38,11 +40,11 @@ class _BusinessOrdersPageViewState
                   style: Theme.of(context).textTheme.bodyMedium,
                   borderRadius: BorderRadius.circular(8),
                   items: [
-                    const DropdownMenuItem(
-                      value: null,
-                      child: Text(
-                          'Todos'), // replace 'None' with your desired placeholder text
-                    ),
+                    DropdownMenuItem(
+                        value: null,
+                        child: Text(
+                          getAppLocalizations(context).see_all,
+                        )),
                     ...BusinessOrderStatus.values.map((status) {
                       return DropdownMenuItem(
                         value: status,

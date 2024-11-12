@@ -5,6 +5,7 @@ import 'package:project_marba/src/features/business/presentation/views/business_
 import 'package:project_marba/src/features/business/presentation/views/business_offers_screen.dart';
 import 'package:project_marba/src/features/business/presentation/views/business_profile_view.dart';
 import 'package:project_marba/src/features/business/presentation/views/business_settings_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../widgets/business_profile/business_info_dialog.dart';
 
@@ -138,6 +139,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                     textAlign: TextAlign.center,
                   ),
           )
-        : const Text('Negócio');
+        : Text(AppLocalizations.of(context)!.business);
   }
 }

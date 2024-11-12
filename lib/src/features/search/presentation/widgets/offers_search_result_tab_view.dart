@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_card_widget.dart';
+import 'package:project_marba/util.dart';
 
 import '../../application/query_offers_result_provider/query_offers_result_provider.dart';
 
@@ -37,8 +38,8 @@ class _OffersSearchResultTabViewState
     return queryOffers.when(
       data: (offers) {
         if (offers.isEmpty) {
-          return const Center(
-            child: Text('Nenhuma oferta encontrada!'),
+          return Center(
+            child: Text('${getAppLocalizations(context).no_offer_found}!'),
           );
         }
         return MasonryGridView.builder(

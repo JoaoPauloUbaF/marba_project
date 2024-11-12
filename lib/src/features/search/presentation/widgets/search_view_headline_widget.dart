@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_marba/util.dart';
 
 import '../../application/search_view_model/search_view_model.dart';
 
@@ -51,7 +52,7 @@ class SearchViewHeadlineWidgetState extends State<SearchViewHeadlineWidget>
             title: FadeTransition(
               opacity: _controller,
               child: Text(
-                "Do que você precisa?",
+                getAppLocalizations(context).search,
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
             ),

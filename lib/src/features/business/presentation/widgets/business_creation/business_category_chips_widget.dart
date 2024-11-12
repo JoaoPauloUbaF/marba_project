@@ -16,7 +16,6 @@ class BusinessCategoryChipsWidget extends StatefulWidget {
 class BusinessCategoryChipsWidgetState
     extends State<BusinessCategoryChipsWidget> {
   // Mapa de traduções
-  Map<BusinessCategory, String> translations = businessCategoryTranslations;
 
   @override
   Widget build(BuildContext context) {
@@ -34,10 +33,10 @@ class BusinessCategoryChipsWidgetState
               .map(
             (category) {
               bool isSelected = widget.selectedCategories.contains(category);
-              String categoryName = category.toString().split('.').last;
+              String translatedCategory = category.businessCategoryTranslation(
+                context,
+              );
 
-              String translatedCategory =
-                  translations[category] ?? categoryName;
               return ChoiceChip(
                 labelPadding: EdgeInsets.zero,
                 label: Text(
@@ -80,9 +79,8 @@ class BusinessCategoryChipsWidgetState
               .map(
             (category) {
               bool isSelected = widget.selectedCategories.contains(category);
-              String categoryName = category.toString().split('.').last;
               String translatedCategory =
-                  translations[category] ?? categoryName;
+                  category.businessCategoryTranslation(context);
               return ChoiceChip(
                 labelPadding: EdgeInsets.zero,
                 label: Text(

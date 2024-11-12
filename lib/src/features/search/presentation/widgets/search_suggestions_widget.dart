@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/widgets/loading_widget.dart';
+import 'package:project_marba/util.dart';
 
 import '../../application/search_view_model/search_view_model.dart';
 
@@ -39,7 +40,7 @@ class _SearchingSuggestionsWidgetState
                   const SizedBox(
                     width: 8,
                   ),
-                  const Text('Histórico de buscas'),
+                  Text(getAppLocalizations(context).search_history),
                   const Spacer(),
                   ElevatedButton.icon(
                     icon: const Icon(Icons.clear),
@@ -47,7 +48,7 @@ class _SearchingSuggestionsWidgetState
                       searchViewModel.clearSearchHistory();
                       setState(() {});
                     },
-                    label: const Text('Limpar'),
+                    label: Text(getAppLocalizations(context).clear),
                   ),
                 ],
               ),

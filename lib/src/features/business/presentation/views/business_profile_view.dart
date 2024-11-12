@@ -5,6 +5,7 @@ import 'package:project_marba/src/features/business/application/business_profile
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/mobile_business_profile_view_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/wide_screen_business_profile_view_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/utils/view_utils.dart';
 
@@ -23,13 +24,13 @@ class BusinessProfileView extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Ops! Parece que algo deu errado.'),
+                Text(AppLocalizations.of(context)!.something_went_wrong),
                 const Gap(16),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Voltar'),
+                  child: Text(AppLocalizations.of(context)!.back),
                 )
               ],
             ),

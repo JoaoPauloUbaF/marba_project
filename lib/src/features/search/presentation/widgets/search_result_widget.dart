@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/util.dart';
 
 import 'business_search_result_tab_view.dart';
 import 'offers_search_result_tab_view.dart';
@@ -42,10 +43,11 @@ class SearchResultWidgetState extends State<SearchResultWidget>
             title: Consumer(
               builder: (_, WidgetRef ref, __) {
                 return TabBar(
+                  dividerColor: Colors.transparent,
                   controller: _tabController,
-                  tabs: const [
-                    Tab(text: 'Ofertas'),
-                    Tab(text: 'Negócios'),
+                  tabs: [
+                    Tab(text: getAppLocalizations(context).offers),
+                    Tab(text: getAppLocalizations(context).business),
                   ],
                 );
               },

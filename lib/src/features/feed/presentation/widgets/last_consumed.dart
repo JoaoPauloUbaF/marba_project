@@ -1,29 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:project_marba/src/features/feed/application/feed_screen_controller/feed_view_model.dart';
+import 'package:project_marba/util.dart';
 
 import '../../../../core/utils/view_utils.dart';
 import '../../../search/application/search_view_model/search_view_model.dart';
 import '../../../search/presentation/widgets/search_body_widget.dart';
 
-// Defina uma lista de dados para as categorias populares
-final List<Map<String, dynamic>> popularServices = [
-  {'icon': Icons.home, 'text': 'Conserto de Eletrodomésticos'},
-  {'icon': Icons.flash_on, 'text': 'Eletricista'},
-  {'icon': Icons.water_drop_sharp, 'text': 'Encanador'},
-  {'icon': Icons.tv, 'text': 'Serviços de TV a Cabo'},
-  {'icon': Icons.pool, 'text': 'Limpeza de Piscinas'},
-  {'icon': Icons.landscape, 'text': 'Jardineiro'},
-  {'icon': Icons.cleaning_services, 'text': 'Limpeza de Vidros'},
-  {'icon': Icons.brush, 'text': 'Pintor(a)'},
-  {'icon': Icons.person, 'text': 'Babá'},
-];
-
-class PopularServicesWidget extends StatelessWidget {
+class PopularServicesWidget extends ConsumerWidget {
   const PopularServicesWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final popularServices =
+        ref.read(feedViewModelProvider.notifier).getPopularServices();
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
@@ -32,7 +24,7 @@ class PopularServicesWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              'Serviços Populares',
+              getAppLocalizations(context).popular_services,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
@@ -49,6 +41,7 @@ class PopularServicesWidget extends StatelessWidget {
                 mainAxisExtent: 150.0,
               ),
               itemBuilder: (BuildContext context, int index) {
+                final category = popularServices[index];
                 return Consumer(
                   builder: (_, WidgetRef ref, __) {
                     return InkWell(
@@ -57,7 +50,8 @@ class PopularServicesWidget extends StatelessWidget {
                         await ref
                             .read(searchViewModelProvider.notifier)
                             .onSearchSubmit(
-                                query: popularServices[index]['text'])
+                                query: category
+                                    .getServiceCategoryTranslation(context))
                             .then((_) {
                           hideLoader(context);
                           Navigator.of(context).push(
@@ -65,8 +59,10 @@ class PopularServicesWidget extends StatelessWidget {
                               builder: (context) {
                                 return Scaffold(
                                     appBar: AppBar(
-                                      title:
-                                          Text(popularServices[index]['text']),
+                                      title: Text(
+                                        category.getServiceCategoryTranslation(
+                                            context),
+                                      ),
                                     ),
                                     body: const SearchBodyWidget(
                                       searchViewState: SearchViewState.result,
@@ -77,8 +73,8 @@ class PopularServicesWidget extends StatelessWidget {
                         });
                       },
                       child: PopularServiceTile(
-                        icon: popularServices[index]['icon'],
-                        text: popularServices[index]['text'],
+                        icon: category.icon,
+                        text: category.getServiceCategoryTranslation(context),
                       ),
                     );
                   },

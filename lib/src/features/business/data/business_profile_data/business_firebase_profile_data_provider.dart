@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diacritic/diacritic.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:project_marba/src/core/models/business_delivery/business_delivery.dart';
 import 'package:project_marba/src/core/models/review/review_model.dart';
@@ -11,6 +12,7 @@ import 'package:project_marba/src/core/utils/registration_utils.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:riverpod/riverpod.dart';
 
+import '../../../../../main.dart';
 import '../../../../core/models/address/address.dart';
 import '../../../../core/models/business/enums.dart';
 import 'business_profile_data_repository.dart';
@@ -164,8 +166,9 @@ class BusinessFirebaseProfileDataProvider
     required List<BusinessCategory> businessCategories,
   }) async {
     final businessCategoriesWords = businessCategories
-        .map((e) =>
-            removeDiacritics(getBusinessCategoryTranslation(e).toLowerCase()))
+        .map((e) => removeDiacritics(
+            getBusinessCategoryTranslation(e, navigatorKey.currentContext!)
+                .toLowerCase()))
         .toSet();
     final business = await getBusinessProfileData(uid: uid);
     if (business == null) return;
@@ -253,10 +256,14 @@ class BusinessFirebaseProfileDataProvider
     }
 
     queryStr = normalizeString(str: queryStr);
-    final List<String> categoriesMatches = businessCategoryTranslations.entries
-        .where(
-            (element) => normalizeString(str: element.value).contains(queryStr))
-        .map((e) => e.key.name)
+    final List<String> categoriesStrings = BusinessCategory.values
+        .map((category) => removeDiacritics(getBusinessCategoryTranslation(
+                category, navigatorKey.currentContext!)
+            .toLowerCase()))
+        .toList();
+
+    final List<String> categoriesMatches = categoriesStrings
+        .where((category) => category.contains(queryStr))
         .toList();
 
     final businessByCategory = await queryBusinessesByCategory(

@@ -84,10 +84,11 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
     required String zipCode,
     required Set<BusinessCategory> selectedCategories,
     required String deliveryFee,
+    required BuildContext context,
   }) async {
     final categoriesWords = selectedCategories
         .map((category) =>
-            getBusinessCategoryTranslation(category).toLowerCase())
+            getBusinessCategoryTranslation(category, context).toLowerCase())
         .toSet();
     final nameWords = name.toLowerCase().split(' ');
     final businessProfileRepository = ref.read(businessProfileDataProvider);
@@ -154,8 +155,8 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
       builder: (context) {
         return AlertDialog(
           title: Text(AppLocalizations.of(context)?.error ?? 'Error'),
-          content:
-              const Text('Por favor, preencha todos os campos corretamente.'),
+          content: Text(AppLocalizations.of(context)?.fill_all_fields ??
+              'Missing fields'),
           actions: [
             TextButton(
               onPressed: () {
@@ -187,9 +188,9 @@ class BusinessCreationViewModel extends _$BusinessCreationViewModel {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Erro'),
-          content: const Text(
-              'Ocorreu um erro ao criar o negócio. Por favor, tente novamente.'),
+          title: Text(AppLocalizations.of(context)?.error ?? 'Error'),
+          content: Text(AppLocalizations.of(context)?.error_creating_business ??
+              'Error creating business'),
           actions: [
             TextButton(
               onPressed: () {
@@ -222,7 +223,7 @@ class BusinessCreationSuccessDialogWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.height * 0.4, // Set the height
         child: AlertDialog(
           title: Text(
-            'Negócio',
+            AppLocalizations.of(context)?.business ?? 'Business',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           content: Column(
@@ -231,7 +232,7 @@ class BusinessCreationSuccessDialogWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Negócio',
+                      AppLocalizations.of(context)!.business,
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     const Gap(8),
@@ -272,7 +273,12 @@ class BusinessCreationSuccessDialogWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Center(child: Text('Criado com sucesso!')),
+                    Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.creation_success,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
                   ],
                 ),
               )
