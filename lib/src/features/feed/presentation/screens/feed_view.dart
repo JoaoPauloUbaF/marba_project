@@ -7,6 +7,7 @@ import 'package:project_marba/src/features/feed/presentation/widgets/popular_cat
 import 'package:project_marba/src/features/location_management/presentation/widgets/current_location_address_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_list/offer_type_filter_widget.dart';
+import 'package:project_marba/util.dart';
 
 import '../../../offers_management/presentation/widgets/offer_list/offers_list_widget.dart';
 import '../../../offers_management/application/offer_list/feed_offers_list_provider.dart';
@@ -19,7 +20,7 @@ class FeedView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final feedOffers = ref.watch(feedOffersProvider);
+    final feedOffers = ref.read(feedViewModelProvider.notifier).feedOffers();
     final feedOffersNotifier = ref.read(feedOffersProvider.notifier);
 
     return Scaffold(
@@ -55,9 +56,9 @@ class FeedView extends ConsumerWidget {
             const SliverToBoxAdapter(
               child: Gap(8),
             ),
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: OfferRowWidget(
-                title: 'Vistos Recentemente',
+                title: getAppLocalizations(context).seen_recently,
               ),
             ),
             const SliverToBoxAdapter(

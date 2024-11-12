@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/util.dart';
 
 import '../../../../../core/models/offer/offer_model.dart';
 import '../../../../../core/models/product/enums.dart';
@@ -35,7 +36,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                     onTap: () =>
                         feedOffersTypeFilterNotifier.setOfferTypeFilter(null),
                     icon: Icons.local_offer_sharp,
-                    text: 'Todos',
+                    text: getAppLocalizations(context).see_all,
                     isSelected: feedOffersTypeFilter == null,
                   ),
                   const SizedBox(width: 16),
@@ -43,7 +44,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                     onTap: () => feedOffersTypeFilterNotifier
                         .setOfferTypeFilter(OfferType.product),
                     icon: Icons.shopping_cart_sharp,
-                    text: 'Produtos',
+                    text: getAppLocalizations(context).checkout_products,
                     isSelected: feedOffersTypeFilter == OfferType.product,
                   ),
                   const SizedBox(width: 16),
@@ -51,7 +52,7 @@ class OfferTypeFilterWidget extends ConsumerWidget {
                     onTap: () => feedOffersTypeFilterNotifier
                         .setOfferTypeFilter(OfferType.service),
                     icon: Icons.build_sharp,
-                    text: 'Serviços',
+                    text: getAppLocalizations(context).services,
                     isSelected: feedOffersTypeFilter == OfferType.service,
                   ),
                 ],

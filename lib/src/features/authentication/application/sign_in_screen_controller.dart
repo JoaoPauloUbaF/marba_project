@@ -1,5 +1,6 @@
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/main.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -19,8 +20,9 @@ class SignInScreenController extends _$SignInScreenController {
         .checkUserRegistration(state.user?.uid ?? '')
         .then(
           (value) => value
-              ? Navigator.pop(context)
-              : Navigator.pushReplacementNamed(context, '/profile-form'),
+              ? navigatorKey.currentState?.pop()
+              : navigatorKey.currentState
+                  ?.pushReplacementNamed('/profile-form'),
         );
   }
 

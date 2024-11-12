@@ -1,6 +1,7 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/main.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:project_marba/src/core/utils/translations_utils.dart';
 import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
@@ -125,8 +126,8 @@ class HotBusinessCardWidget extends ConsumerWidget {
                         child: Text(
                           business.categories
                               .take(3)
-                              .map((category) =>
-                                  getBusinessCategoryTranslation(category))
+                              .map((category) => getBusinessCategoryTranslation(
+                                  category, navigatorKey.currentContext!))
                               .join(', '),
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)

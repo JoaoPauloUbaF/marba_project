@@ -6,6 +6,7 @@ import 'package:project_marba/src/features/offers_management/data/offer_data_rep
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/models/business/enums.dart';
 
@@ -40,22 +41,23 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Deletar negócio'),
-        content: const Text('Tem certeza que deseja deletar este negócio?'),
+        title: Text(AppLocalizations.of(context)!.delete_business),
+        content:
+            Text(AppLocalizations.of(context)!.delete_business_confirmation),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               return;
             },
-            child: const Text('Cancelar'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               deleteBusiness(businessId: businessId);
             },
-            child: const Text('Deletar'),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),
@@ -87,9 +89,9 @@ class MyBusinessListScreenController extends _$MyBusinessListScreenController {
     return userBusinessList;
   }
 
-  String? validateName(String? value) {
+  String? validateBusinessName(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Por favor, insira o nome do seu negócio';
+      return 'Por favor, insira o nome do negócio';
     }
     return null;
   }

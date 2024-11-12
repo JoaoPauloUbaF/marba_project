@@ -1,15 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
-import 'package:project_marba/src/core/models/business/enums.dart';
 
 import '../../../application/business_profile_view_model/business_profile_screen_controller.dart';
 
 class BusinessCategoryTilesWidget extends ConsumerWidget {
-  BusinessCategoryTilesWidget({super.key, BusinessModel? business});
-
-  final Map<BusinessCategory, String> categoriesTranslations =
-      businessCategoryTranslations;
+  const BusinessCategoryTilesWidget({super.key, BusinessModel? business});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,7 +23,7 @@ class BusinessCategoryTilesWidget extends ConsumerWidget {
             ? businessCategories
                 .map((category) {
                   String translatedCategory =
-                      categoriesTranslations[category] ?? category.toString();
+                      category.businessCategoryTranslation(context);
 
                   return SizedBox(
                     child: Card(

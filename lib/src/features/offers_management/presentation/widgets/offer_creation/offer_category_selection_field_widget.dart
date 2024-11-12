@@ -37,7 +37,7 @@ class OfferCategorySelectionFieldWidget extends ConsumerWidget {
                 : Theme.of(context).colorScheme.onSurface,
             label: Text(
               offerCreationController.getCategoryTranslation(
-                  category, offerType),
+                  category, offerType, context),
             ),
             selected: offerCategory.contains(category.toString()),
             selectedColor: Theme.of(context).colorScheme.tertiary,

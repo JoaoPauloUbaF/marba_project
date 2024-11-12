@@ -43,7 +43,6 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
   }
 
   Future<void> _fetchPage(int pageKey) async {
-    await Future.delayed(const Duration(milliseconds: 500));
     try {
       List<OfferModel> newItems =
           await widget.offerProviderNotifier.fetchNewOffers(

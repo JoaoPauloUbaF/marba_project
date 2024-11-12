@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:project_marba/src/features/business/application/business_orders_view_model/business_orders_view_model.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_open_orders/order_grid_item.dart';
+import 'package:project_marba/util.dart';
 
 class OpenOrdersGridWidget extends ConsumerWidget {
   const OpenOrdersGridWidget({
@@ -17,8 +18,8 @@ class OpenOrdersGridWidget extends ConsumerWidget {
     return businessOrders.when(
       data: (orders) {
         if (orders.isEmpty) {
-          return const Center(
-            child: Text('Nenhum pedido encontrado'),
+          return Center(
+            child: Text(getAppLocalizations(context).no_order_found),
           );
         }
         orders = businessOrdersViewModel.getFilteredOrders(orders: orders);

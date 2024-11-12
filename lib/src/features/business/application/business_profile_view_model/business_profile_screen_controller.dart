@@ -14,6 +14,7 @@ import 'package:project_marba/src/features/user_profile/data/user_profile_provid
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/models/business_delivery/business_delivery.dart';
 import '../../presentation/widgets/business_modal_body/business_modal_body_widget.dart';
@@ -303,14 +304,15 @@ class BusinessProfileViewModel extends _$BusinessProfileViewModel {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Houve um erro ao atualizar os horários'),
+              title:
+                  Text(AppLocalizations.of(context)!.error_updating_open_hours),
               content: Text(e.toString()),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Fechar'),
+                  child: Text(AppLocalizations.of(context)!.close),
                 ),
               ],
             );

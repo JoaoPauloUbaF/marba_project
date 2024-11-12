@@ -46,7 +46,7 @@ class ItemCategoryFilterWidget extends ConsumerWidget {
                 child: ChoiceChip.elevated(
                   label: Text(
                     offerCreationController.getCategoryTranslation(
-                        category, offerType ?? OfferType.product),
+                        category, offerType ?? OfferType.product, context),
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                   selected: categoryFilterProvider.contains(category),
@@ -147,7 +147,7 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
       filteredCategories = widget.categories
           .where((category) => widget.offerCreationController
               .getCategoryTranslation(
-                  category, widget.offerType ?? OfferType.product)
+                  category, widget.offerType ?? OfferType.product, context)
               .toLowerCase()
               .contains(query))
           .toList();
@@ -228,8 +228,8 @@ class _AllFiltersModalWidgetState extends State<AllFiltersModalWidget> {
                                   widget.offerCreationController
                                       .getCategoryTranslation(
                                           category,
-                                          widget.offerType ??
-                                              OfferType.product),
+                                          widget.offerType ?? OfferType.product,
+                                          context),
                                   style: Theme.of(context).textTheme.labelSmall,
                                 ),
                                 selected: selectedCategories.contains(category),

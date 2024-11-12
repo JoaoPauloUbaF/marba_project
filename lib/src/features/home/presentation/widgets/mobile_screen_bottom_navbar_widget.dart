@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/util.dart';
 
 import '../../application/home_screen_controller/home_screen_view_model.dart';
 
@@ -24,37 +25,35 @@ class MobileScreenBottomNavBarWidget extends ConsumerWidget {
         ],
       ),
       child: BottomNavigationBar(
-        showSelectedLabels: null,
-        showUnselectedLabels: false,
         selectedLabelStyle:
             const TextStyle(overflow: TextOverflow.ellipsis, fontSize: 10),
         items: <BottomNavigationBarItem>[
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined, size: 30),
-            activeIcon: Icon(Icons.search_sharp, size: 35),
-            label: 'Buscar',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.search_outlined, size: 30),
+            activeIcon: const Icon(Icons.search_sharp, size: 35),
+            label: getAppLocalizations(context).search,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag_outlined, size: 30),
-            activeIcon: Icon(Icons.shopping_bag_sharp, size: 35),
-            label: 'Ofertas',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.shopping_bag_outlined, size: 30),
+            activeIcon: const Icon(Icons.shopping_bag_sharp, size: 35),
+            label: getAppLocalizations(context).offers,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.receipt_outlined, size: 30),
-            activeIcon: Icon(Icons.receipt_sharp, size: 35),
-            label: 'Pedidos',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.receipt_outlined, size: 30),
+            activeIcon: const Icon(Icons.receipt_sharp, size: 35),
+            label: getAppLocalizations(context).orders,
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.person_outlined, size: 30),
-            activeIcon: Icon(Icons.person_sharp, size: 35),
-            label: 'Perfil',
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.person_outlined, size: 30),
+            activeIcon: const Icon(Icons.person_sharp, size: 35),
+            label: getAppLocalizations(context).account,
           ),
           if (homeScreenViewModel.thisUserHasBusiness() == true &&
               homeScreenViewModel.thisUserHasBusiness() != null)
-            const BottomNavigationBarItem(
-              icon: Icon(Icons.monetization_on_outlined, size: 35),
-              activeIcon: Icon(Icons.monetization_on_sharp, size: 35),
-              label: 'Negócios',
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.monetization_on_outlined, size: 35),
+              activeIcon: const Icon(Icons.monetization_on_sharp, size: 35),
+              label: getAppLocalizations(context).business,
             ),
         ],
         currentIndex: selectedIndex,

@@ -1,4 +1,5 @@
 import 'package:diacritic/diacritic.dart';
+import 'package:flutter/material.dart';
 import 'package:project_marba/src/core/models/business/enums.dart';
 
 import '../models/product/enums.dart';
@@ -25,9 +26,9 @@ String getOrderStatusTranslation(String status) {
   }
 }
 
-String getBusinessCategoryTranslation(BusinessCategory category) {
-  return businessCategoryTranslations[category] ??
-      category.toString().split('.').last;
+String getBusinessCategoryTranslation(
+    BusinessCategory category, BuildContext context) {
+  return category.businessCategoryTranslation(context);
 }
 
 String getProductCategoryTranslation(ProductCategory category) {
@@ -35,9 +36,9 @@ String getProductCategoryTranslation(ProductCategory category) {
       category.toString().split('.').last;
 }
 
-String getServiceCategoryTranslation(ServiceCategory category) {
-  return serviceCategoryTranslations[category] ??
-      category.toString().split('.').last;
+String getServiceCategoryTranslation(
+    ServiceCategory category, BuildContext context) {
+  return category.getServiceCategoryTranslation(context);
 }
 
 String getServicePricingTypeTranslation(ServicePricingType type) {
