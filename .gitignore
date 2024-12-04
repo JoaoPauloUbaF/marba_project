@@ -15,7 +15,6 @@
 **/android/gradlew.bat
 **/android/app/src/main/flutter_assets/
 **/android/.dart_tool/
-
 # VSCode specific
 .vscode/
 *.code-workspace
@@ -39,6 +38,11 @@
 .build/
 .dart_tool/
 .packages
+.flutter-plugins-dependencies
+.env
+lib/firebase_options.dart
+ios/Runner/AppDelegate.swift
+web/index.html
 
 # macOS
 .DS_Store
@@ -53,7 +57,11 @@
 *.ipa
 *.xcarchive/
 
+
 # Flutter package build
 /build/
 .packages
 .pub/
+firebase.json
+ios/Runner/GoogleService-Info.plist
+ios/Runner/GoogleService-Info.plist
