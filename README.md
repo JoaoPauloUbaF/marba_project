@@ -4,7 +4,7 @@
 
 ## Marba Project (Onktem)
 
-Este repositório contém o código-fonte da branch `main` do **Marba Project (Onktem) **, um projeto voltado para a gestão de ofertas locais de produtos e serviços.
+Este repositório contém o código-fonte da branch `main` do **Marba Project (Onktem)**, um projeto voltado para a gestão de ofertas locais de produtos e serviços.
 
 ## 📋 Índice
 
