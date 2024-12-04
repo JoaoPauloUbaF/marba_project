@@ -1,5 +1,10 @@
 
-![simulator_screenshot_6961ABCA-7314-44C4-8D4A-E5BD938FA9F7](https://github.com/user-attachments/assets/12755507-09f8-49d7-8a9a-76d95f8e7b64){:width="100px"}
+![simulator_screenshot](https://github.com/user-attachments/assets/12755507-09f8-49d7-8a9a-76d95f8e7b64)
+<style>
+  img[alt="simulator_screenshot"] {
+    width: 200px;
+  }
+</style>
 # Marba Project
 
 Este repositório contém o código-fonte da branch `main` do **Marba Project (Onktem) **, um projeto voltado para a gestão de ofertas locais de produtos e serviços.
