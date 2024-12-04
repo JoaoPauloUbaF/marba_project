@@ -1,4 +1,4 @@
-                                                   ![logo](https://github.com/user-attachments/assets/23bdb491-b0f5-4e1d-a0f0-497aebd69b1e)
+![logo](https://github.com/user-attachments/assets/23bdb491-b0f5-4e1d-a0f0-497aebd69b1e)
 
 # Marba Project (Onktem)
 
