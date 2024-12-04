@@ -1,4 +1,4 @@
-![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 10 59 57](https://github.com/user-attachments/assets/c51e0d6c-91d6-4f20-832c-a7fd63ea6a91)
+   ![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 10 59 57](https://github.com/user-attachments/assets/c51e0d6c-91d6-4f20-832c-a7fd63ea6a91)
 # Marba Project
 
 Este repositório contém o código-fonte da branch `main` do **Marba Project (Onktem) **, um projeto voltado para a gestão de ofertas locais de produtos e serviços.
@@ -29,6 +29,15 @@ Esta aplicação foi desenvolvida para conectar usuários a ofertas e serviços 
       - testuser2@gmail.com
       - password: 123456
 
+
+---
+
+## Screenshots
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 04 51](https://github.com/user-attachments/assets/5cdbb65e-89f8-4d15-b820-a7ca50c6b4b8)
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 05 00](https://github.com/user-attachments/assets/c6f891f7-8568-4d5f-b00d-2a638aa61213)
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 03 45](https://github.com/user-attachments/assets/1733fb7a-3ed7-4c16-8d1a-22648ac2ef4d)
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 03 53](https://github.com/user-attachments/assets/457a1a16-7b55-4653-8475-fb8dae3aad4d)
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 04 24](https://github.com/user-attachments/assets/81e8a3f0-cb84-4145-ad83-71d90e52660c)
 
 ---
 
