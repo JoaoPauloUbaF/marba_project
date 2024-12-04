@@ -51,6 +51,7 @@ Esta aplicação foi desenvolvida para conectar usuários a ofertas e serviços 
 - **Integração Firebase**: Gerenciamento de dados em tempo real.
 - **Arquitetura Modularizada**: Estrutura baseada em recursos (feature first).
 - **Design Responsivo**: Interface otimizada para diferentes tamanhos de tela.
+- 
 
 ---
 
