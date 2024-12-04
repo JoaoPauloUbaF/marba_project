@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/23bdb491-b0f5-4e1d-a0f0-497aebd69b1e" alt="logo" width="400">
+  <img src="https://github.com/user-attachments/assets/23bdb491-b0f5-4e1d-a0f0-497aebd69b1e" alt="logo" width="300">
 </div>
 ## Marba Project (Onktem)
 
@@ -35,7 +35,7 @@ Esta aplicação foi desenvolvida para conectar usuários a ofertas e serviços 
 ---
 
 ## Screenshots
-![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 10 59 57](https://github.com/user-attachments/assets/5922388f-d9c7-4dc2-9d58-70373e832685)
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 10 59 57 (1)](https://github.com/user-attachments/assets/a5d32386-a70f-4c57-83b9-ac6a6488e702)
 ![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 04 51](https://github.com/user-attachments/assets/5cdbb65e-89f8-4d15-b820-a7ca50c6b4b8)
 ![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 05 00](https://github.com/user-attachments/assets/c6f891f7-8568-4d5f-b00d-2a638aa61213)
 ![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 11 03 45](https://github.com/user-attachments/assets/1733fb7a-3ed7-4c16-8d1a-22648ac2ef4d)
