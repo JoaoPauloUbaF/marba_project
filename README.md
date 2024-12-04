@@ -1,7 +1,8 @@
 
+![simulator_screenshot_6961ABCA-7314-44C4-8D4A-E5BD938FA9F7](https://github.com/user-attachments/assets/12755507-09f8-49d7-8a9a-76d95f8e7b64)
 # Marba Project
 
-Este repositório contém o código-fonte da branch `main` do **Marba Project**, um projeto voltado para a gestão de ofertas locais utilizando ferramentas modernas para desenvolvimento mobile.
+Este repositório contém o código-fonte da branch `main` do **Marba Project (Onktem) **, um projeto voltado para a gestão de ofertas locais de produtos e serviços.
 
 ## 📋 Índice
 
@@ -18,7 +19,17 @@ Este repositório contém o código-fonte da branch `main` do **Marba Project**,
 
 ## Visão Geral
 
-O **Marba Project** é uma solução completa que visa facilitar o gerenciamento de ofertas locais, proporcionando uma interface amigável e um backend na nuvem. Ele foi desenvolvido utilizando **Flutter** com **Riverpod** para state management.
+O **Marba Project (Onktem) ** é uma solução completa que visa facilitar o gerenciamento de ofertas locais, proporcionando uma interface amigável e um backend na nuvem. Ele foi desenvolvido utilizando **Flutter** com **Riverpod** para state management.
+
+Esta aplicação foi desenvolvida para conectar usuários a ofertas e serviços locais, ao mesmo tempo em que permite que vendedores, comerciantes e prestadores de serviços gerenciem suas lojas e ofertas dentro da aplicação.
+
+**Cheque a Demo!**
+(https://joaopauloubaf.github.io/Onktem-demo/#/home)
+   - Há algumas ofertas disponíveis em qualquer endereço em Lavras, Minas Gerais, Brasil. Para isso recomendo utilizar o endereço: R. Carlota Kemper, 728 - Dos Ipês.
+   - Para ter a experiência de empreendedor, acesse a conta:
+      - testuser2@gmail.com
+      - password: 123456
+
 
 ---
 
@@ -46,7 +57,7 @@ Antes de começar, certifique-se de ter o seguinte instalado:
 
 - [Flutter SDK](https://docs.flutter.dev/get-started/install)
 - [Dart SDK](https://dart.dev/get-dart)
-- [Firebase CLI](https://firebase.google.com/docs/cli)
+- [FlutterFire](https://firebase.flutter.dev/)
 
 ---
 
