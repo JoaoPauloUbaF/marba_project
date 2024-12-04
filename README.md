@@ -1,4 +1,4 @@
-
+![Simulator Screenshot - iPhone 15 Pro Max - 2024-12-04 at 10 59 57](https://github.com/user-attachments/assets/c51e0d6c-91d6-4f20-832c-a7fd63ea6a91)
 # Marba Project
 
 Este repositório contém o código-fonte da branch `main` do **Marba Project (Onktem) **, um projeto voltado para a gestão de ofertas locais de produtos e serviços.
