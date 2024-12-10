@@ -18,7 +18,7 @@ This repository contains the source code for the **Marba Project (Onktem)** `mai
 - [Project Structure](#project-structure)
 - [Contribution](#contribution)
 - [License](#license)
-- [(PT-BR)](#indice)
+- [PT-BR](#marba-project-onktem-1)
 
 ---
 
