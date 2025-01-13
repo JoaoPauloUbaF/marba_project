@@ -54,6 +54,9 @@ This application connects users with local offers and services while enabling se
 - **Modular Architecture**: Feature-first structure.
 - **Responsive Design**: Optimized for different screen sizes.
 
+- [ ] Fix image upload on the web demo (coming soon)
+- [ ] Multi-language support (ongoing(kinda lazy about this(next app definitely going with intl from the start)))
+
 ---
 
 ## Technologies Used
