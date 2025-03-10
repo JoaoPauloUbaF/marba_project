@@ -66,7 +66,6 @@ class MainApp extends ConsumerWidget {
     return _EagerInitialization(
       child: MaterialApp(
         builder: DevicePreview.appBuilder,
-        useInheritedMediaQuery: true,
         navigatorKey: navigatorKey,
         themeAnimationCurve: Curves.easeInOut,
         themeAnimationDuration: const Duration(milliseconds: 500),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:project_marba/main.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/search/application/search_view_model/search_view_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -41,8 +42,8 @@ class HomeScreenViewModel extends _$HomeScreenViewModel {
     await ref.read(authRepositoryProvider).checkUserRegistration(user.uid).then(
         (value) => value
             ? null
-            : Navigator.pushNamedAndRemoveUntil(
-                context, '/profile-form', (route) => false));
+            : Navigator.pushNamedAndRemoveUntil(navigatorKey.currentContext!,
+                '/profile-form', (route) => false));
   }
 
   void onSearch(
