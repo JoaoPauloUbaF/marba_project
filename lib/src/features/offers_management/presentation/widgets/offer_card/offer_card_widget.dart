@@ -25,11 +25,12 @@ class OfferCardWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final cardController = ref.read(offerCardViewModelProvider.notifier);
     return InkWell(
-      onTap: () => cardController.onCardTap(offer, context).then(
-            (value) => Navigator.of(context).pushNamed(
-              '/offer-details',
-            ),
-          ),
+      onTap: () {
+        Navigator.of(context).pushNamed(
+          '/offer-details',
+        );
+        cardController.onCardTap(offer, context);
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(3),

@@ -59,36 +59,58 @@ class SalesListWidget extends StatelessWidget {
                     trailing: Text('Total de items: $totalItems'),
                     subtitle: Row(
                       children: [
-                        Card(
-                          color: Theme.of(context).colorScheme.primary,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text('\$${totalSales.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimary)),
+                        Expanded(
+                          child: Card(
+                            color: Theme.of(context).colorScheme.primary,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '\$${totalSales.toStringAsFixed(2)}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimary),
+                              ),
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Theme.of(context).colorScheme.error,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text('\$${totalCosts.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.onError)),
+                        Expanded(
+                          child: Card(
+                            color: Theme.of(context).colorScheme.error,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '\$${totalCosts.toStringAsFixed(2)}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onError),
+                              ),
+                            ),
                           ),
                         ),
-                        Card(
-                          color: Theme.of(context).colorScheme.tertiary,
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text('\$${totalProfit.toStringAsFixed(2)}',
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onTertiary)),
+                        Expanded(
+                          child: Card(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                '\$${totalProfit.toStringAsFixed(2)}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onTertiary),
+                              ),
+                            ),
                           ),
                         ),
                       ],

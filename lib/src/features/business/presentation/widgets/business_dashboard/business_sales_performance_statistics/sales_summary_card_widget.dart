@@ -30,7 +30,7 @@ class SalesSummaryCardWidget extends StatelessWidget {
           subtitle,
           style: Theme.of(context)
               .textTheme
-              .titleLarge
+              .titleMedium
               ?.copyWith(color: textColor),
         ),
       ),

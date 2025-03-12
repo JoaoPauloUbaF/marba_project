@@ -88,7 +88,7 @@ class _ProfileViewState extends ConsumerState<ProfileViewBody> {
         ),
       ),
       persistentFooterButtons: [
-        ButtonBar(
+        OverflowBar(
           alignment: MainAxisAlignment.spaceEvenly,
           children: [
             ElevatedButton.icon(
@@ -101,6 +101,7 @@ class _ProfileViewState extends ConsumerState<ProfileViewBody> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                iconColor: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
             ElevatedButton.icon(
@@ -115,9 +116,9 @@ class _ProfileViewState extends ConsumerState<ProfileViewBody> {
               icon: const Icon(Icons.delete),
               label: const Text('Excluir conta'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error,
-                foregroundColor: Theme.of(context).colorScheme.onError,
-              ),
+                  backgroundColor: Theme.of(context).colorScheme.error,
+                  foregroundColor: Theme.of(context).colorScheme.onError,
+                  iconColor: Theme.of(context).colorScheme.onError),
             ),
           ],
         )

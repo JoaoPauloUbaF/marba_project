@@ -19,7 +19,7 @@ class FeaturedCarouselState extends ConsumerState<FeaturedCarousel> {
       ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: Image.network(
-          'https://media.gettyimages.com/id/1348357293/pt/foto/megaphone-message.jpg?s=612x612&w=0&k=20&c=eZaxVAVG2gf3hXP9s-iV9XBt0RcZ2gj8LXg00PGRhUU=',
+          'https://media.gettyimages.com/id/1493807649/pt/vetorial/megaphone-in-abstract-style.jpg?s=2048x2048&w=gi&k=20&c=c2oi19hgu8xV5nWrWf4tJQM00Nm_Yf3rhMdeCM55VOk=',
           fit: BoxFit.fill,
           width: MediaQuery.of(context).size.width,
         ),

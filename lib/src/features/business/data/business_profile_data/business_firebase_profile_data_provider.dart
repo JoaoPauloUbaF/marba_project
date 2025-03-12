@@ -332,7 +332,7 @@ class BusinessFirebaseProfileDataProvider
       final docSnapshot = await _businessCollection.doc(businessId).get();
       if (docSnapshot.exists) {
         final data = docSnapshot.data() as Map<String, dynamic>;
-        return data['deliveryFee'] ?? 0.0;
+        return data['deliveryFee'] as double;
       } else {
         return 0.0;
       }

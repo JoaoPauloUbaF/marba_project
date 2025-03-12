@@ -70,19 +70,19 @@ class BusinessOrdersViewModel extends _$BusinessOrdersViewModel {
   String getStatusTranslation(String status) {
     switch (status) {
       case 'waitingConfirmation':
-        return 'A confirmar';
+        return 'Awaiting confirmation';
       case 'accepted':
-        return 'Aceito';
+        return 'Accepted';
       case 'preparing':
-        return 'Preparando';
+        return 'Preparing';
       case 'delivering':
-        return 'Entregando';
+        return 'Delivery on the way';
       case 'delivered':
-        return 'Entregue';
+        return 'Delivered';
       case 'done':
-        return 'Concluído';
+        return 'Done';
       case 'canceled':
-        return 'Cancelado';
+        return 'Canceled';
       default:
         return '';
     }

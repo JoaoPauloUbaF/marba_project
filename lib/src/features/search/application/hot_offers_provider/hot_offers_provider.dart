@@ -17,11 +17,11 @@ class HotOffers extends _$HotOffers {
   Future<void> fetchHotOffers() async {
     state = const AsyncValue.loading();
     final location = ref.watch(currentLocationProvider).hasValue
-        ? ref.read(currentLocationProvider).requireValue
-        : '';
+        ? ref.watch(currentLocationProvider).requireValue?.city ?? ''
+        : 'Lavras';
     final offers = await ref
         .read(offersDataRepositoryProvider)
-        .getOffersAt(city: location as String);
+        .getOffersAt(city: location);
 
     state = AsyncValue.data(offers.take(5).toList());
   }

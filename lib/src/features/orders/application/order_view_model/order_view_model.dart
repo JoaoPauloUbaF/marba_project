@@ -192,8 +192,6 @@ class OrderViewModel extends _$OrderViewModel {
         return 'Pedido finalizado';
       case BusinessOrderStatus.canceled:
         return 'Pedido cancelado';
-      default:
-        return '';
     }
   }
 
