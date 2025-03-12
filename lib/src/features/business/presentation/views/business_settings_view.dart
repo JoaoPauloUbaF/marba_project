@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/business_settings/delivery_settings/delivery_settings_modal_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 
 class BusinessSettingsView extends StatelessWidget {
   const BusinessSettingsView({super.key});

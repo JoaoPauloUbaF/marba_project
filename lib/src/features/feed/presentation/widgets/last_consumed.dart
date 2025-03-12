@@ -19,7 +19,9 @@ class PopularServicesWidget extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: isWideScreen(context)
+            ? CrossAxisAlignment.center
+            : CrossAxisAlignment.center,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -32,6 +34,7 @@ class PopularServicesWidget extends ConsumerWidget {
           SizedBox(
             height: 100,
             child: GridView.builder(
+              shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               scrollDirection: Axis.horizontal,
               itemCount: popularServices.length,

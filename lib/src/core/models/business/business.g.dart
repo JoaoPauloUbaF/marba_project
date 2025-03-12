@@ -44,39 +44,37 @@ _$BusinessModelImpl _$$BusinessModelImplFromJson(Map<String, dynamic> json) =>
       ),
     );
 
-Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('nameWords', instance.nameWords);
-  val['email'] = instance.email;
-  val['phoneNumber'] = instance.phoneNumber;
-  val['address'] = instance.address.toJson();
-  val['status'] = _$BusinessStatusEnumMap[instance.status]!;
-  val['categories'] =
-      instance.categories.map((e) => _$BusinessCategoryEnumMap[e]!).toList();
-  writeNotNull('categoriesWords', instance.categoriesWords?.toList());
-  val['offersIds'] = instance.offersIds.toList();
-  writeNotNull('profileImageUrl', instance.profileImageUrl);
-  writeNotNull('minimumOrderValue', instance.minimumOrderValue);
-  writeNotNull('deliveryFee', instance.deliveryFee);
-  writeNotNull('deliveryTime', instance.deliveryTime?.toList());
-  writeNotNull('baseDeliveryDistance', instance.baseDeliveryDistance);
-  writeNotNull('additionalDistanceFee', instance.additionalDistanceFee);
-  writeNotNull('openingHours', instance.openingHours);
-  writeNotNull('averageRating', instance.averageRating);
-  writeNotNull('ratingDistribution',
-      instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e)));
-  return val;
-}
+Map<String, dynamic> _$$BusinessModelImplToJson(_$BusinessModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.nameWords case final value?) 'nameWords': value,
+      'email': instance.email,
+      'phoneNumber': instance.phoneNumber,
+      'address': instance.address.toJson(),
+      'status': _$BusinessStatusEnumMap[instance.status]!,
+      'categories': instance.categories
+          .map((e) => _$BusinessCategoryEnumMap[e]!)
+          .toList(),
+      if (instance.categoriesWords?.toList() case final value?)
+        'categoriesWords': value,
+      'offersIds': instance.offersIds.toList(),
+      if (instance.profileImageUrl case final value?) 'profileImageUrl': value,
+      if (instance.minimumOrderValue case final value?)
+        'minimumOrderValue': value,
+      if (instance.deliveryFee case final value?) 'deliveryFee': value,
+      if (instance.deliveryTime?.toList() case final value?)
+        'deliveryTime': value,
+      if (instance.baseDeliveryDistance case final value?)
+        'baseDeliveryDistance': value,
+      if (instance.additionalDistanceFee case final value?)
+        'additionalDistanceFee': value,
+      if (instance.openingHours case final value?) 'openingHours': value,
+      if (instance.averageRating case final value?) 'averageRating': value,
+      if (instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e))
+          case final value?)
+        'ratingDistribution': value,
+    };
 
 const _$BusinessStatusEnumMap = {
   BusinessStatus.open: 'open',

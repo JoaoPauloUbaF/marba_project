@@ -35,28 +35,24 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'phoneNumber': instance.phoneNumber,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('deliveryAddresses',
-      instance.deliveryAddresses?.map((e) => e.toJson()).toList());
-  writeNotNull('photoUrl', instance.photoUrl);
-  val['isBusinessOwner'] = instance.isBusinessOwner;
-  writeNotNull('ownedBusinessIds', instance.ownedBusinessIds?.toList());
-  writeNotNull('favoriteOfferIds', instance.favoriteOfferIds?.toList());
-  writeNotNull('searchHistory', instance.searchHistory);
-  writeNotNull('cart', instance.cart?.toJson());
-  writeNotNull(
-      'creditCards', instance.creditCards?.map((e) => e.toJson()).toList());
-  writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
-  return val;
-}
+Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'phoneNumber': instance.phoneNumber,
+      if (instance.deliveryAddresses?.map((e) => e.toJson()).toList()
+          case final value?)
+        'deliveryAddresses': value,
+      if (instance.photoUrl case final value?) 'photoUrl': value,
+      'isBusinessOwner': instance.isBusinessOwner,
+      if (instance.ownedBusinessIds?.toList() case final value?)
+        'ownedBusinessIds': value,
+      if (instance.favoriteOfferIds?.toList() case final value?)
+        'favoriteOfferIds': value,
+      if (instance.searchHistory case final value?) 'searchHistory': value,
+      if (instance.cart?.toJson() case final value?) 'cart': value,
+      if (instance.creditCards?.map((e) => e.toJson()).toList()
+          case final value?)
+        'creditCards': value,
+      if (instance.reviews?.map((e) => e.toJson()).toList() case final value?)
+        'reviews': value,
+    };

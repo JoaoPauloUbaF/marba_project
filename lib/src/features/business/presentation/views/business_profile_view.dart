@@ -5,7 +5,7 @@ import 'package:project_marba/src/features/business/application/business_profile
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/mobile_business_profile_view_widget.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_profile/wide_screen_business_profile_view_widget.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/business_offers_provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 
 import '../../../../core/utils/view_utils.dart';
 

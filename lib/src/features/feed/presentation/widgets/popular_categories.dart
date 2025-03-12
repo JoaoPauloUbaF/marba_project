@@ -17,8 +17,9 @@ class PopularCategories extends ConsumerWidget {
     return SizedBox(
       height: 120, // Aumenta um pouco a altura para suportar textos maiores
       child: GridView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
         scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];

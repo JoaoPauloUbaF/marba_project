@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_card_widget.dart';
 import 'package:project_marba/util.dart';
 
@@ -43,10 +44,14 @@ class _OffersSearchResultTabViewState
           );
         }
         return MasonryGridView.builder(
+          shrinkWrap: true,
           controller: _scrollController,
           itemCount: offers.length,
-          gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2),
+          gridDelegate: isWideScreen(context)
+              ? SliverSimpleGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 200.0)
+              : const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
           itemBuilder: (BuildContext context, int index) {
             return OfferCardWidget(offer: offers[index]);
           },

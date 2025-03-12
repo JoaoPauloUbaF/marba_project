@@ -19,24 +19,15 @@ _$AddressImpl _$$AddressImplFromJson(Map<String, dynamic> json) =>
       nickname: json['nickname'] as String?,
     );
 
-Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'street': instance.street,
-    'neighborhood': instance.neighborhood,
-    'city': instance.city,
-    'state': instance.state,
-    'zipCode': instance.zipCode,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('number', instance.number);
-  writeNotNull('complement', instance.complement);
-  writeNotNull('nickname', instance.nickname);
-  return val;
-}
+Map<String, dynamic> _$$AddressImplToJson(_$AddressImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'street': instance.street,
+      'neighborhood': instance.neighborhood,
+      'city': instance.city,
+      'state': instance.state,
+      'zipCode': instance.zipCode,
+      if (instance.number case final value?) 'number': value,
+      if (instance.complement case final value?) 'complement': value,
+      if (instance.nickname case final value?) 'nickname': value,
+    };

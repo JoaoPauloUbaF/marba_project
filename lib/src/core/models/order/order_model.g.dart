@@ -28,31 +28,23 @@ _$OrderModelImpl _$$OrderModelImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['canceledAt'] as String),
     );
 
-Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'customerId': instance.customerId,
-    'businessOrdersIds': instance.businessOrdersIds,
-    'total': instance.total,
-    'totalDeliveryFee': instance.totalDeliveryFee,
-    'discount': instance.discount,
-    'address': instance.address.toJson(),
-    'createdAt': instance.createdAt.toIso8601String(),
-    'updatedAt': instance.updatedAt.toIso8601String(),
-    'paymentMethod': _$PaymentMethodEnumMap[instance.paymentMethod]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull(
-      'paymentConfirmedAt', instance.paymentConfirmedAt?.toIso8601String());
-  writeNotNull('canceledAt', instance.canceledAt?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$$OrderModelImplToJson(_$OrderModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'customerId': instance.customerId,
+      'businessOrdersIds': instance.businessOrdersIds,
+      'total': instance.total,
+      'totalDeliveryFee': instance.totalDeliveryFee,
+      'discount': instance.discount,
+      'address': instance.address.toJson(),
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
+      'paymentMethod': _$PaymentMethodEnumMap[instance.paymentMethod]!,
+      if (instance.paymentConfirmedAt?.toIso8601String() case final value?)
+        'paymentConfirmedAt': value,
+      if (instance.canceledAt?.toIso8601String() case final value?)
+        'canceledAt': value,
+    };
 
 const _$PaymentMethodEnumMap = {
   PaymentMethod.creditCard: 'creditCard',

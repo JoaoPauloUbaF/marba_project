@@ -24,71 +24,113 @@ class FeedView extends ConsumerWidget {
     final feedOffersNotifier = ref.read(feedOffersProvider.notifier);
 
     return Scaffold(
-      body: NestedScrollView(
-        body: OfferListWidget(
-          offerProviderNotifier: feedOffersNotifier,
-          offerProvider: feedOffers,
+      body: Padding(
+        padding: isWideScreen(context)
+            ? EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.05)
+            : EdgeInsets.zero,
+        child: NestedScrollView(
+          body: Padding(
+            padding: isWideScreen(context)
+                ? EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.1)
+                : EdgeInsets.zero,
+            child: OfferListWidget(
+              offerProviderNotifier: feedOffersNotifier,
+              offerProvider: feedOffers,
+            ),
+          ),
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                floating: true,
+                title: CurrentLocationAddressWidget(),
+              ),
+              const SliverToBoxAdapter(
+                child: Divider(
+                  thickness: 2,
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Gap(8),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: isWideScreen(context)
+                      ? EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.05)
+                      : EdgeInsets.zero,
+                  child: FeaturedCarousel(),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Gap(8),
+              ),
+              SliverToBoxAdapter(
+                child: Center(
+                  child: Padding(
+                    padding: isWideScreen(context)
+                        ? EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.05)
+                        : EdgeInsets.zero,
+                    child: PopularCategories(),
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Gap(8),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: isWideScreen(context)
+                      ? EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.1)
+                      : EdgeInsets.zero,
+                  child: OfferRowWidget(
+                    alignment: isWideScreen(context)
+                        ? Alignment.center
+                        : Alignment.centerLeft,
+                    title: getAppLocalizations(context).seen_recently,
+                  ),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Gap(8),
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: isWideScreen(context)
+                      ? EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.05)
+                      : EdgeInsets.zero,
+                  child: PopularServicesWidget(),
+                ),
+              ),
+              const SliverToBoxAdapter(
+                child: Gap(8),
+              ),
+              // const SliverToBoxAdapter(
+              //   child: OfferRowWidget(
+              //     title: 'Recomendados',
+              //   ),
+              // ),
+              const SliverToBoxAdapter(
+                child: Divider(
+                  thickness: 2,
+                ),
+              ),
+              SliverAppBar(
+                flexibleSpace: const OfferTypeFilterWidget(),
+                toolbarHeight: ref.watch(feedOffersTypeFilterProvider) == null
+                    ? kToolbarHeight
+                    : 2 * kToolbarHeight,
+                pinned: true,
+              ),
+            ];
+          },
         ),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            const SliverAppBar(
-              automaticallyImplyLeading: false,
-              floating: true,
-              title: CurrentLocationAddressWidget(),
-            ),
-            const SliverToBoxAdapter(
-              child: Divider(
-                thickness: 2,
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: Gap(8),
-            ),
-            const SliverToBoxAdapter(
-              child: FeaturedCarousel(),
-            ),
-            const SliverToBoxAdapter(
-              child: Gap(8),
-            ),
-            const SliverToBoxAdapter(
-              child: PopularCategories(),
-            ),
-            const SliverToBoxAdapter(
-              child: Gap(8),
-            ),
-            SliverToBoxAdapter(
-              child: OfferRowWidget(
-                title: getAppLocalizations(context).seen_recently,
-              ),
-            ),
-            const SliverToBoxAdapter(
-              child: Gap(8),
-            ),
-            const SliverToBoxAdapter(
-              child: PopularServicesWidget(),
-            ),
-            const SliverToBoxAdapter(
-              child: Gap(8),
-            ),
-            // const SliverToBoxAdapter(
-            //   child: OfferRowWidget(
-            //     title: 'Recomendados',
-            //   ),
-            // ),
-            const SliverToBoxAdapter(
-              child: Divider(
-                thickness: 2,
-              ),
-            ),
-            SliverAppBar(
-              flexibleSpace: const OfferTypeFilterWidget(),
-              toolbarHeight: ref.watch(feedOffersTypeFilterProvider) == null
-                  ? kToolbarHeight
-                  : 2 * kToolbarHeight,
-              pinned: true,
-            ),
-          ];
-        },
       ),
     );
   }

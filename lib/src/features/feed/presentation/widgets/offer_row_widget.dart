@@ -39,6 +39,7 @@ class OfferRowWidget extends ConsumerWidget {
                 child: SizedBox(
                   height: 175,
                   child: GridView.builder(
+                    shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     scrollDirection: Axis.horizontal,
                     itemCount: offers.length + 1 > 10 ? 10 : offers.length + 1,

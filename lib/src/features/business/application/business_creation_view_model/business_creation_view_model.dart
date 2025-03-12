@@ -10,7 +10,7 @@ import 'package:project_marba/src/features/business/application/my_business_list
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:uuid/uuid.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 
 import '../../../../core/models/address/address.dart';
 import '../../../../core/models/business/enums.dart';

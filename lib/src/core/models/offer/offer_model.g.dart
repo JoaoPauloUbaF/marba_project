@@ -48,41 +48,36 @@ _$OfferModelImpl _$$OfferModelImplFromJson(Map<String, dynamic> json) =>
           : Service.fromJson(json['service'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'title': instance.title,
-    'titleWords': instance.titleWords,
-    'description': instance.description,
-    'descriptionWords': instance.descriptionWords,
-    'price': instance.price,
-    'imageUrl': instance.imageUrl,
-    'businessId': instance.businessId,
-    'category': instance.category.toList(),
-    'createdAt': instance.createdAt.toIso8601String(),
-    'updatedAt': instance.updatedAt.toIso8601String(),
-    'status': _$OfferStatusEnumMap[instance.status]!,
-    'type': _$OfferTypeEnumMap[instance.type]!,
-    'city': instance.city,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('reviews', instance.reviews?.map((e) => e.toJson()).toList());
-  writeNotNull('totalSalesNumber', instance.totalSalesNumber);
-  writeNotNull('rating', instance.rating);
-  writeNotNull('ratingDistribution',
-      instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e)));
-  writeNotNull('discount', instance.discount);
-  writeNotNull('offerImagesUrls', instance.offerImagesUrls?.toList());
-  writeNotNull('product', instance.product?.toJson());
-  writeNotNull('service', instance.service?.toJson());
-  return val;
-}
+Map<String, dynamic> _$$OfferModelImplToJson(_$OfferModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'title': instance.title,
+      'titleWords': instance.titleWords,
+      'description': instance.description,
+      'descriptionWords': instance.descriptionWords,
+      'price': instance.price,
+      'imageUrl': instance.imageUrl,
+      'businessId': instance.businessId,
+      'category': instance.category.toList(),
+      'createdAt': instance.createdAt.toIso8601String(),
+      'updatedAt': instance.updatedAt.toIso8601String(),
+      'status': _$OfferStatusEnumMap[instance.status]!,
+      'type': _$OfferTypeEnumMap[instance.type]!,
+      'city': instance.city,
+      if (instance.reviews?.map((e) => e.toJson()).toList() case final value?)
+        'reviews': value,
+      if (instance.totalSalesNumber case final value?)
+        'totalSalesNumber': value,
+      if (instance.rating case final value?) 'rating': value,
+      if (instance.ratingDistribution?.map((k, e) => MapEntry(k.toString(), e))
+          case final value?)
+        'ratingDistribution': value,
+      if (instance.discount case final value?) 'discount': value,
+      if (instance.offerImagesUrls?.toList() case final value?)
+        'offerImagesUrls': value,
+      if (instance.product?.toJson() case final value?) 'product': value,
+      if (instance.service?.toJson() case final value?) 'service': value,
+    };
 
 const _$OfferStatusEnumMap = {
   OfferStatus.active: 'active',

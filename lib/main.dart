@@ -3,6 +3,7 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
 import 'package:project_marba/src/features/authentication/presentation/screens/sign_in.dart';
 import 'package:project_marba/src/features/darkmode/application/theme_provider.dart';
@@ -36,7 +37,6 @@ import 'src/features/settings/presentation/views/profile_settings_screen.dart';
 import 'src/features/shopping/presentation/views/shopping_cart_view.dart';
 import 'src/features/user_profile/presentation/screens/profile_form_screen.dart';
 import 'theme.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'util.dart';
 

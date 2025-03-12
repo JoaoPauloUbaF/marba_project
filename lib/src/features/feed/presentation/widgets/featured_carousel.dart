@@ -1,6 +1,7 @@
 import 'package:carousel_slider_plus/carousel_slider_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 
 class FeaturedCarousel extends ConsumerStatefulWidget {
   const FeaturedCarousel({super.key});
@@ -44,7 +45,9 @@ class FeaturedCarouselState extends ConsumerState<FeaturedCarousel> {
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: isWideScreen(context)
+          ? EdgeInsets.symmetric(horizontal: 40.0)
+          : const EdgeInsets.symmetric(horizontal: 16.0),
       child: Stack(
         children: [
           CarouselSlider(
@@ -52,7 +55,7 @@ class FeaturedCarouselState extends ConsumerState<FeaturedCarousel> {
             controller: _controller,
             options: CarouselOptions(
               autoPlay: true,
-              aspectRatio: 16 / 9,
+              aspectRatio: isWideScreen(context) ? 4 : 16 / 9,
               enlargeCenterPage: true,
               viewportFraction: 1,
               autoPlayInterval: const Duration(seconds: 3),

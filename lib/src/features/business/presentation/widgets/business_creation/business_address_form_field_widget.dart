@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:project_marba/src/features/business/application/business_creation_view_model/business_creation_view_model.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_display_widget.dart';
 import 'package:project_marba/src/features/location_management/presentation/widgets/address_search_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 
 import '../../../../../core/models/address/address.dart';
 

@@ -29,29 +29,23 @@ _$BusinessOrderItemImpl _$$BusinessOrderItemImplFromJson(
     );
 
 Map<String, dynamic> _$$BusinessOrderItemImplToJson(
-    _$BusinessOrderItemImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'businessOrderId': instance.businessOrderId,
-    'name': instance.name,
-    'imageUrl': instance.imageUrl,
-    'price': instance.price,
-    'cost': instance.cost,
-    'quantity': instance.quantity,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('deliveredAt', instance.deliveredAt?.toIso8601String());
-  writeNotNull('canceledAt', instance.canceledAt?.toIso8601String());
-  writeNotNull('scheduledAt', instance.scheduledAt?.toIso8601String());
-  val['status'] = _$BusinessOrderItemStatusEnumMap[instance.status]!;
-  return val;
-}
+        _$BusinessOrderItemImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'businessOrderId': instance.businessOrderId,
+      'name': instance.name,
+      'imageUrl': instance.imageUrl,
+      'price': instance.price,
+      'cost': instance.cost,
+      'quantity': instance.quantity,
+      if (instance.deliveredAt?.toIso8601String() case final value?)
+        'deliveredAt': value,
+      if (instance.canceledAt?.toIso8601String() case final value?)
+        'canceledAt': value,
+      if (instance.scheduledAt?.toIso8601String() case final value?)
+        'scheduledAt': value,
+      'status': _$BusinessOrderItemStatusEnumMap[instance.status]!,
+    };
 
 const _$BusinessOrderItemStatusEnumMap = {
   BusinessOrderItemStatus.pending: 'pending',

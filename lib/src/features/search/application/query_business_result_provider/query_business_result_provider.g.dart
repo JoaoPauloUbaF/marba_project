@@ -7,7 +7,7 @@ part of 'query_business_result_provider.dart';
 // **************************************************************************
 
 String _$queryBusinessResultHash() =>
-    r'48e02257e01cc5e08c5b891b814771d2f42a3ba2';
+    r'beee531201639787cad24f5c54b610c1afe31f8e';
 
 /// See also [QueryBusinessResult].
 @ProviderFor(QueryBusinessResult)

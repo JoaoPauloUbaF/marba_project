@@ -6,7 +6,7 @@ import 'package:project_marba/src/features/business/presentation/views/my_busine
 import 'package:project_marba/src/features/home/presentation/widgets/animated_logo_loading_widget.dart';
 import 'package:project_marba/src/features/orders/presentation/views/user_orders_view.dart';
 import 'package:project_marba/src/features/settings/presentation/views/profile_settings_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 
 import '../../../../core/utils/view_utils.dart';
 import '../../../search/presentation/views/search_view.dart';
@@ -101,6 +101,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     ? SizedBox(
                         width: MediaQuery.of(context).size.width * 0.45,
                         child: TextField(
+                          onSubmitted: (value) => homeScreenViewModel.onSearch(
+                              query: value, onItemTap: _itemNavigation),
                           controller: _searchController,
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.all(4),

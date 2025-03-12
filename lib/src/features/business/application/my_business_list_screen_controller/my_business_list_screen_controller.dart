@@ -6,7 +6,7 @@ import 'package:project_marba/src/features/offers_management/data/offer_data_rep
 import 'package:project_marba/src/features/user_profile/data/user_profile_provider.dart';
 import 'package:project_marba/src/core/models/business/business.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 
 import '../../../../core/models/business/enums.dart';
 

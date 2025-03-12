@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 
 import '../../application/search_view_model/search_view_model.dart';
 import '../widgets/search_app_bar_widget.dart';
@@ -40,19 +41,25 @@ class _SearchViewState extends ConsumerState<SearchView> {
       onRefresh: () async {
         ref.invalidate(searchViewModelProvider);
       },
-      child: NestedScrollView(
-        controller: _scrollController,
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            SearchViewHeadlineWidget(searchViewState: searchViewState),
-            SearchAppBarWidget(
-              searchViewState: searchViewState,
-              searchController: searchController,
-              searchViewModel: searchViewModel,
-            ),
-          ];
-        },
-        body: SearchBodyWidget(searchViewState: searchViewState),
+      child: Padding(
+        padding: isWideScreen(context)
+            ? EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.15)
+            : EdgeInsets.zero,
+        child: NestedScrollView(
+          controller: _scrollController,
+          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+            return <Widget>[
+              SearchViewHeadlineWidget(searchViewState: searchViewState),
+              SearchAppBarWidget(
+                searchViewState: searchViewState,
+                searchController: searchController,
+                searchViewModel: searchViewModel,
+              ),
+            ];
+          },
+          body: SearchBodyWidget(searchViewState: searchViewState),
+        ),
       ),
     );
   }

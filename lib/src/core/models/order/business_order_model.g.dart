@@ -25,27 +25,19 @@ _$BusinessOrderImpl _$$BusinessOrderImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['canceledAt'] as String),
     );
 
-Map<String, dynamic> _$$BusinessOrderImplToJson(_$BusinessOrderImpl instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'businessId': instance.businessId,
-    'userNickname': instance.userNickname,
-    'address': instance.address.toJson(),
-    'items': instance.items.map((e) => e.toJson()).toList(),
-    'status': _$BusinessOrderStatusEnumMap[instance.status]!,
-    'createdAt': const TimestampConverter().toJson(instance.createdAt),
-    'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('canceledAt', instance.canceledAt?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$$BusinessOrderImplToJson(_$BusinessOrderImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'businessId': instance.businessId,
+      'userNickname': instance.userNickname,
+      'address': instance.address.toJson(),
+      'items': instance.items.map((e) => e.toJson()).toList(),
+      'status': _$BusinessOrderStatusEnumMap[instance.status]!,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
+      'updatedAt': const TimestampConverter().toJson(instance.updatedAt),
+      if (instance.canceledAt?.toIso8601String() case final value?)
+        'canceledAt': value,
+    };
 
 const _$BusinessOrderStatusEnumMap = {
   BusinessOrderStatus.waitingConfirmation: 'waitingConfirmation',
