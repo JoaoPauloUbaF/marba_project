@@ -304,7 +304,7 @@ class ProfileScreenController extends _$ProfileScreenController {
           return AlertDialog(
             title: const Text('Excluir conta'),
             content: const Text(
-                'Para excluir sua conta, é necessário que logue novamente. Deseja continuar?'),
+                'Para excluir sua conta, é necessário que entre com sua conta novamente. Deseja continuar?'),
             actions: [
               TextButton(
                 onPressed: () {

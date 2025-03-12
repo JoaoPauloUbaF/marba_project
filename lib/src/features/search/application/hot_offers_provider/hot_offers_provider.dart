@@ -16,8 +16,9 @@ class HotOffers extends _$HotOffers {
 
   Future<void> fetchHotOffers() async {
     state = const AsyncValue.loading();
-    final location =
-        ref.watch(currentLocationProvider).requireValue?.city ?? '';
+    final location = ref.watch(currentLocationProvider).hasValue
+        ? ref.watch(currentLocationProvider).requireValue?.city ?? ''
+        : 'Lavras';
     final offers = await ref
         .read(offersDataRepositoryProvider)
         .getOffersAt(city: location);

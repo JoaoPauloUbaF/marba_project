@@ -43,7 +43,7 @@ class SalesPerformanceDataSummaryWidget extends StatelessWidget {
         Expanded(
           child: SalesSummaryCardWidget(
             title: 'Lucro',
-            subtitle: 'R\$ $totalProfit',
+            subtitle: 'R\$ ${(totalProfit as double).toStringAsFixed(2)}',
             color: Theme.of(context).colorScheme.tertiary,
             textColor: Theme.of(context).colorScheme.onTertiary,
           ),

@@ -86,7 +86,7 @@ class MainApp extends ConsumerWidget {
           '/edit-offer': (context) => const EditOfferView(),
           '/offer-details': (context) => const OfferDetailsView(),
           '/shopping-cart': (context) => const ShoppingCartScreen(),
-          '/checkout': (context) => const CheckoutView(),
+          '/checkout': (context) => CheckoutView(),
           '/user-order-details': (context) => const UserOrderDetailsView(),
           '/addresses': (context) => const AddressView(),
           '/notifications': (context) => const NotificationsView(),

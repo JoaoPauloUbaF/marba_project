@@ -85,6 +85,7 @@
   "error_loading_reviews": "Erro ao carregar avaliações",
 
   "orders": "Pedidos",
+  "order" : "Pedido",
   "checkout_products": "Produtos",
   "login_to_see_orders": "Acesse sua conta para ver seus pedidos.",
   "no_orders_found": "Nenhum pedido encontrado.",

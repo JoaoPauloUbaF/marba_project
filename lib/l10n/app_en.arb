@@ -87,6 +87,7 @@
   "error_loading_reviews": "Error loading reviews",
 
   "orders": "Orders",
+  "order" : "Orders",
   "checkout_products": "Products",
   "login_to_see_orders": "Log in to see your orders.",
   "no_orders_found": "No orders found.",
