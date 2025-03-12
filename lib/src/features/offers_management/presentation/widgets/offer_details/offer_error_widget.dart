@@ -19,7 +19,8 @@ class OfferErrorWidget extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/home', (route) => false);
               },
               child: const Text('Retornar'),
             ),
