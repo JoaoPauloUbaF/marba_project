@@ -5,6 +5,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:project_marba/src/features/location_management/application/current_location_provider/current_location_provider.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/feed_offers_type_filter_provider.dart';
 import 'package:project_marba/src/features/offers_management/application/offer_list/offer_list_general_filter_provider.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_card/offer_card_widget.dart';
@@ -97,7 +98,8 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
     offersList.whenData((offers) {
       _pagingController.refresh();
     });
-    final _ = ref.watch(offerListFilterProvider);
+    ref.watch(offerListFilterProvider);
+    ref.watch(currentLocationProvider);
 
     return RefreshIndicator(
       onRefresh: () => Future.sync(
@@ -105,7 +107,7 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(4.0),
-        child: PagedMasonryGridView.count(
+        child: PagedMasonryGridView.extent(
           pagingController: _pagingController,
           builderDelegate: PagedChildBuilderDelegate<OfferModel>(
             animateTransitions: true,
@@ -119,9 +121,9 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
             newPageErrorIndicatorBuilder: (context) => const Center(
               child: Text('Erro ao carregar novas ofertas'),
             ),
-            firstPageErrorIndicatorBuilder: (context) => const Center(
-              child: Text('Erro ao carregar ofertas'),
-            ),
+            firstPageErrorIndicatorBuilder: (context) {
+              return const Center(child: Text('Erro ao carregar ofertas'));
+            },
             noItemsFoundIndicatorBuilder: (context) => const Center(
               child: Text('Nenhuma oferta encontrada'),
             ),
@@ -129,7 +131,8 @@ class _OfferListWidgetState extends ConsumerState<OfferListWidget> {
               offer: item,
             ),
           ),
-          crossAxisCount: MediaQuery.sizeOf(context).width > 600 ? 4 : 2,
+          maxCrossAxisExtent:
+              MediaQuery.sizeOf(context).width > 600 ? 400 : 200,
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
         ),

@@ -239,5 +239,8 @@
   "weldingServices": "Welding Services",
   "windowCleaning": "Window Cleaning",
   "securitySystems": "Security Systems",
-  "solarPanelInstallation": "Solar Panel Installation"
+  "solarPanelInstallation": "Solar Panel Installation",
+  "performance": "Performance",
+  "changeAddressNotSigned": "To change the location address, login or sign-up!"
+
 }

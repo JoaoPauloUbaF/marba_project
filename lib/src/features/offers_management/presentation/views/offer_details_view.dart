@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:project_marba/src/core/utils/view_utils.dart';
 import 'package:project_marba/src/features/business/application/business_profile_view_model/business_profile_screen_controller.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_tile_widget.dart';
 import 'package:project_marba/src/features/offers_management/presentation/widgets/offer_details/all_business_offers_button.dart';
@@ -40,19 +41,24 @@ class OfferDetailsScreenState extends ConsumerState<OfferDetailsView> {
         child: const Icon(Icons.shopping_cart_sharp),
       ),
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(4),
-          child: BackButton(
-            style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(
-                Theme.of(context).colorScheme.primaryContainer.withOpacity(0.6),
+      appBar: !isWideScreen(context)
+          ? AppBar(
+              leading: Padding(
+                padding: const EdgeInsets.all(4),
+                child: BackButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all(
+                      Theme.of(context)
+                          .colorScheme
+                          .primaryContainer
+                          .withOpacity(0.6),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
-        forceMaterialTransparency: true,
-      ),
+              forceMaterialTransparency: true,
+            )
+          : null,
       body: offer == null
           ? const OfferErrorWidget()
           : SingleChildScrollView(
@@ -82,67 +88,74 @@ class OfferBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          color: Theme.of(context).colorScheme.secondaryContainer,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Theme.of(context).colorScheme.secondaryContainer,
+            Theme.of(context).colorScheme.surface,
+          ],
+          stops: [0.1, 1.0], // Adjust the stops to have less of the first color
+        ),
+      ),
+      child: Padding(
+        padding: isWideScreen(context)
+            ? EdgeInsets.symmetric(
+                vertical: 20,
+                horizontal: MediaQuery.of(context).size.width * 0.2)
+            : EdgeInsets.zero,
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              OfferMediaWidget(
-                items: mediaItems,
+              Column(
+                children: [
+                  OfferMediaWidget(
+                    items: mediaItems,
+                  ),
+                  OfferInfoWidget(offer: offer),
+                  OrderingActionsWidget(offer: offer),
+                  BusinessTileWidget(businessId: offer.businessId),
+                ],
               ),
-              OfferInfoWidget(offer: offer),
-              OrderingActionsWidget(offer: offer),
-              BusinessTileWidget(businessId: offer.businessId),
+              OfferDescriptionWidget(offerDescription: offer.getDescription),
+              Divider(
+                indent: 8,
+                endIndent: 8,
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  "Outras ofertas deste negócio",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              const VerticalSpaceMediumWidget(),
+              OtherBusinessOffersWidget(
+                offerId: offer.id,
+                businessId: offer.businessId,
+              ),
+              const VerticalSpaceMediumWidget(),
+              AllBusinessOffersButton(businessName: businessName),
+              const VerticalSpaceMediumWidget(),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  "Ofertas relacionadas",
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+              const VerticalSpaceMediumWidget(),
+              OtherBusinessOffersWidget(
+                  offerId: offer.id, businessId: offer.businessId),
             ],
           ),
         ),
-        Container(
-          height: 30,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Theme.of(context).colorScheme.secondaryContainer,
-                Theme.of(context).colorScheme.surface,
-              ],
-            ),
-          ),
-        ),
-        OfferDescriptionWidget(offerDescription: offer.getDescription),
-        Divider(
-          indent: 8,
-          endIndent: 8,
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text(
-            "Outras ofertas deste negócio",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-        const VerticalSpaceMediumWidget(),
-        OtherBusinessOffersWidget(
-          offerId: offer.id,
-          businessId: offer.businessId,
-        ),
-        const VerticalSpaceMediumWidget(),
-        AllBusinessOffersButton(businessName: businessName),
-        const VerticalSpaceMediumWidget(),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Text(
-            "Ofertas relacionadas",
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-        const VerticalSpaceMediumWidget(),
-        OtherBusinessOffersWidget(
-            offerId: offer.id, businessId: offer.businessId),
-      ],
+      ),
     );
   }
 }

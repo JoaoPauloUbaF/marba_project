@@ -237,5 +237,7 @@
   "weldingServices": "Serviços de Soldagem",
   "windowCleaning": "Limpeza de Vidros",
   "securitySystems": "Sistemas de Segurança",
-  "solarPanelInstallation": "Instalação de Painéis Solares"
+  "solarPanelInstallation": "Instalação de Painéis Solares",
+  "performance": "Performance",
+  "changeAddressNotSigned" : "Para mudar o endereço, faça login ou cadastre-se!",
 }

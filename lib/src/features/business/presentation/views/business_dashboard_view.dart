@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 import 'package:project_marba/src/features/business/presentation/widgets/business_dashboard/business_sales_performance_statistics/sales_performance_statistics_page_view.dart';
 
 import '../widgets/business_dashboard/business_open_orders/business_open_orders_page_view.dart';
@@ -30,12 +31,13 @@ class _BusinessDashboardViewState extends ConsumerState<BusinessDashboardView>
 
   @override
   Widget build(BuildContext context) {
+    var appStrings = AppLocalizations.of(context);
     return Scaffold(
       appBar: TabBar(
         controller: _tabController,
-        tabs: const [
-          Tab(text: 'Pedidos'),
-          Tab(text: 'Estatísticas'),
+        tabs: [
+          Tab(text: appStrings?.orders),
+          Tab(text: appStrings?.performance),
         ],
       ),
       body: TabBarView(

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:project_marba/l10n/app_localizations.dart';
 import 'package:project_marba/src/core/models/address/address.dart';
 import 'package:project_marba/src/core/widgets/base_modal_body_widget.dart';
 import 'package:project_marba/src/features/authentication/data/firebase_auth_provider.dart';
@@ -17,6 +18,7 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
     final locationAsyncValue = ref.watch(currentLocationProvider);
 
     void showAddressModal(BuildContext context, AddressModel address) {
+      final appStrings = AppLocalizations.of(context);
       final user = ref.read(authRepositoryProvider).getCurrentUser();
       ref.watch(authStateChangeProvider);
       showModalBottomSheet(
@@ -27,8 +29,7 @@ class CurrentLocationAddressWidget extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
-                      'Para mudar o endereço, faça login ou cadastre-se!'),
+                  Text(appStrings?.change_address ?? ""),
                   const Gap(16),
                   ElevatedButton(
                     style: ButtonStyle(

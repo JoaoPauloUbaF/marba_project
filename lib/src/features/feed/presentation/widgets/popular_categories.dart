@@ -42,6 +42,7 @@ class PopularCategories extends ConsumerWidget {
                         return Scaffold(
                           appBar: AppBar(
                             title: Text(label),
+                            automaticallyImplyLeading: !isWideScreen(context),
                           ),
                           body: const SearchBodyWidget(
                             searchViewState: SearchViewState.result,
