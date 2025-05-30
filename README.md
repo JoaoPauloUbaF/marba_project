@@ -30,6 +30,7 @@ This application connects users with local offers and services while enabling se
 
 **Check the Demo!**  
 (https://joaopauloubaf.github.io/Onktem-demo/#/home)
+   - Remember to enable device preview on the right to get the mobile view.
    - There are a few offers available for any address in Lavras, Minas Gerais, Brazil. I recommend using this address: R. Carlota Kemper, 728 - Dos Ipês.
    - For the entrepreneur experience, log in with:
       - testuser2@gmail.com
